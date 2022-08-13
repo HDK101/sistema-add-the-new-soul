@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="sistema-barbeiro-doos4" target="18" />
+      <module name="sistema-barbeiro-doos4" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
