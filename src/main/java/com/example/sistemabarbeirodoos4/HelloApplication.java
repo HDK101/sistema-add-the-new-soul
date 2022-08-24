@@ -23,8 +23,12 @@ public class HelloApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Hello!");
+
         stage.setScene(scene);
         stage.show();
+
+        HelloController controller = fxmlLoader.getController();
+        controller.start();
 
         List<CSVBean> data = Arrays.asList(new CSVBean("n1", "n2", "n3"));
 
