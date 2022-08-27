@@ -4,6 +4,7 @@ module com.example.sistemabarbeirodoos4 {
     requires java.sql;
     requires org.apache.pdfbox;
     requires com.opencsv;
+    requires bcrypt;
 
 
     opens com.example.sistemabarbeirodoos4 to javafx.fxml;

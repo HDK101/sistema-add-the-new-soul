@@ -1,5 +1,6 @@
 package com.example.sistemabarbeirodoos4;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.example.sistemabarbeirodoos4.database.Database;
 import com.example.sistemabarbeirodoos4.writers.CSV;
 import com.example.sistemabarbeirodoos4.writers.CSVBean;
@@ -63,6 +64,14 @@ public class HelloApplication extends Application {
         document.addPage(page);
 
         document.save("pdf.pdf");
+        document.close();
+
+        String password = "password";
+        String hash = BCrypt.withDefaults().hashToString(12, password.toCharArray());
+        BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), hash);
+
+        System.out.println(hash);
+        System.out.println(result.verified);
     }
 
     public static void main(String[] args) {
