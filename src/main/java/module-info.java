@@ -1,4 +1,4 @@
-module com.example.sistemabarbeirodoos4 {
+module br.edu.ifsp.addthenewsoul {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
@@ -7,8 +7,8 @@ module com.example.sistemabarbeirodoos4 {
     requires bcrypt;
 
 
-    opens com.example.sistemabarbeirodoos4 to javafx.fxml;
-    opens com.example.sistemabarbeirodoos4.writers to com.example.sistemabarbeirodoos4;
-    exports com.example.sistemabarbeirodoos4;
-    exports com.example.sistemabarbeirodoos4.writers;
+    opens br.edu.ifsp.addthenewsoul to javafx.fxml;
+    opens br.edu.ifsp.addthenewsoul.application.writers to br.edu.ifsp.addthenewsoul;
+    exports br.edu.ifsp.addthenewsoul;
+    exports br.edu.ifsp.addthenewsoul.application.writers;
 }

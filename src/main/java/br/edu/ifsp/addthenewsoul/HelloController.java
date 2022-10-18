@@ -1,4 +1,4 @@
-package com.example.sistemabarbeirodoos4;
+package br.edu.ifsp.addthenewsoul;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

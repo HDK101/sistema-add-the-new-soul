@@ -1,9 +1,9 @@
-package com.example.sistemabarbeirodoos4;
+package br.edu.ifsp.addthenewsoul;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import com.example.sistemabarbeirodoos4.database.Database;
-import com.example.sistemabarbeirodoos4.writers.CSV;
-import com.example.sistemabarbeirodoos4.writers.CSVBean;
+import br.edu.ifsp.addthenewsoul.application.database.Database;
+import br.edu.ifsp.addthenewsoul.application.writers.CSV;
+import br.edu.ifsp.addthenewsoul.application.writers.CSVBean;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

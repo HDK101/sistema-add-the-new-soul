@@ -1,4 +1,4 @@
-package com.example.sistemabarbeirodoos4.database;
+package br.edu.ifsp.addthenewsoul.application.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,4 +1,4 @@
-package com.example.sistemabarbeirodoos4.writers;
+package br.edu.ifsp.addthenewsoul.application.writers;
 
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.StatefulBeanToCsv;
@@ -6,7 +6,6 @@ import com.opencsv.bean.StatefulBeanToCsvBuilder;
 
 import java.io.FileWriter;
 import java.io.Writer;
-import java.util.Arrays;
 import java.util.List;
 
 public class CSV {

@@ -1,4 +1,4 @@
-package com.example.sistemabarbeirodoos4.entities;
+package br.edu.ifsp.addthenewsoul.domain.entities;
 
 import java.util.Objects;
 
