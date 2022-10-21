@@ -6,7 +6,7 @@ import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Validator;
 
 public class ValidationOfGoodValues extends Validator<Good> {
     @Override
-    public Notification validity(Good good) {
+    public Notification isValid(Good good) {
         Notification notification = new Notification();
 
         if (good == null) {

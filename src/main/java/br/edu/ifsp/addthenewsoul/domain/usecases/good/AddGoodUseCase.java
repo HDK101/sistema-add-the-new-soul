@@ -13,8 +13,8 @@ public class AddGoodUseCase {
     }
 
     public Integer save (Good good) {
-        Validator<Good> validator = new ValidationOfAssetValues();
-        Notification notification = validator.validity(good);
+        Validator<Good> validator = new ValidationOfGoodValues();
+        Notification notification = validator.isValid(good);
 
         if (notification.hasErros())
             throw new IllegalArgumentException(notification.errorMessage());
