@@ -7,15 +7,15 @@ import java.util.List;
 public class Inventory {
     private String name;
     private Employee comissionPresident;
-    private List<Employee> team;
+    private List<Employee> comission;
     private LocalDate initialDate;
     private LocalDate endDate;
     private List<InventoryGood> goods;
 
-    public Inventory(String name, Employee presidenteComissao, List<Employee> team, LocalDate initialDate, LocalDate endDate, List<InventoryGood> goods) {
+    public Inventory(String name, Employee comissionPresident, List<Employee> comission, LocalDate initialDate, LocalDate endDate, List<InventoryGood> goods) {
         this.name = name;
-        this.comissionPresident = presidenteComissao;
-        this.team = team;
+        this.comissionPresident = comissionPresident;
+        this.comission = comission;
         this.initialDate = initialDate;
         this.endDate = endDate;
         this.goods = goods;
@@ -29,20 +29,20 @@ public class Inventory {
         this.name = name;
     }
 
-    public Employee getPresidenteComissao() {
+    public Employee getComissionPresident() {
         return comissionPresident;
     }
 
-    public void setPresidenteComissao(Employee comissionPresident) {
+    public void setComissionPresident(Employee comissionPresident) {
         this.comissionPresident = comissionPresident;
     }
 
     public List<Employee> getTeam() {
-        return team;
+        return comission;
     }
 
     public void setTeam(List<Employee> team) {
-        this.team = team;
+        this.comission = team;
     }
 
     public LocalDate getInitialDate() {
