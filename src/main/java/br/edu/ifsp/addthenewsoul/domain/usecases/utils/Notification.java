@@ -20,7 +20,7 @@ public class Notification {
         return errors.isEmpty();
     }
 
-    public boolean hasErros(){
+    public boolean hasErrors(){
         return ! isCorrect();
     }
 

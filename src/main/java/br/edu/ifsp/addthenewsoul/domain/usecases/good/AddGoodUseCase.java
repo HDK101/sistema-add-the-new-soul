@@ -16,7 +16,7 @@ public class AddGoodUseCase {
         Validator<Good> validator = new ValidationOfGoodValues();
         Notification notification = validator.isValid(good);
 
-        if (notification.hasErros())
+        if (notification.hasErrors())
             throw new IllegalArgumentException(notification.errorMessage());
 
         Integer code = good.getId();
