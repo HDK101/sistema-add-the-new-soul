@@ -1,17 +1,17 @@
-package br.edu.ifsp.addthenewsoul.domain.entities.good;
+package br.edu.ifsp.addthenewsoul.domain.entities.asset;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 
-public class Good {
+public class Asset {
     private int id;
     private String description;
     private Employee employeeInCharge;
     private double value;
     private String damage;
 
-    public Good() {}
+    public Asset() {}
 
-    public Good(int id, String description, Employee employeeInCharge, double value, String damage) {
+    public Asset(int id, String description, Employee employeeInCharge, double value, String damage) {
         this.id = id;
         this.description = description;
         this.employeeInCharge = employeeInCharge;
