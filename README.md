@@ -6,7 +6,7 @@ The purpose of this system is to manage the inventory fixed assets of a company,
 
 The inventory manager designates a comission of executors, including a president, to monitor the fixed assets when an inventory check is started.
 
-==================================================================================================
+====================================
 
 Programming language used: Java
 
