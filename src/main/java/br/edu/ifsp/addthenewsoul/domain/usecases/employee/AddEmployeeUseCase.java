@@ -19,7 +19,7 @@ public class AddEmployeeUseCase {
 
         Integer registrationNumber = Integer.valueOf(employee.getRegistrationNumber());
         if (employeeDAO.findById(registrationNumber).isPresent())
-            throw new IllegalArgumentException("This asset id is already in use");
+            throw new IllegalArgumentException("This registration number is already in use.");
 
         return employeeDAO.add(employee);
     }
