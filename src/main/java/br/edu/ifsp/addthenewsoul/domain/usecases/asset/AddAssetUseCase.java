@@ -1,6 +1,7 @@
 package br.edu.ifsp.addthenewsoul.domain.usecases.asset;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.EntityAlreadyExistsException;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Notification;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Validator;
 
@@ -21,7 +22,7 @@ public class AddAssetUseCase {
 
         Integer id = asset.getId();
         if (assetDAO.findById(id).isPresent())
-            throw new IllegalArgumentException("This asset id is already in use");
+            throw new EntityAlreadyExistsException("This asset id is already in use");
 
         return assetDAO.add(asset);
     }

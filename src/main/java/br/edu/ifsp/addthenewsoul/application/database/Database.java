@@ -1,9 +1,6 @@
 package br.edu.ifsp.addthenewsoul.application.database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Database {
     private static Connection connection;
@@ -31,4 +28,5 @@ public class Database {
         }
         return statement;
     }
+
 }
