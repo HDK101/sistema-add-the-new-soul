@@ -3,13 +3,15 @@ package br.edu.ifsp.addthenewsoul.application.database;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeDAO;
 
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class SQLiteEmployeeDAO implements EmployeeDAO {
+
     @Override
-    public Optional<Employee> findById(Integer registrationNumber) {
+    public Optional<Employee> findByRegistrationNumber(Integer registrationNumber) {
         String sql = "SELECT * FROM Employee where registrationNumber = ?";
 
         return Optional.empty();

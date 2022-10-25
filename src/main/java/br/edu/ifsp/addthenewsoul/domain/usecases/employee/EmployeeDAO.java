@@ -6,6 +6,6 @@ import br.edu.ifsp.addthenewsoul.domain.usecases.utils.DAO;
 import java.util.Optional;
 
 public interface EmployeeDAO extends DAO<Employee, Integer> {
-    Optional<Employee> findById(Integer registrationNumber);
+    Optional<Employee> findByRegistrationNumber(Integer registrationNumber);
 
 }

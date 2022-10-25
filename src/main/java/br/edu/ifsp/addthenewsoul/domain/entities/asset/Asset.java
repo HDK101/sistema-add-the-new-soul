@@ -9,6 +9,7 @@ public class Asset {
     private double value;
     private String damage;
 
+
     public Asset() {}
 
     public Asset(int id, String description, Employee employeeInCharge, double value, String damage) {
