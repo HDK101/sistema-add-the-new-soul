@@ -13,7 +13,7 @@ public class AddAssetUseCase {
     }
 
     public Integer save (Asset asset) {
-        Validator<Asset> validator = new ValidationOfAssetValues();
+        Validator<Asset> validator = new ValidationOfAssetAttributes();
         Notification notification = validator.isValid(asset);
 
         if (notification.hasErrors())
@@ -21,7 +21,7 @@ public class AddAssetUseCase {
 
         Integer id = asset.getId();
         if (assetDAO.findById(id).isPresent())
-            throw new IllegalArgumentException("This id is already in use");
+            throw new IllegalArgumentException("This asset id is already in use");
 
         return assetDAO.add(asset);
     }
