@@ -4,13 +4,13 @@ import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Notification;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Validator;
 
-public class ValidationOfAssetValues extends Validator<Asset> {
+public class ValidationOfAssetAttributes extends Validator<Asset> {
     @Override
     public Notification isValid(Asset asset) {
         Notification notification = new Notification();
 
         if (asset == null) {
-            notification.addError("asset is null");
+            notification.addError("Asset is null");
             return notification;
         }
 

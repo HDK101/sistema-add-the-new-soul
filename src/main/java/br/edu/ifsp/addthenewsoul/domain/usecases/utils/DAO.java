@@ -5,10 +5,10 @@ import java.util.List;
 public interface DAO<T, K> {
     K add (T type);
 
-    List<T> findAll();
-
     boolean update (T type);
 
-    boolean delete (T type);
+    boolean delete (K key);
+
+    List<T> findAll();
 
 }
