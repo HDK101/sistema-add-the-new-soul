@@ -1,4 +1,4 @@
-package br.edu.ifsp.addthenewsoul.domain.entities.good;
+package br.edu.ifsp.addthenewsoul.domain.entities.asset;
 
 public class Local {
     private String section;

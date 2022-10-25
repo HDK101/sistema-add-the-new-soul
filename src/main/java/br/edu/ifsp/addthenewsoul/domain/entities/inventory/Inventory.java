@@ -10,15 +10,15 @@ public class Inventory {
     private List<Employee> comission;
     private LocalDate initialDate;
     private LocalDate endDate;
-    private List<InventoryGood> goods;
+    private List<InventoryAsset> assets;
 
-    public Inventory(String name, Employee comissionPresident, List<Employee> comission, LocalDate initialDate, LocalDate endDate, List<InventoryGood> goods) {
+    public Inventory(String name, Employee comissionPresident, List<Employee> comission, LocalDate initialDate, LocalDate endDate, List<InventoryAsset> assets) {
         this.name = name;
         this.comissionPresident = comissionPresident;
         this.comission = comission;
         this.initialDate = initialDate;
         this.endDate = endDate;
-        this.goods = goods;
+        this.assets = assets;
     }
 
     public String getName() {
@@ -61,11 +61,11 @@ public class Inventory {
         this.endDate = endDate;
     }
 
-    public List<InventoryGood> getGoods() {
-        return goods;
+    public List<InventoryAsset> getassets() {
+        return assets;
     }
 
-    public void setGoods(List<InventoryGood> goods) {
-        this.goods = goods;
+    public void setassets(List<InventoryAsset> assets) {
+        this.assets = assets;
     }
 }
