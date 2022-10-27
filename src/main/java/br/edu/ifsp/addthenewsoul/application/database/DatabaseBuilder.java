@@ -40,7 +40,7 @@ public class DatabaseBuilder {
         builder.append("CREATE TABLE Asset (\n");
         builder.append("id INTEGER PRIMARY KEY AUTOINCREMENT, \n");
         builder.append("description TEXT NOT NULL, \n");
-        builder.append("regNumberEmployeeInCharge INTEGER, \n");
+        builder.append("regNumberEmployeeInCharge TEXT, \n");
         builder.append("value DOUBLE NOT NULL, \n");
         builder.append("damage TEXT, \n");
         builder.append("location TEXT, \n");

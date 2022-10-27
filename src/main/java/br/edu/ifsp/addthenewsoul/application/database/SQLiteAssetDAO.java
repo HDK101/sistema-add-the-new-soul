@@ -1,6 +1,7 @@
 package br.edu.ifsp.addthenewsoul.application.database;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
+import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetDAO;
 
 import java.sql.PreparedStatement;
@@ -73,7 +74,8 @@ public class SQLiteAssetDAO implements AssetDAO {
         List<Asset> assets = new ArrayList<>();
         try (PreparedStatement stmt = Database.createPrepareStatement(sql)) {
             ResultSet resultSet = stmt.executeQuery();
-            /*while (resultSet.next()) { Precisa Arrumar
+            /*while (resultSet.next()) {
+                String regNumberEmployee = .fin
                 Asset asset = new Asset(
                         resultSet.getInt("id"),
                         resultSet.getString("description"),
@@ -81,12 +83,12 @@ public class SQLiteAssetDAO implements AssetDAO {
                         resultSet.getDouble("value"),
                         resultSet.getString("damage"),
                         resultSet.getString("location")
-                )
+                );
                 assets.add(asset);
             }*/
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return assets;
     }
 }

@@ -4,6 +4,8 @@ import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeDAO;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -11,9 +13,15 @@ import java.util.Optional;
 public class SQLiteEmployeeDAO implements EmployeeDAO {
 
     @Override
-    public Optional<Employee> findByRegistrationNumber(Integer registrationNumber) {
+    public Optional<Employee> findByRegistrationNumber(String registrationNumber) {
         String sql = "SELECT * FROM Employee where registrationNumber = ?";
-
+        Employee employee = null;
+        try (PreparedStatement stmt = Database.createPrepareStatement(sql)) {
+            stmt.setString(1, registrationNumber);
+            ResultSet rs = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return Optional.empty();
     }
 
