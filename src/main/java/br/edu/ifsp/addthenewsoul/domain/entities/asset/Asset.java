@@ -8,16 +8,17 @@ public class Asset {
     private Employee employeeInCharge;
     private double value;
     private String damage;
-
+    private Local location;
 
     public Asset() {}
 
-    public Asset(int id, String description, Employee employeeInCharge, double value, String damage) {
+    public Asset(int id, String description, Employee employeeInCharge, double value, String damage, Local location) {
         this.id = id;
         this.description = description;
         this.employeeInCharge = employeeInCharge;
         this.value = value;
         this.damage = damage;
+        this.location = location;
     }
 
     public int getId() {
@@ -58,5 +59,13 @@ public class Asset {
 
     public void setDamage(String damage) {
         this.damage = damage;
+    }
+
+    public Local getLocation() {
+        return location;
+    }
+
+    public void setLocation(Local location) {
+        this.location = location;
     }
 }
