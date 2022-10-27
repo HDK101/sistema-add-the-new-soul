@@ -12,6 +12,10 @@ public class Local {
         this.number = number;
     }
 
+    public String fullLocation() {
+        return new StringBuilder().append(section).append(" ").append(number).toString();
+    }
+
     public Integer getId() {
         return id;
     }
@@ -30,9 +34,5 @@ public class Local {
 
     public void setNumber(Integer number) {
         this.number = number;
-    }
-
-    public String fullLocation() {
-        return new StringBuilder().append(section).append(" ").append(number).toString();
     }
 }
