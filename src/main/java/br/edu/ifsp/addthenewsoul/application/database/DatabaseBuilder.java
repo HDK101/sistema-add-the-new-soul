@@ -134,9 +134,9 @@ public class DatabaseBuilder {
         StringBuilder builder = new StringBuilder();
 
         builder.append("CREATE TABLE Local (\n");
+        builder.append("id INTEGER INTEGER PRIMARY KEY AUTOINCREMENT, \n");
         builder.append("section TEXT NOT NULL, \n");
-        builder.append("number INTEGER NOT NULL, \n");
-        builder.append("PRIMARY KEY(section, number)");
+        builder.append("number INTEGER NOT NULL \n");
         builder.append("); \n");
 
         System.out.println(builder.toString());

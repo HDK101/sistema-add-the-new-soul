@@ -18,7 +18,7 @@ public class AddEmployeeUseCase {
         if (notification.hasErrors())
             throw new IllegalArgumentException(notification.errorMessage());
 
-        Integer registrationNumber = Integer.valueOf(employee.getRegistrationNumber());
+        String registrationNumber = employee.getRegistrationNumber();
         if (employeeDAO.findByRegistrationNumber(registrationNumber).isPresent())
             throw new EntityAlreadyExistsException("This registration number is already in use.");
 
