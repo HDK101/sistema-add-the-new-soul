@@ -1,9 +1,9 @@
 package br.edu.ifsp.addthenewsoul.domain.entities.asset;
 
+import br.edu.ifsp.addthenewsoul.application.io.CSVNode;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
-import com.opencsv.bean.CsvBindByName;
 
-public class Asset {
+public class Asset implements CSVNode {
     private int id;
     private String description;
     private Employee employeeInCharge;
@@ -12,6 +12,13 @@ public class Asset {
     private Local location;
 
     public Asset() {}
+
+    public Asset(int id, String description, double value, String damage) {
+        this.id = id;
+        this.description = description;
+        this.value = value;
+        this.damage = damage;
+    }
 
     public Asset(int id, String description, Employee employeeInCharge, double value, String damage, Local location) {
         this.id = id;
@@ -68,5 +75,24 @@ public class Asset {
 
     public void setLocation(Local location) {
         this.location = location;
+    }
+
+    public String toCSV() {
+        StringBuilder builder = new StringBuilder();
+
+        builder
+            .append(id)
+            .append(',')
+            .append(description)
+            .append(',')
+            .append(employeeInCharge.getRegistrationNumber())
+            .append(',')
+            .append(value)
+            .append(',')
+            .append(damage)
+            .append(',')
+            .append(1);
+
+        return builder.toString();
     }
 }

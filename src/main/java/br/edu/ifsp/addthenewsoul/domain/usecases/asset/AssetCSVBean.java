@@ -1,23 +1,23 @@
 package br.edu.ifsp.addthenewsoul.domain.usecases.asset;
 
-import br.edu.ifsp.addthenewsoul.application.io.CSVBean;
-import br.edu.ifsp.addthenewsoul.domain.entities.asset.Local;
-import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvBindByPosition;
 
-public class AssetCSVBean extends CSVBean {
-    @CsvBindByName()
-    private int id;
-    @CsvBindByName()
-    private String description;
-    @CsvBindByName()
-    private String registrationNumber;
-    @CsvBindByName()
-    private double value;
-    @CsvBindByName()
-    private String damage;
-    @CsvBindByName()
-    private Integer locationId;
+public class AssetCSVBean {
+    @CsvBindByPosition(position = 0)
+    public int id;
+    @CsvBindByPosition(position = 1)
+    public String description;
+    @CsvBindByPosition(position = 2)
+    public String registrationNumber;
+    @CsvBindByPosition(position = 3)
+    public double value;
+    @CsvBindByPosition(position = 4)
+    public String damage;
+    @CsvBindByPosition(position = 5)
+    public Integer locationId;
+
+    public AssetCSVBean() {}
 
     public AssetCSVBean(int id, String description, String registrationNumber, double value, String damage, Integer locationId) {
         this.id = id;
@@ -26,5 +26,10 @@ public class AssetCSVBean extends CSVBean {
         this.value = value;
         this.damage = damage;
         this.locationId = locationId;
+    }
+
+    @Override
+    public String toString() {
+        return description;
     }
 }

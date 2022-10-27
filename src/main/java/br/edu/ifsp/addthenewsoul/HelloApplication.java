@@ -1,33 +1,38 @@
 package br.edu.ifsp.addthenewsoul;
 
 import br.edu.ifsp.addthenewsoul.application.io.CSV;
-import br.edu.ifsp.addthenewsoul.application.io.CSVBean;
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.Local;
+import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
+import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
+import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetCSV;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetCSVBean;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
 public class HelloApplication extends Application {
-    @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
-        stage.show();
+    public void HidekiTest() throws IOException {
+        Employee employee = new Employee("asd", "asd", "asd", "asd", "asd", Role.EXECUTOR);
+        Local local = new Local("asd", 1014);
+        Asset asset = new Asset(1, "asd", employee, 123, "asd", local);
 
-        List<CSVBean> data = Arrays.asList(new AssetCSVBean("n1", "n2", "n3"));
+        List<Asset> data = Arrays.asList(asset, asset);
 
-        List<CSVBean> csv = CSV.read("file.csv");
-        AssetCSVBean csvBean = (AssetCSVBean) csv.get(0);
-        System.out.println(csvBean.toString());
+        AssetCSV assetCSV = new AssetCSV();
+        assetCSV.write("file.csv", data);
 
-        CSV.write("file.csv", data);
+        List<Asset> assetsFromCSV = assetCSV.read("file.csv");
+        System.out.println(assetsFromCSV.get(0).getDamage());
+
+        //AssetCSVBean csvBean = (AssetCSVBean) csv.get(0);
+        //System.out.println(csvBean.toString());
 
 //        Database.getConnection();
 //        Statement statement = Database.getStatement();
@@ -70,6 +75,17 @@ public class HelloApplication extends Application {
 //
 //        System.out.println(hash);
 //        System.out.println(result.verified);
+    }
+
+    @Override
+    public void start(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        stage.setTitle("Hello!");
+        stage.setScene(scene);
+        stage.show();
+
+        HidekiTest();
     }
 
     public static void main(String[] args) {
