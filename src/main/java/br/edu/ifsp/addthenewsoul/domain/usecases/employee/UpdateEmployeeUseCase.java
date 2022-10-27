@@ -3,7 +3,6 @@ package br.edu.ifsp.addthenewsoul.domain.usecases.employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.EntityNotFoundException;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Notification;
-import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Validator;
 
 public class UpdateEmployeeUseCase {
     private EmployeeDAO employeeDAO;
