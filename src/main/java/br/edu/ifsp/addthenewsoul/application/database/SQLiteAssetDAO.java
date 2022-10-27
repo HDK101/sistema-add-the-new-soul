@@ -37,7 +37,7 @@ public class SQLiteAssetDAO implements AssetDAO {
     }
 
     @Override
-    public synchronized boolean update(Asset asset) {
+    public synchronized boolean update(Asset asset) {//SQLITE
         String sql = "UPDATE Asset set description = ?, regNumberEmployeeInCharge = ?, value = ?, " +
                 "damage = ?, location = ? WHERE id = ?";
         try (PreparedStatement stmt = Database.createPrepareStatement(sql)) {
