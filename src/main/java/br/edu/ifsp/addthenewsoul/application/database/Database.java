@@ -18,7 +18,7 @@ public class Database {
         return Database.connection;
     }
 
-    public static PreparedStatement createPrepareStatement (String sql) {
+    public static PreparedStatement createPreparedStatement (String sql) {
         try {
             statement = getConnection().prepareStatement(sql);
         } catch (SQLException e) {

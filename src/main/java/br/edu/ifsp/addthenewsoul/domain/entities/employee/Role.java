@@ -1,6 +1,15 @@
 package br.edu.ifsp.addthenewsoul.domain.entities.employee;
 
+import java.util.Arrays;
+
 public enum Role {
     INVENTORY_MANAGER,
-    EXECUTOR
+    EXECUTOR;
+
+    public static Role toEnum(String value){
+        return Arrays.stream(Role.values())
+                .filter(c -> value.equals(c.toString()))
+                .findAny()
+                .orElseThrow(IllegalArgumentException::new);
+    }
 }
