@@ -1,6 +1,7 @@
 package br.edu.ifsp.addthenewsoul.domain.entities.asset;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
+import com.opencsv.bean.CsvBindByName;
 
 public class Asset {
     private int id;

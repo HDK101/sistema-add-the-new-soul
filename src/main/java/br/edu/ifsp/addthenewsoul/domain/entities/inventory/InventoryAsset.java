@@ -8,7 +8,8 @@ public class InventoryAsset extends Asset {
     private Employee executor;
 
     public InventoryAsset(int id, String description, Employee employeeInCharge, double value, String damage, Employee executor) {
-        super(id, description, employeeInCharge, value, damage);
+        // Tem q ver isso daqui
+        super(id, description, employeeInCharge, value, damage, null);
         this.executor = executor;
     }
 
