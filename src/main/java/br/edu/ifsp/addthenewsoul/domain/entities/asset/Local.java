@@ -3,10 +3,19 @@ package br.edu.ifsp.addthenewsoul.domain.entities.asset;
 public class Local {
     private String section;
     private int number;
+    private int id;
 
-    public Local(String section, int number) {
+    public Local(int id, String section, int number) {
         this.section = section;
         this.number = number;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String fullLocation() {

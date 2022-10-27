@@ -2,8 +2,13 @@ package br.edu.ifsp.addthenewsoul;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import br.edu.ifsp.addthenewsoul.application.database.Database;
+import br.edu.ifsp.addthenewsoul.application.database.SQLiteAssetDAO;
 import br.edu.ifsp.addthenewsoul.application.writers.CSV;
 import br.edu.ifsp.addthenewsoul.application.writers.CSVBean;
+import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AddAssetUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetDAO;
+import br.edu.ifsp.addthenewsoul.domain.usecases.employee.FindEmployeeUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.location.FindLocationUseCase;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,6 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class HelloApplication extends Application {
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
@@ -36,7 +42,7 @@ public class HelloApplication extends Application {
 
         try {
             ResultSet rs = statement.executeQuery("SELECT DATE()");
-            while(rs.next()) {
+            while (rs.next()) {
                 System.out.println(rs.getString(1));
             }
 
@@ -52,8 +58,8 @@ public class HelloApplication extends Application {
         PDPageContentStream contentStream = new PDPageContentStream(document, page);
         contentStream.setStrokingColor(0f, 0f, 0f);
 
-        for(int i = 1; i < 10; i++) {
-            for(int j = 1; j < 10; j++) {
+        for (int i = 1; i < 10; i++) {
+            for (int j = 1; j < 10; j++) {
                 contentStream.addRect(50 * i, pageHeight - 50 * j, 50, 50);
             }
         }
@@ -75,6 +81,11 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        configureInjection();
+    }
+
+    private static void configureInjection() {
+        AssetDAO assetDAO = new SQLiteAssetDAO();
+        AddAssetUseCase addAssetUseCase = new AddAssetUseCase(assetDAO);
     }
 }

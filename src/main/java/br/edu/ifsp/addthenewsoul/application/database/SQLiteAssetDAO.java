@@ -1,8 +1,11 @@
 package br.edu.ifsp.addthenewsoul.application.database;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.Local;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetDAO;
+import br.edu.ifsp.addthenewsoul.domain.usecases.employee.FindEmployeeUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.location.FindLocationUseCase;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +25,7 @@ public class SQLiteAssetDAO implements AssetDAO {
     public synchronized Integer add(Asset asset) {
         String sql = "INSERT INTO Asset (description, regNumberEmployeeInCharge, value, " +
                 "damage, location) VALUES (?,?,?,?,?)";
-        try(PreparedStatement stmt = Database.createPrepareStatement(sql)) {
+        try (PreparedStatement stmt = Database.createPrepareStatement(sql)) {
             stmt.setString(1, asset.getDescription());
             stmt.setString(2, asset.getEmployeeInCharge().getRegistrationNumber());
             stmt.setDouble(3, asset.getValue());
@@ -38,7 +41,7 @@ public class SQLiteAssetDAO implements AssetDAO {
     }
 
     @Override
-    public synchronized boolean update(Asset asset) {//SQLITE
+    public synchronized boolean update(Asset asset) {// SQLITE
         String sql = "UPDATE Asset set description = ?, regNumberEmployeeInCharge = ?, value = ?, " +
                 "damage = ?, location = ? WHERE id = ?";
         try (PreparedStatement stmt = Database.createPrepareStatement(sql)) {
@@ -71,21 +74,28 @@ public class SQLiteAssetDAO implements AssetDAO {
     @Override
     public List<Asset> findAll() {
         String sql = "SELECT * FROM Asset";
+        FindEmployeeUseCase findEmployeeUseCase;
+        FindLocationUseCase findLocationUseCase;
         List<Asset> assets = new ArrayList<>();
         try (PreparedStatement stmt = Database.createPrepareStatement(sql)) {
             ResultSet resultSet = stmt.executeQuery();
-            /*while (resultSet.next()) {
-                String regNumberEmployee = .fin
-                Asset asset = new Asset(
-                        resultSet.getInt("id"),
-                        resultSet.getString("description"),
-                        resultSet.getString("regNumberEmployeeInCharge"),
-                        resultSet.getDouble("value"),
-                        resultSet.getString("damage"),
-                        resultSet.getString("location")
-                );
-                assets.add(asset);
-            }*/
+            /*
+             * while (resultSet.next()) {
+             * String regNumberEmployee = resultSet.getString("regNumberEmployeeInCharge");
+             * Employee employee = findEmployeeUseCase.findOne(regNumberEmployee).get();
+             * 
+             * int id = resultSet.getInt("id");
+             * Local local = findLocationUseCase.findOne(id).get();
+             * Asset asset = new Asset(
+             * resultSet.getInt("id"),
+             * resultSet.getString("description"),
+             * employee,
+             * resultSet.getDouble("value"),
+             * resultSet.getString("damage"),
+             * local);
+             * assets.add(asset);
+             * }
+             */
         } catch (SQLException e) {
             e.printStackTrace();
         }

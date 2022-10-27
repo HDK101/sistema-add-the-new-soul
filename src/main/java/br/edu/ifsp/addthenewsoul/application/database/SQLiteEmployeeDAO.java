@@ -1,6 +1,7 @@
 package br.edu.ifsp.addthenewsoul.application.database;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
+import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeDAO;
 
 import java.sql.PreparedStatement;
@@ -19,16 +20,24 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
         try (PreparedStatement stmt = Database.createPrepareStatement(sql)) {
             stmt.setString(1, registrationNumber);
             ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                employee = new Employee(
+                        rs.getString("name"),
+                        rs.getString("registrationNumber"),
+                        rs.getString("hashPassword"),
+                        rs.getString("email"),
+                        rs.getString("phone"),
+                        Role.toEnum(rs.getString("role")));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return Optional.empty();
+        return Optional.ofNullable(employee);
     }
 
     @Override
     public Integer add(Employee employee) {
         String sql = "INSERT INTO Employee(name, registrationNumber, hashPassword, email, phone, role) VALUES (?, ?, ?, ?, ?, ?)";
-
 
         return null;
     }
@@ -38,7 +47,6 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
         String sql = "SELECT * FROM Employee";
         List<Employee> employees = new ArrayList<>();
 
-
         return null;
     }
 
@@ -46,14 +54,12 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
     public boolean update(Employee employee) {
         String sql = "UPDATE Employee SET name = ?, registrationNumber = ?, hashPassword = ?, email = ?, phone = ?, role = ?";
 
-
         return false;
     }
 
     @Override
     public boolean delete(Integer key) {
         String sql = "DELETE FROM Employee WHERE registrationNumber = ?";
-
 
         return false;
     }
