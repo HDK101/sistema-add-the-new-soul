@@ -4,6 +4,7 @@ import java.sql.*;
 
 public class Database {
     private static Connection connection;
+    private static PreparedStatement statement;
 
     public static Connection getConnection() {
         try {
@@ -17,13 +18,20 @@ public class Database {
         return Database.connection;
     }
 
+    public static PreparedStatement createPrepareStatement (String sql) {
+        try {
+            statement = getConnection().prepareStatement(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return statement;
+    }
+
     public static Statement getStatement() {
         Statement statement = null;
         try {
             statement = Database.connection.createStatement();
-        } catch (NullPointerException ex) {
-            System.err.println(ex.getMessage());
-        } catch (SQLException ex) {
+        } catch (NullPointerException | SQLException ex) {
             System.err.println(ex.getMessage());
         }
         return statement;
