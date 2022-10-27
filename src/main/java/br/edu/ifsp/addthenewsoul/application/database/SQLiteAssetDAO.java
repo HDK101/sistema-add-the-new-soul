@@ -6,6 +6,7 @@ import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetDAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +43,11 @@ public class SQLiteAssetDAO implements AssetDAO {
                 "damage = ?, location = ? WHERE id = ?";
         try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
             stmt.setString(1, asset.getDescription());
-            stmt.setString(2, asset.getEmployeeInCharge().getRegistrationNumber());
+            if (asset.getEmployeeInCharge() != null)
+                stmt.setString(2, asset.getEmployeeInCharge().getRegistrationNumber());
+            else
+                stmt.setNull(2, Types.VARCHAR);
+
             stmt.setDouble(3, asset.getValue());
             stmt.setString(4, asset.getDamage());
             stmt.setString(5, asset.getLocation().fullLocation());

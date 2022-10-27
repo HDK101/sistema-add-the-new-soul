@@ -1,5 +1,6 @@
 package br.edu.ifsp.addthenewsoul.application.database;
 
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.Local;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeDAO;
@@ -43,6 +44,7 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
 
 
     @Override
+
     public String add(Employee employee) {
         String sql = "INSERT INTO Employee(name, registrationNumber, hashPassword, email, phone, role) VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -104,19 +106,36 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
 
     @Override
     public boolean delete(String registrationNumber) {
-        if (registrationNumber == null)
-            throw new IllegalArgumentException("Registration number must not be null.");
 
         String sql = "DELETE FROM Employee WHERE registrationNumber = ?";
 
-        try(PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+        try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
             stmt.setString(1, registrationNumber);
             stmt.execute();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
+    @Override
+    public Optional<Employee> findByRegistrationNumber(String registrationNumber) {
+        String sql = "SELECT * FROM Employee where registrationNumber = ?";
+        Employee employee = null;
+        try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+            stmt.setString(1, registrationNumber);
+
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                employee = resultSetToEntity(resultSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return Optional.ofNullable(employee);
+    }
+    
 }
