@@ -18,7 +18,7 @@ public class UpdateEmployeeUseCase {
         if(notification.hasErrors())
             throw new IllegalArgumentException(notification.errorMessage());
 
-        Integer registrationNumber = Integer.valueOf(employee.getRegistrationNumber());
+        String registrationNumber = employee.getRegistrationNumber();
         if(employeeDAO.findByRegistrationNumber(registrationNumber).isEmpty())
             throw new EntityNotFoundException("Employee not found.");
 

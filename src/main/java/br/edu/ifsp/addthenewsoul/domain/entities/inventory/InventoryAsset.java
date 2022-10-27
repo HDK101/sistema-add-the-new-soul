@@ -1,20 +1,27 @@
 package br.edu.ifsp.addthenewsoul.domain.entities.inventory;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.Local;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 
 
 public class InventoryAsset extends Asset {
-    private Employee executor;
+    private Status status;
 
-    public InventoryAsset(int id, String description, Employee employeeInCharge, double value, String damage, Employee executor) {
-        // Tem q ver isso daqui
-        super(id, description, employeeInCharge, value, damage, null);
-        this.executor = executor;
+    public InventoryAsset(int id, String description, Employee employeeInCharge, double value,
+                          String damage, Local location, Status status) {
+
+        super(id, description, employeeInCharge, value, damage, location);
+        this.status = status;
     }
 
-    public Employee getExecutor() {
-        return executor;
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
 

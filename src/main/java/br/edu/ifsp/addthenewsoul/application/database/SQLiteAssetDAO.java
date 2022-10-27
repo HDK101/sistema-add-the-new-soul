@@ -6,6 +6,7 @@ import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetDAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +22,7 @@ public class SQLiteAssetDAO implements AssetDAO {
     public synchronized Integer add(Asset asset) {
         String sql = "INSERT INTO Asset (description, regNumberEmployeeInCharge, value, " +
                 "damage, location) VALUES (?,?,?,?,?)";
-        try(PreparedStatement stmt = Database.createPrepareStatement(sql)) {
+        try(PreparedStatement stmt = Database.createPreparedStatement(sql)) {
             stmt.setString(1, asset.getDescription());
             stmt.setString(2, asset.getEmployeeInCharge().getRegistrationNumber());
             stmt.setDouble(3, asset.getValue());
@@ -40,9 +41,13 @@ public class SQLiteAssetDAO implements AssetDAO {
     public synchronized boolean update(Asset asset) {//SQLITE
         String sql = "UPDATE Asset set description = ?, regNumberEmployeeInCharge = ?, value = ?, " +
                 "damage = ?, location = ? WHERE id = ?";
-        try (PreparedStatement stmt = Database.createPrepareStatement(sql)) {
+        try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
             stmt.setString(1, asset.getDescription());
-            stmt.setString(2, asset.getEmployeeInCharge().getRegistrationNumber());
+            if (asset.getEmployeeInCharge() != null)
+                stmt.setString(2, asset.getEmployeeInCharge().getRegistrationNumber());
+            else
+                stmt.setNull(2, Types.VARCHAR);
+
             stmt.setDouble(3, asset.getValue());
             stmt.setString(4, asset.getDamage());
             stmt.setString(5, asset.getLocation().fullLocation());
@@ -57,7 +62,7 @@ public class SQLiteAssetDAO implements AssetDAO {
     @Override
     public boolean delete(Integer id) {
         String sql = "DELETE FROM Asset WHERE id = ?";
-        try (PreparedStatement stmt = Database.createPrepareStatement(sql)) {
+        try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
             stmt.setInt(1, id);
             stmt.execute();
             return true;
@@ -71,7 +76,7 @@ public class SQLiteAssetDAO implements AssetDAO {
     public List<Asset> findAll() {
         String sql = "SELECT * FROM Asset";
         List<Asset> assets = new ArrayList<>();
-        try (PreparedStatement stmt = Database.createPrepareStatement(sql)) {
+        try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
             ResultSet resultSet = stmt.executeQuery();
             /*while (resultSet.next()) { Precisa Arrumar
                 Asset asset = new Asset(
