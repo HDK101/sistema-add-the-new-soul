@@ -1,4 +1,4 @@
-package br.edu.ifsp.addthenewsoul.application.database;
+package br.edu.ifsp.addthenewsoul.application.repository.database;
 
 import java.sql.*;
 
