@@ -10,12 +10,12 @@ import java.util.stream.Collectors;
 
 public class InMemoryAssetDAO implements AssetDAO {
 
-    private static final Map<Integer, Asset> dbMemory = new LinkedHashMap<>();
+    private static final Map<Integer, Asset> dbMemoryAsset = new LinkedHashMap<>();
 
     @Override
     public Optional<Asset> findById(Integer id) {
-        if (dbMemory.containsKey(id))
-            return Optional.of(dbMemory.get(id));
+        if (dbMemoryAsset.containsKey(id))
+            return Optional.of(dbMemoryAsset.get(id));
         return Optional.empty();
     }
 
@@ -43,23 +43,23 @@ public class InMemoryAssetDAO implements AssetDAO {
 
     @Override
     public Integer add(Asset asset) {
-        dbMemory.put(asset.getId(), asset);
+        dbMemoryAsset.put(asset.getId(), asset);
         return asset.getId();
     }
 
     @Override
     public boolean update(Asset asset) {
-        if (dbMemory.containsKey(asset.getId())) {
-            dbMemory.replace(asset.getId(), asset);
+        if (dbMemoryAsset.containsKey(asset.getId())) {
+            dbMemoryAsset.replace(asset.getId(), asset);
             return true;
         }
         return false;
     }
 
     @Override
-    public boolean delete(Integer key) {
-        if (dbMemory.containsKey(key)) {
-            dbMemory.remove(key);
+    public boolean delete(Integer id) {
+        if (dbMemoryAsset.containsKey(id)) {
+            dbMemoryAsset.remove(id);
             return true;
         }
         return false;
@@ -67,6 +67,6 @@ public class InMemoryAssetDAO implements AssetDAO {
 
     @Override
     public List<Asset> findAll() {
-        return new ArrayList<>(dbMemory.values());
+        return new ArrayList<>(dbMemoryAsset.values());
     }
 }

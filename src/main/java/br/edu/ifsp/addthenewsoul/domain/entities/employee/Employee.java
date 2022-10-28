@@ -64,4 +64,16 @@ public class Employee {
     public void setRole(Role role) {
         this.role = role;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "name='" + name + '\'' +
+                ", registrationNumber='" + registrationNumber + '\'' +
+                ", hashPassword='" + hashPassword + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", role=" + role +
+                '}';
+    }
 }
