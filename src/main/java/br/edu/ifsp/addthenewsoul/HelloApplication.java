@@ -1,6 +1,7 @@
 package br.edu.ifsp.addthenewsoul;
 
 import br.edu.ifsp.addthenewsoul.application.repository.immemory.InMemoryAssetDAO;
+import br.edu.ifsp.addthenewsoul.application.repository.immemory.InMemoryEmployeeDAO;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
@@ -16,9 +17,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.*;
 
 public class HelloApplication extends Application {
+
     public void HidekiTest() throws Exception {
         Employee employee = new Employee("asd", "asd", "asd", "asd", "asd", Role.EXECUTOR);
         Location location = new Location(1, 1014, "asd");
@@ -103,28 +106,7 @@ public class HelloApplication extends Application {
 //        System.out.println(result.verified);
     }
 
-    @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
-        stage.show();
-
-        try {
-            HidekiTest();
-
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-
-    public static void main(String[] args) {
-        teste();
-        launch();
-    }
-
-    private static void teste() {
+    private static void ViniciusTest() {
         List<Asset> assets = new ArrayList<>();
         Employee employee = new Employee("asd", "asd", "asd", "asd", "asd", Role.EXECUTOR);
         Location location = new Location(1, 1014, "asd");
@@ -164,4 +146,65 @@ public class HelloApplication extends Application {
         inMemoryAssetDAO.findAll();
 
     }
+
+    public static void IsaTest() {
+
+        List<Employee> employees = new ArrayList<>();
+
+        Employee employee = new Employee("Fulano", "R123", "abc", "fulano@gmail.com", "11111", Role.EXECUTOR);
+        Employee employee1 = new Employee("Ciclano", "R456", "def", "ciclano@gmail.com", "22222", Role.EXECUTOR);
+        Employee employee2 = new Employee("Beltrano", "R789", "ghi", "beltrano@gmail.com", "33333", Role.INVENTORY_MANAGER);
+
+        InMemoryEmployeeDAO inMemoryEmployeeDAO = new InMemoryEmployeeDAO();
+
+        inMemoryEmployeeDAO.add(employee);
+        inMemoryEmployeeDAO.add(employee1);
+
+        System.out.println(inMemoryEmployeeDAO.findAll());
+        System.out.println(inMemoryEmployeeDAO.findByRegistrationNumber(employee1.getRegistrationNumber()));
+
+        inMemoryEmployeeDAO.add(employee2);
+
+        employees.add(employee);
+        employees.add(employee1);
+        employees.add(employee2);
+
+        employee1.setPhone("99999");
+        inMemoryEmployeeDAO.update(employee1);
+        System.out.println(employee1);
+
+        System.out.println(inMemoryEmployeeDAO.findByRegistrationNumber(employee1.getRegistrationNumber()));
+
+        inMemoryEmployeeDAO.delete(employee1.getRegistrationNumber());
+        System.out.println(inMemoryEmployeeDAO.findAll());
+    }
+
+
+
+
+
+
+    @Override
+    public void start(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        stage.setTitle("Hello!");
+        stage.setScene(scene);
+        stage.show();
+
+        try {
+            //HidekiTest();
+
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        //ViniciusTest();
+        IsaTest();
+        launch();
+    }
+
 }
