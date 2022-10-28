@@ -1,6 +1,8 @@
-package br.edu.ifsp.addthenewsoul.application.database;
+package br.edu.ifsp.addthenewsoul.application.repository.database;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
+import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetDAO;
 
 import java.sql.PreparedStatement;
@@ -16,6 +18,21 @@ public class SQLiteAssetDAO implements AssetDAO {
     @Override
     public Optional<Asset> findById(Integer id) {
         return Optional.empty();
+    }
+
+    @Override
+    public List<Asset> findByLocation(List<Asset> assets, Location location) {
+        return null;
+    }
+
+    @Override
+    public List<Asset> findByEmployee(List<Asset> assets, Employee employee) {
+        return null;
+    }
+
+    @Override
+    public List<Asset> findByLocationAndEmployee(List<Asset> assets, Location location, Employee employee) {
+        return null;
     }
 
     @Override

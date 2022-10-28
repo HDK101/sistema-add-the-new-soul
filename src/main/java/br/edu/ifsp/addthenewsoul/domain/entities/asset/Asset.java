@@ -102,11 +102,11 @@ public class Asset implements CSVNode {
         final StringBuilder sb = new StringBuilder("Asset{");
         sb.append("id=").append(id);
         sb.append(", description='").append(description).append('\'');
-        sb.append(", employeeInCharge=").append(employeeInCharge);
+        sb.append(", employeeInCharge=").append(employeeInCharge.getRegistrationNumber());
         sb.append(", registrationNumber='").append(registrationNumber).append('\'');
         sb.append(", value=").append(value);
         sb.append(", damage='").append(damage).append('\'');
-        sb.append(", location=").append(location);
+        sb.append(", location=").append(location.fullLocation());
         sb.append(", locationId=").append(locationId);
         sb.append('}');
         return sb.toString();
