@@ -1,14 +1,10 @@
 package br.edu.ifsp.addthenewsoul;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
-import br.edu.ifsp.addthenewsoul.domain.entities.asset.Local;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetCSV;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -19,10 +15,10 @@ import java.util.Map;
 public class HelloApplication extends Application {
     public void HidekiTest() throws Exception {
         Employee employee = new Employee("asd", "asd", "asd", "asd", "asd", Role.EXECUTOR);
-        Local local = new Local("asd", 1014);
-        Asset asset = new Asset(1, "asd", employee, 123, "asd", local);
+        Location location = new Location("asd", 1014);
+        Asset asset = new Asset(1, "asd", employee, 123, "asd", location);
 
-        Map<Integer, Local> localsMap = new HashMap<>();
+        Map<Integer, Location> locationsMap = new HashMap<>();
         Map<String, Employee> employeesMap = new HashMap<>();
 
         List<Asset> data = Arrays.asList(asset, asset);
@@ -33,10 +29,10 @@ public class HelloApplication extends Application {
         List<Asset> assetsFromCSV = assetCSV.read("file.csv");
         System.out.println(assetsFromCSV.get(0).getDamage());
 
-        localsMap.put(1, local);
+        locationsMap.put(1, location);
         employeesMap.put(employee.getRegistrationNumber(), employee);
 
-        List<Asset> assetsFromCSVWithDependencies = assetCSV.readWithDependencies(false, "file.csv", employeesMap, localsMap);
+        List<Asset> assetsFromCSVWithDependencies = assetCSV.readWithDependencies(false, "file.csv", employeesMap, locationsMap);
 
         System.out.println(assetsFromCSVWithDependencies);
 

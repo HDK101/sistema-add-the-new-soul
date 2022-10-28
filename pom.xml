@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>sistema-barbeiro-doos4</artifactId>
+    <artifactId>sistema-add-the-new-soul</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>sistema-barbeiro-doos4</name>
+    <name>sistema-add-the-new-soul</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

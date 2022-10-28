@@ -6,7 +6,7 @@ import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Singleton;
 public class LogoutEmployeeUseCase {
 
     public void logout () {
-        if (Singleton.getInstance().getAccessLevel() == AccessLevel.RELEASED)
+        if (Singleton.getInstance().getAccessLevel() == AccessLevel.ALLOWED)
             Singleton.getInstance().setAccessLevel(AccessLevel.DENIED);
     }
 }
