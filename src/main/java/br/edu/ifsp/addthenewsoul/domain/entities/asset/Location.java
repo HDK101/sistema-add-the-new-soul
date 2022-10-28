@@ -1,12 +1,12 @@
 package br.edu.ifsp.addthenewsoul.domain.entities.asset;
 
-public class Local {
+public class Location {
 
     private Integer id;
     private Integer number;
     private String section;
 
-    public Local(Integer id, Integer number, String section) {
+    public Location(Integer id, Integer number, String section) {
         this.id = id;
         this.section = section;
         this.number = number;

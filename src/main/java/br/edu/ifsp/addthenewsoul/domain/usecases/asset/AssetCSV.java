@@ -3,27 +3,18 @@ package br.edu.ifsp.addthenewsoul.domain.usecases.asset;
 import br.edu.ifsp.addthenewsoul.application.io.CSV;
 import br.edu.ifsp.addthenewsoul.application.io.CSVNode;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
-import br.edu.ifsp.addthenewsoul.domain.entities.asset.Local;
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
-import com.opencsv.CSVWriter;
-import com.opencsv.bean.CsvToBeanBuilder;
-import com.opencsv.bean.StatefulBeanToCsv;
-import com.opencsv.bean.StatefulBeanToCsvBuilder;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class AssetCSV implements CSV<Asset> {
     public void write(String fileName, List<Asset> data) throws IOException {
@@ -59,18 +50,18 @@ public class AssetCSV implements CSV<Asset> {
         return assets;
     }
 
-    public List<Asset> readWithDependencies(boolean throwError, String fileName, Map<String, Employee> employees, Map<Integer, Local> locals) throws Exception {
+    public List<Asset> readWithDependencies(boolean throwError, String fileName, Map<String, Employee> employees, Map<Integer, Location> locations) throws Exception {
         List<Asset> assets = read(fileName);
 
         for (Asset asset : assets) {
             Employee employee = employees.get(asset.getRegistrationNumber());
-            Local local = locals.get(asset.getLocalId());
+            Location location = locations.get(asset.getLocalId());
 
-            if (local == null || employee == null) {
+            if (location == null || employee == null) {
                 if (throwError) throw new Exception("Local and/or employee not found");
             }
             else {
-                asset.setLocation(local);
+                asset.setLocation(location);
                 asset.setEmployeeInCharge(employee);
             }
         }

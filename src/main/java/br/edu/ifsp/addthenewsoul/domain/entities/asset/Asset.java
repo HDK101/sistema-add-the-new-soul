@@ -10,21 +10,21 @@ public class Asset implements CSVNode {
     private String registrationNumber;
     private double value;
     private String damage;
-    private Local location;
-    private Integer localId;
+    private Location location;
+    private Integer locationId;
 
     public Asset() {}
 
-    public Asset(int id, String description, String registrationNumber, double value, String damage, Integer localId) {
+    public Asset(int id, String description, String registrationNumber, double value, String damage, Integer locationId) {
         this.id = id;
         this.description = description;
         this.registrationNumber = registrationNumber;
         this.value = value;
         this.damage = damage;
-        this.localId = localId;
+        this.locationId = locationId;
     }
 
-    public Asset(int id, String description, Employee employeeInCharge, double value, String damage, Local location) {
+    public Asset(int id, String description, Employee employeeInCharge, double value, String damage, Location location) {
         this.id = id;
         this.description = description;
         this.employeeInCharge = employeeInCharge;
@@ -73,11 +73,11 @@ public class Asset implements CSVNode {
         this.damage = damage;
     }
 
-    public Local getLocation() {
+    public Location getLocation() {
         return location;
     }
 
-    public void setLocation(Local location) {
+    public void setLocation(Location location) {
         this.location = location;
     }
 
@@ -90,11 +90,11 @@ public class Asset implements CSVNode {
     }
 
     public Integer getLocalId() {
-        return localId;
+        return locationId;
     }
 
     public void setLocalId(Integer localId) {
-        this.localId = localId;
+        this.locationId = localId;
     }
 
     @Override
@@ -107,7 +107,7 @@ public class Asset implements CSVNode {
         sb.append(", value=").append(value);
         sb.append(", damage='").append(damage).append('\'');
         sb.append(", location=").append(location);
-        sb.append(", localId=").append(localId);
+        sb.append(", locationId=").append(locationId);
         sb.append('}');
         return sb.toString();
     }

@@ -11,7 +11,7 @@ public class AddEmployeeUseCase {
         this.employeeDAO = employeeDAO;
     }
 
-    public Integer save (Employee employee) {
+    public String save (Employee employee) {
         ValidationOfEmployeeAttributes validator = new ValidationOfEmployeeAttributes();
         Notification notification = validator.isValid(employee);
 

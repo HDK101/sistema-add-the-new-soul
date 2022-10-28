@@ -1,6 +1,5 @@
 package br.edu.ifsp.addthenewsoul.application.database;
 
-import br.edu.ifsp.addthenewsoul.domain.entities.asset.Local;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeDAO;
@@ -30,6 +29,7 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
         return Optional.ofNullable(employee);
 
     }
+
 
     private Employee resultSetToEntity(ResultSet rs) throws SQLException {
         return new Employee(
@@ -120,22 +120,6 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
         return false;
     }
 
-    @Override
-    public Optional<Employee> findByRegistrationNumber(String registrationNumber) {
-        String sql = "SELECT * FROM Employee where registrationNumber = ?";
-        Employee employee = null;
-        try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
-            stmt.setString(1, registrationNumber);
 
-            ResultSet resultSet = stmt.executeQuery();
-            if (resultSet.next()) {
-                employee = resultSetToEntity(resultSet);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return Optional.ofNullable(employee);
-    }
     
 }

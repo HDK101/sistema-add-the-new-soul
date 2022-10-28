@@ -1,7 +1,7 @@
 package br.edu.ifsp.addthenewsoul.domain.usecases.utils;
 
 public enum AccessLevel {
-    RELEASED("Access Released"),
+    ALLOWED("Access Allowed"),
     DENIED("Access Denied");
 
     final private String description;
