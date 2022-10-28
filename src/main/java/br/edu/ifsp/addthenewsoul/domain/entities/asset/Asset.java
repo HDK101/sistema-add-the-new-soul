@@ -126,7 +126,7 @@ public class Asset implements CSVNode {
             .append(',')
             .append(damage)
             .append(',')
-            .append(1);
+            .append(location.getId());
         //Trocar pro id do local
 
         return builder.toString();

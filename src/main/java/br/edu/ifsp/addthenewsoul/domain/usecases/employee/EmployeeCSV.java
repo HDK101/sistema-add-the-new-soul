@@ -1,18 +1,19 @@
-package br.edu.ifsp.addthenewsoul.domain.usecases.location;
+package br.edu.ifsp.addthenewsoul.domain.usecases.employee;
 
 import br.edu.ifsp.addthenewsoul.application.io.CSV;
 import br.edu.ifsp.addthenewsoul.application.io.CSVNode;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
-import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
+import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
+import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class LocationCSV implements CSV<Location> {
+public class EmployeeCSV implements CSV<Employee> {
     @Override
-    public void write(String fileName, List<Location> data) throws IOException {
+    public void write(String fileName, List<Employee> data) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName));
 
         for(CSVNode d : data) {
@@ -24,22 +25,25 @@ public class LocationCSV implements CSV<Location> {
     }
 
     @Override
-    public List<Location> read(String fileName) throws FileNotFoundException {
+    public List<Employee> read(String fileName) throws FileNotFoundException {
         File file = new File(fileName);
         Scanner reader = new Scanner(file);
-        List<Location> locations = new ArrayList<>();
+        List<Employee> employees = new ArrayList<>();
 
         while (reader.hasNextLine()) {
             String[] parts = reader.nextLine().split(",");
-            locations.add(new Location(
-                    Integer.parseInt(parts[0]),
-                    Integer.parseInt(parts[1]),
-                    parts[2]
+            employees.add(new Employee(
+                    parts[0],
+                    parts[1],
+                    parts[2],
+                    parts[3],
+                    parts[4],
+                    Role.values()[Integer.parseInt(parts[5])]
             ));
         }
 
         reader.close();
 
-        return locations;
+        return employees;
     }
 }
