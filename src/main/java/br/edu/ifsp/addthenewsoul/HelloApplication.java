@@ -5,8 +5,12 @@ import br.edu.ifsp.addthenewsoul.application.repository.immemory.InMemoryEmploye
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
+import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AddAssetUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetCSV;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
+import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetDAO;
+import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeCSV;
+import br.edu.ifsp.addthenewsoul.domain.usecases.location.LocationCSV;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -29,18 +33,32 @@ public class HelloApplication extends Application {
         List<Asset> data = Arrays.asList(asset, asset);
 
         AssetCSV assetCSV = new AssetCSV();
-        assetCSV.write("file.csv", data);
+        assetCSV.write("assets.csv", data);
 
-        List<Asset> assetsFromCSV = assetCSV.read("file.csv");
+        List<Asset> assetsFromCSV = assetCSV.read("assets.csv");
         System.out.println(assetsFromCSV.get(0).getDamage());
 
         locationsMap.put(1, location);
         employeesMap.put(employee.getRegistrationNumber(), employee);
 
-        List<Asset> assetsFromCSVWithDependencies = assetCSV.readWithDependencies(false, "file.csv", employeesMap, locationsMap);
+        List<Asset> assetsFromCSVWithDependencies = assetCSV.readWithDependencies(false, "assets.csv", employeesMap, locationsMap);
 
         System.out.println(assetsFromCSVWithDependencies);
 
+        LocationCSV locationCSV = new LocationCSV();
+        locationCSV.write("locations.csv", List.of(location));
+
+        List<Location> locationsFromCSV = locationCSV.read("locations.csv");
+
+        System.out.println(locationsFromCSV);
+
+        EmployeeCSV employeeCSV = new EmployeeCSV();
+
+        employeeCSV.write("employees.csv", List.of(employee));
+
+        List<Employee> employeesFromCSV = employeeCSV.read("employees.csv");
+
+        System.out.println(employeesFromCSV);
 
         //AssetCSVBean csvBean = (AssetCSVBean) csv.get(0);
         //System.out.println(csvBean.toString());

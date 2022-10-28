@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class AssetCSV implements CSV<Asset> {
+    @Override
     public void write(String fileName, List<Asset> data) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName));
 
@@ -28,6 +29,7 @@ public class AssetCSV implements CSV<Asset> {
         bufferedWriter.close();
     }
 
+    @Override
     public List<Asset> read(String fileName) throws FileNotFoundException {
         File file = new File(fileName);
         Scanner reader = new Scanner(file);

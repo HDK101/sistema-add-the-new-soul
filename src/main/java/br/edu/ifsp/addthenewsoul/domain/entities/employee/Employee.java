@@ -1,6 +1,8 @@
 package br.edu.ifsp.addthenewsoul.domain.entities.employee;
 
-public class Employee {
+import br.edu.ifsp.addthenewsoul.application.io.CSVNode;
+
+public class Employee implements CSVNode {
     private String name;
     private String registrationNumber;
     private String hashPassword;
@@ -66,14 +68,35 @@ public class Employee {
     }
 
     @Override
+    public String toCSV() {
+        StringBuilder builder = new StringBuilder();
+
+        builder
+                .append(name)
+                .append(',')
+                .append(registrationNumber)
+                .append(',')
+                .append(hashPassword)
+                .append(',')
+                .append(email)
+                .append(',')
+                .append(phone)
+                .append(',')
+                .append(role.ordinal());
+
+        return builder.toString();
+    }
+
+    @Override
     public String toString() {
-        return "Employee{" +
-                "name='" + name + '\'' +
-                ", registrationNumber='" + registrationNumber + '\'' +
-                ", hashPassword='" + hashPassword + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", role=" + role +
-                '}';
+        final StringBuilder sb = new StringBuilder("Employee{");
+        sb.append("name='").append(name).append('\'');
+        sb.append(", registrationNumber='").append(registrationNumber).append('\'');
+        sb.append(", hashPassword='").append(hashPassword).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append(", phone='").append(phone).append('\'');
+        sb.append(", role=").append(role);
+        sb.append('}');
+        return sb.toString();
     }
 }
