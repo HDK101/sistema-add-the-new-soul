@@ -1,5 +1,6 @@
 package br.edu.ifsp.addthenewsoul.application.repository.database;
 
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.LocationDAO;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import java.sql.PreparedStatement;
@@ -62,6 +63,11 @@ public class SQLiteLocationDAO implements LocationDAO {
     @Override
     public Optional<Location> findByLocation(Integer number, String section) {
         return Optional.empty();
+    }
+
+    @Override
+    public boolean haveAssets(List<Asset> assets, Location location) {
+        return false;
     }
 
     private Location resultSetToEntity(ResultSet rs) throws SQLException {

@@ -4,8 +4,10 @@ import br.edu.ifsp.addthenewsoul.application.repository.immemory.InMemoryAssetDA
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
+import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AddAssetUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetCSV;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
+import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetDAO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
