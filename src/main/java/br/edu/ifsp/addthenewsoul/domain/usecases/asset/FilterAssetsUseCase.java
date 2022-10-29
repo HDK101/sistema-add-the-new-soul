@@ -18,20 +18,20 @@ public class FilterAssetsUseCase {
 
     public List<Asset> filterAssetsByLocal (List<Asset> assets, Location location) {
         if (employee.getRole().equals(Role.INVENTORY_MANAGER))
-            return assetDAO.findByLocation(assets, location);
+            return assetDAO.filterByLocation(assets, location);
         return null;
     }
 
     public List<Asset> filterAssetsByEmployee (List<Asset> assets, Employee employee) {
         if (employee.getRole().equals(Role.INVENTORY_MANAGER))
-            return assetDAO.findByEmployee(assets, employee);
+            return assetDAO.filterByEmployee(assets, employee);
         return null;
     }
 
     public List<Asset> filterAssetsByLocationAndEmployee
             (List<Asset> assets, Location location, Employee employee) {
         if (employee.getRole().equals(Role.INVENTORY_MANAGER))
-            return assetDAO.findByLocationAndEmployee(assets, location, employee);
+            return assetDAO.filterByLocationAndEmployee(assets, location, employee);
         return null;
     }
 }
