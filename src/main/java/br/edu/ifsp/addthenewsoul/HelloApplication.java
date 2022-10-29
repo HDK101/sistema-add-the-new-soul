@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class HelloApplication extends Application {
     public void HidekiTest() throws Exception {
-        Employee employee = new Employee("asd", "asd", "asd", "asd", "asd", Role.EXECUTOR);
+        /*Employee employee = new Employee("asd", "asd", "asd", "asd", "asd", Role.EXECUTOR);
         Location location = new Location(1, 1014, "asd");
         Asset asset = new Asset(1, "asd", employee, 123, "asd", location);
 
@@ -45,7 +45,7 @@ public class HelloApplication extends Application {
 
         List<Employee> employeesFromCSV = employeeCSV.read("employees.csv");
 
-        System.out.println(employeesFromCSV);
+        System.out.println(employeesFromCSV);*/
 
         //AssetCSVBean csvBean = (AssetCSVBean) csv.get(0);
         //System.out.println(csvBean.toString());
@@ -93,7 +93,7 @@ public class HelloApplication extends Application {
 //        System.out.println(result.verified);
     }
 
-    private static void ViniciusTest() {
+    /*private static void ViniciusTest() {
         List<Asset> assets = new ArrayList<>();
 
         Employee employee = new Employee("asd", "asd", "asd", "asd", "asd", Role.EXECUTOR);
@@ -133,9 +133,9 @@ public class HelloApplication extends Application {
         inMemoryAssetDAO.delete(asset_3.getId());
         inMemoryAssetDAO.findAll();*/
 
-    }
 
-    public static void IsaTest() {
+
+    /*public static void IsaTest() {
 
         List<Employee> employees = new ArrayList<>();
 
@@ -165,7 +165,7 @@ public class HelloApplication extends Application {
 
         inMemoryEmployeeDAO.delete(employee1.getRegistrationNumber());
         System.out.println(inMemoryEmployeeDAO.findAll());
-    }
+    }*/
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -178,7 +178,7 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-        ViniciusTest();
+        //ViniciusTest();
         //IsaTest();
         launch();
     }

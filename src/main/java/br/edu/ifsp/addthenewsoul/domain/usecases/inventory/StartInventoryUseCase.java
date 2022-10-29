@@ -1,30 +1,50 @@
 package br.edu.ifsp.addthenewsoul.domain.usecases.inventory;
 
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
+import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
+import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetDAO;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeDAO;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Validator;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class StartInventoryUseCase {
 
     private InventoryDAO inventoryDAO;
+    private EmployeeDAO employeeDAO;
+    private AssetDAO assetDAO;
 
     public StartInventoryUseCase(InventoryDAO inventoryDAO) {
         this.inventoryDAO = inventoryDAO;
     }
 
-    public void initializeInventory (LocalDate initialDate, LocalDate endDate, List<Employee> employees,
-                                     Employee comissionPresident) {
-        for (Employee employee : employees) {
-            if (employee.getRole().equals(Role.INVENTORY_MANAGER))
-                throw new IllegalArgumentException("Employee can not be inventory manager type");
+    public boolean validateData (String initialDate, String endDate) {
+        if (Validator.isValid(initialDate, endDate)) {
+            return Validator.checkIfDateHasPassed(initialDate, endDate);
         }
+        return false;
+    }
 
-        if (comissionPresident.getRole().equals(Role.INVENTORY_MANAGER))
-            throw new IllegalArgumentException("Employee can not be inventory manager type");
+    public List<Employee> listAllEmployees () {
+        return employeeDAO.findAll();
+    }
 
+    public void informTeam (List<Employee> employees) {
+        for (Employee employee : employees) {
+            inventoryDAO.updateRole(employee);
+        }
+    }
+
+    public void initializeInventory (String name, String initialDate, String endDate, List<Employee> employees,
+                                     Employee comissionPresident, List<Asset> assets) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDate dateInitial = LocalDate.parse(initialDate, formatter);
+        LocalDate dateEnd = LocalDate.parse(endDate, formatter);
+        inventoryDAO.initializeInventory(new Inventory(name, comissionPresident, employees
+        , dateInitial, dateEnd, assetDAO.createInventoryAsset(assets)));
     }
 }

@@ -77,16 +77,18 @@ public class Main {
         String description = scanner.nextLine();
         System.out.print("Registration number frm employee in charge: ");
         String regNumberEmployee = scanner.nextLine();
-        Employee employee = inMemoryEmployeeDAO.findByRegistrationNumber(regNumberEmployee);
+        Optional<Employee> employeeInCharge = inMemoryEmployeeDAO.findByRegistrationNumber(regNumberEmployee);
+        Employee employee = employeeInCharge.get();
         System.out.print("Value: ");
         double value = scanner.nextDouble();
         System.out.print("Damage: ");
         String damage = scanner.nextLine();
         System.out.print("Location: ");
         int locationId = scanner.nextInt();
-        Optional<Location> location = inMemoryLocationDAO.findById(locationId);
+        Optional<Location> locationObj = inMemoryLocationDAO.findById(locationId);
+        Location location = locationObj.get();
 
-        Asset asset = new Asset(id, description, employee, value, location);
+        Asset asset = new Asset(id, description, employee, value, damage, location);
 
         inMemoryAssetDAO.add(asset);
     }
@@ -109,7 +111,7 @@ public class Main {
         System.out.print("Registration number frm employee in charge: ");
         String regNumberEmployee = scanner.nextLine();
         Optional<Employee> employee = inMemoryEmployeeDAO.findByRegistrationNumber(regNumberEmployee);
-        asset.setEmployeeInCharge();
+        asset.setEmployeeInCharge(employee.get());
         System.out.print("Value: ");
         double value = scanner.nextDouble();
         asset.setValue(value);
@@ -118,7 +120,7 @@ public class Main {
         asset.setDamage(damage);
         System.out.print("Location: ");
         int locationId = scanner.nextInt();
-        Location location = inMemoryLocationDAO.findById(locationId);
+        Location location = inMemoryLocationDAO.findById(locationId).get();
         asset.setLocation(location);
         return asset;
     }
