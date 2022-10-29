@@ -20,21 +20,21 @@ public class InMemoryAssetDAO implements AssetDAO {
     }
 
     @Override
-    public List<Asset> findByLocation(List<Asset> assets, Location location) {
+    public List<Asset> filterByLocation(List<Asset> assets, Location location) {
         return assets.stream()
                 .filter(asset -> asset.getLocation().fullLocation().contains(location.fullLocation()))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<Asset> findByEmployee(List<Asset> assets, Employee employee) {
+    public List<Asset> filterByEmployee(List<Asset> assets, Employee employee) {
         return assets.stream()
                 .filter(asset -> asset.getEmployeeInCharge().getRegistrationNumber()
                         .contains(employee.getRegistrationNumber())).collect(Collectors.toList());
     }
 
     @Override
-    public List<Asset> findByLocationAndEmployee(List<Asset> assets, Location location, Employee employee) {
+    public List<Asset> filterByLocationAndEmployee(List<Asset> assets, Location location, Employee employee) {
         return assets.stream()
                 .filter(asset -> asset.getLocation().fullLocation().contains(location.fullLocation()))
                 .filter(asset -> asset.getEmployeeInCharge().getRegistrationNumber()

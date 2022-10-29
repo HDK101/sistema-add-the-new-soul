@@ -108,6 +108,7 @@ public class HelloApplication extends Application {
 
     private static void ViniciusTest() {
         List<Asset> assets = new ArrayList<>();
+
         Employee employee = new Employee("asd", "asd", "asd", "asd", "asd", Role.EXECUTOR);
         Location location = new Location(1, 1014, "asd");
         Asset asset = new Asset(1, "asd", employee, 123, "asd", location);
@@ -123,8 +124,8 @@ public class HelloApplication extends Application {
         inMemoryAssetDAO.add(asset);
         inMemoryAssetDAO.add(asset_2);
 
-        inMemoryAssetDAO.findAll();
-        inMemoryAssetDAO.findById(asset_2.getId());
+        System.out.println(inMemoryAssetDAO.findAll());
+        /*inMemoryAssetDAO.findById(asset_2.getId());
 
         inMemoryAssetDAO.add(asset_3);
 
@@ -143,7 +144,7 @@ public class HelloApplication extends Application {
         inMemoryAssetDAO.findById(asset_2.getId());
 
         inMemoryAssetDAO.delete(asset_3.getId());
-        inMemoryAssetDAO.findAll();
+        inMemoryAssetDAO.findAll();*/
 
     }
 
@@ -202,8 +203,8 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-        //ViniciusTest();
-        IsaTest();
+        ViniciusTest();
+        //IsaTest();
         launch();
     }
 
