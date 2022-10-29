@@ -68,4 +68,16 @@ public class Inventory {
     public void setassets(List<InventoryAsset> assets) {
         this.assets = assets;
     }
+
+    @Override
+    public String toString() {
+        return "Inventory{" +
+                "name='" + name + '\'' +
+                ", comissionPresident=" + comissionPresident +
+                ", comission=" + comission +
+                ", initialDate=" + initialDate +
+                ", endDate=" + endDate +
+                ", assets=" + assets +
+                '}';
+    }
 }

@@ -1,4 +1,4 @@
-package br.edu.ifsp.addthenewsoul.application.repository.immemory;
+package br.edu.ifsp.addthenewsoul.application.repository.imMemory;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class inMemoryLocationDAO implements LocationDAO {
+public class InMemoryLocationDAO implements LocationDAO {
 
     private static final Map<Integer, Location> dbMemory = new LinkedHashMap<>();
 

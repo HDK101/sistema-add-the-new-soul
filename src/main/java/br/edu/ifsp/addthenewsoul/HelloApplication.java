@@ -1,27 +1,14 @@
 package br.edu.ifsp.addthenewsoul;
 
-import br.edu.ifsp.addthenewsoul.application.repository.immemory.InMemoryAssetDAO;
-import br.edu.ifsp.addthenewsoul.application.repository.immemory.InMemoryEmployeeDAO;
-import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
-import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
-import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
-import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AddAssetUseCase;
-import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetCSV;
-import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
-import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetDAO;
-import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeCSV;
-import br.edu.ifsp.addthenewsoul.domain.usecases.location.LocationCSV;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.SQLOutput;
-import java.util.*;
+
 
 public class HelloApplication extends Application {
-
     public void HidekiTest() throws Exception {
         Employee employee = new Employee("asd", "asd", "asd", "asd", "asd", Role.EXECUTOR);
         Location location = new Location(1, 1014, "asd");
@@ -180,11 +167,6 @@ public class HelloApplication extends Application {
         System.out.println(inMemoryEmployeeDAO.findAll());
     }
 
-
-
-
-
-
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
@@ -193,13 +175,6 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.show();
 
-        try {
-            //HidekiTest();
-
-
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
     }
 
     public static void main(String[] args) {
