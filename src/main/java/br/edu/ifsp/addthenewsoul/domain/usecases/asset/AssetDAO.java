@@ -11,9 +11,9 @@ import java.util.Optional;
 public interface AssetDAO extends DAO<Asset, Integer> {
     Optional<Asset> findById(Integer id);
 
-    List<Asset> findByLocation (List<Asset> assets, Location location);
+    List<Asset> filterByLocation (List<Asset> assets, Location location);
 
-    List<Asset> findByEmployee (List<Asset> assets, Employee employee);
+    List<Asset> filterByEmployee (List<Asset> assets, Employee employee);
 
-    List<Asset> findByLocationAndEmployee (List<Asset> assets, Location location, Employee employee);
+    List<Asset> filterByLocationAndEmployee (List<Asset> assets, Location location, Employee employee);
 }
