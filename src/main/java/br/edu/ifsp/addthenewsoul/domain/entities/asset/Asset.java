@@ -3,6 +3,8 @@ package br.edu.ifsp.addthenewsoul.domain.entities.asset;
 import br.edu.ifsp.addthenewsoul.application.io.CSVNode;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 
+import java.util.Optional;
+
 public class Asset implements CSVNode {
     private int id;
     private String description;
@@ -32,6 +34,8 @@ public class Asset implements CSVNode {
         this.damage = damage;
         this.location = location;
     }
+
+
 
     public int getId() {
         return id;

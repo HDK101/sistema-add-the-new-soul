@@ -1,4 +1,4 @@
-package br.edu.ifsp.addthenewsoul.application.repository.immemory;
+package br.edu.ifsp.addthenewsoul.application.repository.imMemory;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeDAO;
