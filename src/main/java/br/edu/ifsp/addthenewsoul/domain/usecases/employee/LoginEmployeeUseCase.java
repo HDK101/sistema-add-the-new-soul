@@ -7,6 +7,8 @@ import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Hash;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.InvalidCredentialsException;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Session;
 
+import java.util.Optional;
+
 public class LoginEmployeeUseCase {
     private EmployeeDAO employeeDAO;
 
@@ -14,13 +16,13 @@ public class LoginEmployeeUseCase {
         this.employeeDAO = employeeDAO;
     }
 
-    public void login (String email, String password) {
+    public Employee login (String email, String password) {
         Employee employee = this.employeeDAO.findByEmail(email).orElseThrow();
         String hashPassword = employee.getHashPassword();
         BCrypt.Result result = Hash.verify(hashPassword, password);
         if (result.verified) {
             Session.login(employee);
-            return;
+            return employee;
         }
         throw new InvalidCredentialsException("Invalid credentials");
     }

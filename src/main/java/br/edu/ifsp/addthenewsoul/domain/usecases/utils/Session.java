@@ -2,6 +2,8 @@ package br.edu.ifsp.addthenewsoul.domain.usecases.utils;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 
+import java.util.Optional;
+
 public class Session {
 
     private static Session instance;

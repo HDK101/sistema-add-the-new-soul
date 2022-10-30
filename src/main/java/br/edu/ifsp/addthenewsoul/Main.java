@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class Main {
-
+/*
     private final Scanner scanner = new Scanner(System.in);
 
     private final InMemoryAssetDAO inMemoryAssetDAO = new InMemoryAssetDAO();
@@ -77,7 +77,7 @@ public class Main {
         String description = scanner.nextLine();
         System.out.print("Registration number frm employee in charge: ");
         String regNumberEmployee = scanner.nextLine();
-        Employee employee = inMemoryEmployeeDAO.findByRegistrationNumber(regNumberEmployee);
+        Employee employee = inMemoryEmployeeDAO.findByRegistrationNumber(regNumberEmployee).orElseThrow();
         System.out.print("Value: ");
         double value = scanner.nextDouble();
         System.out.print("Damage: ");
@@ -327,7 +327,7 @@ public class Main {
             }
         }
     }
-
+*/
 }
 
 
