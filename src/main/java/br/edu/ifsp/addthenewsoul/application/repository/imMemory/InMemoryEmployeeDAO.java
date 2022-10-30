@@ -1,9 +1,11 @@
 package br.edu.ifsp.addthenewsoul.application.repository.imMemory;
 
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeDAO;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class InMemoryEmployeeDAO implements EmployeeDAO {
@@ -18,9 +20,29 @@ public class InMemoryEmployeeDAO implements EmployeeDAO {
     }
 
     @Override
+    public Optional<Employee> findByEmail(String email) {
+        Collection<Employee> employees = dbMemoryEmployee.values();
+
+        List<Employee> employeesFiltered = employees.stream().filter(employee -> employee.getEmail().equals(email)).toList();
+
+        return Optional.of(employeesFiltered.get(0));
+    }
+
+    @Override
     public String add(Employee employee) {
         dbMemoryEmployee.put(employee.getRegistrationNumber(), employee);
         return employee.getRegistrationNumber();
+    }
+
+    @Override
+    public Map<String, Employee> bulkAdd(List<Employee> items) {
+        Map<String, Employee> employees = new HashMap<>();
+
+        items.stream().forEach(item -> {
+            employees.put(item.getEmail(), item);
+        });
+
+        return employees;
     }
 
     @Override

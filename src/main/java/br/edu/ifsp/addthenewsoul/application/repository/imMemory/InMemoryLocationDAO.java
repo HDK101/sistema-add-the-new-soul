@@ -39,6 +39,11 @@ public class InMemoryLocationDAO implements LocationDAO {
     }
 
     @Override
+    public Map<Integer, Location> bulkAdd(List<Location> items) {
+        return null;
+    }
+
+    @Override
     public boolean update(Location location) {
         return false;
     }

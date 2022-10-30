@@ -1,12 +1,11 @@
 package br.edu.ifsp.addthenewsoul.domain.usecases.employee;
 
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.AccessLevel;
-import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Singleton;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Session;
 
 public class LogoutEmployeeUseCase {
 
     public void logout () {
-        if (Singleton.getInstance().getAccessLevel() == AccessLevel.ALLOWED)
-            Singleton.getInstance().setAccessLevel(AccessLevel.DENIED);
+        Session.logout();
     }
 }

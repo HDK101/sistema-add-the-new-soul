@@ -9,9 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class SQLiteAssetDAO implements AssetDAO {
 
@@ -51,6 +49,11 @@ public class SQLiteAssetDAO implements AssetDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    @Override
+    public Map<Integer, Asset> bulkAdd(List<Asset> items) {
         return null;
     }
 

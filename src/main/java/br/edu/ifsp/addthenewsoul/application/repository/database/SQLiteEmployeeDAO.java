@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class SQLiteEmployeeDAO implements EmployeeDAO {
@@ -30,6 +31,10 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
 
     }
 
+    @Override
+    public Optional<Employee> findByEmail(String email) {
+        return Optional.empty();
+    }
 
     private Employee resultSetToEntity(ResultSet rs) throws SQLException {
         return new Employee(
@@ -62,6 +67,11 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
             e.printStackTrace();
         }
 
+        return null;
+    }
+
+    @Override
+    public Map<String, Employee> bulkAdd(List<Employee> items) {
         return null;
     }
 
