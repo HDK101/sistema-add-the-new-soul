@@ -35,7 +35,7 @@ public class StartInventoryUseCase {
 
     public void informTeam (List<Employee> employees) {
         for (Employee employee : employees) {
-            inventoryDAO.updateRole(employee);
+            inventoryDAO.insertRoleExecutor(employee);
         }
     }
 
@@ -44,6 +44,7 @@ public class StartInventoryUseCase {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         LocalDate dateInitial = LocalDate.parse(initialDate, formatter);
         LocalDate dateEnd = LocalDate.parse(endDate, formatter);
+        comissionPresident.setRole(Role.CHAIRMAN_OF_THE_COMISSION);
         inventoryDAO.initializeInventory(new Inventory(name, comissionPresident, employees
         , dateInitial, dateEnd, assetDAO.createInventoryAsset(assets)));
     }
