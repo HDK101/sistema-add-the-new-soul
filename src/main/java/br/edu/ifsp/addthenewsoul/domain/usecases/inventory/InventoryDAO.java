@@ -24,5 +24,7 @@ public interface InventoryDAO extends DAO<Inventory, Integer> {
 
     void finalizeInventory (Inventory inventory);
 
+    List<InventoryAsset> createInventoryAsset(List<Asset> assets);
+
 
 }
