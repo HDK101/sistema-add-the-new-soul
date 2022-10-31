@@ -1,4 +1,4 @@
-package br.edu.ifsp.addthenewsoul;
+/*package br.edu.ifsp.addthenewsoul;
 
 import br.edu.ifsp.addthenewsoul.application.repository.imMemory.InMemoryAssetDAO;
 import br.edu.ifsp.addthenewsoul.application.repository.imMemory.InMemoryEmployeeDAO;
@@ -332,5 +332,5 @@ public class Main {
 
 }
 
-
+*/
 
