@@ -2,10 +2,13 @@ package br.edu.ifsp.addthenewsoul.domain.entities.asset;
 
 import br.edu.ifsp.addthenewsoul.application.io.CSVNode;
 
+import java.util.List;
+
 public class Location implements CSVNode {
     private Integer id;
     private Integer number;
     private String section;
+    private List<Asset> assets;
 
     public Location(Integer id, Integer number, String section) {
         this.id = id;
@@ -35,6 +38,14 @@ public class Location implements CSVNode {
 
     public void setNumber(Integer number) {
         this.number = number;
+    }
+
+    public List<Asset> getAssets() {
+        return assets;
+    }
+
+    public void setAssets(List<Asset> assets) {
+        this.assets = assets;
     }
 
     @Override

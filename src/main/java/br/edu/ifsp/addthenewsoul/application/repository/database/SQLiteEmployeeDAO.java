@@ -1,4 +1,4 @@
-package br.edu.ifsp.addthenewsoul.application.repository.database;
+/*package br.edu.ifsp.addthenewsoul.application.repository.database;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
@@ -133,3 +133,5 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
 
     
 }
+
+*/

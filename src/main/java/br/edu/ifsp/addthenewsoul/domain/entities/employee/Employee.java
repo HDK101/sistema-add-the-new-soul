@@ -1,6 +1,10 @@
 package br.edu.ifsp.addthenewsoul.domain.entities.employee;
 
 import br.edu.ifsp.addthenewsoul.application.io.CSVNode;
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
+import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
+
+import java.util.List;
 
 public class Employee implements CSVNode {
     private String name;
@@ -10,6 +14,7 @@ public class Employee implements CSVNode {
     private String email;
     private String phone;
     private Role role;
+    private List<Asset> assetsInCharge;
 
     public Employee(String name, String registrationNumber, String virtualPassword, String email, String phone, Role role) {
         this.name = name;
@@ -18,6 +23,7 @@ public class Employee implements CSVNode {
         this.email = email;
         this.phone = phone;
         this.role = role;
+        this.assetsInCharge = null;
     }
 
     public String getName() {
@@ -76,8 +82,12 @@ public class Employee implements CSVNode {
         this.virtualPassword = virtualPassword;
     }
 
-    public void createPasswordHash() {
+    public List<Asset> getAssetsInCharge() {
+        return assetsInCharge;
+    }
 
+    public void setAssetsInCharge(List<Asset> assetsInCharge) {
+        this.assetsInCharge = assetsInCharge;
     }
 
     @Override

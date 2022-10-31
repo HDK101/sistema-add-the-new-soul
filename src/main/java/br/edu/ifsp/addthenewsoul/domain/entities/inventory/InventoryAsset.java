@@ -16,6 +16,7 @@ public class InventoryAsset extends Asset {
     }
 
 
+
     public Status getStatus() {
         return status;
     }

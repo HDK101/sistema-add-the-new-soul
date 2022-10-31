@@ -2,6 +2,8 @@ package br.edu.ifsp.addthenewsoul;
 
 import br.edu.ifsp.addthenewsoul.application.repository.imMemory.InMemoryAssetDAO;
 import br.edu.ifsp.addthenewsoul.application.repository.imMemory.InMemoryEmployeeDAO;
+import br.edu.ifsp.addthenewsoul.application.repository.imMemory.InMemoryInventoryDAO;
+import br.edu.ifsp.addthenewsoul.application.repository.imMemory.InMemoryLocationDAO;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
@@ -9,15 +11,23 @@ import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetCSV;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.AddEmployeeUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeCSV;
-import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeDAO;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.LoginEmployeeUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.LocationCSV;
+import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
+import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
+import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
+import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;
+import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.StartInventoryUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.location.LocationDAO;
+import br.edu.ifsp.addthenewsoul.domain.usecases.report.IssueReportUseCase;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+
 import java.util.*;
 
 
@@ -113,10 +123,11 @@ public class HelloApplication extends Application {
 //
 //        System.out.println(hash);
 //        System.out.println(result.verified);
-    }
+    }*/
 
-    private static void ViniciusTest() {
+    /*private static void ViniciusTest() {
         List<Asset> assets = new ArrayList<>();
+
 
         Employee employee = new Employee("asd", "asd", "asd", "asd", "asd", Role.EXECUTOR);
         Location location = new Location(1, 1014, "asd");
@@ -155,11 +166,12 @@ public class HelloApplication extends Application {
         inMemoryAssetDAO.delete(asset_3.getId());
         inMemoryAssetDAO.findAll();*/
 
-    }
+
 
     public static void IsaTest() {
-
+        /*
         List<Employee> employees = new ArrayList<>();
+
 
         Employee employee = new Employee("Fulano", "R123", "abc", "fulano@gmail.com", "11111", Role.EXECUTOR);
         Employee employee1 = new Employee("Ciclano", "R456", "def", "ciclano@gmail.com", "22222", Role.EXECUTOR);
@@ -186,8 +198,64 @@ public class HelloApplication extends Application {
         System.out.println(inMemoryEmployeeDAO.findByRegistrationNumber(employee1.getRegistrationNumber()));
 
         inMemoryEmployeeDAO.delete(employee1.getRegistrationNumber());
-        System.out.println(inMemoryEmployeeDAO.findAll());
+        System.out.println(inMemoryEmployeeDAO.findAll());*/
+
+
+        ///////////////////
+
+        Employee employee = new Employee("Fulano", "R123", "abc", "fulano@gmail.com", "11111", Role.CHAIRMAN_OF_THE_COMISSION, null);
+        Employee employee1 = new Employee("Ciclano", "R456", "def", "ciclano@gmail.com", "22222", Role.EXECUTOR, null);
+        Employee employee2 = new Employee("Beltrano", "R789", "ghi", "beltrano@gmail.com", "33333", Role.INVENTORY_MANAGER, null);
+        Employee employee3 = new Employee("Jose", "R999", "zzz", "jose@gmail.com", "44444", Role.EXECUTOR, null);
+
+        Location location1 = new Location(1, 1, "section 1");
+        Location location2 = new Location(2, 2, "section 2");
+
+        InventoryAsset inventoryAsset1 = new InventoryAsset(1, "asset 1", employee1, 200.00, "pé quebrado", location1, Status.VERIFIED);
+        InventoryAsset inventoryAsset2 = new InventoryAsset(2, "asset 2", employee3, 500.00, "não funciona", location2, Status.NOT_VERIFIED);
+
+        Asset asset1 = new Asset(1, "asd", employee, 123, "asd", location1);
+        Asset asset2 = new Asset(2, "xxv", employee1, 123, "asd", location2);
+        Asset asset3 = new Asset(3, "xxv", employee2, 453, "asd", location2);
+
+
+        List<Employee> comission = new ArrayList<>();
+        comission.add(employee1);
+        comission.add(employee3);
+
+        List<InventoryAsset> inventoryAssets = new ArrayList<>();
+        inventoryAssets.add(inventoryAsset1);
+        inventoryAssets.add(inventoryAsset2);
+
+        List<Asset> assets = new ArrayList<>();
+        assets.add(asset1);
+        assets.add(asset2);
+        assets.add(asset3);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDate initialDate = LocalDate.parse("2022/10/27", formatter);
+        LocalDate endDate = LocalDate.parse("2022/10/30", formatter);
+
+        InMemoryInventoryDAO inMemoryInventoryDAO = new InMemoryInventoryDAO();
+        InMemoryEmployeeDAO inMemoryEmployeeDAO = new InMemoryEmployeeDAO();
+        InMemoryLocationDAO inMemoryLocationDAO = new InMemoryLocationDAO();
+
+        IssueReportUseCase issueReportUseCase = new IssueReportUseCase(inMemoryInventoryDAO, inMemoryEmployeeDAO, inMemoryLocationDAO);
+        //Inventory inventory = new Inventory(1, "Inventory ONE", employee, comission, initialDate, endDate, assets);
+
+        StartInventoryUseCase startInventoryUseCase = new StartInventoryUseCase(inMemoryInventoryDAO);
+        //startInventoryUseCase.initializeInventory(inventory);
+        //System.out.println(inMemoryInventoryDAO.findInventoryById(1));
+        //System.out.println(inventoryDAO.findAll());
+        //issueReportUseCase.issueInventoryReport(1);
+
+        startInventoryUseCase.initializeInventory(1, "Inventory ONE", "2022/10/27", "2022/10/30", comission, employee3, assets);
+        issueReportUseCase.issueInventoryReport(1);
+        //issueReportUseCase.issueEmployeeReport("R789");
+        //issueReportUseCase.issueLocationReport(2);
     }
+
+
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -202,7 +270,7 @@ public class HelloApplication extends Application {
     public static void main(String[] args) throws Exception {
         HidekiTest();
         //ViniciusTest();
-        //IsaTest();
+        IsaTest();
         launch();
     }
 

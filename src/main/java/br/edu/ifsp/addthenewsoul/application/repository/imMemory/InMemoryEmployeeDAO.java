@@ -12,6 +12,7 @@ public class InMemoryEmployeeDAO implements EmployeeDAO {
 
     private final Map<String, Employee> dbMemoryEmployee = new LinkedHashMap<>();
 
+
     @Override
     public Optional<Employee> findByRegistrationNumber(String registrationNumber) {
         if (dbMemoryEmployee.containsKey(registrationNumber))

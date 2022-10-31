@@ -19,7 +19,8 @@ public class RemoveLocationUseCase {
         if (employee.getRole().equals(Role.INVENTORY_MANAGER)) {
             if (locationDAO.haveAssets(assetDAO.findAll(), location))
                 throw new IllegalArgumentException("A location cannot be deleted while there are assets in it.");
+            return locationDAO.delete(location.getId());
         }
-        return locationDAO.delete(location.getId());
+        return false;
     }
 }

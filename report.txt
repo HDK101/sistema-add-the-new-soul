@@ -1,0 +1,12 @@
+Inventory ID: 1
+Name: Inventory ONE
+Started on: 2022-10-27 Finished on: 2022-10-30
+Comission president: Employee{name='Jose', registrationNumber='R999', hashPassword='zzz', email='jose@gmail.com', phone='44444', role=CHAIRMAN_OF_THE_COMISSION}
+Comission members: [Employee{name='Ciclano', registrationNumber='R456', hashPassword='def', email='ciclano@gmail.com', phone='22222', role=EXECUTOR}, Employee{name='Jose', registrationNumber='R999', hashPassword='zzz', email='jose@gmail.com', phone='44444', role=CHAIRMAN_OF_THE_COMISSION}]
+Verified assets: 
+     -> Asset ID: 1Description: asdEmployee in charge: Employee{name='Fulano', registrationNumber='R123', hashPassword='abc', email='fulano@gmail.com', phone='11111', role=CHAIRMAN_OF_THE_COMISSION}Value: 123.0Damage: asdLocation: Location{id=1, number=1, section='section 1'}
+Status: NOT_VERIFIED
+     -> Asset ID: 2Description: xxvEmployee in charge: Employee{name='Ciclano', registrationNumber='R456', hashPassword='def', email='ciclano@gmail.com', phone='22222', role=EXECUTOR}Value: 123.0Damage: asdLocation: Location{id=2, number=2, section='section 2'}
+Status: NOT_VERIFIED
+     -> Asset ID: 3Description: xxvEmployee in charge: Employee{name='Beltrano', registrationNumber='R789', hashPassword='ghi', email='beltrano@gmail.com', phone='33333', role=INVENTORY_MANAGER}Value: 453.0Damage: asdLocation: Location{id=2, number=2, section='section 2'}
+Status: NOT_VERIFIED
