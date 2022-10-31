@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 public class InMemoryAssetDAO implements AssetDAO {
 
     private static final Map<Integer, Asset> dbMemoryAsset = new LinkedHashMap<>();
-    private static int currentId = 0;
 
     @Override
     public Optional<Asset> findById(Integer id) {
@@ -53,9 +52,12 @@ public class InMemoryAssetDAO implements AssetDAO {
         Map<Integer, Asset> assets = new HashMap<>();
 
         items.stream().forEach(item -> {
-            currentId++;
-            assets.put(currentId, item);
+            if (!assets.containsKey(item.getId())) {
+                assets.put(item.getId(), item);
+            }
         });
+
+        dbMemoryAsset.putAll(assets);
 
         return assets;
     }

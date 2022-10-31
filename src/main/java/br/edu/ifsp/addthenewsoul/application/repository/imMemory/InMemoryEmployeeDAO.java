@@ -39,8 +39,12 @@ public class InMemoryEmployeeDAO implements EmployeeDAO {
         Map<String, Employee> employees = new HashMap<>();
 
         items.stream().forEach(item -> {
-            employees.put(item.getEmail(), item);
+            if (!employees.containsKey(item.getEmail())) {
+                employees.put(item.getEmail(), item);
+            }
         });
+
+        dbMemoryEmployee.putAll(employees);
 
         return employees;
     }

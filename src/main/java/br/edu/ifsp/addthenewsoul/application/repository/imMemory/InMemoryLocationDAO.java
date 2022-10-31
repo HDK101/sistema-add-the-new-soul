@@ -2,12 +2,10 @@ package br.edu.ifsp.addthenewsoul.application.repository.imMemory;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
+import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.LocationDAO;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class InMemoryLocationDAO implements LocationDAO {
 
@@ -40,7 +38,17 @@ public class InMemoryLocationDAO implements LocationDAO {
 
     @Override
     public Map<Integer, Location> bulkAdd(List<Location> items) {
-        return null;
+        Map<Integer, Location> locations = new HashMap<>();
+
+        items.stream().forEach(item -> {
+            if (!locations.containsKey(item.getId())) {
+                locations.put(item.getId(), item);
+            }
+        });
+
+        dbMemory.putAll(locations);
+
+        return locations;
     }
 
     @Override

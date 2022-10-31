@@ -5,6 +5,7 @@ import br.edu.ifsp.addthenewsoul.application.io.CSVNode;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.AssetDependencyNotFoundException;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -52,7 +53,7 @@ public class AssetCSV implements CSV<Asset> {
         return assets;
     }
 
-    public List<Asset> readWithDependencies(boolean throwError, String fileName, Map<String, Employee> employees, Map<Integer, Location> locations) throws Exception {
+    public List<Asset> readWithDependencies(String fileName, boolean withInvalidDependencies, Map<String, Employee> employees, Map<Integer, Location> locations) throws AssetDependencyNotFoundException, FileNotFoundException {
         List<Asset> assets = read(fileName);
 
         for (Asset asset : assets) {
@@ -60,7 +61,7 @@ public class AssetCSV implements CSV<Asset> {
             Location location = locations.get(asset.getLocalId());
 
             if (location == null || employee == null) {
-                if (throwError) throw new Exception("Local and/or employee not found");
+                if (withInvalidDependencies) throw new AssetDependencyNotFoundException("Local and/or employee not found");
             }
             else {
                 asset.setLocation(location);
