@@ -44,7 +44,7 @@ public class IssueReportUseCase {
                     inventoryAssetDetails.append("     -> Asset ID: " + asset.getId()  +  "Description: " +
                             asset.getDescription() + "Employee in charge: " + asset.getEmployeeInCharge() + "Value: " +
                             asset.getValue() + "Damage: " + asset.getDamage() + "Location: " + asset.getLocation() +
-                            "\n" + "Status: " + asset.getStatus());
+                            "\n" + "Status: " + asset.getStatus() + "\n");
                 }
 
                 writeTxtFile(inventoryReport.append(inventoryAssetDetails));
@@ -65,10 +65,10 @@ public class IssueReportUseCase {
             employeeReport.append("Employee registration number: " + employee.getRegistrationNumber() + "\n" +
                     "Name: " + employee.getName() + "E-mail: " + employee.getEmail() + "\n" + "Phone number: " +
                     employee.getPhone() + "\n" + "Role: " + employee.getRole() + "\n" + "Assets in charge: " + "\n");
-            for(InventoryAsset asset  : employee.getAssetsInCharge()){
+            for(Asset asset  : employee.getAssetsInCharge()){
                 inventoryAssetDetails.append("     -> Asset ID: " + asset.getId()  +  "Description: " +
                         asset.getDescription() +  "Value: " + asset.getValue() + "Damage: " + asset.getDamage() +
-                        "Location: " + asset.getLocation() + "\n" + "Status: " + asset.getStatus());
+                        "Location: " + asset.getLocation() + "\n");
             }
             writeTxtFile(employeeReport.append(inventoryAssetDetails));
             System.out.println("Report issued.");

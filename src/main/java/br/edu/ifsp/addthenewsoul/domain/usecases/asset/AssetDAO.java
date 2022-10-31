@@ -18,5 +18,5 @@ public interface AssetDAO extends DAO<Asset, Integer> {
 
     List<Asset> filterByLocationAndEmployee (List<Asset> assets, Location location, Employee employee);
 
-    List<InventoryAsset> createInventoryAsset(List<Asset> assets);
+
 }

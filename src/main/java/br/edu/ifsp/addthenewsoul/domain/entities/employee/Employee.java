@@ -13,7 +13,7 @@ public class Employee implements CSVNode {
     private String email;
     private String phone;
     private Role role;
-    private List<InventoryAsset> assetsInCharge;
+    private List<Asset> assetsInCharge;
 
     public Employee(String name, String registrationNumber, String hashPassword, String email, String phone, Role role, List<InventoryAsset> assetsInCharge) {
         this.name = name;
@@ -73,11 +73,11 @@ public class Employee implements CSVNode {
         this.role = role;
     }
 
-    public List<InventoryAsset> getAssetsInCharge() {
+    public List<Asset> getAssetsInCharge() {
         return assetsInCharge;
     }
 
-    public void setAssetsInCharge(List<InventoryAsset> assetsInCharge) {
+    public void setAssetsInCharge(List<Asset> assetsInCharge) {
         this.assetsInCharge = assetsInCharge;
     }
 

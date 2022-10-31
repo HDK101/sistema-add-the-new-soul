@@ -3,6 +3,7 @@ package br.edu.ifsp.addthenewsoul;
 import br.edu.ifsp.addthenewsoul.application.repository.imMemory.InMemoryEmployeeDAO;
 import br.edu.ifsp.addthenewsoul.application.repository.imMemory.InMemoryInventoryDAO;
 import br.edu.ifsp.addthenewsoul.application.repository.imMemory.InMemoryLocationDAO;
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
@@ -11,6 +12,7 @@ import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeDAO;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;
+import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.StartInventoryUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.LocationDAO;
 import br.edu.ifsp.addthenewsoul.domain.usecases.report.IssueReportUseCase;
 import javafx.application.Application;
@@ -113,6 +115,7 @@ public class HelloApplication extends Application {
     /*private static void ViniciusTest() {
         List<Asset> assets = new ArrayList<>();
 
+
         Employee employee = new Employee("asd", "asd", "asd", "asd", "asd", Role.EXECUTOR);
         Location location = new Location(1, 1014, "asd");
         Asset asset = new Asset(1, "asd", employee, 123, "asd", location);
@@ -198,13 +201,23 @@ public class HelloApplication extends Application {
         InventoryAsset inventoryAsset1 = new InventoryAsset(1, "asset 1", employee1, 200.00, "pé quebrado", location1, Status.VERIFIED);
         InventoryAsset inventoryAsset2 = new InventoryAsset(2, "asset 2", employee3, 500.00, "não funciona", location2, Status.NOT_VERIFIED);
 
+        Asset asset1 = new Asset(1, "asd", employee, 123, "asd", location1);
+        Asset asset2 = new Asset(2, "xxv", employee1, 123, "asd", location2);
+        Asset asset3 = new Asset(3, "xxv", employee2, 453, "asd", location2);
+
+
         List<Employee> comission = new ArrayList<>();
         comission.add(employee1);
         comission.add(employee3);
 
-        List<InventoryAsset> assets = new ArrayList<>();
-        assets.add(inventoryAsset1);
-        assets.add(inventoryAsset2);
+        List<InventoryAsset> inventoryAssets = new ArrayList<>();
+        inventoryAssets.add(inventoryAsset1);
+        inventoryAssets.add(inventoryAsset2);
+
+        List<Asset> assets = new ArrayList<>();
+        assets.add(asset1);
+        assets.add(asset2);
+        assets.add(asset3);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         LocalDate initialDate = LocalDate.parse("2022/10/27", formatter);
@@ -215,14 +228,20 @@ public class HelloApplication extends Application {
         InMemoryLocationDAO inMemoryLocationDAO = new InMemoryLocationDAO();
 
         IssueReportUseCase issueReportUseCase = new IssueReportUseCase(inMemoryInventoryDAO, inMemoryEmployeeDAO, inMemoryLocationDAO);
-        Inventory inventory = new Inventory(1, "Inventory ONE", employee, comission, initialDate, endDate, assets);
+        //Inventory inventory = new Inventory(1, "Inventory ONE", employee, comission, initialDate, endDate, assets);
 
-        inMemoryInventoryDAO.initializeInventory(inventory);
+        StartInventoryUseCase startInventoryUseCase = new StartInventoryUseCase(inMemoryInventoryDAO);
+        //startInventoryUseCase.initializeInventory(inventory);
         //System.out.println(inMemoryInventoryDAO.findInventoryById(1));
         //System.out.println(inventoryDAO.findAll());
         //issueReportUseCase.issueInventoryReport(1);
 
+        startInventoryUseCase.initializeInventory(1, "Inventory ONE", "2022/10/27", "2022/10/30", comission, employee3, assets);
+        issueReportUseCase.issueInventoryReport(1);
+        //issueReportUseCase.issueEmployeeReport("R789");
+        //issueReportUseCase.issueLocationReport(2);
     }
+
 
 
     @Override

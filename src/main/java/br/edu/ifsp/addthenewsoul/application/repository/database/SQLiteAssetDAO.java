@@ -35,10 +35,6 @@ public class SQLiteAssetDAO implements AssetDAO {
     public List<Asset> filterByLocationAndEmployee(List<Asset> assets, Location location, Employee employee) {
         return null;
     }
-    @Override
-    public List<InventoryAsset> createInventoryAsset(List<Asset> assets) {
-        return null;
-    }
 
     @Override
     public synchronized Integer add(Asset asset) {

@@ -47,7 +47,7 @@ public class StartInventoryUseCase {
         LocalDate dateEnd = LocalDate.parse(endDate, formatter);
         comissionPresident.setRole(Role.CHAIRMAN_OF_THE_COMISSION);
         Inventory inventory = new Inventory(id, name, comissionPresident, employees, dateInitial, dateEnd,
-                assetDAO.createInventoryAsset(assets));
+                inventoryDAO.createInventoryAsset(assets));
         inventoryDAO.initializeInventory(inventory);
         inventoryDAO.add(inventory);
     }

@@ -1,5 +1,6 @@
 package br.edu.ifsp.addthenewsoul.application.repository.imMemory;
 
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeDAO;
 
@@ -9,6 +10,7 @@ import java.util.*;
 public class InMemoryEmployeeDAO implements EmployeeDAO {
 
     private final Map<String, Employee> dbMemoryEmployee = new LinkedHashMap<>();
+
 
     @Override
     public Optional<Employee> findByRegistrationNumber(String registrationNumber) {
