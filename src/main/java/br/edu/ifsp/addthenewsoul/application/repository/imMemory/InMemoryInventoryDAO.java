@@ -15,6 +15,11 @@ public class InMemoryInventoryDAO implements InventoryDAO {
     private final Map<Integer, Inventory> dbMemoryInventory = new LinkedHashMap<>();
 
     @Override
+    public Map<Integer, Inventory> bulkAdd(List<Inventory> items) {
+        return null;
+    }
+
+    @Override
     public Integer add(Inventory inventory) {
         dbMemoryInventory.put(inventory.getId(), inventory);
         return inventory.getId();

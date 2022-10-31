@@ -13,6 +13,11 @@ public class InMemoryInventoryAssetDAO implements InventoryAssetDAO {
     private static final Map<Integer, Asset> dbMemoryInventoryAsset = new LinkedHashMap<>();
 
     @Override
+    public Map<Integer, InventoryAsset> bulkAdd(List<InventoryAsset> items) {
+        return null;
+    }
+
+    @Override
     public Integer add(InventoryAsset inventoryAsset) { return null;}
 
     @Override

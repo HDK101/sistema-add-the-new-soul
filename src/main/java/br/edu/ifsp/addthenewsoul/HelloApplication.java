@@ -11,6 +11,7 @@ import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetCSV;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.AddEmployeeUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeCSV;
+import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeDAO;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.LoginEmployeeUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.LocationCSV;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
@@ -51,9 +52,9 @@ public class HelloApplication extends Application {
         locationsMap.put(1, location);
         employeesMap.put(employee.getRegistrationNumber(), employee);
 
-        List<Asset> assetsFromCSVWithDependencies = assetCSV.readWithDependencies(false, "assets.csv", employeesMap, locationsMap);
+        //List<Asset> assetsFromCSVWithDependencies = assetCSV.readWithDependencies(false, "assets.csv", employeesMap, locationsMap);
 
-        System.out.println(assetsFromCSVWithDependencies);
+        //System.out.println(assetsFromCSVWithDependencies);
 
         LocationCSV locationCSV = new LocationCSV();
         locationCSV.write("locations.csv", List.of(location));
@@ -123,7 +124,7 @@ public class HelloApplication extends Application {
 //
 //        System.out.println(hash);
 //        System.out.println(result.verified);
-    }*/
+    }
 
     /*private static void ViniciusTest() {
         List<Asset> assets = new ArrayList<>();
@@ -198,7 +199,7 @@ public class HelloApplication extends Application {
         System.out.println(inMemoryEmployeeDAO.findByRegistrationNumber(employee1.getRegistrationNumber()));
 
         inMemoryEmployeeDAO.delete(employee1.getRegistrationNumber());
-        System.out.println(inMemoryEmployeeDAO.findAll());*/
+        System.out.println(inMemoryEmployeeDAO.findAll());
 
 
         ///////////////////
@@ -253,6 +254,7 @@ public class HelloApplication extends Application {
         issueReportUseCase.issueInventoryReport(1);
         //issueReportUseCase.issueEmployeeReport("R789");
         //issueReportUseCase.issueLocationReport(2);
+         */
     }
 
 

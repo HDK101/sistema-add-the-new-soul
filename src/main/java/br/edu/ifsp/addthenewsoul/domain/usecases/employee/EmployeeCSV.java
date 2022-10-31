@@ -1,4 +1,4 @@
-/*package br.edu.ifsp.addthenewsoul.domain.usecases.employee;
+package br.edu.ifsp.addthenewsoul.domain.usecases.employee;
 
 import br.edu.ifsp.addthenewsoul.application.io.CSV;
 import br.edu.ifsp.addthenewsoul.application.io.CSVNode;
@@ -47,5 +47,3 @@ public class EmployeeCSV implements CSV<Employee> {
         return employees;
     }
 }
-
-*/
