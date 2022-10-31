@@ -10,15 +10,16 @@ public class Employee implements CSVNode {
     private String name;
     private String registrationNumber;
     private String hashPassword;
+    private String virtualPassword;
     private String email;
     private String phone;
     private Role role;
     private List<Asset> assetsInCharge;
 
-    public Employee(String name, String registrationNumber, String hashPassword, String email, String phone, Role role, List<InventoryAsset> assetsInCharge) {
+    public Employee(String name, String registrationNumber, String virtualPassword, String email, String phone, Role role) {
         this.name = name;
         this.registrationNumber = registrationNumber;
-        this.hashPassword = hashPassword;
+        this.virtualPassword = virtualPassword;
         this.email = email;
         this.phone = phone;
         this.role = role;
@@ -71,6 +72,14 @@ public class Employee implements CSVNode {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getVirtualPassword() {
+        return virtualPassword;
+    }
+
+    public void setVirtualPassword(String virtualPassword) {
+        this.virtualPassword = virtualPassword;
     }
 
     public List<Asset> getAssetsInCharge() {

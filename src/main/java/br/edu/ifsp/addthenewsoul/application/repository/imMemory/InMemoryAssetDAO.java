@@ -50,6 +50,21 @@ public class InMemoryAssetDAO implements AssetDAO {
     }
 
     @Override
+    public Map<Integer, Asset> bulkAdd(List<Asset> items) {
+        Map<Integer, Asset> assets = new HashMap<>();
+
+        items.stream().forEach(item -> {
+            if (!assets.containsKey(item.getId())) {
+                assets.put(item.getId(), item);
+            }
+        });
+
+        dbMemoryAsset.putAll(assets);
+
+        return assets;
+    }
+
+    @Override
     public boolean update(Asset asset) {
         if (dbMemoryAsset.containsKey(asset.getId())) {
             dbMemoryAsset.replace(asset.getId(), asset);

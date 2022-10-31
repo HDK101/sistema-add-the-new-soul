@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class Main {
-
+/*
     private final Scanner scanner = new Scanner(System.in);
 
     private final InMemoryAssetDAO inMemoryAssetDAO = new InMemoryAssetDAO();
@@ -329,7 +329,7 @@ public class Main {
             }
         }
     }
-
+*/
 }
 
 */

@@ -7,12 +7,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class SQLiteLocationDAO implements LocationDAO {
 
     @Override
     public Integer add(Location location) {
+        return null;
+    }
+
+    @Override
+    public Map<Integer, Location> bulkAdd(List<Location> items) {
         return null;
     }
 
