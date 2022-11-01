@@ -1,7 +1,9 @@
 package br.edu.ifsp.addthenewsoul.domain.entities.inventory;
 
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Inventory {
@@ -11,9 +13,9 @@ public class Inventory {
     private List<Employee> comission;
     private LocalDate initialDate;
     private LocalDate endDate;
-    private List<InventoryAsset> assets;
+    private List<Asset> assets;
 
-    public Inventory(Integer id, String name, Employee comissionPresident, List<Employee> comission, LocalDate initialDate, LocalDate endDate, List<InventoryAsset> assets) {
+    public Inventory(Integer id, String name, Employee comissionPresident, List<Employee> comission, LocalDate initialDate, LocalDate endDate, List<Asset> assets) {
         this.id = id;
         this.name = name;
         this.comissionPresident = comissionPresident;
@@ -23,6 +25,21 @@ public class Inventory {
         this.assets = assets;
     }
 
+    public Inventory(String name, String initialDate, String endDate, Employee comissionPresident, List<Asset> assets, List<Employee> comission) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDate dateInitial = LocalDate.parse(initialDate, formatter);
+        LocalDate dateEnd = LocalDate.parse(endDate, formatter);
+
+        this.name = name;
+        this.comissionPresident = comissionPresident;
+        this.comission = comission;
+        this.initialDate = dateInitial;
+        this.endDate = dateEnd;
+        this.assets = assets;
+    }
+
+
+
     public List<Employee> getComission() {
         return comission;
     }
@@ -31,11 +48,11 @@ public class Inventory {
         this.comission = comission;
     }
 
-    public List<InventoryAsset> getAssets() {
+    public List<Asset> getAssets() {
         return assets;
     }
 
-    public void setAssets(List<InventoryAsset> assets) {
+    public void setAssets(List<Asset> assets) {
         this.assets = assets;
     }
 
@@ -85,14 +102,6 @@ public class Inventory {
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
-    }
-
-    public List<InventoryAsset> getassets() {
-        return assets;
-    }
-
-    public void setassets(List<InventoryAsset> assets) {
-        this.assets = assets;
     }
 
     @Override

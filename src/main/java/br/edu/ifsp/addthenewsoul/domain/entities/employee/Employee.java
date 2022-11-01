@@ -2,6 +2,7 @@ package br.edu.ifsp.addthenewsoul.domain.entities.employee;
 
 import br.edu.ifsp.addthenewsoul.application.io.CSVNode;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
+import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 
 import java.util.List;
