@@ -11,10 +11,5 @@ import java.util.Optional;
 
 
 public interface InventoryDAO extends DAO<Inventory, Integer> {
-
     Optional<Inventory> findInventoryById(Integer id);
-
-    List<InventoryAsset> createInventoryAsset(List<Asset> assets);
-
-
 }

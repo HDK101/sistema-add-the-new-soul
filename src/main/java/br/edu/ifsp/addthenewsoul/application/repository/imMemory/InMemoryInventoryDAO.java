@@ -54,16 +54,4 @@ public class InMemoryInventoryDAO implements InventoryDAO {
             return Optional.of(dbMemoryInventory.get(id));
         return Optional.empty();
     }
-
-
-    @Override
-    public List<InventoryAsset> createInventoryAsset(List<Asset> assets) {
-        List<InventoryAsset> inventoryAssets = new ArrayList<>();
-        for (Asset asset : assets) {
-            inventoryAssets.add(new InventoryAsset(asset.getId(), asset.getDescription(),
-                    asset.getEmployeeInCharge(), asset.getValue(), asset.getDamage(), asset.getLocation(),
-                    Status.NOT_VERIFIED));
-        }
-        return inventoryAssets;
-    }
 }
