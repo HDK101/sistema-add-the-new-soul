@@ -1,4 +1,4 @@
-package br.edu.ifsp.addthenewsoul.domain.usecases.report;
+package br.edu.ifsp.addthenewsoul.domain.usecases.utils;
 
 import java.io.BufferedWriter;
 import java.io.File;

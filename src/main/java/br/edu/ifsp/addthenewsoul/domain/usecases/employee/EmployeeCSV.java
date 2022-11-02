@@ -11,19 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class EmployeeCSV implements CSV<Employee> {
-    @Override
-    public void write(String fileName, List<Employee> data) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName));
-
-        for(CSVNode d : data) {
-            bufferedWriter.append(d.toCSV());
-            bufferedWriter.append('\n');
-        }
-
-        bufferedWriter.close();
-    }
-
+public class EmployeeCSV extends CSV<Employee> {
     @Override
     public List<Employee> read(String fileName) throws FileNotFoundException {
         File file = new File(fileName);

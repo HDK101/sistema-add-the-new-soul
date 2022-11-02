@@ -17,19 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-public class AssetCSV implements CSV<Asset> {
-    @Override
-    public void write(String fileName, List<Asset> data) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName));
-
-        for(CSVNode d : data) {
-            bufferedWriter.append(d.toCSV());
-            bufferedWriter.append('\n');
-        }
-
-        bufferedWriter.close();
-    }
-
+public class AssetCSV extends CSV<Asset> {
     @Override
     public List<Asset> read(String fileName) throws FileNotFoundException {
         File file = new File(fileName);

@@ -10,19 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class LocationCSV implements CSV<Location> {
-    @Override
-    public void write(String fileName, List<Location> data) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName));
-
-        for(CSVNode d : data) {
-            bufferedWriter.append(d.toCSV());
-            bufferedWriter.append('\n');
-        }
-
-        bufferedWriter.close();
-    }
-
+public class LocationCSV extends CSV<Location> {
     @Override
     public List<Location> read(String fileName) throws FileNotFoundException {
         File file = new File(fileName);

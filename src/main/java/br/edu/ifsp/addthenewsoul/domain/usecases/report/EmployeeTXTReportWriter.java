@@ -2,7 +2,7 @@ package br.edu.ifsp.addthenewsoul.domain.usecases.report;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
-import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeDAO;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.TXTWriter;
 
 public class EmployeeTXTReportWriter extends TXTWriter implements EmployeeReportWriter {
     private StringBuilder employeeReport;
