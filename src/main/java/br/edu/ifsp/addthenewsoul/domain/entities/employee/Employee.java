@@ -5,6 +5,7 @@ import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Employee implements CSVNode {

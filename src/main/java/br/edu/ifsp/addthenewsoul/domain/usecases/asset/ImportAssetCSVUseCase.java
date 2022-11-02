@@ -26,6 +26,11 @@ public class ImportAssetCSVUseCase {
         this.employeeDAO = employeeDAO;
     }
 
+    public ImportAssetCSVUseCase(AssetCSV assetCSV, AssetDAO assetDAO) {
+        this.assetCSV = assetCSV;
+        this.assetDAO = assetDAO;
+    }
+
     private Map<String, Employee> employeesToMap(List<Employee> employees) {
         Map<String, Employee> employeeMap = new HashMap<>();
         employees.stream().forEach(employee -> {
@@ -45,7 +50,12 @@ public class ImportAssetCSVUseCase {
     public void importAssets(String fileName, boolean withInvalidDependencies) throws IOException {
         List<Employee> employees = employeeDAO.findAll();
         List<Location> locations = locationDAO.findAll();
-        List<Asset> assets = assetCSV.readWithDependencies(fileName, withInvalidDependencies, employeesToMap(employees), locationsToMap(locations));
+        //List<Asset> assets = assetCSV.read(fileName, withInvalidDependencies, employeesToMap(employees), locationsToMap(locations));
+        //assetDAO.bulkAdd(assets);
+    }
+
+    public void importAssets(String fileName) throws IOException {
+        List<Asset> assets = assetCSV.read(fileName);
         assetDAO.bulkAdd(assets);
     }
 }

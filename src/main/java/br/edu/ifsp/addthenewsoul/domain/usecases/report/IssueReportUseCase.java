@@ -21,6 +21,7 @@ public class IssueReportUseCase {
 
     private InventoryDAO inventoryDAO;
     private EmployeeDAO employeeDAO;
+    private EmployeeReportWriter employeeReportWriter;
     private LocationDAO locationDAO;
 
     public IssueReportUseCase(InventoryDAO inventoryDAO, EmployeeDAO employeeDAO, LocationDAO locationDAO) {
@@ -29,7 +30,13 @@ public class IssueReportUseCase {
         this.locationDAO = locationDAO;
     }
 
+    public IssueReportUseCase(EmployeeDAO employeeDAO, EmployeeReportWriter employeeReportWriter) {
+        this.employeeDAO = employeeDAO;
+        this.employeeReportWriter = employeeReportWriter;
+    }
+
     public void issueInventoryReport(Integer inventoryId) {
+        /*
         Inventory inventory = inventoryDAO.findInventoryById(inventoryId).orElseThrow();
         StringBuilder inventoryReport = new StringBuilder();
         StringBuilder inventoryAssetDetails = new StringBuilder();
@@ -54,32 +61,16 @@ public class IssueReportUseCase {
             e.printStackTrace();
             System.out.println("Report not issued.");
         }
+         */
     }
 
     public void issueEmployeeReport(String registrationNumber) {
         Employee employee = employeeDAO.findByRegistrationNumber(registrationNumber).orElseThrow();
-        StringBuilder employeeReport = new StringBuilder();
-        StringBuilder inventoryAssetDetails = new StringBuilder();
-
-        try {
-            employeeReport.append("Employee registration number: " + employee.getRegistrationNumber() + "\n" +
-                    "Name: " + employee.getName() + "E-mail: " + employee.getEmail() + "\n" + "Phone number: " +
-                    employee.getPhone() + "\n" + "Role: " + employee.getRole() + "\n" + "Assets in charge: " + "\n");
-            for (Asset asset : employee.getAssetsInCharge()) {
-                inventoryAssetDetails.append("     -> Asset ID: " + asset.getId() + "Description: " +
-                        asset.getDescription() + "Value: " + asset.getValue() + "Damage: " + asset.getDamage() +
-                        "Location: " + asset.getLocation() + "\n");
-            }
-            writeTxtFile(employeeReport.append(inventoryAssetDetails));
-            System.out.println("Report issued.");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Report not issued.");
-        }
+        employeeReportWriter.write(employee);
     }
 
     public void issueLocationReport(Integer locationId) {
+        /*
         Location location = locationDAO.findById(locationId).orElseThrow();
         StringBuilder locationReport = new StringBuilder();
         StringBuilder assetDetails = new StringBuilder();
@@ -97,22 +88,6 @@ public class IssueReportUseCase {
             e.printStackTrace();
             System.out.println("Report not issued.");
         }
+         */
     }
-
-    private void writeTxtFile(StringBuilder stringBuilder) throws IOException {
-        File file = new File("report.txt");
-        BufferedWriter writer = null;
-
-        try {
-            writer = new BufferedWriter(new FileWriter(file));
-            writer.append(stringBuilder);
-            System.out.println("File created.");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("File not created.");
-        } finally {
-            if (writer != null) writer.close();
-        }
-    }
-
 }

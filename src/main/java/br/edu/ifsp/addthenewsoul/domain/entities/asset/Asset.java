@@ -17,6 +17,15 @@ public class Asset implements CSVNode {
 
     public Asset() {}
 
+    public Asset(int id, String description, double value, String damage) {
+        this.id = id;
+        this.description = description;
+        this.employeeInCharge = employeeInCharge;
+        this.value = value;
+        this.damage = damage;
+        this.location = location;
+    }
+
     public Asset(int id, String description, Employee employeeInCharge, double value, String damage, Location location) {
         this.id = id;
         this.description = description;
@@ -99,7 +108,7 @@ public class Asset implements CSVNode {
 
     public String toCSV() {
         StringBuilder builder = new StringBuilder();
-
+/*
         builder
             .append(id)
             .append(',')
@@ -112,6 +121,16 @@ public class Asset implements CSVNode {
             .append(damage)
             .append(',')
             .append(location != null ? location.getId() : "null");
+ */
+
+        builder
+                .append(id)
+                .append(',')
+                .append(description)
+                .append(',')
+                .append(value)
+                .append(',')
+                .append(damage);
 
         return builder.toString();
     }

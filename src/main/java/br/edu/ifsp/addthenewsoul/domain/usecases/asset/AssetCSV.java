@@ -41,10 +41,8 @@ public class AssetCSV implements CSV<Asset> {
             assets.add(new Asset(
                 Integer.parseInt(parts[0]),
                 parts[1],
-                parts[2],
-                Double.parseDouble(parts[3]),
-                parts[4],
-                Integer.parseInt(parts[5])
+                Double.parseDouble(parts[2]),
+                parts[3]
             ));
         }
 
@@ -53,6 +51,7 @@ public class AssetCSV implements CSV<Asset> {
         return assets;
     }
 
+    /*
     public List<Asset> readWithDependencies(String fileName, boolean withInvalidDependencies, Map<String, Employee> employees, Map<Integer, Location> locations) throws AssetDependencyNotFoundException, FileNotFoundException {
         List<Asset> assets = read(fileName);
 
@@ -71,4 +70,5 @@ public class AssetCSV implements CSV<Asset> {
 
         return assets;
     }
+     */
 }
