@@ -2,6 +2,8 @@ package br.edu.ifsp.addthenewsoul.domain.entities.inventory;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
+import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -25,20 +27,35 @@ public class Inventory {
         this.assets = assets;
     }
 
-    public Inventory(String name, String initialDate, String endDate, Employee comissionPresident, List<Asset> assets, List<Employee> comission) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        LocalDate dateInitial = LocalDate.parse(initialDate, formatter);
-        LocalDate dateEnd = LocalDate.parse(endDate, formatter);
-
+    public Inventory(String name, LocalDate initialDate, LocalDate endDate, Employee comissionPresident, List<Employee> comission, List<Asset> assets) {
         this.name = name;
         this.comissionPresident = comissionPresident;
         this.comission = comission;
-        this.initialDate = dateInitial;
-        this.endDate = dateEnd;
+        this.initialDate = initialDate;
+        this.endDate = endDate;
         this.assets = assets;
+
+        if (!hasUnverifiedAssets()) throw new IllegalArgumentException("Some assets were already verified");
     }
 
+    public boolean hasUnverifiedAssets() {
+        for (Asset asset : assets) {
+            if (asset.getStatus().equals(Status.VERIFIED))
+                return false;
+        }
+        return true;
+    }
 
+    private void setEmployeeRolesToNormal() {
+        for (Employee employee : comission) {
+            employee.setRole(Role.EMPLOYEE);
+        }
+    }
+
+    public void finish() {
+        comissionPresident.setRole(Role.EMPLOYEE);
+        setEmployeeRolesToNormal();
+    }
 
     public List<Employee> getComission() {
         return comission;

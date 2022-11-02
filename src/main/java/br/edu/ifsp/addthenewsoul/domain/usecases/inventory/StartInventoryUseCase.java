@@ -21,31 +21,16 @@ public class StartInventoryUseCase {
         this.inventoryDAO = inventoryDAO;
     }
 
-    public boolean validateData (String initialDate, String endDate) {
-        if (Validator.isValid(initialDate, endDate)) {
-            return Validator.checkIfDateHasPassed(initialDate, endDate);
-        }
-        return false;
-    }
-
-    public void informTeam (List<Employee> employees) {
-        for (Employee employee : employees) {
-            inventoryDAO.insertRoleExecutor(employee);
-
-        }
-    }
-
     private void designateEmployeeAsPresident(Employee employee) {
         if (employee.getRole() == Role.CHAIRMAN_OF_THE_COMISSION) throw new InventoryInvalidPresidentException(employee, "Employee is already a president");
         employee.setRole(Role.CHAIRMAN_OF_THE_COMISSION);
     }
 
-    public void initializeInventory (String name, String initialDate, String endDate, List<Employee> employees,
+    public void initializeInventory (String name, LocalDate initialDate, LocalDate endDate, List<Employee> employees,
                                      Employee comissionPresident, List<Asset> assets) {
-        comissionPresident.setRole(Role.CHAIRMAN_OF_THE_COMISSION);
+        if (!Validator.checkIfDateHasPassed(initialDate, endDate)) throw new IllegalArgumentException("Initial date is higher than end date");
         designateEmployeeAsPresident(comissionPresident);
-        Inventory inventory = new Inventory(name, initialDate, endDate, comissionPresident, assets, employees);
-        inventoryDAO.initializeInventory(inventory);
+        Inventory inventory = new Inventory(name, initialDate, endDate, comissionPresident, employees, assets);
         inventoryDAO.add(inventory);
     }
 }

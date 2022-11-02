@@ -14,16 +14,6 @@ public interface InventoryDAO extends DAO<Inventory, Integer> {
 
     Optional<Inventory> findInventoryById(Integer id);
 
-    void insertRoleExecutor (Employee employee);
-
-    void initializeInventory (Inventory inventory);
-
-    boolean haveUnverifiedInventory (List<InventoryAsset> inventoryAssets);
-
-    void removeRoleExecutor (List<Employee> employees);
-
-    void finalizeInventory (Inventory inventory);
-
     List<InventoryAsset> createInventoryAsset(List<Asset> assets);
 
 

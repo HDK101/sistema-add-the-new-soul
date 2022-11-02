@@ -55,38 +55,6 @@ public class InMemoryInventoryDAO implements InventoryDAO {
         return Optional.empty();
     }
 
-    @Override
-    public void insertRoleExecutor(Employee employee) {
-        employee.setRole(Role.EXECUTOR);
-    }
-
-    @Override
-    public void initializeInventory(Inventory inventory) {
-        inventory.setassets(inventory.getassets());
-        System.out.println("Created Inventory");
-    }
-
-    @Override
-    public boolean haveUnverifiedInventory(List<InventoryAsset> inventoryAssets) {
-        for (InventoryAsset inventoryAsset : inventoryAssets) {
-            if (inventoryAsset.getStatus().equals(Status.VERIFIED))
-                return false;
-        }
-        return true;
-    }
-
-    @Override
-    public void removeRoleExecutor(List<Employee> employees) {
-        for (Employee employee : employees) {
-            employee.setRole(Role.EMPLOYEE);
-        }
-    }
-
-    @Override
-    public void finalizeInventory(Inventory inventory) {
-        inventory.setassets(null);
-    }
-
 
     @Override
     public List<InventoryAsset> createInventoryAsset(List<Asset> assets) {
