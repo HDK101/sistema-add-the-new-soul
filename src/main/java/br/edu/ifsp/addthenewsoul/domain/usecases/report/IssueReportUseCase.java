@@ -65,8 +65,15 @@ public class IssueReportUseCase {
     }
 
     public void issueEmployeeReport(String registrationNumber) {
-        Employee employee = employeeDAO.findByRegistrationNumber(registrationNumber).orElseThrow();
-        employeeReportWriter.write(employee);
+        try {
+            Employee employee = employeeDAO.findByRegistrationNumber(registrationNumber).orElseThrow();
+            employeeReportWriter.write(employee);
+
+            System.out.println("Employee report issued.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Employee report not issued.");
+        }
     }
 
     public void issueLocationReport(Integer locationId) {

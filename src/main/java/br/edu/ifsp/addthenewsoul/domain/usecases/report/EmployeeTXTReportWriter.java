@@ -4,6 +4,8 @@ import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.TXTWriter;
 
+import java.io.IOException;
+
 public class EmployeeTXTReportWriter extends TXTWriter implements EmployeeReportWriter {
     private StringBuilder employeeReport;
 
@@ -22,9 +24,7 @@ public class EmployeeTXTReportWriter extends TXTWriter implements EmployeeReport
     }
 
     @Override
-    public void write(Employee employee) {
-
-        try {
+    public void write(Employee employee) throws IOException {
             addDetail("Employee registration number: ", employee.getRegistrationNumber());
             addDetail("E-mail: ", employee.getEmail());
             addDetail("Phone number: ", employee.getPhone());
@@ -42,11 +42,5 @@ public class EmployeeTXTReportWriter extends TXTWriter implements EmployeeReport
             }
             writeTxtFile(employeeReport);
             employeeReport = new StringBuilder();
-            System.out.println("Report issued.");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Report not issued.");
-        }
     }
 }
