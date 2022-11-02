@@ -1,25 +1,10 @@
 package br.edu.ifsp.addthenewsoul;
 
-import br.edu.ifsp.addthenewsoul.application.repository.imMemory.InMemoryAssetDAO;
 import br.edu.ifsp.addthenewsoul.application.repository.imMemory.InMemoryEmployeeDAO;
-import br.edu.ifsp.addthenewsoul.application.repository.imMemory.InMemoryInventoryDAO;
-import br.edu.ifsp.addthenewsoul.application.repository.imMemory.InMemoryLocationDAO;
-import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
-import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
-import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetCSV;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.AddEmployeeUseCase;
-import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeCSV;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeDAO;
-import br.edu.ifsp.addthenewsoul.domain.usecases.employee.LoginEmployeeUseCase;
-import br.edu.ifsp.addthenewsoul.domain.usecases.location.LocationCSV;
-import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
-import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
-import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
-import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;
-import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.StartInventoryUseCase;
-import br.edu.ifsp.addthenewsoul.domain.usecases.location.LocationDAO;
 import br.edu.ifsp.addthenewsoul.domain.usecases.report.EmployeeTXTReportWriter;
 import br.edu.ifsp.addthenewsoul.domain.usecases.report.IssueReportUseCase;
 
@@ -29,8 +14,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
-import java.util.*;
 
 
 public class HelloApplication extends Application {

@@ -1,21 +1,9 @@
 package br.edu.ifsp.addthenewsoul.domain.usecases.report;
 
-import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
-import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
-import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
-import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeDAO;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.LocationDAO;
-import br.edu.ifsp.addthenewsoul.domain.usecases.utils.EntityNotFoundException;
-
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.NoSuchElementException;
 
 public class IssueReportUseCase {
 
