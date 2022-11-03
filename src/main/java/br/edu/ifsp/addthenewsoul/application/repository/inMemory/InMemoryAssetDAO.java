@@ -1,4 +1,4 @@
-package br.edu.ifsp.addthenewsoul.application.repository.imMemory;
+package br.edu.ifsp.addthenewsoul.application.repository.inMemory;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 public class InMemoryAssetDAO implements AssetDAO {
 
     private static final Map<Integer, Asset> dbMemoryAsset = new LinkedHashMap<>();
+    private static int currentId = 0;
 
     @Override
     public Optional<Asset> findById(Integer id) {
@@ -20,22 +21,22 @@ public class InMemoryAssetDAO implements AssetDAO {
     }
 
     @Override
-    public List<Asset> filterByLocation(List<Asset> assets, Location location) {
-        return assets.stream()
+    public List<Asset> filterByLocation(Location location) {
+        return dbMemoryAsset.values().stream()
                 .filter(asset -> asset.getLocation().fullLocation().contains(location.fullLocation()))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<Asset> filterByEmployee(List<Asset> assets, Employee employee) {
-        return assets.stream()
+    public List<Asset> filterByEmployee(Employee employee) {
+        return dbMemoryAsset.values().stream()
                 .filter(asset -> asset.getEmployeeInCharge().getRegistrationNumber()
                         .contains(employee.getRegistrationNumber())).collect(Collectors.toList());
     }
 
     @Override
-    public List<Asset> filterByLocationAndEmployee(List<Asset> assets, Location location, Employee employee) {
-        return assets.stream()
+    public List<Asset> filterByLocationAndEmployee(Location location, Employee employee) {
+        return dbMemoryAsset.values().stream()
                 .filter(asset -> asset.getLocation().fullLocation().contains(location.fullLocation()))
                 .filter(asset -> asset.getEmployeeInCharge().getRegistrationNumber()
                         .contains(employee.getRegistrationNumber())).collect(Collectors.toList());
@@ -43,7 +44,9 @@ public class InMemoryAssetDAO implements AssetDAO {
 
     @Override
     public Integer add(Asset asset) {
-        dbMemoryAsset.put(asset.getId(), asset);
+        currentId += 1;
+        asset.setId(currentId);
+        dbMemoryAsset.put(currentId, asset);
         return asset.getId();
     }
 

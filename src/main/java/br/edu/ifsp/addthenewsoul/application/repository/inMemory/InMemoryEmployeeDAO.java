@@ -1,11 +1,9 @@
-package br.edu.ifsp.addthenewsoul.application.repository.imMemory;
+package br.edu.ifsp.addthenewsoul.application.repository.inMemory;
 
-import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeDAO;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 public class InMemoryEmployeeDAO implements EmployeeDAO {

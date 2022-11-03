@@ -7,7 +7,7 @@ import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
 import java.util.Optional;
 
 public class Asset implements CSVNode {
-    private int id;
+    private Integer id;
     private String description;
     private Employee employeeInCharge;
     private double value;
@@ -17,13 +17,22 @@ public class Asset implements CSVNode {
 
     public Asset() {}
 
-    public Asset(int id, String description, double value, String damage) {
+    public Asset(Integer id, String description, double value, String damage) {
         this.id = id;
         this.description = description;
-        this.employeeInCharge = employeeInCharge;
         this.value = value;
         this.damage = damage;
-        this.location = location;
+    }
+
+    public Asset(String description, double value, String damage) {
+        this.description = description;
+        this.value = value;
+        this.damage = damage;
+    }
+
+    public Asset(String description, double value) {
+        this.description = description;
+        this.value = value;
     }
 
     public Asset(int id, String description, Employee employeeInCharge, double value, String damage, Location location) {
@@ -37,11 +46,11 @@ public class Asset implements CSVNode {
 
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -98,10 +107,10 @@ public class Asset implements CSVNode {
         final StringBuilder sb = new StringBuilder("Asset{");
         sb.append("id=").append(id);
         sb.append(", description='").append(description).append('\'');
-        sb.append(", employeeInCharge=").append(employeeInCharge.getRegistrationNumber());
+        sb.append(", employeeInCharge=").append(employeeInCharge != null ? employeeInCharge.getRegistrationNumber() : "null");
         sb.append(", value=").append(value);
         sb.append(", damage='").append(damage).append('\'');
-        sb.append(", location=").append(location.fullLocation());
+        sb.append(", location=").append(location != null ? location.fullLocation() : "null");
         sb.append('}');
         return sb.toString();
     }

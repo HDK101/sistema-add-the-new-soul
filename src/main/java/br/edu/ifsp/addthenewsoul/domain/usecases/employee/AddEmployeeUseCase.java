@@ -1,6 +1,7 @@
 package br.edu.ifsp.addthenewsoul.domain.usecases.employee;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.EmployeePasswordHash;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.EntityAlreadyExistsException;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Hash;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Notification;
@@ -12,13 +13,6 @@ public class AddEmployeeUseCase {
         this.employeeDAO = employeeDAO;
     }
 
-    private void createEmployeeHashPassword(Employee employee) {
-        String virtualPassword = employee.getVirtualPassword();
-        String passwordHash = Hash.hash(virtualPassword, 12);
-        employee.setVirtualPassword(null);
-        employee.setHashPassword(passwordHash);
-    }
-
     public String save (Employee employee) {
         ValidationOfEmployeeAttributes validator = new ValidationOfEmployeeAttributes();
         Notification notification = validator.isValid(employee);
@@ -26,7 +20,7 @@ public class AddEmployeeUseCase {
         if (notification.hasErrors())
             throw new IllegalArgumentException(notification.errorMessage());
 
-        createEmployeeHashPassword(employee);
+        EmployeePasswordHash.create(employee);
 
         String registrationNumber = employee.getRegistrationNumber();
         if (employeeDAO.findByRegistrationNumber(registrationNumber).isPresent())

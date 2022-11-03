@@ -1,12 +1,10 @@
 package br.edu.ifsp.addthenewsoul;
 
-import br.edu.ifsp.addthenewsoul.application.repository.imMemory.InMemoryEmployeeDAO;
+import br.edu.ifsp.addthenewsoul.application.repository.inMemory.InMemoryEmployeeDAO;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.AddEmployeeUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeDAO;
-import br.edu.ifsp.addthenewsoul.domain.usecases.report.EmployeeTXTReportWriter;
-import br.edu.ifsp.addthenewsoul.domain.usecases.report.IssueReportUseCase;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

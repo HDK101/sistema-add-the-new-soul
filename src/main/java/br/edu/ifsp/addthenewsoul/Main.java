@@ -1,12 +1,19 @@
-/*package br.edu.ifsp.addthenewsoul;
+package br.edu.ifsp.addthenewsoul;
 
-import br.edu.ifsp.addthenewsoul.application.repository.imMemory.InMemoryAssetDAO;
-import br.edu.ifsp.addthenewsoul.application.repository.imMemory.InMemoryEmployeeDAO;
-import br.edu.ifsp.addthenewsoul.application.repository.imMemory.InMemoryLocationDAO;
+import br.edu.ifsp.addthenewsoul.application.repository.inMemory.InMemoryAssetDAO;
+import br.edu.ifsp.addthenewsoul.application.repository.inMemory.InMemoryEmployeeDAO;
+import br.edu.ifsp.addthenewsoul.application.repository.inMemory.InMemoryInventoryDAO;
+import br.edu.ifsp.addthenewsoul.application.repository.inMemory.InMemoryLocationDAO;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
+import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
+import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetDAO;
+import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeDAO;
+import br.edu.ifsp.addthenewsoul.domain.usecases.employee.LoginEmployeeUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;
+import br.edu.ifsp.addthenewsoul.domain.usecases.location.LocationDAO;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -14,9 +21,10 @@ import java.util.*;
 public class Main {
     private final Scanner scanner = new Scanner(System.in);
 
-    private final InMemoryAssetDAO inMemoryAssetDAO = new InMemoryAssetDAO();
-    private final InMemoryEmployeeDAO inMemoryEmployeeDAO = new InMemoryEmployeeDAO();
-    private final InMemoryLocationDAO inMemoryLocationDAO = new InMemoryLocationDAO();
+    private final AssetDAO inMemoryAssetDAO = new InMemoryAssetDAO();
+    private final EmployeeDAO inMemoryEmployeeDAO = new InMemoryEmployeeDAO();
+    private final LocationDAO inMemoryLocationDAO = new InMemoryLocationDAO();
+    private final InventoryDAO inMemoryInventoryDAO = new InMemoryInventoryDAO();
 
     public static void main(String[] args) {
         Main main = new Main();
@@ -28,45 +36,76 @@ public class Main {
         while (opcao != 0) {
             opcao = menu();
             switch (opcao) {
-                case 1 -> addAsset();
-                case 2 -> updateAsset();
-                case 3 -> removeAsset();
-                case 4 -> filterAssetsByLocation();
-                case 5 -> filterAssetsByEmployeeInCharge();
-                case 6 -> filterAssetsByLocationAndEmployeeInCharge();
-                case 7 -> addEmployee();
-                case 8 -> updateEmployee();
-                case 9 -> removeEmployee();
-                case 10 -> addLocation();
-                case 11 -> updateLocation();
-                case 12 -> removeLocation();
-                case 13 -> issueInventoryReport();
-                case 14 -> issueEmployeesReport();
-                case 15 -> issueLocationsReport();
+                case 1 -> login();
+                case 4 -> addAsset();
+                case 5 -> updateAsset();
+                case 6 -> removeAsset();
+                case 7 -> filterAssetsByLocation();
+                case 8 -> filterAssetsByEmployeeInCharge();
+                case 9 -> filterAssetsByLocationAndEmployeeInCharge();
+                case 10 -> addEmployee();
+                case 11 -> updateEmployee();
+                case 12 -> removeEmployee();
+                case 13 -> addLocation();
+                case 14 -> updateLocation();
+                case 15 -> removeLocation();
+                case 16 -> issueInventoryReport();
+                case 17 -> issueEmployeesReport();
+                case 18 -> issueLocationsReport();
             }
         }
     }
 
     private int menu() {
 
-        System.out.println("1. Add asset");
-        System.out.println("2. Update asset");
-        System.out.println("3. Remove asset");
-        System.out.println("4. Filter assets by location");
-        System.out.println("5. Filter assets by employee in charge");
-        System.out.println("6. Filter assets by location and employee in charge");
-        System.out.println("7. Add employee");
-        System.out.println("8. Update employee");
-        System.out.println("9. Remove employee");
-        System.out.println("10. Add location");
-        System.out.println("11. Update location");
-        System.out.println("12. Remove location");
-        System.out.println("13. Issue inventory report");
-        System.out.println("14. Issue employees report");
-        System.out.println("15. Issue locations report");
+        System.out.println("1. Login employee");
+        System.out.println("2. Logout employee");
+        System.out.println("3. Print logged employee");
+        System.out.println("4. List assets");
+        System.out.println("4. Add asset");
+        System.out.println("5. Update asset");
+        System.out.println("6. Remove asset");
+        System.out.println("7. Filter assets by location");
+        System.out.println("8. Filter assets by employee in charge");
+        System.out.println("9. Filter assets by location and employee in charge");
+        System.out.println("10. List employees");
+        System.out.println("10. Add employee");
+        System.out.println("11. Update employee");
+        System.out.println("12. Remove employee");
+        System.out.println("10. List locations");
+        System.out.println("13. Add location");
+        System.out.println("14. Update location");
+        System.out.println("15. Remove location");
+        System.out.println("10. List inventories");
+        System.out.println("10. Start inventories");
+        System.out.println("10. Finish inventories");
+        System.out.println("10. Rate asset in inventory");
+        System.out.println("16. Issue inventory report");
+        System.out.println("17. Issue employees report");
+        System.out.println("18. Issue locations report");
+        System.out.println("19. Export employees CSV");
+        System.out.println("20. Import employees CSV");
+        System.out.println("21. Export assets CSV");
+        System.out.println("22. Import assets CSV");
+        System.out.println("23. Import locations CSV");
+        System.out.println("24. Import locations CSV");
         System.out.println("0. Sair");
         System.out.print(">> ");
         return Integer.parseInt(scanner.nextLine());
+    }
+
+    private void login() {
+        System.out.print("E-mail: ");
+        String email = scanner.nextLine();
+        System.out.print("Description: ");
+        String password = scanner.nextLine();
+
+        try {
+            LoginEmployeeUseCase loginEmployeeUseCase = new LoginEmployeeUseCase(inMemoryEmployeeDAO);
+            loginEmployeeUseCase.login(email, password);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void addAsset() {
@@ -109,8 +148,8 @@ public class Main {
         asset.setDescription(description);
         System.out.print("Registration number frm employee in charge: ");
         String regNumberEmployee = scanner.nextLine();
-        Optional<Employee> employee = inMemoryEmployeeDAO.findByRegistrationNumber(regNumberEmployee);
-        asset.setEmployeeInCharge(employee.get());
+        Employee employee = inMemoryEmployeeDAO.findByRegistrationNumber(regNumberEmployee).orElseThrow();
+        asset.setEmployeeInCharge(employee);
         System.out.print("Value: ");
         double value = scanner.nextDouble();
         asset.setValue(value);
@@ -159,7 +198,7 @@ public class Main {
         System.out.print("Role: ");
         String role = scanner.nextLine();
 
-        Employee employee = new Employee(name, regNumberEmployee, hashPassword, email, phone, role);
+        Employee employee = new Employee(name, regNumberEmployee, hashPassword, email, phone, Role.valueOf(role));
 
         inMemoryEmployeeDAO.add(employee);
     }
@@ -273,14 +312,14 @@ public class Main {
     private void filterAssetsByLocation(){
         System.out.print("Location id: ");
         int id = scanner.nextInt();
-        Location location = InMemoryLocationDAO.findById(id);
+        Location location = inMemoryLocationDAO.findById(id).orElseThrow();
         System.out.println(inMemoryAssetDAO.filterByLocation(location));
     }
 
     private void filterAssetsByEmployeeInCharge(){
         System.out.print("Employee in charge registration number: ");
         String regNumber = scanner.nextLine();
-        Optional<Employee> employee = inMemoryEmployeeDAO.findByRegistrationNumber(regNumber);
+        Employee employee = inMemoryEmployeeDAO.findByRegistrationNumber(regNumber).orElseThrow();
         System.out.println(inMemoryAssetDAO.filterByEmployee(employee));
     }
 
@@ -289,8 +328,8 @@ public class Main {
         int id = scanner.nextInt();
         System.out.print("Employee in charge registration number: ");
         String regNumber = scanner.nextLine();
-        Optional<Location> location = inMemoryLocationDAO.findById(id);
-        Optional<Employee> employee = inMemoryEmployeeDAO.findByRegistrationNumber(regNumber);
+        Location location = inMemoryLocationDAO.findById(id).orElseThrow();
+        Employee employee = inMemoryEmployeeDAO.findByRegistrationNumber(regNumber).orElseThrow();
         System.out.println(inMemoryAssetDAO.filterByLocationAndEmployee(location, employee));
     }
 
@@ -329,5 +368,5 @@ public class Main {
         }
     }
 }
-*/
+
 

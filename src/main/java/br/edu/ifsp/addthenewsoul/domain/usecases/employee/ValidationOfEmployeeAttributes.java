@@ -19,8 +19,6 @@ public class ValidationOfEmployeeAttributes extends Validator<Employee> {
             notification.addError("Name is null or empty");
         if (nullOrEmpty(employee.getRegistrationNumber()))
             notification.addError("Registration number is null or empty");
-        if (nullOrEmpty(employee.getVirtualPassword()))
-            notification.addError("Password is null or empty");
         if (nullOrEmpty(employee.getEmail()))
             notification.addError("E-mail is null or empty");
         if (nullOrEmpty(employee.getPhone()))

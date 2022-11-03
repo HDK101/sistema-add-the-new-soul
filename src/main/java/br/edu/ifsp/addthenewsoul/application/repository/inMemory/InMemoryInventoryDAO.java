@@ -1,4 +1,4 @@
-package br.edu.ifsp.addthenewsoul.application.repository.imMemory;
+package br.edu.ifsp.addthenewsoul.application.repository.inMemory;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;

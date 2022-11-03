@@ -16,22 +16,22 @@ public class FilterAssetsUseCase {
         this.assetDAO = assetDAO;
     }
 
-    public List<Asset> filterAssetsByLocal (List<Asset> assets, Location location) {
+    public List<Asset> filterAssetsByLocal (Location location) {
         if (employee.getRole().equals(Role.INVENTORY_MANAGER))
-            return assetDAO.filterByLocation(assets, location);
+            return assetDAO.filterByLocation(location);
         return null;
     }
 
-    public List<Asset> filterAssetsByEmployee (List<Asset> assets, Employee employee) {
+    public List<Asset> filterAssetsByEmployee (Employee employee) {
         if (employee.getRole().equals(Role.INVENTORY_MANAGER))
-            return assetDAO.filterByEmployee(assets, employee);
+            return assetDAO.filterByEmployee(employee);
         return null;
     }
 
     public List<Asset> filterAssetsByLocationAndEmployee
-            (List<Asset> assets, Location location, Employee employee) {
+            (Location location, Employee employee) {
         if (employee.getRole().equals(Role.INVENTORY_MANAGER))
-            return assetDAO.filterByLocationAndEmployee(assets, location, employee);
+            return assetDAO.filterByLocationAndEmployee(location, employee);
         return null;
     }
 }
