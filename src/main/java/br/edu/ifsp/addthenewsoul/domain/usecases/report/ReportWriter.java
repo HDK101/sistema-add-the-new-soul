@@ -4,6 +4,6 @@ import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 
 import java.io.IOException;
 
-public interface EmployeeReportWriter {
-    void write(Employee employee) throws IOException;
+public interface ReportWriter<T> {
+    void write(T t) throws IOException;
 }

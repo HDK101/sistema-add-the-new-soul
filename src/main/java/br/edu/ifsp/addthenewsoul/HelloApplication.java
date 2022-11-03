@@ -24,9 +24,9 @@ public class HelloApplication extends Application {
         AddEmployeeUseCase addEmployeeUseCase = new AddEmployeeUseCase(employeeDAO);
         addEmployeeUseCase.save(new Employee("asd", "asd", "senha123", "teste@email.com", "asd", Role.EXECUTOR));
 
-        IssueReportUseCase issueReportUseCase = new IssueReportUseCase(employeeDAO, new EmployeeTXTReportWriter());
+        //IssueReportUseCase issueReportUseCase = new IssueReportUseCase(employeeDAO, new EmployeeTXTReportWriter());
 
-        issueReportUseCase.issueEmployeeReport("asd");
+        //issueReportUseCase.issueEmployeeReport("asd");
 
         /*
         Employee employee = new Employee("asd", "asd", "asd", "asd", "asd", Role.EXECUTOR);
