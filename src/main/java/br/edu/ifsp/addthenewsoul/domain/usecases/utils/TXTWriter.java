@@ -6,13 +6,40 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class TXTWriter {
-    protected void writeTxtFile(StringBuilder stringBuilder) throws IOException {
+    private StringBuilder reportBuilder;
+
+    protected void addDetail(String head, String content) {
+        reportBuilder
+                .append(head).append(content).append("\n");
+    }
+
+    protected void addDetail(String head, Object content) {
+        reportBuilder
+                .append(head).append(content).append("\n");
+    }
+
+    protected void addSingleHead(String head) {
+        reportBuilder
+                .append(head).append("\n");
+    }
+
+    protected void addAssetDetail(String head, String content) {
+        reportBuilder.append(" ")
+                .append(head).append(content).append("\n");
+    }
+
+    protected void addAssetDetail(String head, Object content) {
+        reportBuilder.append(" ")
+                .append(head).append(content).append("\n");
+    }
+
+    protected void writeTxtFile() throws IOException {
         File file = new File("report.txt");
         BufferedWriter writer = null;
 
         try {
             writer = new BufferedWriter(new FileWriter(file));
-            writer.append(stringBuilder);
+            writer.append(reportBuilder);
             System.out.println("File created.");
         } catch (IOException e) {
             e.printStackTrace();
