@@ -1,25 +1,28 @@
 package br.edu.ifsp.addthenewsoul.domain.usecases.employee;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
-import br.edu.ifsp.addthenewsoul.domain.entities.asset.Local;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.EntityNotFoundException;
+
 
 public class NominateEmployeeInChargeUseCase {
 
-    public void nominateEmployeeInCharge(Employee employee, Asset asset, Local local){
+    public void nominateEmployeeInCharge(Employee employee, Asset asset, Location location){
         if(asset != null){
+            employee.getAssetsInCharge().add(asset);
             if(employee != null) {
                 asset.setEmployeeInCharge(employee);
-                if(local != null) {
-                    //asset.setLocal(local);
+                if(location != null) {
+                    asset.setLocation(location);
                 }else{
-                    throw new IllegalArgumentException("Local cannot be null.");
+                    throw new EntityNotFoundException("Location cannot be null.");
                 }
             }else{
-                throw new IllegalArgumentException("Employee cannot be null.");
+                throw new EntityNotFoundException("Employee cannot be null.");
             }
         }else{
-            throw new IllegalArgumentException("Asset cannot be null.");
+            throw new EntityNotFoundException("Asset cannot be null.");
         }
     }
 }

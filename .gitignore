@@ -118,3 +118,5 @@ fabric.properties
 
 *.db
 *.csv
+
+target/

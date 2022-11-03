@@ -1,0 +1,5 @@
+Employee registration number: asd
+E-mail: teste@email.com
+Phone number: asd
+Role: EXECUTOR
+Assets in charge: 

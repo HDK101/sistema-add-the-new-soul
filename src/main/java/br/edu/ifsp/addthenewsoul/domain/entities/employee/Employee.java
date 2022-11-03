@@ -1,20 +1,28 @@
 package br.edu.ifsp.addthenewsoul.domain.entities.employee;
 
-public class Employee {
+import br.edu.ifsp.addthenewsoul.application.io.CSVNode;
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
+
+import java.util.List;
+
+public class Employee implements CSVNode {
     private String name;
     private String registrationNumber;
     private String hashPassword;
+    private String virtualPassword;
     private String email;
     private String phone;
     private Role role;
+    private List<Asset> assetsInCharge;
 
-    public Employee(String name, String registrationNumber, String hashPassword, String email, String phone, Role role) {
+    public Employee(String name, String registrationNumber, String virtualPassword, String email, String phone, Role role) {
         this.name = name;
         this.registrationNumber = registrationNumber;
-        this.hashPassword = hashPassword;
+        this.virtualPassword = virtualPassword;
         this.email = email;
         this.phone = phone;
         this.role = role;
+        this.assetsInCharge = null;
     }
 
     public String getName() {
@@ -63,5 +71,54 @@ public class Employee {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getVirtualPassword() {
+        return virtualPassword;
+    }
+
+    public void setVirtualPassword(String virtualPassword) {
+        this.virtualPassword = virtualPassword;
+    }
+
+    public List<Asset> getAssetsInCharge() {
+        return assetsInCharge;
+    }
+
+    public void setAssetsInCharge(List<Asset> assetsInCharge) {
+        this.assetsInCharge = assetsInCharge;
+    }
+
+    @Override
+    public String toCSV() {
+        StringBuilder builder = new StringBuilder();
+
+        builder
+                .append(name)
+                .append(',')
+                .append(registrationNumber)
+                .append(',')
+                .append(hashPassword)
+                .append(',')
+                .append(email)
+                .append(',')
+                .append(phone)
+                .append(',')
+                .append(role.ordinal());
+
+        return builder.toString();
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Employee{");
+        sb.append("name='").append(name).append('\'');
+        sb.append(", registrationNumber='").append(registrationNumber).append('\'');
+        sb.append(", hashPassword='").append(hashPassword).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append(", phone='").append(phone).append('\'');
+        sb.append(", role=").append(role);
+        sb.append('}');
+        return sb.toString();
     }
 }
