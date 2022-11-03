@@ -2,6 +2,7 @@ package br.edu.ifsp.addthenewsoul.domain.entities.asset;
 
 import br.edu.ifsp.addthenewsoul.application.io.CSVNode;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
+import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
 
 import java.util.Optional;
 
@@ -9,21 +10,20 @@ public class Asset implements CSVNode {
     private int id;
     private String description;
     private Employee employeeInCharge;
-    private String registrationNumber;
     private double value;
     private String damage;
     private Location location;
-    private Integer locationId;
+    private Status status;
 
     public Asset() {}
 
-    public Asset(int id, String description, String registrationNumber, double value, String damage, Integer locationId) {
+    public Asset(int id, String description, double value, String damage) {
         this.id = id;
         this.description = description;
-        this.registrationNumber = registrationNumber;
+        this.employeeInCharge = employeeInCharge;
         this.value = value;
         this.damage = damage;
-        this.locationId = locationId;
+        this.location = location;
     }
 
     public Asset(int id, String description, Employee employeeInCharge, double value, String damage, Location location) {
@@ -85,20 +85,12 @@ public class Asset implements CSVNode {
         this.location = location;
     }
 
-    public String getRegistrationNumber() {
-        return registrationNumber;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setRegistrationNumber(String registrationNumber) {
-        this.registrationNumber = registrationNumber;
-    }
-
-    public Integer getLocalId() {
-        return locationId;
-    }
-
-    public void setLocalId(Integer localId) {
-        this.locationId = localId;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @Override
@@ -107,31 +99,38 @@ public class Asset implements CSVNode {
         sb.append("id=").append(id);
         sb.append(", description='").append(description).append('\'');
         sb.append(", employeeInCharge=").append(employeeInCharge.getRegistrationNumber());
-        sb.append(", registrationNumber='").append(registrationNumber).append('\'');
         sb.append(", value=").append(value);
         sb.append(", damage='").append(damage).append('\'');
         sb.append(", location=").append(location.fullLocation());
-        sb.append(", locationId=").append(locationId);
         sb.append('}');
         return sb.toString();
     }
 
     public String toCSV() {
         StringBuilder builder = new StringBuilder();
-
+/*
         builder
             .append(id)
             .append(',')
             .append(description)
             .append(',')
-            .append(employeeInCharge.getRegistrationNumber())
+            .append(employeeInCharge != null ? employeeInCharge.getRegistrationNumber() : "null")
             .append(',')
             .append(value)
             .append(',')
             .append(damage)
             .append(',')
-            .append(location.getId());
-        //Trocar pro id do local
+            .append(location != null ? location.getId() : "null");
+ */
+
+        builder
+                .append(id)
+                .append(',')
+                .append(description)
+                .append(',')
+                .append(value)
+                .append(',')
+                .append(damage);
 
         return builder.toString();
     }

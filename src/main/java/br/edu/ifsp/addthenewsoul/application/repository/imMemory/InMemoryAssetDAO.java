@@ -3,8 +3,6 @@ package br.edu.ifsp.addthenewsoul.application.repository.imMemory;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
-import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
-import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetDAO;
 
 import java.util.*;

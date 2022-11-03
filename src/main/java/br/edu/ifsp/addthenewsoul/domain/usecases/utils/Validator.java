@@ -23,13 +23,10 @@ public abstract class Validator<T> {
         }
     }
 
-    public static boolean checkIfDateHasPassed (String initialDate, String endDate) {
-        LocalDate current_date = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        LocalDate current_dateFormatedIniDate = LocalDate.parse(initialDate, formatter);
-        LocalDate current_dateFormatedEndDate = LocalDate.parse(endDate, formatter);
-        return current_dateFormatedIniDate.compareTo(current_date) != 0 &&
-                current_dateFormatedEndDate.compareTo(current_date) != 0;
+    public static boolean checkIfDateHasPassed (LocalDate initialDate, LocalDate endDate) {
+        LocalDate currentDate = LocalDate.now();
+        return initialDate.compareTo(currentDate) != 0 &&
+                endDate.compareTo(currentDate) != 0;
     }
 
 }

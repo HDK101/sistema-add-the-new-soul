@@ -1,25 +1,11 @@
 package br.edu.ifsp.addthenewsoul;
 
-import br.edu.ifsp.addthenewsoul.application.repository.imMemory.InMemoryAssetDAO;
 import br.edu.ifsp.addthenewsoul.application.repository.imMemory.InMemoryEmployeeDAO;
-import br.edu.ifsp.addthenewsoul.application.repository.imMemory.InMemoryInventoryDAO;
-import br.edu.ifsp.addthenewsoul.application.repository.imMemory.InMemoryLocationDAO;
-import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
-import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
-import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetCSV;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.AddEmployeeUseCase;
-import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeCSV;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeDAO;
-import br.edu.ifsp.addthenewsoul.domain.usecases.employee.LoginEmployeeUseCase;
-import br.edu.ifsp.addthenewsoul.domain.usecases.location.LocationCSV;
-import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
-import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
-import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
-import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;
-import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.StartInventoryUseCase;
-import br.edu.ifsp.addthenewsoul.domain.usecases.location.LocationDAO;
+import br.edu.ifsp.addthenewsoul.domain.usecases.report.EmployeeTXTReportWriter;
 import br.edu.ifsp.addthenewsoul.domain.usecases.report.IssueReportUseCase;
 
 import javafx.application.Application;
@@ -29,11 +15,20 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import java.util.*;
-
 
 public class HelloApplication extends Application {
     public static void HidekiTest() throws Exception {
+        Employee employee = new Employee("asd", "asd", "asd", "asd", "asd", Role.EXECUTOR);
+
+        EmployeeDAO employeeDAO = new InMemoryEmployeeDAO();
+        AddEmployeeUseCase addEmployeeUseCase = new AddEmployeeUseCase(employeeDAO);
+        addEmployeeUseCase.save(new Employee("asd", "asd", "senha123", "teste@email.com", "asd", Role.EXECUTOR));
+
+        IssueReportUseCase issueReportUseCase = new IssueReportUseCase(employeeDAO, new EmployeeTXTReportWriter());
+
+        issueReportUseCase.issueEmployeeReport("asd");
+
+        /*
         Employee employee = new Employee("asd", "asd", "asd", "asd", "asd", Role.EXECUTOR);
         Location location = new Location(1, 1014, "asd");
         Asset asset = new Asset(1, "asd", employee, 123, "asd", location);
@@ -79,6 +74,7 @@ public class HelloApplication extends Application {
         Employee employee1 = loginEmployeeUseCase.login("teste@email.com", "senha123");
 
         System.out.println(employee1);
+        */
 
         //AssetCSVBean csvBean = (AssetCSVBean) csv.get(0);
         //System.out.println(csvBean.toString());
@@ -272,7 +268,7 @@ public class HelloApplication extends Application {
     public static void main(String[] args) throws Exception {
         HidekiTest();
         //ViniciusTest();
-        IsaTest();
+        //IsaTest();
         launch();
     }
 
