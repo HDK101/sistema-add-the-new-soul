@@ -7,5 +7,4 @@ import java.util.Optional;
 
 public interface EmployeeDAO extends DAO<Employee, String> {
     Optional<Employee> findByRegistrationNumber(String  registrationNumber);
-
 }
