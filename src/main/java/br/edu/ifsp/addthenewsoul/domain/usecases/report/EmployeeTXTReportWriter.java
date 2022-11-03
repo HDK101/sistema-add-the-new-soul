@@ -9,10 +9,6 @@ import java.io.IOException;
 public class EmployeeTXTReportWriter extends TXTWriter implements EmployeeReportWriter {
     private StringBuilder employeeReport;
 
-    public EmployeeTXTReportWriter() {
-        this.employeeReport = new StringBuilder();
-    }
-
     private void addDetail(String head, String content) {
         employeeReport
                 .append(head).append(content).append("\n");
@@ -25,6 +21,8 @@ public class EmployeeTXTReportWriter extends TXTWriter implements EmployeeReport
 
     @Override
     public void write(Employee employee) throws IOException {
+        employeeReport = new StringBuilder();
+
             addDetail("Employee registration number: ", employee.getRegistrationNumber());
             addDetail("E-mail: ", employee.getEmail());
             addDetail("Phone number: ", employee.getPhone());
@@ -41,6 +39,5 @@ public class EmployeeTXTReportWriter extends TXTWriter implements EmployeeReport
                 }
             }
             writeTxtFile(employeeReport);
-            employeeReport = new StringBuilder();
     }
 }
