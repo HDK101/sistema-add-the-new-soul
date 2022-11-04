@@ -9,6 +9,8 @@ import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AddAssetUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetDAO;
+import br.edu.ifsp.addthenewsoul.domain.usecases.asset.EditAssetUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.asset.RemoveAssetUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.*;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.LocationDAO;
@@ -21,13 +23,27 @@ public class UseCaseTests {
         LocationDAO locationDAO = new InMemoryLocationDAO();
         InventoryDAO inventoryDAO = new InMemoryInventoryDAO();
 
+        Asset asset_primary = new Asset("Cadeira", 50.0, "Nenhum");
+        Asset asset_secondary = new Asset("Mesa", 200.0, "Nenhum");
+        Asset asset_tertiary = new Asset("Computador Desktop", 2000.0, "Nenhum");
+
         AddAssetUseCase addAssetUseCase = new AddAssetUseCase(assetDAO);
+        EditAssetUseCase editAssetUseCase = new EditAssetUseCase(assetDAO);
+        RemoveAssetUseCase removeAssetUseCase = new RemoveAssetUseCase(assetDAO);
 
-        addAssetUseCase.save(new Asset("Cadeira", 50.0, "Nenhum"));
-        addAssetUseCase.save(new Asset("Mesa", 200.0, "Nenhum"));
-        addAssetUseCase.save(new Asset("Computador Desktop", 2000.0, "Nenhum"));
+        addAssetUseCase.save(asset_primary);
+        addAssetUseCase.save(asset_secondary);
+        addAssetUseCase.save(asset_tertiary);
 
-        //Implementar editar bens
+        System.out.println("Lista de Assets sem modificações");
+        System.out.println(assetDAO.findAll());
+
+        asset_secondary.setValue(496);
+        asset_secondary.setDescription("Teclado gamer");
+
+        editAssetUseCase.updateAsset(asset_secondary);
+
+        removeAssetUseCase.removesAsset(asset_secondary);
 
         //Implementar dar baixa no bem
 
@@ -56,6 +72,7 @@ public class UseCaseTests {
 
         System.out.println(Session.getInstance().getLoggedUser() == null);
 
+        System.out.println("Lista de Assets com modificações");
         System.out.println(assetDAO.findAll());
     }
 }

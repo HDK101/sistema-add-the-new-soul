@@ -19,17 +19,17 @@ public class SQLiteAssetDAO implements AssetDAO {
     }
 
     @Override
-    public List<Asset> filterByLocation(List<Asset> assets, Location location) {
+    public List<Asset> filterByLocation(Location location) {
         return null;
     }
 
     @Override
-    public List<Asset> filterByEmployee(List<Asset> assets, Employee employee) {
+    public List<Asset> filterByEmployee(Employee employee) {
         return null;
     }
 
     @Override
-    public List<Asset> filterByLocationAndEmployee(List<Asset> assets, Location location, Employee employee) {
+    public List<Asset> filterByLocationAndEmployee(Location location, Employee employee) {
         return null;
     }
 

@@ -352,7 +352,7 @@ public class Main {
         System.out.print("Employee in charge registration number: ");
         String regNumber = scanner.nextLine();
         for (Asset asset : inMemoryAssetDAO.findAll()) {
-            if(asset.getRegistrationNumber().equals(regNumber)){
+            if(asset.getEmployeeInCharge().getRegistrationNumber().equals(regNumber)){
                 System.out.println(asset);
             }
         }
@@ -362,7 +362,7 @@ public class Main {
         System.out.print("Location: ");
         int locationId = scanner.nextInt();
         for (Asset asset : inMemoryAssetDAO.findAll()) {
-            if(asset.getLocalId() == locationId){
+            if(asset.getLocation().getId() == locationId){
                 System.out.println(asset);
             }
         }
