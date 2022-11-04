@@ -3,6 +3,7 @@ package br.edu.ifsp.addthenewsoul.application.repository.inMemory;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;
 
+import java.time.LocalDate;
 import java.util.*;
 
 public class InMemoryInventoryDAO implements InventoryDAO {
@@ -48,5 +49,10 @@ public class InMemoryInventoryDAO implements InventoryDAO {
         if (dbMemoryInventory.containsKey(id))
             return Optional.of(dbMemoryInventory.get(id));
         return Optional.empty();
+    }
+
+    @Override
+    public void filterByPeriod(List<Inventory> all, LocalDate initialDate, LocalDate endDate) {
+
     }
 }

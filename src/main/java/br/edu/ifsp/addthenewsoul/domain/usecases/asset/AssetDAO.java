@@ -16,6 +16,4 @@ public interface AssetDAO extends DAO<Asset, Integer> {
     List<Asset> filterByEmployee (Employee employee);
 
     List<Asset> filterByLocationAndEmployee (Location location, Employee employee);
-
-
 }
