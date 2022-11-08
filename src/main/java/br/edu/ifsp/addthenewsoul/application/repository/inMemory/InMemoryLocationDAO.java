@@ -66,6 +66,6 @@ public class InMemoryLocationDAO implements LocationDAO {
 
     @Override
     public List<Location> findAll() {
-        return null;
+        return new ArrayList<>(dbMemory.values());
     }
 }
