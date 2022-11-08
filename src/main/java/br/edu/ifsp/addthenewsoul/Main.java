@@ -12,8 +12,10 @@ import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetDAO;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeDAO;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.LoginEmployeeUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.employee.LogoutEmployeeUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.LocationDAO;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Session;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -37,21 +39,24 @@ public class Main {
             opcao = menu();
             switch (opcao) {
                 case 1 -> login();
+                case 2 -> logout();
+                case 3 -> printLoggedEmployee();
                 case 4 -> addAsset();
                 case 5 -> updateAsset();
                 case 6 -> removeAsset();
                 case 7 -> filterAssetsByLocation();
                 case 8 -> filterAssetsByEmployeeInCharge();
                 case 9 -> filterAssetsByLocationAndEmployeeInCharge();
-                case 10 -> addEmployee();
-                case 11 -> updateEmployee();
-                case 12 -> removeEmployee();
-                case 13 -> addLocation();
-                case 14 -> updateLocation();
-                case 15 -> removeLocation();
-                case 16 -> issueInventoryReport();
-                case 17 -> issueEmployeesReport();
-                case 18 -> issueLocationsReport();
+                case 11 -> addEmployee();
+                case 12 -> updateEmployee();
+                case 13 -> removeEmployee();
+                case 15 -> listLocations();
+                case 16 -> addLocation();
+                case 17 -> updateLocation();
+                case 18 -> removeLocation();
+                case 22 -> issueInventoryReport();
+                case 23 -> issueEmployeesReport();
+                case 24 -> issueLocationsReport();
             }
         }
     }
@@ -62,33 +67,33 @@ public class Main {
         System.out.println("2. Logout employee");
         System.out.println("3. Print logged employee");
         System.out.println("4. List assets");
-        System.out.println("4. Add asset");
-        System.out.println("5. Update asset");
-        System.out.println("6. Remove asset");
-        System.out.println("7. Filter assets by location");
-        System.out.println("8. Filter assets by employee in charge");
-        System.out.println("9. Filter assets by location and employee in charge");
-        System.out.println("10. List employees");
-        System.out.println("10. Add employee");
-        System.out.println("11. Update employee");
-        System.out.println("12. Remove employee");
-        System.out.println("10. List locations");
-        System.out.println("13. Add location");
-        System.out.println("14. Update location");
-        System.out.println("15. Remove location");
-        System.out.println("10. List inventories");
-        System.out.println("10. Start inventories");
-        System.out.println("10. Finish inventories");
-        System.out.println("10. Rate asset in inventory");
-        System.out.println("16. Issue inventory report");
-        System.out.println("17. Issue employees report");
-        System.out.println("18. Issue locations report");
-        System.out.println("19. Export employees CSV");
-        System.out.println("20. Import employees CSV");
-        System.out.println("21. Export assets CSV");
-        System.out.println("22. Import assets CSV");
-        System.out.println("23. Import locations CSV");
-        System.out.println("24. Import locations CSV");
+        System.out.println("5. Add asset");
+        System.out.println("6. Update asset");
+        System.out.println("7. Remove asset");
+        System.out.println("8. Filter assets by location");
+        System.out.println("9. Filter assets by employee in charge");
+        System.out.println("10. Filter assets by location and employee in charge");
+        System.out.println("11. List employees");
+        System.out.println("12. Add employee");
+        System.out.println("13. Update employee");
+        System.out.println("14. Remove employee");
+        System.out.println("15. List locations");
+        System.out.println("16. Add location");
+        System.out.println("17. Update location");
+        System.out.println("18. Remove location");
+        System.out.println("19. List inventories");
+        System.out.println("20. Start inventories");
+        System.out.println("21. Finish inventories");
+        System.out.println("22. Rate asset in inventory");
+        System.out.println("23. Issue inventory report");
+        System.out.println("24. Issue employees report");
+        System.out.println("25. Issue locations report");
+        System.out.println("26. Export employees CSV");
+        System.out.println("27. Import employees CSV");
+        System.out.println("28. Export assets CSV");
+        System.out.println("29. Import assets CSV");
+        System.out.println("30. Import locations CSV");
+        System.out.println("31. Import locations CSV");
         System.out.println("0. Sair");
         System.out.print(">> ");
         return Integer.parseInt(scanner.nextLine());
@@ -105,6 +110,30 @@ public class Main {
             loginEmployeeUseCase.login(email, password);
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    private void logout() {
+        try {
+            LogoutEmployeeUseCase logoutEmployeeUseCase = new LogoutEmployeeUseCase();
+            logoutEmployeeUseCase.logout();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void printLoggedEmployee() {
+        try {
+            Session session = Session.getInstance();
+            Employee loggedEmployee = session.getLoggedUser();
+            if (loggedEmployee == null) {
+                System.out.println("There is no logged employee.");
+                return;
+            }
+
+            System.out.println("Logged employee: " + loggedEmployee.getName());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -254,11 +283,16 @@ public class Main {
         System.out.println(inMemoryEmployeeDAO.findByRegistrationNumber(regNumber));
     }
 
+    private void listLocations() {
+        inMemoryLocationDAO.findAll().forEach(System.out::println);
+    }
+
     private void addLocation() {
         System.out.print("Id: ");
         int id = scanner.nextInt();
         System.out.print("Number: ");
         int number = scanner.nextInt();
+        scanner.nextLine();
         System.out.print("Section: ");
         String section = scanner.nextLine();
 
@@ -297,10 +331,6 @@ public class Main {
         System.out.println("Id: ");
         int id = scanner.nextInt();
         inMemoryLocationDAO.delete(id);
-    }
-
-    private void findAllLocations() {
-        inMemoryLocationDAO.findAll().forEach(System.out::println);
     }
 
     private void findLocationById(){
