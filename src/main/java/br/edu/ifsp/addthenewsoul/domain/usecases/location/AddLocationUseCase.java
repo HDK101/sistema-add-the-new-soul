@@ -13,7 +13,7 @@ public class AddLocationUseCase {
         this.locationDAO = localDAO;
     }
 
-    public Integer save (Location location) {
+    public Integer add (Location location) {
         Validator<Location> validator = new ValidationOfLocationAttributes();
         Notification notification = validator.isValid(location);
 

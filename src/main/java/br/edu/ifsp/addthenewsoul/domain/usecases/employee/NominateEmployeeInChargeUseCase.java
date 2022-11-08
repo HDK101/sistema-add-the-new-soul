@@ -8,6 +8,12 @@ import br.edu.ifsp.addthenewsoul.domain.usecases.utils.EntityNotFoundException;
 
 public class NominateEmployeeInChargeUseCase {
 
+    private EmployeeDAO employeeDAO;
+
+    public NominateEmployeeInChargeUseCase(EmployeeDAO employeeDAO) {
+        this.employeeDAO = employeeDAO;
+    }
+
     public void nominateEmployeeInCharge(Employee employee, Asset asset, Location location){
         if(asset != null){
             employee.getAssetsInCharge().add(asset);
