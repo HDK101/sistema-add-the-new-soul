@@ -11,7 +11,7 @@ public class RemoveAssetUseCase {
         this.assetDAO = assetDAO;
     }
 
-    public void removesAsset (Asset asset) {
+    public void removeAsset (Asset asset) {
         if (asset == null) return;
 
         Integer id = asset.getId();

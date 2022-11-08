@@ -3,6 +3,7 @@ package br.edu.ifsp.addthenewsoul.domain.entities.employee;
 import br.edu.ifsp.addthenewsoul.application.io.CSVNode;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Employee implements CSVNode {
@@ -22,7 +23,7 @@ public class Employee implements CSVNode {
         this.email = email;
         this.phone = phone;
         this.role = role;
-        this.assetsInCharge = null;
+        this.assetsInCharge = new ArrayList<>();
     }
 
     public String getName() {

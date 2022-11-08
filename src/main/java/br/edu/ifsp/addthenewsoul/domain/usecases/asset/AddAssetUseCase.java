@@ -13,7 +13,7 @@ public class AddAssetUseCase {
         this.assetDAO = assetDAO;
     }
 
-    public Integer save (Asset asset) {
+    public Integer add (Asset asset) {
         Validator<Asset> validator = new ValidationOfAssetAttributes();
         Notification notification = validator.isValid(asset);
 

@@ -13,7 +13,7 @@ public class AddEmployeeUseCase {
         this.employeeDAO = employeeDAO;
     }
 
-    public String save (Employee employee) {
+    public String add (Employee employee) {
         ValidationOfEmployeeAttributes validator = new ValidationOfEmployeeAttributes();
         Notification notification = validator.isValid(employee);
 
