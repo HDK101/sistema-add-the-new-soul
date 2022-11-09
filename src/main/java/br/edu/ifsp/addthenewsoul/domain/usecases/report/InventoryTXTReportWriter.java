@@ -3,6 +3,7 @@ package br.edu.ifsp.addthenewsoul.domain.usecases.report;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
+import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.TXTWriter;
 
 import java.io.IOException;
@@ -19,7 +20,7 @@ public class InventoryTXTReportWriter extends TXTWriter implements ReportWriter<
             addDetail("Commision members: ", inventory.getComission());
             addSingleHead("Verified assets: ");
 
-            for (Asset asset : inventory.getAssets()) {
+            for (InventoryAsset asset : inventory.getAssets()) {
                 addAssetDetail("Asset ID: ", asset.getId());
                 addAssetDetail("Description: ", asset.getDescription());
                 addAssetDetail("Employee in charge: ", asset.getEmployeeInCharge());

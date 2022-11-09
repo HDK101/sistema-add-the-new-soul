@@ -5,6 +5,7 @@ import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.LocationDAO;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class InMemoryLocationDAO implements LocationDAO {
 
@@ -12,12 +13,18 @@ public class InMemoryLocationDAO implements LocationDAO {
 
     @Override
     public Optional<Location> findById(Integer id) {
+        if (dbMemory.containsKey(id))
+            return Optional.of(dbMemory.get(id));
+
         return Optional.empty();
     }
 
     @Override
     public Optional<Location> findByLocation(Integer number, String section) {
-        return Optional.empty();
+        return findAll().stream()
+                .filter(location -> location.getNumber() == number &&
+                        location.getSection().equals(section))
+                .findAny();
     }
 
     @Override
@@ -52,6 +59,12 @@ public class InMemoryLocationDAO implements LocationDAO {
 
     @Override
     public boolean update(Location location) {
+
+        if (dbMemory.containsKey(location.getId())) {
+            dbMemory.replace(location.getId(), location);
+            return true;
+        }
+
         return false;
     }
 
