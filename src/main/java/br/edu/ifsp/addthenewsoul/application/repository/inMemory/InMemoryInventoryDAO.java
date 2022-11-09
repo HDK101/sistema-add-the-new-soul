@@ -1,6 +1,7 @@
 package br.edu.ifsp.addthenewsoul.application.repository.inMemory;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
+import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;
 
 import java.util.*;
@@ -8,6 +9,8 @@ import java.util.*;
 public class InMemoryInventoryDAO implements InventoryDAO {
 
     private final Map<Integer, Inventory> dbMemoryInventory = new LinkedHashMap<>();
+
+    private int currentInventoryId = 0;
 
     @Override
     public Map<Integer, Inventory> bulkAdd(List<Inventory> items) {
