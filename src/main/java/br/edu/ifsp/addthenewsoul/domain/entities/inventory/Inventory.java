@@ -23,7 +23,6 @@ public class Inventory {
         this.comission = comission;
         this.initialDate = initialDate;
         this.endDate = endDate;
-
         this.assets = assets;
         setInventoryAssetsParent();
     }
@@ -50,6 +49,12 @@ public class Inventory {
                 return false;
         }
         return true;
+    }
+
+    public void leaveAssetsAsVerified () {
+        for (InventoryAsset asset : assets) {
+            asset.setStatus(Status.VERIFIED);
+        }
     }
 
     private void setEmployeeRolesToNormal() {
@@ -130,7 +135,8 @@ public class Inventory {
     @Override
     public String toString() {
         return "Inventory{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", comissionPresident=" + comissionPresident +
                 ", comission=" + comission +
                 ", initialDate=" + initialDate +
