@@ -11,11 +11,15 @@ import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.*;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.*;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;
+import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.StartInventoryUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.AddLocationUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.LocationDAO;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.RemoveLocationUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.UpdateLocationUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Session;
+
+import java.time.LocalDate;
+import java.util.Arrays;
 
 public class UseCaseTests {
     public static void main(String[] args) {
@@ -41,9 +45,11 @@ public class UseCaseTests {
         Employee employee1 = new Employee("Walter", "R12345", "senha123", "noname@email.com", "(18) 99999-9999", Role.EXECUTOR);
         Employee employee2 = new Employee("Eisen", "R12346", "senha456", "eisen@email.com", "(16) 98888-8888", Role.EXECUTOR);
         Employee employee3 = new Employee("Joseph", "R12347", "senha789", "joseph@email.com", "(19) 97777-7777", Role.INVENTORY_MANAGER);
+        Employee employee4 = new Employee("Durandal", "R12348", "tycho123", "durandal@email.com", "(19) 97727-2777", Role.INVENTORY_MANAGER);
         addEmployeeUseCase.add(employee1);
         addEmployeeUseCase.add(employee2);
         addEmployeeUseCase.add(employee3);
+        addEmployeeUseCase.add(employee4);
 
 
         System.out.println("----- ORIGINAL LIST OF EMPLOYEES -----");
@@ -128,14 +134,11 @@ public class UseCaseTests {
         System.out.println("Lista de Assets com modificações");
         System.out.println(assetDAO.findAll());
 
-        AddLocationUseCase addLocationUseCase = new AddLocationUseCase(locationDAO);
         UpdateLocationUseCase updateLocationUseCase = new UpdateLocationUseCase(locationDAO);
         RemoveLocationUseCase removeLocationUseCase = new RemoveLocationUseCase(locationDAO, assetDAO);
 
-        Location location1 = new Location(1, 1, "1A");
-        Location location2 = new Location(2, 2, "1B");
-        addLocationUseCase.save(location1);
-        addLocationUseCase.save(location2);
+        addLocationUseCase.add(location1);
+        addLocationUseCase.add(location2);
 
         System.out.println("Lista de locations sem modificações:");
         System.out.println(locationDAO.findAll());
@@ -148,5 +151,10 @@ public class UseCaseTests {
         removeLocationUseCase.deleteLocation(location2);
         System.out.println("Lista de locations com modificações (remove)");
         System.out.println(locationDAO.findAll());
+
+        StartInventoryUseCase startInventoryUseCase = new StartInventoryUseCase(inventoryDAO);
+        startInventoryUseCase.initializeInventory("Inventário 01", LocalDate.now(), LocalDate.now().plusMonths(2), Arrays.asList(employee3, employee4), null, null);
+
+
     }
 }
