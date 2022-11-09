@@ -1,7 +1,7 @@
 package br.edu.ifsp.addthenewsoul.domain.usecases.asset;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
-import br.edu.ifsp.addthenewsoul.domain.usecases.utils.EntityNotFoundException;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.exceptions.EntityNotFoundException;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Validator;
 
 import java.util.List;

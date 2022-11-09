@@ -1,4 +1,4 @@
-package br.edu.ifsp.addthenewsoul.domain.usecases.utils;
+package br.edu.ifsp.addthenewsoul.domain.usecases.utils.exceptions;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 

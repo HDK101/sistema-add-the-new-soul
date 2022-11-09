@@ -26,6 +26,14 @@ public class Employee implements CSVNode {
         this.assetsInCharge = new ArrayList<>();
     }
 
+    public Employee(String name, String registrationNumber, String email, String phone, Role role) {
+        this.name = name;
+        this.registrationNumber = registrationNumber;
+        this.email = email;
+        this.phone = phone;
+        this.role = role;
+    }
+
     public String getName() {
         return name;
     }

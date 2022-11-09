@@ -14,31 +14,38 @@ public class Inventory {
     private List<Employee> comission;
     private LocalDate initialDate;
     private LocalDate endDate;
-    private List<Asset> assets;
+    private List<InventoryAsset> assets;
 
-    public Inventory(Integer id, String name, Employee comissionPresident, List<Employee> comission, LocalDate initialDate, LocalDate endDate, List<Asset> assets) {
+    public Inventory(Integer id, String name, Employee comissionPresident, List<Employee> comission, LocalDate initialDate, LocalDate endDate, List<InventoryAsset> assets) {
         this.id = id;
         this.name = name;
         this.comissionPresident = comissionPresident;
         this.comission = comission;
         this.initialDate = initialDate;
         this.endDate = endDate;
+
         this.assets = assets;
+        setInventoryAssetsParent();
     }
 
-    public Inventory(String name, LocalDate initialDate, LocalDate endDate, Employee comissionPresident, List<Employee> comission, List<Asset> assets) {
+    public Inventory(String name, LocalDate initialDate, LocalDate endDate, Employee comissionPresident, List<Employee> comission, List<InventoryAsset> assets) {
         this.name = name;
         this.comissionPresident = comissionPresident;
         this.comission = comission;
         this.initialDate = initialDate;
         this.endDate = endDate;
         this.assets = assets;
+        setInventoryAssetsParent();
 
         if (!hasUnverifiedAssets()) throw new IllegalArgumentException("Some assets were already verified");
     }
 
+    private void setInventoryAssetsParent() {
+        this.assets.forEach(asset -> asset.setInventory(this));
+    }
+
     public boolean hasUnverifiedAssets() {
-        for (Asset asset : assets) {
+        for (InventoryAsset asset : assets) {
             if (asset.getStatus().equals(Status.VERIFIED))
                 return false;
         }
@@ -64,11 +71,11 @@ public class Inventory {
         this.comission = comission;
     }
 
-    public List<Asset> getAssets() {
+    public List<InventoryAsset> getAssets() {
         return assets;
     }
 
-    public void setAssets(List<Asset> assets) {
+    public void setAssets(List<InventoryAsset> assets) {
         this.assets = assets;
     }
 

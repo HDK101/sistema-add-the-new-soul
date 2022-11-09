@@ -20,17 +20,21 @@ import br.edu.ifsp.addthenewsoul.domain.usecases.location.RemoveLocationUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.UpdateLocationUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Session;
 
+
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.io.IOException;
+
 public class UseCaseTests {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         AssetDAO assetDAO = new InMemoryAssetDAO();
         EmployeeDAO employeeDAO = new InMemoryEmployeeDAO();
         LocationDAO locationDAO = new InMemoryLocationDAO();
         InventoryDAO inventoryDAO = new InMemoryInventoryDAO();
+        EmployeeCSV employeeCSV = new EmployeeCSV();
 
         AddAssetUseCase addAssetUseCase = new AddAssetUseCase(assetDAO);
         UpdateAssetUseCase updateAssetUseCase = new UpdateAssetUseCase(assetDAO);
@@ -47,8 +51,15 @@ public class UseCaseTests {
         LoginEmployeeUseCase loginEmployeeUseCase = new LoginEmployeeUseCase(employeeDAO);
         NominateEmployeeInChargeUseCase nominateEmployeeInChargeUseCase = new NominateEmployeeInChargeUseCase(employeeDAO);
 
+
         StartInventoryUseCase startInventoryUseCase = new StartInventoryUseCase(inventoryDAO);
         FinishInventoryUseCase finishInventoryUseCase = new FinishInventoryUseCase(inventoryDAO);
+
+        ExportEmployeeCSVUseCase exportEmployeeCSVUseCase = new ExportEmployeeCSVUseCase(employeeCSV, employeeDAO);
+        ImportEmployeeCSVUseCase importEmployeeCSVUseCase = new ImportEmployeeCSVUseCase(employeeCSV, employeeDAO);
+        FindEmployeeUseCase findEmployeeUseCase = new FindEmployeeUseCase(employeeDAO);
+        LogoutEmployeeUseCase logoutEmployeeUseCase = new LogoutEmployeeUseCase();
+
 
         Employee employee1 = new Employee("Walter", "R12345", "senha123", "noname@email.com", "(18) 99999-9999", Role.EXECUTOR);
         Employee employee2 = new Employee("Eisen", "R12346", "senha456", "eisen@email.com", "(16) 98888-8888", Role.CHAIRMAN_OF_THE_COMISSION);
@@ -149,10 +160,21 @@ public class UseCaseTests {
         System.out.println(filterAssetsUseCase.filterAssetsByEmployee(employee1));
         System.out.println(filterAssetsUseCase.filterAssetsByLocationAndEmployee(location1, employee1));
 
+        System.out.println("----- EXPORT EMPLOYEES CSV  -----");
+
+
+        exportEmployeeCSVUseCase.export("employeesCsv");
+
+
+        System.out.println("----- IMPORT EMPLOYEES CSV  -----");
+
+
+        importEmployeeCSVUseCase.importEmployees("employeesCsv");
+        System.out.println(findEmployeeUseCase.findAll());
+
+
         System.out.println("----- EMPLOYEE LOGOUT -----");
 
-
-        LogoutEmployeeUseCase logoutEmployeeUseCase = new LogoutEmployeeUseCase();
         logoutEmployeeUseCase.logout();
 
         System.out.println(Session.getInstance().getLoggedUser() == null);

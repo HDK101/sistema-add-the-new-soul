@@ -14,4 +14,6 @@ module br.edu.ifsp.addthenewsoul {
     exports br.edu.ifsp.addthenewsoul.application.io;
     exports br.edu.ifsp.addthenewsoul.domain.entities.asset;
     exports br.edu.ifsp.addthenewsoul.domain.usecases.asset;
+    exports br.edu.ifsp.addthenewsoul.domain.usecases.inventory;
+    opens br.edu.ifsp.addthenewsoul.domain.usecases.inventory to br.edu.ifsp.addthenewsoul;
 }
