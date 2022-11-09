@@ -8,6 +8,7 @@ import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
+import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.*;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.*;
@@ -191,11 +192,6 @@ public class UseCaseTests {
         LocalDate today = LocalDate.now();
         LocalDate tomorrow = LocalDate.of(2022, Month.NOVEMBER, 10);
 
-        asset1.setStatus(Status.NOT_VERIFIED);
-        asset2.setStatus(Status.NOT_VERIFIED);
-        asset3.setStatus(Status.NOT_VERIFIED);
-        asset4.setStatus(Status.NOT_VERIFIED);
-
         List<Employee> employeeList = new ArrayList<>();
 
         employeeList.add(employee1);
@@ -209,6 +205,9 @@ public class UseCaseTests {
 
         System.out.println("----- FINISH INVENTORY -----");
 
+        Inventory inventory = inventoryDAO.findInventoryById(1).get();
+        inventory.leaveAssetsAsVerified();
+        finishInventoryUseCase.finalizeInventory(inventory);
 
         System.out.println("----- LIST OF LOCATIONS -----");
 
