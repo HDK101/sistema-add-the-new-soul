@@ -24,9 +24,7 @@ public abstract class Validator<T> {
     }
 
     public static boolean checkIfDateHasPassed (LocalDate initialDate, LocalDate endDate) {
-        LocalDate currentDate = LocalDate.now();
-        return initialDate.compareTo(currentDate) != 0 &&
-                endDate.compareTo(currentDate) != 0;
+        return initialDate.compareTo(endDate) < 0;
     }
 
 }

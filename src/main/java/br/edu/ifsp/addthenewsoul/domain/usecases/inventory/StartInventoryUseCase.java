@@ -5,13 +5,12 @@ import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
-import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetDAO;
-import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeDAO;
-import br.edu.ifsp.addthenewsoul.domain.usecases.utils.InventoryInvalidPresidentException;
+import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.exceptions.InventoryInvalidPresidentException;
+
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Validator;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,7 +39,11 @@ public class StartInventoryUseCase {
     }
 
     private List<InventoryAsset> createInventoryAssets(List<Asset> assets) {
-        return assets.stream().map(InventoryAsset::createFromAsset).toList();
+        List<InventoryAsset> inventoryAssets = assets.stream().map(InventoryAsset::createFromAsset).toList();
+        for (InventoryAsset inventoryAsset : inventoryAssets) {
+            inventoryAsset.setStatus(Status.NOT_VERIFIED);
+        }
+        return inventoryAssets;
     }
 
     public void initializeInventory (String name, LocalDate initialDate, LocalDate endDate, List<Employee> employees,

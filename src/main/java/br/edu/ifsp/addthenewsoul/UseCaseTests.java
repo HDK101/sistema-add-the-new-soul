@@ -8,8 +8,11 @@ import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
+import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
+import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.*;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.*;
+import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.FinishInventoryUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.StartInventoryUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.AddLocationUseCase;
@@ -20,13 +23,20 @@ import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Session;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
+
+import java.io.IOException;
 
 public class UseCaseTests {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         AssetDAO assetDAO = new InMemoryAssetDAO();
         EmployeeDAO employeeDAO = new InMemoryEmployeeDAO();
         LocationDAO locationDAO = new InMemoryLocationDAO();
         InventoryDAO inventoryDAO = new InMemoryInventoryDAO();
+        EmployeeCSV employeeCSV = new EmployeeCSV();
 
         AddAssetUseCase addAssetUseCase = new AddAssetUseCase(assetDAO);
         UpdateAssetUseCase updateAssetUseCase = new UpdateAssetUseCase(assetDAO);
@@ -34,6 +44,8 @@ public class UseCaseTests {
         FindAssetUseCase findAssetUseCase = new FindAssetUseCase(assetDAO);
 
         AddLocationUseCase addLocationUseCase = new AddLocationUseCase(locationDAO);
+        UpdateLocationUseCase updateLocationUseCase = new UpdateLocationUseCase(locationDAO);
+        RemoveLocationUseCase removeLocationUseCase = new RemoveLocationUseCase(locationDAO, assetDAO);
 
         AddEmployeeUseCase addEmployeeUseCase = new AddEmployeeUseCase(employeeDAO);
         UpdateEmployeeUseCase updateEmployeeUseCase = new UpdateEmployeeUseCase(employeeDAO);
@@ -42,14 +54,27 @@ public class UseCaseTests {
         NominateEmployeeInChargeUseCase nominateEmployeeInChargeUseCase = new NominateEmployeeInChargeUseCase(employeeDAO);
 
 
+        StartInventoryUseCase startInventoryUseCase = new StartInventoryUseCase(inventoryDAO);
+        FinishInventoryUseCase finishInventoryUseCase = new FinishInventoryUseCase(inventoryDAO);
+
+        ExportEmployeeCSVUseCase exportEmployeeCSVUseCase = new ExportEmployeeCSVUseCase(employeeCSV, employeeDAO);
+        ImportEmployeeCSVUseCase importEmployeeCSVUseCase = new ImportEmployeeCSVUseCase(employeeCSV, employeeDAO);
+        FindEmployeeUseCase findEmployeeUseCase = new FindEmployeeUseCase(employeeDAO);
+        LogoutEmployeeUseCase logoutEmployeeUseCase = new LogoutEmployeeUseCase();
+
+
         Employee employee1 = new Employee("Walter", "R12345", "senha123", "noname@email.com", "(18) 99999-9999", Role.EXECUTOR);
-        Employee employee2 = new Employee("Eisen", "R12346", "senha456", "eisen@email.com", "(16) 98888-8888", Role.EXECUTOR);
+        Employee employee2 = new Employee("Eisen", "R12346", "senha456", "eisen@email.com", "(16) 98888-8888", Role.CHAIRMAN_OF_THE_COMISSION);
         Employee employee3 = new Employee("Joseph", "R12347", "senha789", "joseph@email.com", "(19) 97777-7777", Role.INVENTORY_MANAGER);
-        Employee employee4 = new Employee("Durandal", "R12348", "tycho123", "durandal@email.com", "(19) 97727-2777", Role.INVENTORY_MANAGER);
+        Employee employee4 = new Employee("Eric", "R22556", "senha011", "eric@email.com", "(17) 98100-7188", Role.EMPLOYEE);
+        Employee employee5 = new Employee("Durandal", "R12348", "tycho123", "durandal@email.com", "(19) 97727-2777", Role.INVENTORY);
+
         addEmployeeUseCase.add(employee1);
         addEmployeeUseCase.add(employee2);
         addEmployeeUseCase.add(employee3);
         addEmployeeUseCase.add(employee4);
+
+        FilterAssetsUseCase filterAssetsUseCase = new FilterAssetsUseCase(assetDAO, employee3);
 
 
         System.out.println("----- ORIGINAL LIST OF EMPLOYEES -----");
@@ -82,10 +107,12 @@ public class UseCaseTests {
         Asset asset1 = new Asset(1,"Cadeira", 50.0, "Nenhum");
         Asset asset2 = new Asset(2,"Mesa", 200.0, "Nenhum");
         Asset asset3 = new Asset(3,"Computador Desktop", 2000.0, "Nenhum");
+        Asset asset4 = new Asset(4,"Computador portátil", 4769.0, "Nenhum");
 
         addAssetUseCase.add(asset1);
         addAssetUseCase.add(asset2);
         addAssetUseCase.add(asset3);
+        addAssetUseCase.add(asset4);
 
         System.out.println(assetDAO.findAll());
 
@@ -96,7 +123,7 @@ public class UseCaseTests {
         asset2.setValue(496);
         asset2.setDescription("Teclado gamer");
         updateAssetUseCase.updateAsset(asset2);
-        removeAssetUseCase.removeAsset(asset1);
+        removeAssetUseCase.removeAsset(asset2);
 
         System.out.println(assetDAO.findAll());
 
@@ -111,45 +138,99 @@ public class UseCaseTests {
         addLocationUseCase.add(location2);
         addLocationUseCase.add(location3);
 
+        System.out.println(locationDAO.findAll());
+
 
         System.out.println("----- ASSETS UPDATED WITH EMPLOYEES IN CHARGE AND LOCATIONS -----");
 
         nominateEmployeeInChargeUseCase.nominateEmployeeInCharge(employee1, asset3, location1);
         nominateEmployeeInChargeUseCase.nominateEmployeeInCharge(employee2, asset2, location2);
+        nominateEmployeeInChargeUseCase.nominateEmployeeInCharge(employee3, asset1, location1);
+        nominateEmployeeInChargeUseCase.nominateEmployeeInCharge(employee1, asset4, location3);
         updateAssetUseCase.updateAsset(asset2);
         updateAssetUseCase.updateAsset(asset3);
+        updateAssetUseCase.updateAsset(asset1);
+        updateAssetUseCase.updateAsset(asset4);
 
         System.out.println(findAssetUseCase.findOne(2));
         System.out.println(findAssetUseCase.findOne(3));
+        System.out.println(findAssetUseCase.findOne(1));
+        System.out.println(findAssetUseCase.findOne(4));
+
+
+        System.out.println("----- FILTER OF ASSETS -----");
+
+        System.out.println(filterAssetsUseCase.filterAssetsByLocal(location1));
+        System.out.println(filterAssetsUseCase.filterAssetsByEmployee(employee1));
+        System.out.println(filterAssetsUseCase.filterAssetsByLocationAndEmployee(location1, employee1));
+
+        System.out.println("----- EXPORT EMPLOYEES CSV  -----");
+
+
+        exportEmployeeCSVUseCase.export("employeesCsv");
+
+
+        System.out.println("----- IMPORT EMPLOYEES CSV  -----");
+
+
+        importEmployeeCSVUseCase.importEmployees("employeesCsv");
+        System.out.println(findEmployeeUseCase.findAll());
 
 
         System.out.println("----- EMPLOYEE LOGOUT -----");
 
-
-        LogoutEmployeeUseCase logoutEmployeeUseCase = new LogoutEmployeeUseCase();
         logoutEmployeeUseCase.logout();
 
         System.out.println(Session.getInstance().getLoggedUser() == null);
 
-        System.out.println("Lista de Assets com modificações");
+        System.out.println("----- FIND OF ASSETS -----");
+
         System.out.println(assetDAO.findAll());
 
-        UpdateLocationUseCase updateLocationUseCase = new UpdateLocationUseCase(locationDAO);
-        RemoveLocationUseCase removeLocationUseCase = new RemoveLocationUseCase(locationDAO, assetDAO);
+        System.out.println(assetDAO.findById(asset3.getId()));
 
-        addLocationUseCase.add(location1);
-        addLocationUseCase.add(location2);
 
-        System.out.println("Lista de locations sem modificações:");
+        System.out.println("----- START INVENTORY -----");
+
+        LocalDate today = LocalDate.now();
+        LocalDate tomorrow = LocalDate.of(2022, Month.NOVEMBER, 10);
+
+        List<Employee> employeeList = new ArrayList<>();
+
+        employeeList.add(employee1);
+        employeeList.add(employee4);
+
+        startInventoryUseCase.initializeInventory("Teste", today, tomorrow,
+                employeeList, employee3, assetDAO.findAll());
+
+        System.out.println(inventoryDAO.findAll());
+
+
+        System.out.println("----- FINISH INVENTORY -----");
+
+        Inventory inventory = inventoryDAO.findInventoryById(1).get();
+        inventory.leaveAssetsAsVerified();
+        finishInventoryUseCase.finalizeInventory(inventory);
+
+        System.out.println("----- LIST OF LOCATIONS -----");
+
         System.out.println(locationDAO.findAll());
+
+        System.out.println(locationDAO.findByLocation(20, "Seção B"));
+
+        System.out.println("----- UPDATE LOCATION LIST -----");
+
 
         location1.setSection("2C");
         updateLocationUseCase.update(location1);
-        System.out.println("Lista de locations com modificações (update):");
+
         System.out.println(locationDAO.findAll());
 
+
+        System.out.println("----- REMOVE LOCATIONS -----");
+
         removeLocationUseCase.deleteLocation(location2);
-        System.out.println("Lista de locations com modificações (remove)");
+
         System.out.println(locationDAO.findAll());
 
         StartInventoryUseCase startInventoryUseCase = new StartInventoryUseCase(inventoryDAO);

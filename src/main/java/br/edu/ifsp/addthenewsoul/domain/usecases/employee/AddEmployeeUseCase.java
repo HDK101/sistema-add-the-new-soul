@@ -2,8 +2,7 @@ package br.edu.ifsp.addthenewsoul.domain.usecases.employee;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.EmployeePasswordHash;
-import br.edu.ifsp.addthenewsoul.domain.usecases.utils.EntityAlreadyExistsException;
-import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Hash;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.exceptions.EntityAlreadyExistsException;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Notification;
 
 public class AddEmployeeUseCase {

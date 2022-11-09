@@ -2,12 +2,9 @@ package br.edu.ifsp.addthenewsoul.domain.usecases.employee;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
-import br.edu.ifsp.addthenewsoul.domain.usecases.utils.AccessLevel;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Hash;
-import br.edu.ifsp.addthenewsoul.domain.usecases.utils.InvalidCredentialsException;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.exceptions.InvalidCredentialsException;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Session;
-
-import java.util.Optional;
 
 public class LoginEmployeeUseCase {
     private EmployeeDAO employeeDAO;
