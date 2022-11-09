@@ -5,6 +5,7 @@ import br.edu.ifsp.addthenewsoul.application.repository.inMemory.InMemoryEmploye
 import br.edu.ifsp.addthenewsoul.application.repository.inMemory.InMemoryInventoryDAO;
 import br.edu.ifsp.addthenewsoul.application.repository.inMemory.InMemoryLocationDAO;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AddAssetUseCase;
@@ -13,7 +14,10 @@ import br.edu.ifsp.addthenewsoul.domain.usecases.asset.EditAssetUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.RemoveAssetUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.*;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;
+import br.edu.ifsp.addthenewsoul.domain.usecases.location.AddLocationUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.LocationDAO;
+import br.edu.ifsp.addthenewsoul.domain.usecases.location.RemoveLocationUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.location.UpdateLocationUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Session;
 
 public class UseCaseTests {
@@ -74,5 +78,26 @@ public class UseCaseTests {
 
         System.out.println("Lista de Assets com modificações");
         System.out.println(assetDAO.findAll());
+
+        AddLocationUseCase addLocationUseCase = new AddLocationUseCase(locationDAO);
+        UpdateLocationUseCase updateLocationUseCase = new UpdateLocationUseCase(locationDAO);
+        RemoveLocationUseCase removeLocationUseCase = new RemoveLocationUseCase(locationDAO, assetDAO);
+
+        Location location1 = new Location(1, 1, "1A");
+        Location location2 = new Location(2, 2, "1B");
+        addLocationUseCase.save(location1);
+        addLocationUseCase.save(location2);
+
+        System.out.println("Lista de locations sem modificações:");
+        System.out.println(locationDAO.findAll());
+
+        location1.setSection("2C");
+        updateLocationUseCase.update(location1);
+        System.out.println("Lista de locations com modificações (update):");
+        System.out.println(locationDAO.findAll());
+
+        removeLocationUseCase.deleteLocation(location2);
+        System.out.println("Lista de locations com modificações (remove)");
+        System.out.println(locationDAO.findAll());
     }
 }
