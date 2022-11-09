@@ -1,20 +1,12 @@
 package br.edu.ifsp.addthenewsoul.domain.usecases.asset;
 
 import br.edu.ifsp.addthenewsoul.application.io.CSV;
-import br.edu.ifsp.addthenewsoul.application.io.CSVNode;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
-import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
-import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
-import br.edu.ifsp.addthenewsoul.domain.usecases.utils.AssetDependencyNotFoundException;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 public class AssetCSV extends CSV<Asset> {

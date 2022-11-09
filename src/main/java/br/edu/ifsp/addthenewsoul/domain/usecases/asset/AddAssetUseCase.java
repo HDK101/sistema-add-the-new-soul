@@ -1,7 +1,7 @@
 package br.edu.ifsp.addthenewsoul.domain.usecases.asset;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
-import br.edu.ifsp.addthenewsoul.domain.usecases.utils.EntityAlreadyExistsException;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.exceptions.EntityAlreadyExistsException;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Notification;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Validator;
 

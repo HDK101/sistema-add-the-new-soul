@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class EmployeeCSV extends CSV<Employee> {
+
     @Override
     public List<Employee> read(String fileName) throws FileNotFoundException {
         File file = new File(fileName);
@@ -20,14 +21,15 @@ public class EmployeeCSV extends CSV<Employee> {
 
         while (reader.hasNextLine()) {
             String[] parts = reader.nextLine().split(",");
-            employees.add(new Employee(
+            Employee employee = new Employee(
                     parts[0],
                     parts[1],
-                    parts[2],
                     parts[3],
                     parts[4],
                     Role.values()[Integer.parseInt(parts[5])]
-            ));
+            );
+            employee.setHashPassword(parts[2]);
+            employees.add(employee);
         }
 
         reader.close();

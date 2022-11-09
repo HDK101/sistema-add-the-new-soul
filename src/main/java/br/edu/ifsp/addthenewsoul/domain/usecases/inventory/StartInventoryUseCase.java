@@ -4,14 +4,11 @@ import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
-import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
-import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetDAO;
-import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeDAO;
-import br.edu.ifsp.addthenewsoul.domain.usecases.utils.InventoryInvalidPresidentException;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.exceptions.InventoryInvalidPresidentException;
+
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Validator;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 

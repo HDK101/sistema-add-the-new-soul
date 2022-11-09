@@ -3,7 +3,7 @@ package br.edu.ifsp.addthenewsoul.domain.usecases.employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
-import br.edu.ifsp.addthenewsoul.domain.usecases.utils.EntityNotFoundException;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.exceptions.EntityNotFoundException;
 
 
 public class NominateEmployeeInChargeUseCase {
