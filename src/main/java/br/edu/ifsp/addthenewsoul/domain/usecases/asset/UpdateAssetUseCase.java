@@ -1,17 +1,16 @@
 package br.edu.ifsp.addthenewsoul.domain.usecases.asset;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
-import br.edu.ifsp.addthenewsoul.domain.usecases.utils.EntityAlreadyExistsException;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Notification;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Validator;
 
 import java.util.List;
 
-public class EditAssetUseCase {
+public class UpdateAssetUseCase {
 
     private AssetDAO assetDAO;
 
-    public EditAssetUseCase(AssetDAO assetDAO) {
+    public UpdateAssetUseCase(AssetDAO assetDAO) {
         this.assetDAO = assetDAO;
     }
 
