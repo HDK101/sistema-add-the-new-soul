@@ -247,8 +247,8 @@ public class UseCaseTests {
         System.out.println("----- FINISH INVENTORY -----");
 
         Inventory inventory = inventoryDAO.findInventoryById(1).get();
-        /*inventory.leaveAssetsAsVerified();
-        finishInventoryUseCase.finalizeInventory(inventory);*/
+        inventory.leaveAssetsAsVerified();
+        finishInventoryUseCase.finalizeInventory(inventory);
 
         System.out.println("----- LIST OF LOCATIONS -----");
 
