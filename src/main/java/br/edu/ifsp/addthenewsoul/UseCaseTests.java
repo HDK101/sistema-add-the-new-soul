@@ -229,7 +229,7 @@ public class UseCaseTests {
         System.out.println("----- START INVENTORY -----");
 
         LocalDate today = LocalDate.now();
-        LocalDate tomorrow = LocalDate.of(2022, Month.NOVEMBER, 10);
+        LocalDate tomorrow = LocalDate.of(2022, Month.NOVEMBER, 11);
 
         List<Employee> employeeList = new ArrayList<>();
 
