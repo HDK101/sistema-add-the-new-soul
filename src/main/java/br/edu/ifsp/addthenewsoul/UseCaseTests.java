@@ -31,6 +31,8 @@ import java.io.IOException;
 
 public class UseCaseTests {
     public static void main(String[] args) throws IOException {
+
+	System.out.println("----- Apresentação Parcial -----");
         AssetDAO assetDAO = new InMemoryAssetDAO();
         EmployeeDAO employeeDAO = new InMemoryEmployeeDAO();
         LocationDAO locationDAO = new InMemoryLocationDAO();
@@ -247,8 +249,8 @@ public class UseCaseTests {
         System.out.println("----- FINISH INVENTORY -----");
 
         Inventory inventory = inventoryDAO.findInventoryById(1).get();
-        /*inventory.leaveAssetsAsVerified();
-        finishInventoryUseCase.finalizeInventory(inventory);*/
+        inventory.leaveAssetsAsVerified();
+        finishInventoryUseCase.finalizeInventory(inventory);
 
         System.out.println("----- LIST OF LOCATIONS -----");
 
