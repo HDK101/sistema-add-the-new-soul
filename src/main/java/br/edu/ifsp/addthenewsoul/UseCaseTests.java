@@ -250,7 +250,9 @@ public class UseCaseTests {
 
         Inventory inventory = inventoryDAO.findInventoryById(1).get();
         inventory.leaveAssetsAsVerified();
-        finishInventoryUseCase.finalizeInventory(inventory);
+        finishInventoryUseCase.finalizeInventory(inventory, employee3);
+
+        System.out.println(inventoryDAO.findAll());
 
         System.out.println("----- LIST OF LOCATIONS -----");
 
@@ -293,5 +295,6 @@ public class UseCaseTests {
         evaluateAssetUseCase.evaluateAsset(employee5, inventory.getAssets().get(0), "Risco na mesa");
 
         System.out.println(inventoryDAO.findAll());
+        
     }
 }

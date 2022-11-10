@@ -27,4 +27,9 @@ public abstract class Validator<T> {
         return initialDate.compareTo(endDate) < 0;
     }
 
+    public static boolean checkIfDateHasPassed (LocalDate initialDate) {
+        LocalDate current_day = LocalDate.now();
+        return initialDate.compareTo(current_day) >= 0;
+    }
+
 }

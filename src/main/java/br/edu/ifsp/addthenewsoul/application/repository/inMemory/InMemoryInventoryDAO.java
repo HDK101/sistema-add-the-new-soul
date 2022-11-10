@@ -3,9 +3,11 @@ package br.edu.ifsp.addthenewsoul.application.repository.inMemory;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.InventoryStatus;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class InMemoryInventoryDAO implements InventoryDAO {
 
@@ -28,6 +30,8 @@ public class InMemoryInventoryDAO implements InventoryDAO {
             currentInventoryAssetId++;
             inventoryAsset.setId(currentInventoryAssetId);
         });
+
+        inventory.setInventoryStatus(InventoryStatus.OPENED);
 
         return currentInventoryId;
     }
@@ -65,5 +69,15 @@ public class InMemoryInventoryDAO implements InventoryDAO {
     @Override
     public void filterByPeriod(List<Inventory> all, LocalDate initialDate, LocalDate endDate) {
 
+    }
+
+    @Override
+    public boolean getStatusFromInventories() {
+        List<Inventory> inventories = findAll();
+        for (Inventory inventory : inventories) {
+            if (inventory.getInventoryStatus().equals(InventoryStatus.OPENED))
+                return true;
+        }
+        return false;
     }
 }

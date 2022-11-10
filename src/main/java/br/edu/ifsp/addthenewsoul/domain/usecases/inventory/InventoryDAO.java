@@ -13,4 +13,6 @@ public interface InventoryDAO extends DAO<Inventory, Integer> {
     Optional<Inventory> findInventoryById(Integer id);
 
     void filterByPeriod(List<Inventory> all, LocalDate initialDate, LocalDate endDate);
+
+    boolean getStatusFromInventories();
 }
