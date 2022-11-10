@@ -265,7 +265,7 @@ public class UseCaseTests {
 
         System.out.println("----- REMOVE LOCATIONS -----");
 
-        removeLocationUseCase.deleteLocation(location2);
+        //removeLocationUseCase.deleteLocation(location2);
 
         System.out.println(locationDAO.findAll());
 
@@ -277,6 +277,7 @@ public class UseCaseTests {
         System.out.println("----- INVENTORY REPORT -----");
 
         //issueReportUseCase.issueInventoryReport(1);
+        issueReportUseCase.issueInventoryReport(1);
 
         System.out.println("----- LOCATION REPORT -----");
 

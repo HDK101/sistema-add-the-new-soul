@@ -96,4 +96,20 @@ public class InventoryAsset {
     public void setResponsible(Employee responsible) {
         this.responsible = responsible;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("InventoryAsset{");
+        sb.append("asset=").append(asset);
+        sb.append(", id=").append(id);
+        sb.append(", description='").append(description).append('\'');
+        sb.append(", employeeInCharge=").append(employeeInCharge);
+        sb.append(", responsible=").append(responsible);
+        sb.append(", value=").append(value);
+        sb.append(", damage='").append(damage).append('\'');
+        sb.append(", location=").append(location);
+        sb.append(", status=").append(status);
+        sb.append('}');
+        return sb.toString();
+    }
 }

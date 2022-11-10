@@ -27,6 +27,7 @@ public class InMemoryInventoryDAO implements InventoryDAO {
         inventory.getAssets().stream().forEach(inventoryAsset -> {
             currentInventoryAssetId++;
             inventoryAsset.setId(currentInventoryAssetId);
+            System.out.println(inventoryAsset);
         });
 
         return currentInventoryId;
