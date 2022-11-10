@@ -20,8 +20,7 @@ public class InventoryTXTReportWriter extends TXTWriter implements ReportWriter<
             addDetail("Commision president:", inventory.getComissionPresident());
             addDetail("Commision members: ", inventory.getComission());
             addSingleHead("Verified assets: ");
-
-                System.out.println(inventory.getAssets());
+            
             for (InventoryAsset asset : inventory.getAssets()) {
                 addAssetDetail("Asset ID: ", asset.getId());
                 addAssetDetail("Description: ", asset.getDescription());
