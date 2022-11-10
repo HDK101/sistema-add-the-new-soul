@@ -20,6 +20,7 @@ public class EvaluateAssetUseCase {
 
         if (!inventory.getComission().contains(employee)) throw new IllegalArgumentException("Employee doesn't belong to the comission.");
 
+
         asset.applyDamage(damage);
         asset.setStatus(Status.VERIFIED);
 
