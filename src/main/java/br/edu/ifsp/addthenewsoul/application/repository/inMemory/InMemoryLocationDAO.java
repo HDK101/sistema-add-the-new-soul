@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 public class InMemoryLocationDAO implements LocationDAO {
 
     private static final Map<Integer, Location> dbMemory = new LinkedHashMap<>();
+    private int currentId;
 
     @Override
     public Optional<Location> findById(Integer id) {
@@ -38,8 +39,9 @@ public class InMemoryLocationDAO implements LocationDAO {
 
     @Override
     public Integer add(Location location) {
-        dbMemory.put(location.getId(), location);
-        return location.getId();
+        currentId++;
+        dbMemory.put(currentId, location);
+        return currentId;
     }
 
     @Override

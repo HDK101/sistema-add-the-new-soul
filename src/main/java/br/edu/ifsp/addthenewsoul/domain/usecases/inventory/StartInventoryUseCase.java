@@ -46,11 +46,10 @@ public class StartInventoryUseCase {
         return inventoryAssets;
     }
 
-    public void initializeInventory (Integer id, String name, LocalDate initialDate, LocalDate endDate, List<Employee> employees,
+    public void initializeInventory (String name, LocalDate initialDate, LocalDate endDate, List<Employee> employees,
                                      Employee comissionPresident, List<Asset> assets) {
         if (!Validator.checkIfDateHasPassed(initialDate, endDate)) throw new IllegalArgumentException("Initial date is higher than end date");
         designateEmployeeAsPresident(comissionPresident);
-        Inventory inventory = new Inventory(id, name, comissionPresident, employees, initialDate, endDate,  createInventoryAssets(assets));
         designateComission(employees);
         Inventory inventory = new Inventory(name, initialDate, endDate, comissionPresident, employees, createInventoryAssets(assets));
         inventoryDAO.add(inventory);
