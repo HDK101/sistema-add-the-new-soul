@@ -12,6 +12,7 @@ import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.*;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.*;
+import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.EvaluateAssetUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.FinishInventoryUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.StartInventoryUseCase;
@@ -59,6 +60,7 @@ public class UseCaseTests {
 
         StartInventoryUseCase startInventoryUseCase = new StartInventoryUseCase(inventoryDAO);
         FinishInventoryUseCase finishInventoryUseCase = new FinishInventoryUseCase(inventoryDAO);
+        EvaluateAssetUseCase evaluateAssetUseCase = new EvaluateAssetUseCase(inventoryDAO);
 
         ExportEmployeeCSVUseCase exportEmployeeCSVUseCase = new ExportEmployeeCSVUseCase(employeeCSV, employeeDAO);
         ImportEmployeeCSVUseCase importEmployeeCSVUseCase = new ImportEmployeeCSVUseCase(employeeCSV, employeeDAO);
@@ -245,8 +247,8 @@ public class UseCaseTests {
         System.out.println("----- FINISH INVENTORY -----");
 
         Inventory inventory = inventoryDAO.findInventoryById(1).get();
-        inventory.leaveAssetsAsVerified();
-        finishInventoryUseCase.finalizeInventory(inventory);
+        /*inventory.leaveAssetsAsVerified();
+        finishInventoryUseCase.finalizeInventory(inventory);*/
 
         System.out.println("----- LIST OF LOCATIONS -----");
 
@@ -282,5 +284,12 @@ public class UseCaseTests {
         System.out.println("----- LOCATION REPORT -----");
 
         //issueReportUseCase.issueLocationReport(1);
+
+        System.out.println("----- EVALUATE ASSET -----");
+
+
+        evaluateAssetUseCase.evaluateAsset(employee5, inventory.getAssets().get(0), "Risco na mesa");
+
+        System.out.println(inventoryDAO.findAll());
     }
 }

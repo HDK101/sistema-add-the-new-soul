@@ -18,7 +18,7 @@ public class EvaluateAssetUseCase {
     public void evaluateAsset(Employee employee, InventoryAsset asset, String damage){
         Inventory inventory = asset.getInventory();
 
-        if (!inventory.getComission().contains(employee)) throw new IllegalArgumentException("Funcionário não faz parte da comissão");
+        if (!inventory.getComission().contains(employee)) throw new IllegalArgumentException("Employee doesn't belong to the comission");
 
         asset.applyDamage(damage);
         asset.setStatus(Status.VERIFIED);
