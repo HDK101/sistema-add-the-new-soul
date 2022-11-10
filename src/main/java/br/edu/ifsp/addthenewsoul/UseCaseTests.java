@@ -54,7 +54,7 @@ public class UseCaseTests {
 
         AddEmployeeUseCase addEmployeeUseCase = new AddEmployeeUseCase(employeeDAO);
         UpdateEmployeeUseCase updateEmployeeUseCase = new UpdateEmployeeUseCase(employeeDAO);
-        RemoveEmployeeUseCase removeEmployeeUseCase = new RemoveEmployeeUseCase(employeeDAO);
+        RemoveEmployeeUseCase removeEmployeeUseCase = new RemoveEmployeeUseCase(employeeDAO, inventoryDAO);
         LoginEmployeeUseCase loginEmployeeUseCase = new LoginEmployeeUseCase(employeeDAO);
         FindEmployeeUseCase findEmployeeUseCase = new FindEmployeeUseCase(employeeDAO);
         NominateEmployeeInChargeUseCase nominateEmployeeInChargeUseCase = new NominateEmployeeInChargeUseCase(employeeDAO);
@@ -245,6 +245,8 @@ public class UseCaseTests {
 
         System.out.println(inventoryDAO.findAll());
 
+        removeEmployeeUseCase.remove("R22556");
+
 
         System.out.println("----- FINISH INVENTORY -----");
 
@@ -254,8 +256,6 @@ public class UseCaseTests {
         finishInventoryUseCase.finalizeInventory(inventory, employee3);
 
         System.out.println(inventoryDAO.findAll());
-
-        finishInventoryUseCase.finalizeInventory(inventory);
 
 
         System.out.println("----- LIST OF LOCATIONS -----");
