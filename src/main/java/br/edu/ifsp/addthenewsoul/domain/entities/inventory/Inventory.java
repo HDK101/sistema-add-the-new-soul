@@ -3,6 +3,7 @@ package br.edu.ifsp.addthenewsoul.domain.entities.inventory;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.InventoryStatus;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,6 +16,7 @@ public class Inventory {
     private LocalDate initialDate;
     private LocalDate endDate;
     private List<InventoryAsset> assets;
+    private InventoryStatus inventoryStatus;
 
     public Inventory(Integer id, String name, Employee comissionPresident, List<Employee> comission, LocalDate initialDate, LocalDate endDate, List<InventoryAsset> assets) {
         this.id = id;
@@ -66,6 +68,7 @@ public class Inventory {
     public void finish() {
         comissionPresident.setRole(Role.EMPLOYEE);
         setEmployeeRolesToNormal();
+        setInventoryStatus(InventoryStatus.CLOSED);
     }
 
     public List<Employee> getComission() {
@@ -132,6 +135,14 @@ public class Inventory {
         this.endDate = endDate;
     }
 
+    public InventoryStatus getInventoryStatus() {
+        return inventoryStatus;
+    }
+
+    public void setInventoryStatus(InventoryStatus inventoryStatus) {
+        this.inventoryStatus = inventoryStatus;
+    }
+
     @Override
     public String toString() {
         return "Inventory{" +
@@ -142,6 +153,7 @@ public class Inventory {
                 ", initialDate=" + initialDate +
                 ", endDate=" + endDate +
                 ", assets=" + assets +
+                ", status=" + inventoryStatus +
                 '}';
     }
 }

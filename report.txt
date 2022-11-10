@@ -1,49 +1,49 @@
 Inventory ID:null
 Name:Teste
-Started on:2022-11-09
+Started on:2022-11-10
 Finished on:2022-11-11
-Commision president:Employee{name='Joseph', registrationNumber='R12347', hashPassword='$2a$12$AP8RAhtWP7EV5xxZGLb2o.mh6NGPB/UdqDLlzZTYLN1rhRNFIjYyW', email='joseph@email.com', phone='(19) 97777-7777', role=CHAIRMAN_OF_THE_COMISSION}
-Commision members: [Employee{name='Durandal', registrationNumber='R12348', hashPassword='null', email='durandal@email.com', phone='(19) 97727-2777', role=INVENTORY_MANAGER}, Employee{name='Eric', registrationNumber='R22556', hashPassword='$2a$12$Gc/D2OAQ3s5sTj1kOXjX9uVQ8ktZmUg137Z94qe4MWTRB8NaRS.cu', email='eric@email.com', phone='(17) 98100-7188', role=INVENTORY_MANAGER}]
+Commision president:Employee{name='Joseph', registrationNumber='R12347', hashPassword='$2a$12$e3qYSu4FdzwMQ7KOTGk2zetyv4ugWHj9ucbr38ZlZ0Ek5aXsCqzSa', email='joseph@email.com', phone='(19) 97777-7777', role=EMPLOYEE}
+Commision members: [Employee{name='Durandal', registrationNumber='R12348', hashPassword='null', email='durandal@email.com', phone='(19) 97727-2777', role=EMPLOYEE}, Employee{name='Eric', registrationNumber='R22556', hashPassword='$2a$12$uMYSZHRqp7hTRRf0us6NEe91mlHQLS2bBhkPcQzWqsV7cCj06Hl/i', email='eric@email.com', phone='(17) 98100-7188', role=EMPLOYEE}]
 Verified assets: 
  Asset ID: 1
  Description: Cadeira
- Employee in charge: Employee{name='Joseph', registrationNumber='R12347', hashPassword='$2a$12$AP8RAhtWP7EV5xxZGLb2o.mh6NGPB/UdqDLlzZTYLN1rhRNFIjYyW', email='joseph@email.com', phone='(19) 97777-7777', role=CHAIRMAN_OF_THE_COMISSION}
+ Employee in charge: Employee{name='Joseph', registrationNumber='R12347', hashPassword='$2a$12$e3qYSu4FdzwMQ7KOTGk2zetyv4ugWHj9ucbr38ZlZ0Ek5aXsCqzSa', email='joseph@email.com', phone='(19) 97777-7777', role=EMPLOYEE}
  Value: 50.0
  Damage: Nenhum
  Location: Location{id=1, number=10, section='2C'}
- Status: NOT_VERIFIED
+ Status: VERIFIED
  Asset ID: 2
  Description: Computador Desktop
- Employee in charge: Employee{name='Walter', registrationNumber='R12345', hashPassword='$2a$12$9QOMZ.FIKsp2njvFsfpXVuTZHplBDyW8NjV0RfnUp1/axeILTBQbS', email='walter@gmail.com', phone='(18) 99999-9999', role=EXECUTOR}
+ Employee in charge: Employee{name='Walter', registrationNumber='R12345', hashPassword='$2a$12$QeNAnzrxpr2rfeoEN0n2LeMAtthqZcH30O2d/m55EAgkEuMchgq0u', email='walter@gmail.com', phone='(18) 99999-9999', role=EXECUTOR}
  Value: 2000.0
  Damage: Nenhum
  Location: Location{id=1, number=10, section='2C'}
- Status: NOT_VERIFIED
+ Status: VERIFIED
  Asset ID: 3
  Description: Computador portátil
- Employee in charge: Employee{name='Walter', registrationNumber='R12345', hashPassword='$2a$12$9QOMZ.FIKsp2njvFsfpXVuTZHplBDyW8NjV0RfnUp1/axeILTBQbS', email='walter@gmail.com', phone='(18) 99999-9999', role=EXECUTOR}
+ Employee in charge: Employee{name='Walter', registrationNumber='R12345', hashPassword='$2a$12$QeNAnzrxpr2rfeoEN0n2LeMAtthqZcH30O2d/m55EAgkEuMchgq0u', email='walter@gmail.com', phone='(18) 99999-9999', role=EXECUTOR}
  Value: 4769.0
  Damage: Nenhum
  Location: Location{id=3, number=30, section='Seção C'}
- Status: NOT_VERIFIED
+ Status: VERIFIED
  Asset ID: 4
  Description: Cadeira
  Employee in charge: null
  Value: 50.0
  Damage: Nenhum
  Location: null
- Status: NOT_VERIFIED
+ Status: VERIFIED
  Asset ID: 5
  Description: Computador Desktop
  Employee in charge: null
  Value: 2000.0
  Damage: Nenhum
  Location: null
- Status: NOT_VERIFIED
+ Status: VERIFIED
  Asset ID: 6
  Description: Computador portátil
  Employee in charge: null
  Value: 4769.0
  Damage: Nenhum
  Location: null
- Status: NOT_VERIFIED
+ Status: VERIFIED

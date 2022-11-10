@@ -34,7 +34,7 @@ public class StartInventoryUseCase {
             }
         });
         employees.stream().forEach(employee -> {
-            employee.setRole(Role.INVENTORY_MANAGER);
+            employee.setRole(Role.EXECUTOR);
         });
     }
 
@@ -49,6 +49,8 @@ public class StartInventoryUseCase {
     public void initializeInventory (String name, LocalDate initialDate, LocalDate endDate, List<Employee> employees,
                                      Employee comissionPresident, List<Asset> assets) {
         if (!Validator.checkIfDateHasPassed(initialDate, endDate)) throw new IllegalArgumentException("Initial date is higher than end date");
+        if (!Validator.checkIfDateHasPassed(initialDate)) throw new IllegalArgumentException("Initial date is less than the current day");
+        if (inventoryDAO.getStatusFromInventories()) throw new IllegalArgumentException("There is currently an open inventory");
         designateEmployeeAsPresident(comissionPresident);
         designateComission(employees);
         Inventory inventory = new Inventory(name, initialDate, endDate, comissionPresident, employees, createInventoryAssets(assets));
