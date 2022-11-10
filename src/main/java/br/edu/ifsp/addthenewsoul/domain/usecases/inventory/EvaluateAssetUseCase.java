@@ -1,6 +1,7 @@
 package br.edu.ifsp.addthenewsoul.domain.usecases.inventory;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
+import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
@@ -14,11 +15,16 @@ public class EvaluateAssetUseCase {
         this.inventoryDAO = inventoryDAO;
     }
 
-    public void evaluateAsset(InventoryAsset asset, String damage){
+    public void evaluateAsset(Employee employee, InventoryAsset asset, String damage){
+        Inventory inventory = asset.getInventory();
+
+        if (!inventory.getComission().contains(employee)) throw new IllegalArgumentException("Funcionário não faz parte da comissão");
+
         asset.applyDamage(damage);
         asset.setStatus(Status.VERIFIED);
 
-        Inventory inventory = asset.getInventory();
+        asset.setResponsible(employee);
+
         inventoryDAO.update(inventory);
     }
 }

@@ -27,6 +27,17 @@ public class StartInventoryUseCase {
         employee.setRole(Role.CHAIRMAN_OF_THE_COMISSION);
     }
 
+    private void designateComission(List<Employee> employees) {
+        employees.stream().forEach(employee -> {
+            if (employee.getRole() != Role.EMPLOYEE) {
+                throw new IllegalArgumentException("All employess must have Role.EMPLOYEE role");
+            }
+        });
+        employees.stream().forEach(employee -> {
+            employee.setRole(Role.INVENTORY_MANAGER);
+        });
+    }
+
     private List<InventoryAsset> createInventoryAssets(List<Asset> assets) {
         List<InventoryAsset> inventoryAssets = assets.stream().map(InventoryAsset::createFromAsset).toList();
         for (InventoryAsset inventoryAsset : inventoryAssets) {
@@ -39,7 +50,8 @@ public class StartInventoryUseCase {
                                      Employee comissionPresident, List<Asset> assets) {
         if (!Validator.checkIfDateHasPassed(initialDate, endDate)) throw new IllegalArgumentException("Initial date is higher than end date");
         designateEmployeeAsPresident(comissionPresident);
-        Inventory inventory = new Inventory(1, name, comissionPresident, employees, initialDate, endDate,  createInventoryAssets(assets));
+        designateComission(employees);
+        Inventory inventory = new Inventory(name, initialDate, endDate, comissionPresident, employees, createInventoryAssets(assets));
         inventoryDAO.add(inventory);
     }
 }

@@ -9,6 +9,7 @@ public class InventoryAsset {
     private Integer id;
     private String description;
     private Employee employeeInCharge;
+    private Employee responsible;
     private double value;
     private String damage;
     private Location location;
@@ -82,5 +83,13 @@ public class InventoryAsset {
 
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
+    }
+
+    public Employee getResponsible() {
+        return responsible;
+    }
+
+    public void setResponsible(Employee responsible) {
+        this.responsible = responsible;
     }
 }

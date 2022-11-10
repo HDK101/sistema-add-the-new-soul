@@ -21,7 +21,8 @@ import br.edu.ifsp.addthenewsoul.domain.usecases.location.RemoveLocationUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.UpdateLocationUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Session;
 
-
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -66,6 +67,8 @@ public class UseCaseTests {
         Employee employee2 = new Employee("Eisen", "R12346", "senha456", "eisen@email.com", "(16) 98888-8888", Role.CHAIRMAN_OF_THE_COMISSION);
         Employee employee3 = new Employee("Joseph", "R12347", "senha789", "joseph@email.com", "(19) 97777-7777", Role.INVENTORY_MANAGER);
         Employee employee4 = new Employee("Eric", "R22556", "senha011", "eric@email.com", "(17) 98100-7188", Role.EMPLOYEE);
+        Employee employee5 = new Employee("Durandal", "R12348", "tycho123", "durandal@email.com", "(19) 97727-2777", Role.INVENTORY);
+
         addEmployeeUseCase.add(employee1);
         addEmployeeUseCase.add(employee2);
         addEmployeeUseCase.add(employee3);
@@ -229,5 +232,10 @@ public class UseCaseTests {
         removeLocationUseCase.deleteLocation(location2);
 
         System.out.println(locationDAO.findAll());
+
+        StartInventoryUseCase startInventoryUseCase = new StartInventoryUseCase(inventoryDAO);
+        startInventoryUseCase.initializeInventory("Inventário 01", LocalDate.now(), LocalDate.now().plusMonths(2), Arrays.asList(employee3, employee4), null, null);
+
+
     }
 }
