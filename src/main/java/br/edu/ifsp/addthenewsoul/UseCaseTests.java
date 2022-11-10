@@ -121,10 +121,10 @@ public class UseCaseTests {
         System.out.println("----- ORIGINAL LIST OF ASSETS -----");
 
 
-        Asset asset1 = new Asset(1,"Cadeira", 50.0, "Nenhum");
-        Asset asset2 = new Asset(2,"Mesa", 200.0, "Nenhum");
-        Asset asset3 = new Asset(3,"Computador Desktop", 2000.0, "Nenhum");
-        Asset asset4 = new Asset(4,"Computador portátil", 4769.0, "Nenhum");
+        Asset asset1 = new Asset("Cadeira", 50.0, "Nenhum");
+        Asset asset2 = new Asset("Mesa", 200.0, "Nenhum");
+        Asset asset3 = new Asset("Computador Desktop", 2000.0, "Nenhum");
+        Asset asset4 = new Asset("Computador portátil", 4769.0, "Nenhum");
 
         addAssetUseCase.add(asset1);
         addAssetUseCase.add(asset2);
@@ -148,9 +148,9 @@ public class UseCaseTests {
         System.out.println("----- ORIGINAL LIST OF LOCATIONS -----");
 
 
-        Location location1 = new Location(1, 10, "Seção A");
-        Location location2 = new Location(2, 20, "Seção B");
-        Location location3 = new Location(3, 30, "Seção C");
+        Location location1 = new Location(10, "Seção A");
+        Location location2 = new Location(20, "Seção B");
+        Location location3 = new Location(30, "Seção C");
         addLocationUseCase.add(location1);
         addLocationUseCase.add(location2);
         addLocationUseCase.add(location3);
@@ -233,7 +233,7 @@ public class UseCaseTests {
 
         List<Employee> employeeList = new ArrayList<>();
 
-        employeeList.add(employee1);
+        employeeList.add(employee5);
         employeeList.add(employee4);
 
         startInventoryUseCase.initializeInventory("Teste", today, tomorrow,

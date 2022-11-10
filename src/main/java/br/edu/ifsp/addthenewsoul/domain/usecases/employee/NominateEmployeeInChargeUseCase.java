@@ -21,6 +21,7 @@ public class NominateEmployeeInChargeUseCase {
                 asset.setEmployeeInCharge(employee);
                 if(location != null) {
                     asset.setLocation(location);
+                    location.getAssets().add(asset);
                 }else{
                     throw new EntityNotFoundException("Location cannot be null.");
                 }

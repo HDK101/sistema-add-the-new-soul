@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class InMemoryLocationDAO implements LocationDAO {
 
     private static final Map<Integer, Location> dbMemory = new LinkedHashMap<>();
-    private int currentId;
+    private int currentId = 0;
 
     @Override
     public Optional<Location> findById(Integer id) {
@@ -31,7 +31,7 @@ public class InMemoryLocationDAO implements LocationDAO {
     @Override
     public boolean haveAssets(List<Asset> assets, Location location) {
         for (Asset asset : assets) {
-            if (asset.getLocation().getId().equals(location.getId()))
+            if (asset.getLocation() != null && asset.getLocation().getId().equals(location.getId()))
                 return true;
         }
         return false;
@@ -40,6 +40,7 @@ public class InMemoryLocationDAO implements LocationDAO {
     @Override
     public Integer add(Location location) {
         currentId++;
+        location.setId(currentId);
         dbMemory.put(currentId, location);
         return currentId;
     }
@@ -49,9 +50,8 @@ public class InMemoryLocationDAO implements LocationDAO {
         Map<Integer, Location> locations = new HashMap<>();
 
         items.stream().forEach(item -> {
-            if (!locations.containsKey(item.getId())) {
-                locations.put(item.getId(), item);
-            }
+            currentId++;
+            locations.put(currentId, item);
         });
 
         dbMemory.putAll(locations);
