@@ -1,5 +1,28 @@
-Employee registration number: asd
-E-mail: teste@email.com
-Phone number: asd
-Role: EXECUTOR
-Assets in charge: 
+Inventory ID:1
+Name:Teste
+Started on:2022-11-09
+Finished on:2022-11-10
+Commision president:Employee{name='Joseph', registrationNumber='R12347', hashPassword='$2a$12$h5gHdyTBy7ORurfJ6VV74u.iRB00fjzCv9rUHCOusu0r4JBUgK/Ce', email='joseph@email.com', phone='(19) 97777-7777', role=EMPLOYEE}
+Commision members: [Employee{name='Walter', registrationNumber='R12345', hashPassword='$2a$12$i0e8x8xB/Drl4mYeU2BtDeraup1sQPR3ZTnYApU/Rv8Cjg3goN6D6', email='walter@gmail.com', phone='(18) 99999-9999', role=EMPLOYEE}, Employee{name='Eric', registrationNumber='R22556', hashPassword='$2a$12$/jcw.q9VULvZO7gwJgVRyewXEj18dWvY3v8FGXbuG83gB2ffMkKKi', email='eric@email.com', phone='(17) 98100-7188', role=EMPLOYEE}]
+Verified assets: 
+ Asset ID: null
+ Description: Cadeira
+ Employee in charge: Employee{name='Joseph', registrationNumber='R12347', hashPassword='$2a$12$h5gHdyTBy7ORurfJ6VV74u.iRB00fjzCv9rUHCOusu0r4JBUgK/Ce', email='joseph@email.com', phone='(19) 97777-7777', role=EMPLOYEE}
+ Value: 50.0
+ Damage: Nenhum
+ Location: Location{id=1, number=10, section='2C'}
+ Status: VERIFIED
+ Asset ID: null
+ Description: Computador Desktop
+ Employee in charge: Employee{name='Walter', registrationNumber='R12345', hashPassword='$2a$12$i0e8x8xB/Drl4mYeU2BtDeraup1sQPR3ZTnYApU/Rv8Cjg3goN6D6', email='walter@gmail.com', phone='(18) 99999-9999', role=EMPLOYEE}
+ Value: 2000.0
+ Damage: Nenhum
+ Location: Location{id=1, number=10, section='2C'}
+ Status: VERIFIED
+ Asset ID: null
+ Description: Computador portátil
+ Employee in charge: Employee{name='Walter', registrationNumber='R12345', hashPassword='$2a$12$i0e8x8xB/Drl4mYeU2BtDeraup1sQPR3ZTnYApU/Rv8Cjg3goN6D6', email='walter@gmail.com', phone='(18) 99999-9999', role=EMPLOYEE}
+ Value: 4769.0
+ Damage: Nenhum
+ Location: Location{id=3, number=30, section='Seção C'}
+ Status: VERIFIED

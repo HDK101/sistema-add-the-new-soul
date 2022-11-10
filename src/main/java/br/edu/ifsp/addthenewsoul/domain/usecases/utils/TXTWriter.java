@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class TXTWriter {
-    private StringBuilder reportBuilder;
+    protected StringBuilder reportBuilder;
 
     protected void addDetail(String head, String content) {
         reportBuilder
