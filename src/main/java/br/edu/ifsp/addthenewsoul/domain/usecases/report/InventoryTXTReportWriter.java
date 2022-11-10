@@ -11,6 +11,7 @@ import java.io.IOException;
 public class InventoryTXTReportWriter extends TXTWriter implements ReportWriter<Inventory> {
     @Override
     public void write(Inventory inventory) throws IOException {
+        reportBuilder = new StringBuilder();
         if (inventory.getEndDate() != null) {
             addDetail("Inventory ID:", inventory.getId());
             addDetail("Name:", inventory.getName());

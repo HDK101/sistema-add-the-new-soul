@@ -15,10 +15,8 @@ import br.edu.ifsp.addthenewsoul.domain.usecases.employee.*;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.FinishInventoryUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.StartInventoryUseCase;
-import br.edu.ifsp.addthenewsoul.domain.usecases.location.AddLocationUseCase;
-import br.edu.ifsp.addthenewsoul.domain.usecases.location.LocationDAO;
-import br.edu.ifsp.addthenewsoul.domain.usecases.location.RemoveLocationUseCase;
-import br.edu.ifsp.addthenewsoul.domain.usecases.location.UpdateLocationUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.location.*;
+import br.edu.ifsp.addthenewsoul.domain.usecases.report.*;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Session;
 
 import java.time.LocalDate;
@@ -42,25 +40,38 @@ public class UseCaseTests {
         UpdateAssetUseCase updateAssetUseCase = new UpdateAssetUseCase(assetDAO);
         RemoveAssetUseCase removeAssetUseCase = new RemoveAssetUseCase(assetDAO);
         FindAssetUseCase findAssetUseCase = new FindAssetUseCase(assetDAO);
+        AssetCSV assetCSV = new AssetCSV();
+
 
         AddLocationUseCase addLocationUseCase = new AddLocationUseCase(locationDAO);
         UpdateLocationUseCase updateLocationUseCase = new UpdateLocationUseCase(locationDAO);
         RemoveLocationUseCase removeLocationUseCase = new RemoveLocationUseCase(locationDAO, assetDAO);
+        FindLocationUseCase findLocationUseCase = new FindLocationUseCase(locationDAO);
+        LocationCSV locationCSV = new LocationCSV();
 
         AddEmployeeUseCase addEmployeeUseCase = new AddEmployeeUseCase(employeeDAO);
         UpdateEmployeeUseCase updateEmployeeUseCase = new UpdateEmployeeUseCase(employeeDAO);
         RemoveEmployeeUseCase removeEmployeeUseCase = new RemoveEmployeeUseCase(employeeDAO);
         LoginEmployeeUseCase loginEmployeeUseCase = new LoginEmployeeUseCase(employeeDAO);
+        FindEmployeeUseCase findEmployeeUseCase = new FindEmployeeUseCase(employeeDAO);
         NominateEmployeeInChargeUseCase nominateEmployeeInChargeUseCase = new NominateEmployeeInChargeUseCase(employeeDAO);
-
+        LogoutEmployeeUseCase logoutEmployeeUseCase = new LogoutEmployeeUseCase();
 
         StartInventoryUseCase startInventoryUseCase = new StartInventoryUseCase(inventoryDAO);
         FinishInventoryUseCase finishInventoryUseCase = new FinishInventoryUseCase(inventoryDAO);
 
         ExportEmployeeCSVUseCase exportEmployeeCSVUseCase = new ExportEmployeeCSVUseCase(employeeCSV, employeeDAO);
         ImportEmployeeCSVUseCase importEmployeeCSVUseCase = new ImportEmployeeCSVUseCase(employeeCSV, employeeDAO);
-        FindEmployeeUseCase findEmployeeUseCase = new FindEmployeeUseCase(employeeDAO);
-        LogoutEmployeeUseCase logoutEmployeeUseCase = new LogoutEmployeeUseCase();
+        ExportAssetCSVUseCase exportAssetCSVUseCase = new ExportAssetCSVUseCase(assetCSV, assetDAO);
+        ImportAssetCSVUseCase importAssetCSVUseCase = new ImportAssetCSVUseCase(assetCSV, assetDAO);
+        ImportLocationCSVUseCase importLocationCSVUseCase = new ImportLocationCSVUseCase(locationCSV, locationDAO);
+        ExportLocationCSVUseCase exportLocationCSVUseCase = new ExportLocationCSVUseCase(locationCSV, locationDAO);
+
+
+        ReportWriter<Employee> employeeReportWriter = new EmployeeTXTReportWriter();
+        ReportWriter<Inventory> inventoryReportWriter = new InventoryTXTReportWriter();
+        ReportWriter<Location> locationReportWriter = new LocationTXTReportWriter();
+        IssueReportUseCase issueReportUseCase = new IssueReportUseCase(employeeReportWriter, inventoryReportWriter, locationReportWriter, employeeDAO, inventoryDAO, locationDAO);
 
 
         Employee employee1 = new Employee("Walter", "R12345", "senha123", "noname@email.com", "(18) 99999-9999", Role.EXECUTOR);
@@ -99,6 +110,12 @@ public class UseCaseTests {
         System.out.println(employee);
         System.out.println(Session.getInstance().getLoggedUser());
         System.out.println(Session.getInstance().getLoggedUser() == employee);
+
+        System.out.println("----- EMPLOYEE LOGOUT -----");
+
+        logoutEmployeeUseCase.logout();
+
+        System.out.println(Session.getInstance().getLoggedUser() == null);
 
 
         System.out.println("----- ORIGINAL LIST OF ASSETS -----");
@@ -177,17 +194,36 @@ public class UseCaseTests {
         System.out.println(findEmployeeUseCase.findAll());
 
 
-        System.out.println("----- EMPLOYEE LOGOUT -----");
-
-        logoutEmployeeUseCase.logout();
-
-        System.out.println(Session.getInstance().getLoggedUser() == null);
-
-        System.out.println("----- FIND OF ASSETS -----");
+        System.out.println("----- FIND ASSETS -----");
 
         System.out.println(assetDAO.findAll());
 
         System.out.println(assetDAO.findById(asset3.getId()));
+
+
+        System.out.println("----- EXPORT ASSETS CSV  -----");
+
+
+        exportAssetCSVUseCase.export("assetsCsv");
+
+
+        System.out.println("----- IMPORT ASSETS CSV  -----");
+
+
+        importAssetCSVUseCase.importAssets("assetsCsv");
+        System.out.println(findAssetUseCase.findAll());
+
+        System.out.println("----- EXPORT LOCATIONS CSV  -----");
+
+
+        exportLocationCSVUseCase.export("locationsCsv");
+
+
+        System.out.println("----- IMPORT LOCATIONS CSV  -----");
+
+
+        importLocationCSVUseCase.importLocations("locationsCsv");
+        System.out.println(findLocationUseCase.findAll());
 
 
         System.out.println("----- START INVENTORY -----");
@@ -200,7 +236,7 @@ public class UseCaseTests {
         employeeList.add(employee1);
         employeeList.add(employee4);
 
-        startInventoryUseCase.initializeInventory("Teste", today, tomorrow,
+        startInventoryUseCase.initializeInventory(1,"Teste", today, tomorrow,
                 employeeList, employee3, assetDAO.findAll());
 
         System.out.println(inventoryDAO.findAll());
@@ -232,6 +268,19 @@ public class UseCaseTests {
         removeLocationUseCase.deleteLocation(location2);
 
         System.out.println(locationDAO.findAll());
+
+
+        System.out.println("----- EMPLOYEE REPORT -----");
+
+        //issueReportUseCase.issueEmployeeReport("R12345");
+
+        System.out.println("----- INVENTORY REPORT -----");
+
+        //issueReportUseCase.issueInventoryReport(1);
+
+        System.out.println("----- LOCATION REPORT -----");
+
+        //issueReportUseCase.issueLocationReport(1);
 
         StartInventoryUseCase startInventoryUseCase = new StartInventoryUseCase(inventoryDAO);
         startInventoryUseCase.initializeInventory("Inventário 01", LocalDate.now(), LocalDate.now().plusMonths(2), Arrays.asList(employee3, employee4), null, null);
