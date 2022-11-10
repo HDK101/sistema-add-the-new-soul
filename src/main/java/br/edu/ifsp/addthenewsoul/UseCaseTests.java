@@ -245,7 +245,7 @@ public class UseCaseTests {
 
         System.out.println(inventoryDAO.findAll());
 
-        removeEmployeeUseCase.remove("R22556");
+        //removeEmployeeUseCase.remove("R22556");
 
 
         System.out.println("----- FINISH INVENTORY -----");
