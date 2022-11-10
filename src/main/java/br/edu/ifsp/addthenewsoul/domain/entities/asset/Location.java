@@ -2,6 +2,7 @@ package br.edu.ifsp.addthenewsoul.domain.entities.asset;
 
 import br.edu.ifsp.addthenewsoul.application.io.CSVNode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Location implements CSVNode {
@@ -14,6 +15,17 @@ public class Location implements CSVNode {
         this.id = id;
         this.section = section;
         this.number = number;
+        this.assets = new ArrayList<>();
+    }
+
+    public Location(Integer number, String section) {
+        this.section = section;
+        this.number = number;
+        this.assets = new ArrayList<>();
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String fullLocation() {

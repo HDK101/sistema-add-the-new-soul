@@ -78,7 +78,7 @@ public class UseCaseTests {
         Employee employee2 = new Employee("Eisen", "R12346", "senha456", "eisen@email.com", "(16) 98888-8888", Role.CHAIRMAN_OF_THE_COMISSION);
         Employee employee3 = new Employee("Joseph", "R12347", "senha789", "joseph@email.com", "(19) 97777-7777", Role.INVENTORY_MANAGER);
         Employee employee4 = new Employee("Eric", "R22556", "senha011", "eric@email.com", "(17) 98100-7188", Role.EMPLOYEE);
-        Employee employee5 = new Employee("Durandal", "R12348", "tycho123", "durandal@email.com", "(19) 97727-2777", Role.INVENTORY);
+        Employee employee5 = new Employee("Durandal", "R12348", "tycho123", "durandal@email.com", "(19) 97727-2777", Role.EMPLOYEE);
 
         addEmployeeUseCase.add(employee1);
         addEmployeeUseCase.add(employee2);
@@ -121,10 +121,10 @@ public class UseCaseTests {
         System.out.println("----- ORIGINAL LIST OF ASSETS -----");
 
 
-        Asset asset1 = new Asset(1,"Cadeira", 50.0, "Nenhum");
-        Asset asset2 = new Asset(2,"Mesa", 200.0, "Nenhum");
-        Asset asset3 = new Asset(3,"Computador Desktop", 2000.0, "Nenhum");
-        Asset asset4 = new Asset(4,"Computador portátil", 4769.0, "Nenhum");
+        Asset asset1 = new Asset("Cadeira", 50.0, "Nenhum");
+        Asset asset2 = new Asset("Mesa", 200.0, "Nenhum");
+        Asset asset3 = new Asset("Computador Desktop", 2000.0, "Nenhum");
+        Asset asset4 = new Asset("Computador portátil", 4769.0, "Nenhum");
 
         addAssetUseCase.add(asset1);
         addAssetUseCase.add(asset2);
@@ -148,9 +148,9 @@ public class UseCaseTests {
         System.out.println("----- ORIGINAL LIST OF LOCATIONS -----");
 
 
-        Location location1 = new Location(1, 10, "Seção A");
-        Location location2 = new Location(2, 20, "Seção B");
-        Location location3 = new Location(3, 30, "Seção C");
+        Location location1 = new Location(10, "Seção A");
+        Location location2 = new Location(20, "Seção B");
+        Location location3 = new Location(30, "Seção C");
         addLocationUseCase.add(location1);
         addLocationUseCase.add(location2);
         addLocationUseCase.add(location3);
@@ -233,10 +233,10 @@ public class UseCaseTests {
 
         List<Employee> employeeList = new ArrayList<>();
 
-        employeeList.add(employee1);
+        employeeList.add(employee5);
         employeeList.add(employee4);
 
-        startInventoryUseCase.initializeInventory(1,"Teste", today, tomorrow,
+        startInventoryUseCase.initializeInventory("Teste", today, tomorrow,
                 employeeList, employee3, assetDAO.findAll());
 
         System.out.println(inventoryDAO.findAll());
@@ -281,10 +281,5 @@ public class UseCaseTests {
         System.out.println("----- LOCATION REPORT -----");
 
         //issueReportUseCase.issueLocationReport(1);
-
-        StartInventoryUseCase startInventoryUseCase = new StartInventoryUseCase(inventoryDAO);
-        startInventoryUseCase.initializeInventory("Inventário 01", LocalDate.now(), LocalDate.now().plusMonths(2), Arrays.asList(employee3, employee4), null, null);
-
-
     }
 }

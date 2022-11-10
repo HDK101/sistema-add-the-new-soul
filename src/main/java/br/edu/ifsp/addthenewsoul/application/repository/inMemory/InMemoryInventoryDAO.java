@@ -12,6 +12,7 @@ public class InMemoryInventoryDAO implements InventoryDAO {
     private final Map<Integer, Inventory> dbMemoryInventory = new LinkedHashMap<>();
 
     private int currentInventoryId = 0;
+    private int currentInventoryAssetId = 0;
 
     @Override
     public Map<Integer, Inventory> bulkAdd(List<Inventory> items) {
@@ -20,8 +21,15 @@ public class InMemoryInventoryDAO implements InventoryDAO {
 
     @Override
     public Integer add(Inventory inventory) {
-        dbMemoryInventory.put(inventory.getId(), inventory);
-        return inventory.getId();
+        currentInventoryId++;
+        dbMemoryInventory.put(currentInventoryId, inventory);
+
+        inventory.getAssets().stream().forEach(inventoryAsset -> {
+            currentInventoryAssetId++;
+            inventoryAsset.setId(currentInventoryAssetId);
+        });
+
+        return currentInventoryId;
     }
 
     @Override

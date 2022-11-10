@@ -16,7 +16,8 @@ public class RemoveLocationUseCase {
     }
 
     public boolean deleteLocation (Location location) {
-            if (locationDAO.haveAssets(assetDAO.findAll(), location))
+            //haveAssets está morto
+            if (location.getAssets().size() > 0)
                 throw new IllegalArgumentException("A location cannot be deleted while there are assets in it.");
             return locationDAO.delete(location.getId());
     }
