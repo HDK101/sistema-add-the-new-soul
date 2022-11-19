@@ -6,22 +6,17 @@ import br.edu.ifsp.addthenewsoul.application.repository.inMemory.InMemoryInvento
 import br.edu.ifsp.addthenewsoul.application.repository.inMemory.InMemoryLocationDAO;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.LocationStatus;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
-import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.*;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.*;
-import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.EvaluateAssetUseCase;
-import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.FinishInventoryUseCase;
-import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;
-import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.StartInventoryUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.*;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.*;
 import br.edu.ifsp.addthenewsoul.domain.usecases.report.*;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Session;
 
-import java.time.LocalDate;
-import java.util.Arrays;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -233,7 +228,7 @@ public class UseCaseTests {
         System.out.println("----- START INVENTORY -----");
 
         LocalDate today = LocalDate.now();
-        LocalDate tomorrow = LocalDate.of(2022, Month.NOVEMBER, 11);
+        LocalDate tomorrow = today.plusDays(1);
 
         List<Employee> employeeList = new ArrayList<>();
 
@@ -296,7 +291,30 @@ public class UseCaseTests {
         System.out.println("----- EVALUATE ASSET -----");
 
 
-        evaluateAssetUseCase.evaluateAsset(employee5, inventory.getAssets().get(0), "Risco na mesa");
+        System.out.println(evaluateAssetUseCase.evaluateAsset(
+                EvaluateData.builder()
+                        .inventoryAsset(inventory.getAssets().get(0))
+                        .inventoryManager(employee5)
+                        .damage("Risco na mesa")
+                        .assetLocationStatus(LocationStatus.CORRECT_LOCATION)
+                        .build()
+        ));
+
+        System.out.println(evaluateAssetUseCase.evaluateAsset(
+                EvaluateData.builder()
+                        .inventoryAsset(inventory.getAssets().get(1))
+                        .inventoryManager(employee4)
+                        .assetLocationStatus(LocationStatus.LOST)
+                        .build()
+        ));
+
+        System.out.println(evaluateAssetUseCase.evaluateAsset(
+                EvaluateData.builder()
+                        .inventoryAsset(inventory.getAssets().get(2))
+                        .inventoryManager(employee4)
+                        .assetLocationStatus(LocationStatus.INCORRECT_LOCATION)
+                        .build()
+        ));
 
         System.out.println(inventoryDAO.findAll());
         

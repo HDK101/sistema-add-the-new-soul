@@ -71,6 +71,10 @@ public class Inventory {
         setInventoryStatus(InventoryStatus.CLOSED);
     }
 
+    public boolean hasEmployeeInCommision(Employee employee) {
+        return this.comission.contains(employee);
+    }
+
     public List<Employee> getComission() {
         return comission;
     }
