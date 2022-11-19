@@ -2,19 +2,21 @@ package br.edu.ifsp.addthenewsoul.domain.entities.inventory;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.LocationStatus;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 
 public class InventoryAsset {
-    private Asset asset;
+    private final Asset asset;
     private Integer id;
-    private String description;
-    private Employee employeeInCharge;
-    private Employee responsible;
-    private double value;
+    private final String description;
+    private final Employee employeeInCharge;
+    private Employee inventoryManager;
+    private final double value;
     private String damage;
-    private Location location;
+    private final Location location;
     private Status status;
     private Inventory inventory;
+    private LocationStatus locationStatus;
 
     public InventoryAsset(Asset asset, String description, Employee employeeInCharge, double value, String damage, Location location) {
         this.asset = asset;
@@ -89,12 +91,21 @@ public class InventoryAsset {
         this.inventory = inventory;
     }
 
-    public Employee getResponsible() {
-        return responsible;
+    public Employee getInventoryManager() {
+        return inventoryManager;
     }
 
-    public void setResponsible(Employee responsible) {
-        this.responsible = responsible;
+    public void setInventoryManager(Employee inventoryManager) {
+        this.inventoryManager = inventoryManager;
+    }
+
+
+    public LocationStatus getLocationStatus() {
+        return locationStatus;
+    }
+
+    public void setLocationStatus(LocationStatus locationStatus) {
+        this.locationStatus = locationStatus;
     }
 
     @Override
@@ -104,7 +115,7 @@ public class InventoryAsset {
         sb.append(", id=").append(id);
         sb.append(", description='").append(description).append('\'');
         sb.append(", employeeInCharge=").append(employeeInCharge);
-        sb.append(", responsible=").append(responsible);
+        sb.append(", responsible=").append(inventoryManager);
         sb.append(", value=").append(value);
         sb.append(", damage='").append(damage).append('\'');
         sb.append(", location=").append(location);

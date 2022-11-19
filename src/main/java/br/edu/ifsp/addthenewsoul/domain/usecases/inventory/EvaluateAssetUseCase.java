@@ -1,31 +1,50 @@
 package br.edu.ifsp.addthenewsoul.domain.usecases.inventory;
 
-import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.LocationStatus;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
-import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetDAO;
 
 public class EvaluateAssetUseCase {
-
     private InventoryDAO inventoryDAO;
 
     public EvaluateAssetUseCase(InventoryDAO inventoryDAO) {
         this.inventoryDAO = inventoryDAO;
     }
 
-    public void evaluateAsset(Employee employee, InventoryAsset asset, String damage){
-        Inventory inventory = asset.getInventory();
+    private EvaluateResponse handleInventoryAsset(InventoryAsset inventoryAsset, Employee employee, String damage, LocationStatus locationStatus) {
+        EvaluateResponse.EvaluateResponseBuilder evaluateResponseBuilder = EvaluateResponse.builder();
 
-        if (!inventory.getComission().contains(employee)) throw new IllegalArgumentException("Employee doesn't belong to the comission.");
+        if (damage != null) {
+            inventoryAsset.applyDamage(damage);
+            evaluateResponseBuilder.damageApplied(true);
+        } else if (locationStatus != LocationStatus.CORRECT_LOCATION) {
+            inventoryAsset.setLocationStatus(locationStatus);
+        }
+        inventoryAsset.setInventoryManager(employee);
+        inventoryAsset.setStatus(Status.VERIFIED);
 
+        evaluateResponseBuilder.currentLocationStatus(locationStatus);
 
-        asset.applyDamage(damage);
-        asset.setStatus(Status.VERIFIED);
+        return evaluateResponseBuilder.build();
+    }
 
-        asset.setResponsible(employee);
+    public EvaluateResponse evaluateAsset(EvaluateData evaluateData) {
+        InventoryAsset inventoryAsset = evaluateData.getInventoryAsset().orElseThrow();
+        Employee employee = evaluateData.getInventoryManager().orElseThrow();
+        Inventory inventory = inventoryAsset.getInventory();
+
+        //Trocar para um do dominio proprio
+        if (!inventory.hasEmployeeInCommision(employee))
+            throw new IllegalStateException("Employee doesn't belong to the comission.");
+
+        evaluateData.isValid();
+
+        EvaluateResponse evaluateResponse = this.handleInventoryAsset(inventoryAsset, employee, evaluateData.getDamage(), evaluateData.getAssetLocationStatus());
 
         inventoryDAO.update(inventory);
+
+        return evaluateResponse;
     }
 }

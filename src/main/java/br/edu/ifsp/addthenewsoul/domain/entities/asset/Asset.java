@@ -14,9 +14,12 @@ public class Asset implements CSVNode {
     private String damage;
     private Location location;
     private Status status;
+    private LocationStatus locationStatus;
 
-    public Asset() {}
+    public Asset() {
+    }
 
+    //Fazer builder
     public Asset(Integer id, String description, double value, String damage) {
         this.id = id;
         this.description = description;
@@ -44,7 +47,13 @@ public class Asset implements CSVNode {
         this.location = location;
     }
 
+    public LocationStatus getLocationStatus() {
+        return locationStatus;
+    }
 
+    public void setLocationStatus(LocationStatus locationStatus) {
+        this.locationStatus = locationStatus;
+    }
 
     public Integer getId() {
         return id;

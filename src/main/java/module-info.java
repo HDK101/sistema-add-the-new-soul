@@ -4,16 +4,14 @@ module br.edu.ifsp.addthenewsoul {
     requires java.sql;
     requires org.apache.pdfbox;
     requires com.opencsv;
+    requires static lombok;
     requires bcrypt;
 
 
     opens br.edu.ifsp.addthenewsoul to javafx.fxml;
-    opens br.edu.ifsp.addthenewsoul.application.io to br.edu.ifsp.addthenewsoul;
-    opens br.edu.ifsp.addthenewsoul.domain.usecases.asset to br.edu.ifsp.addthenewsoul;
     exports br.edu.ifsp.addthenewsoul;
     exports br.edu.ifsp.addthenewsoul.application.io;
     exports br.edu.ifsp.addthenewsoul.domain.entities.asset;
     exports br.edu.ifsp.addthenewsoul.domain.usecases.asset;
     exports br.edu.ifsp.addthenewsoul.domain.usecases.inventory;
-    opens br.edu.ifsp.addthenewsoul.domain.usecases.inventory to br.edu.ifsp.addthenewsoul;
 }
