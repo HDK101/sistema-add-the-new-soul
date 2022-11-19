@@ -1,16 +1,19 @@
 package br.edu.ifsp.addthenewsoul.domain.entities.asset;
 
 import br.edu.ifsp.addthenewsoul.application.io.CSVNode;
+import lombok.Builder;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
 public class Location implements CSVNode {
     private Integer id;
     private Integer number;
     private String section;
     private List<Asset> assets;
 
+    /*
     public Location(Integer id, Integer number, String section) {
         this.id = id;
         this.section = section;
@@ -23,6 +26,7 @@ public class Location implements CSVNode {
         this.number = number;
         this.assets = new ArrayList<>();
     }
+     */
 
     public void setId(Integer id) {
         this.id = id;

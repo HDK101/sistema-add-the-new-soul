@@ -18,7 +18,7 @@ public class FindAssetUseCase {
     public Optional<Asset> findOne (Integer id) {
         if (Validator.nullOrEmpty(String.valueOf(id)))
             throw new EntityNotFoundException("ID cannot be null or empty");
-        return assetDAO.findById(id);
+        return assetDAO.findByIdWithInventoryAsset(id);
     }
 
     public List<Asset> findAll () {

@@ -2,10 +2,12 @@ package br.edu.ifsp.addthenewsoul.domain.entities.employee;
 
 import br.edu.ifsp.addthenewsoul.application.io.CSVNode;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
+import lombok.Builder;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
 public class Employee implements CSVNode {
     private String name;
     private String registrationNumber;
@@ -16,6 +18,7 @@ public class Employee implements CSVNode {
     private Role role;
     private List<Asset> assetsInCharge;
 
+    /*
     public Employee(String name, String registrationNumber, String virtualPassword, String email, String phone, Role role) {
         this.name = name;
         this.registrationNumber = registrationNumber;
@@ -33,6 +36,7 @@ public class Employee implements CSVNode {
         this.phone = phone;
         this.role = role;
     }
+     */
 
     public String getName() {
         return name;

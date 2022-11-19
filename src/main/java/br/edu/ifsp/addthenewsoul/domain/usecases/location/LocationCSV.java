@@ -19,11 +19,12 @@ public class LocationCSV extends CSV<Location> {
 
         while (reader.hasNextLine()) {
             String[] parts = reader.nextLine().split(",");
-            locations.add(new Location(
-                    Integer.parseInt(parts[0]),
-                    Integer.parseInt(parts[1]),
-                    parts[2]
-            ));
+
+            locations.add(Location.builder()
+                    .id(Integer.parseInt(parts[0]))
+                    .number(Integer.parseInt(parts[1]))
+                    .section(parts[2])
+                    .build());
         }
 
         reader.close();

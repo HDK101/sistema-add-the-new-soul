@@ -77,11 +77,11 @@ public class SQLiteLocationDAO implements LocationDAO {
     }
 
     private Location resultSetToEntity(ResultSet rs) throws SQLException {
-        return new Location(
-                            rs.getInt("id"),
-                            rs.getInt("number"),
-                            rs.getString("section")
-        );
+        return Location.builder()
+                .id(rs.getInt("l_id"))
+                .number(rs.getInt("l_number"))
+                .section(rs.getString("l_section"))
+                .build();
     }
 
 }

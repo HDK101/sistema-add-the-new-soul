@@ -2,10 +2,13 @@ package br.edu.ifsp.addthenewsoul.domain.entities.asset;
 
 import br.edu.ifsp.addthenewsoul.application.io.CSVNode;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
+import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
+import lombok.Builder;
 
 import java.util.Optional;
 
+@Builder
 public class Asset implements CSVNode {
     private Integer id;
     private String description;
@@ -13,9 +16,13 @@ public class Asset implements CSVNode {
     private double value;
     private String damage;
     private Location location;
-    private Status status;
-    private LocationStatus locationStatus;
 
+    //Esse Status daqui vem InventoryAsset -> Asset. Nao e possivel trocar direto no Asset
+    private Status status;
+
+    private InventoryAsset inventoryAsset;
+
+    /*
     public Asset() {
     }
 
@@ -25,17 +32,20 @@ public class Asset implements CSVNode {
         this.description = description;
         this.value = value;
         this.damage = damage;
+        this.status = Status.NOT_VERIFIED;
     }
 
     public Asset(String description, double value, String damage) {
         this.description = description;
         this.value = value;
         this.damage = damage;
+        this.status = Status.NOT_VERIFIED;
     }
 
     public Asset(String description, double value) {
         this.description = description;
         this.value = value;
+        this.status = Status.NOT_VERIFIED;
     }
 
     public Asset(int id, String description, Employee employeeInCharge, double value, String damage, Location location) {
@@ -45,15 +55,9 @@ public class Asset implements CSVNode {
         this.value = value;
         this.damage = damage;
         this.location = location;
+        this.status = Status.NOT_VERIFIED;
     }
-
-    public LocationStatus getLocationStatus() {
-        return locationStatus;
-    }
-
-    public void setLocationStatus(LocationStatus locationStatus) {
-        this.locationStatus = locationStatus;
-    }
+     */
 
     public Integer getId() {
         return id;
@@ -109,6 +113,14 @@ public class Asset implements CSVNode {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public InventoryAsset getInventoryAsset() {
+        return inventoryAsset;
+    }
+
+    public void setInventoryAsset(InventoryAsset inventoryAsset) {
+        this.inventoryAsset = inventoryAsset;
     }
 
     @Override
