@@ -21,6 +21,11 @@ public class InMemoryAssetDAO implements AssetDAO {
     }
 
     @Override
+    public Optional<Asset> findByIdWithInventoryAsset(Integer id) {
+        return Optional.empty();
+    }
+
+    @Override
     public List<Asset> filterByLocation(Location location) {
         return dbMemoryAsset.values().stream()
                 .filter(asset -> asset.getLocation().fullLocation().contains(location.fullLocation()))

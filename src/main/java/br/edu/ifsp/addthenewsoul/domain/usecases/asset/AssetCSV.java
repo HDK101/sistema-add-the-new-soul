@@ -18,12 +18,11 @@ public class AssetCSV extends CSV<Asset> {
 
         while (reader.hasNextLine()) {
             String[] parts = reader.nextLine().split(",");
-            assets.add(new Asset(
-                Integer.parseInt(parts[0]),
-                parts[1],
-                Double.parseDouble(parts[2]),
-                parts[3]
-            ));
+            Asset.builder()
+                    .id(Integer.parseInt(parts[0]))
+                    .description(parts[1])
+                    .value(Double.parseDouble(parts[2]))
+                    .damage(parts[3]);
         }
 
         reader.close();

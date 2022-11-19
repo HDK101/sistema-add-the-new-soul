@@ -14,8 +14,8 @@ public class ValidationOfAssetAttributes extends Validator<Asset> {
             return notification;
         }
 
-        if (nullOrEmpty(asset.getDamage()))
-            notification.addError("Damage is null or empty");
+        //if (nullOrEmpty(asset.getDamage()))
+            //notification.addError("Damage is null or empty");
         if (nullOrEmpty(String.valueOf(asset.getId())))
             notification.addError("Id is null or empty");
         if (nullOrEmpty(asset.getDescription()))

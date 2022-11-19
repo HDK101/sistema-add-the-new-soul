@@ -26,7 +26,7 @@ import java.io.IOException;
 
 public class UseCaseTests {
     public static void main(String[] args) throws IOException {
-
+/*
 	System.out.println("----- Apresentação Parcial -----");
         AssetDAO assetDAO = new InMemoryAssetDAO();
         EmployeeDAO employeeDAO = new InMemoryEmployeeDAO();
@@ -317,6 +317,6 @@ public class UseCaseTests {
         ));
 
         System.out.println(inventoryDAO.findAll());
-        
+        */
     }
 }

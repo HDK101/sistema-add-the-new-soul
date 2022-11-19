@@ -4,7 +4,9 @@ import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.LocationStatus;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
+import lombok.Builder;
 
+@Builder
 public class InventoryAsset {
     private final Asset asset;
     private Integer id;
@@ -18,24 +20,14 @@ public class InventoryAsset {
     private Inventory inventory;
     private LocationStatus locationStatus;
 
-    public InventoryAsset(Asset asset, String description, Employee employeeInCharge, double value, String damage, Location location) {
-        this.asset = asset;
-        this.description = description;
-        this.employeeInCharge = employeeInCharge;
-        this.value = value;
-        this.damage = damage;
-        this.location = location;
-    }
-
     public static InventoryAsset createFromAsset(Asset asset) {
-        return new InventoryAsset(
-                asset,
-                asset.getDescription(),
-                asset.getEmployeeInCharge(),
-                asset.getValue(),
-                asset.getDamage(),
-                asset.getLocation()
-        );
+        return InventoryAsset.builder()
+                .asset(asset)
+                .description(asset.getDescription())
+                .value(asset.getValue())
+                .damage(asset.getDamage())
+                .location(asset.getLocation())
+                .build();
     }
 
     public void applyDamage(String damage) {

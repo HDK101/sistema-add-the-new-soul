@@ -21,14 +21,15 @@ public class EmployeeCSV extends CSV<Employee> {
 
         while (reader.hasNextLine()) {
             String[] parts = reader.nextLine().split(",");
-            Employee employee = new Employee(
-                    parts[0],
-                    parts[1],
-                    parts[3],
-                    parts[4],
-                    Role.values()[Integer.parseInt(parts[5])]
-            );
-            employee.setHashPassword(parts[2]);
+
+            Employee employee = Employee.builder()
+                    .name(parts[0])
+                    .registrationNumber(parts[1])
+                    .hashPassword(parts[2])
+                    .email(parts[3])
+                    .phone(parts[4])
+                    .role(Role.values()[Integer.parseInt(parts[5])]).build();
+
             employees.add(employee);
         }
 

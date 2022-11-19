@@ -6,26 +6,30 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DatabaseBuilder {
-    public void buildDatabaseIfMissing() {
-        if (isDatabaseMissing()) {
-            System.out.println("Database is missing. Building database: \n");
-            buildTables();
-        }
+    public static void main(String[] args) {
+        Database.getConnection();
+        buildDatabaseIfMissing();
     }
 
-    private boolean isDatabaseMissing() {
+    public static void buildDatabaseIfMissing() {
+        //if (isDatabaseMissing()) {
+            System.out.println("Database is missing. Building database: \n");
+            buildTables();
+        //}
+    }
+
+    private static boolean isDatabaseMissing() {
         return !Files.exists(Paths.get("persistence.db"));
     }
 
-    private void buildTables() {
+    private static void buildTables() {
         try (Statement statement = Database.getStatement()) {
             statement.addBatch(createAssetTable());
-            statement.addBatch(createInventoryAssetTable());
             statement.addBatch(createEmployeeTable());
             statement.addBatch(createInventoryTable());
-            statement.addBatch(createComissionTable());
-            statement.addBatch(createAssetsTable());
-            statement.addBatch(createLocalTable());
+            statement.addBatch(createInventoryAssetTable());
+            //statement.addBatch(createComissionTable());
+            //statement.addBatch(createLocationTable());
             statement.executeBatch();
 
             System.out.println("Database successfully created.");
@@ -34,44 +38,30 @@ public class DatabaseBuilder {
         }
     }
 
-    private String createAssetTable() {
+    private static String createAssetTable() {
         StringBuilder builder = new StringBuilder();
 
         builder.append("CREATE TABLE Asset (\n");
         builder.append("id INTEGER PRIMARY KEY AUTOINCREMENT, \n");
         builder.append("description TEXT NOT NULL, \n");
-        builder.append("regNumberEmployeeInCharge INTEGER, \n");
+        builder.append("employee_reg TEXT, \n");
         builder.append("value DOUBLE NOT NULL, \n");
         builder.append("damage TEXT, \n");
-        builder.append("location TEXT, \n");
-        builder.append("FOREIGN KEY(regNumberEmployeeInCharge) REFERENCES Employee(registrationNumber)\n");
+        builder.append("status TEXT NOT NULL DEFAULT 'NOT_VERIFIED', \n");
+        builder.append("location_id INTEGER, \n");
+        builder.append("location_status TEXT, \n");
+        builder.append("FOREIGN KEY(employee_reg) REFERENCES Employee(registration_number)\n");
         builder.append("); \n");
 
-        System.out.println(builder.toString());
+        System.out.println(builder);
         return builder.toString();
     }
 
-    private String createInventoryAssetTable() {
-        StringBuilder builder = new StringBuilder();
-
-        builder.append("CREATE TABLE InventoryAsset (\n");
-        builder.append("id_asset INTEGER, \n");
-        builder.append("status BOOLEAN NOT NULL, \n");
-        builder.append("id_executor INTEGER NOT NULL, \n");
-        builder.append("PRIMARY KEY(id_asset, id_executor)");
-        builder.append("FOREIGN KEY(id_asset) REFERENCES Asset(id),\n");
-        builder.append("FOREIGN KEY(id_executor) REFERENCES Employee(registrationNumber)\n");
-        builder.append("); \n");
-
-        System.out.println(builder.toString());
-        return builder.toString();
-    }
-
-    private String createEmployeeTable() {
+    private static String createEmployeeTable() {
         StringBuilder builder = new StringBuilder();
 
         builder.append("CREATE TABLE Employee (\n");
-        builder.append("registrationNumber INTEGER NOT NULL PRIMARY KEY, \n");
+        builder.append("registration_number TEXT NOT NULL PRIMARY KEY, \n");
         builder.append("name TEXT NOT NULL, \n");
         builder.append("hashPassword TEXT NOT NULL, \n");
         builder.append("email TEXT NOT NULL UNIQUE, \n");
@@ -79,23 +69,50 @@ public class DatabaseBuilder {
         builder.append("role TEXT NOT NULL\n");
         builder.append("); \n");
 
-        System.out.println(builder.toString());
+        System.out.println(builder);
         return builder.toString();
     }
 
-    private String createInventoryTable() {
+    private static String createInventoryAssetTable() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("CREATE TABLE InventoryAsset (\n");
+        builder.append("id INTEGER PRIMARY KEY AUTOINCREMENT, \n");
+        builder.append("asset_id INTEGER NOT NULL, \n");
+        builder.append("inventory_id INTEGER NOT NULL, \n");
+        builder.append("inventory_manager_id INTEGER NOT NULL, \n");
+
+        builder.append("description TEXT NOT NULL, \n");
+        builder.append("employee_reg TEXT, \n");
+        builder.append("value DOUBLE NOT NULL, \n");
+        builder.append("damage TEXT, \n");
+        builder.append("status TEXT NOT NULL DEFAULT 'NOT_VERIFIED', \n");
+        builder.append("location_id INTEGER, \n");
+        builder.append("location_status TEXT, \n");
+
+        builder.append("FOREIGN KEY(asset_id) REFERENCES Asset(id),\n");
+        builder.append("FOREIGN KEY(inventory_id) REFERENCES Inventory(id)\n");
+        builder.append("FOREIGN KEY(employee_reg) REFERENCES Employee(registration_number)\n");
+        builder.append("FOREIGN KEY(inventory_manager_id) REFERENCES Employee(registration_number)\n");
+        builder.append("); \n");
+
+        System.out.println(builder);
+        return builder.toString();
+    }
+
+    private static String createInventoryTable() {
         StringBuilder builder = new StringBuilder();
 
         builder.append("CREATE TABLE Inventory (\n");
         builder.append("id INTEGER PRIMARY KEY AUTOINCREMENT, \n");
         builder.append("name TEXT NOT NULL, \n");
-        builder.append("idComissionPresident INTEGER NOT NULL, \n");
-        builder.append("initialDate DATE NOT NULL, \n");
-        builder.append("endDate DATE, \n");
-        builder.append("FOREIGN KEY(idComissionPresident) REFERENCES Employee(registrationNumber)\n");
+        builder.append("president_id INTEGER NOT NULL, \n");
+        builder.append("initial_date DATE NOT NULL, \n");
+        builder.append("end_date DATE, \n");
+        builder.append("FOREIGN KEY(president_id) REFERENCES Employee(registration_number)\n");
         builder.append("); \n");
 
-        System.out.println(builder.toString());
+        System.out.println(builder);
         return builder.toString();
     }
 
@@ -104,8 +121,8 @@ public class DatabaseBuilder {
         StringBuilder builder = new StringBuilder();
 
         builder.append("CREATE TABLE Comission (\n");
-        builder.append("id_inventory INTEGER NOT NULL, \n");
-        builder.append("regNumberEmployeeInCharge INTEGER NOT NULL, \n");
+        builder.append("id INTEGER NOT NULL AUTOINCREMENT, \n");
+        builder.append("employee_reg INTEGER NOT NULL, \n");
         builder.append("PRIMARY KEY(id_inventory, regNumberEmployeeInCharge)");
         builder.append("FOREIGN KEY(id_inventory) REFERENCES Inventory(id)\n");
         builder.append("FOREIGN KEY(regNumberEmployeeInCharge) REFERENCES Employee(registrationNumber)\n");
@@ -115,22 +132,7 @@ public class DatabaseBuilder {
         return builder.toString();
     }
 
-    //This table refers to the 'list<InventoryAssets> assets' attribute found in the inventory entity
-    private String createAssetsTable() {
-        StringBuilder builder = new StringBuilder();
-
-        builder.append("CREATE TABLE Assets (\n");
-        builder.append("id_inventory INTEGER NOT NULL, \n");
-        builder.append("id_asset INTEGER NOT NULL, \n");
-        builder.append("PRIMARY KEY(id_inventory, id_asset)");
-        builder.append("FOREIGN KEY(id_asset) REFERENCES Asset(id)\n");
-        builder.append("); \n");
-
-        System.out.println(builder.toString());
-        return builder.toString();
-    }
-
-    private String createLocalTable() {
+    private String createLocationTable() {
         StringBuilder builder = new StringBuilder();
 
         builder.append("CREATE TABLE Location (\n");
