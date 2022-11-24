@@ -94,7 +94,8 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.example.sistemabarbeirodoos4/br.edu.ifsp.addthenewsoul.application.view.Application
+                                com.example.sistemabarbeirodoos4/br.edu.ifsp.addthenewsoul.application.view.WindowLoader
+
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
