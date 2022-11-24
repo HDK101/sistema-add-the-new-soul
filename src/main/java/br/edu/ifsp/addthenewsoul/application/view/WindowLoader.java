@@ -1,22 +1,22 @@
 package br.edu.ifsp.addthenewsoul.application.view;
 
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Objects;
 
 
-public class Application extends javafx.application.Application {
+public class WindowLoader extends Application {
 
     private static Scene scene;
     private static Object controller;
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("MainUI"));
+        scene = new Scene(loadFXML("hello-view"));
         stage.setScene(scene);
         stage.show();
     }
@@ -27,7 +27,7 @@ public class Application extends javafx.application.Application {
 
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        Parent parent = fxmlLoader.load(Objects.requireNonNull(Application.class.getResource(fxml + ".fxml")).openStream());
+        Parent parent = fxmlLoader.load(WindowLoader.class.getResource(fxml + ".fxml").openStream());
         controller = fxmlLoader.getController();
         return parent;
     }
