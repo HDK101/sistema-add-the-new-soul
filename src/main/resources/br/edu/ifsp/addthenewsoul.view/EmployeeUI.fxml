@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.EmployeeUI">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Label layoutX="273.0" layoutY="23.0" text="Employee">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label layoutX="42.0" layoutY="132.0" text="Name:" />
+            <Label layoutX="41.0" layoutY="183.0" text="Phone:" />
+            <Label layoutX="41.0" layoutY="233.0" text="E-mail:" />
+            <Label layoutX="38.0" layoutY="283.0" text="Password:" />
+            <Label layoutX="40.0" layoutY="85.0" text="Registration Number:" />
+            <TextField layoutX="166.0" layoutY="81.0" />
+            <TextField layoutX="86.0" layoutY="128.0" prefHeight="25.0" prefWidth="241.0" />
+            <TextField layoutX="86.0" layoutY="179.0" prefHeight="25.0" prefWidth="241.0" />
+            <TextField layoutX="86.0" layoutY="229.0" prefHeight="25.0" prefWidth="241.0" />
+            <TextField layoutX="98.0" layoutY="279.0" prefHeight="25.0" prefWidth="230.0" />
+            <Button layoutX="407.0" layoutY="339.0" mnemonicParsing="false" text="CANCELAR" />
+            <Button layoutX="500.0" layoutY="339.0" mnemonicParsing="false" text="SALVAR" />
+            <ImageView id="imgEmployee" fitHeight="225.0" fitWidth="200.0" layoutX="365.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
