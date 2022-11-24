@@ -1,4 +1,4 @@
-package br.edu.ifsp.addthenewsoul;
+package br.edu.ifsp.addthenewsoul.application.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
