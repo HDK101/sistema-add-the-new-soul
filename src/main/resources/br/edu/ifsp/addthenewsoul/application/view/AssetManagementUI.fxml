@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.AssetManagementUIController">
+   <children>
+      <Label layoutX="212.0" layoutY="14.0" text="ASSET MANAGEMENT">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TableView layoutX="36.0" layoutY="120.0" prefHeight="177.0" prefWidth="532.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+      <Label layoutX="34.0" layoutY="58.0" text="Filter by:" />
+      <TextField layoutX="102.0" layoutY="54.0" />
+      <Button layoutX="273.0" layoutY="54.0" mnemonicParsing="false" text="OK" />
+      <Button layoutX="316.0" layoutY="54.0" mnemonicParsing="false" text="ALL ASSETS" />
+      <RadioButton layoutX="102.0" layoutY="86.0" mnemonicParsing="false" text="ID" />
+      <RadioButton layoutX="156.0" layoutY="86.0" mnemonicParsing="false" text="Location" />
+      <RadioButton layoutX="236.0" layoutY="86.0" mnemonicParsing="false" text="Employee in charge" />
+      <RadioButton layoutX="370.0" layoutY="86.0" mnemonicParsing="false" text="Location and Employee" />
+      <Button layoutX="36.0" layoutY="310.0" mnemonicParsing="false" text="ADD NEW +" />
+      <Button layoutX="127.0" layoutY="310.0" mnemonicParsing="false" text="EDIT" />
+      <Button layoutX="176.0" layoutY="310.0" mnemonicParsing="false" text="REMOVE" />
+      <Button layoutX="249.0" layoutY="310.0" mnemonicParsing="false" text="EVALUATE ASSET" />
+      <Button layoutX="376.0" layoutY="310.0" mnemonicParsing="false" text="IMPORT CSV" />
+      <Button layoutX="472.0" layoutY="310.0" mnemonicParsing="false" text="EXPORT CSV" />
+      <Button layoutX="498.0" layoutY="348.0" mnemonicParsing="false" text="CANCEL" />
+   </children>
+</AnchorPane>
