@@ -13,7 +13,7 @@ public class EmployeeTXTReportWriter extends TXTWriter implements ReportWriter<E
         addDetail("Employee registration number: ", employee.getRegistrationNumber());
         addDetail("E-mail: ", employee.getEmail());
         addDetail("Phone number: ", employee.getPhone());
-        addDetail("Role: ", employee.getRole().toString());
+        addDetail("Role: ", employee.getRoles().toString());
         addSingleHead("Assets in charge: ");
 
         if (employee.getAssetsInCharge() != null) {

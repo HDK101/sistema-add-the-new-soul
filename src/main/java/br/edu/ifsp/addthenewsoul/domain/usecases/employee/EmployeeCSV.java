@@ -7,9 +7,7 @@ import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class EmployeeCSV extends CSV<Employee> {
 
@@ -28,7 +26,7 @@ public class EmployeeCSV extends CSV<Employee> {
                     .hashPassword(parts[2])
                     .email(parts[3])
                     .phone(parts[4])
-                    .role(Role.values()[Integer.parseInt(parts[5])]).build();
+                    .roles(EnumSet.allOf(Role.class)).build();
 
             employees.add(employee);
         }

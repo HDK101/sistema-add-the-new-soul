@@ -26,7 +26,7 @@ public class InMemoryInventoryDAO implements InventoryDAO {
         currentInventoryId++;
         dbMemoryInventory.put(currentInventoryId, inventory);
 
-        inventory.getAssets().stream().forEach(inventoryAsset -> {
+        inventory.getAssets().forEach(inventoryAsset -> {
             currentInventoryAssetId++;
             inventoryAsset.setId(currentInventoryAssetId);
         });

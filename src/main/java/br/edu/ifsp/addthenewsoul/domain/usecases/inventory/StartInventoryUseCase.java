@@ -23,18 +23,18 @@ public class StartInventoryUseCase {
     }
 
     private void designateEmployeeAsPresident(Employee employee) {
-        if (employee.getRole() == Role.CHAIRMAN_OF_THE_COMISSION) throw new InventoryInvalidPresidentException(employee, "Employee is already a president");
-        employee.setRole(Role.CHAIRMAN_OF_THE_COMISSION);
+        if (employee.getRoles().contains(Role.CHAIRMAN_OF_THE_COMISSION)) throw new InventoryInvalidPresidentException(employee, "Employee is already a president");
+        employee.setRoles(Role.CHAIRMAN_OF_THE_COMISSION);
     }
 
     private void designateComission(List<Employee> employees) {
-        employees.stream().forEach(employee -> {
-            if (employee.getRole() != Role.EMPLOYEE) {
+        employees.forEach(employee -> {
+            if (!employee.getRoles().contains(Role.EMPLOYEE)) {
                 throw new IllegalArgumentException("All employess must have Role.EMPLOYEE role");
             }
         });
-        employees.stream().forEach(employee -> {
-            employee.setRole(Role.EXECUTOR);
+        employees.forEach(employee -> {
+            employee.setRoles(Role.EXECUTOR);
         });
     }
 

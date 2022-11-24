@@ -1,6 +1,7 @@
 package br.edu.ifsp.addthenewsoul.domain.entities.employee;
 
 import java.util.Arrays;
+import java.util.EnumSet;
 
 public enum Role {
     EMPLOYEE,
