@@ -37,7 +37,7 @@ public class InMemoryEmployeeDAO implements EmployeeDAO {
     public Map<String, Employee> bulkAdd(List<Employee> items) {
         Map<String, Employee> employees = new HashMap<>();
 
-        items.stream().forEach(item -> {
+        items.forEach(item -> {
             if (!employees.containsKey(item.getEmail())) {
                 employees.put(item.getEmail(), item);
             }

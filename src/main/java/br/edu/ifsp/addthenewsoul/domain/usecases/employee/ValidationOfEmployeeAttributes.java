@@ -23,7 +23,7 @@ public class ValidationOfEmployeeAttributes extends Validator<Employee> {
             notification.addError("E-mail is null or empty");
         if (nullOrEmpty(employee.getPhone()))
             notification.addError("Phone is null or empty");
-        if (nullOrEmpty(employee.getRole().toString()))
+        if (nullOrEmpty(employee.getRoles().toString()))
             notification.addError("Role is null or empty");
 
         return notification;

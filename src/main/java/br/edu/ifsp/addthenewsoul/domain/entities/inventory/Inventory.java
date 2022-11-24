@@ -61,12 +61,12 @@ public class Inventory {
 
     private void setEmployeeRolesToNormal() {
         for (Employee employee : comission) {
-            employee.setRole(Role.EMPLOYEE);
+            employee.removeRoles(Role.EMPLOYEE);
         }
     }
 
     public void finish() {
-        comissionPresident.setRole(Role.EMPLOYEE);
+        comissionPresident.setRoles(Role.EMPLOYEE);
         setEmployeeRolesToNormal();
         setInventoryStatus(InventoryStatus.CLOSED);
     }

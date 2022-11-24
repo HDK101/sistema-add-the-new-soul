@@ -5,6 +5,7 @@ import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import lombok.Builder;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 @Builder
@@ -15,7 +16,7 @@ public class Employee implements CSVNode {
     private String virtualPassword;
     private String email;
     private String phone;
-    private Role role;
+    private EnumSet<Role> roles;
     private List<Asset> assetsInCharge;
 
     /*
@@ -78,12 +79,16 @@ public class Employee implements CSVNode {
         this.phone = phone;
     }
 
-    public Role getRole() {
-        return role;
+    public EnumSet<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoles(Role role) {
+        this.roles.add(role);
+    }
+
+    public void removeRoles (Role role) {
+        this.roles.remove(role);
     }
 
     public String getVirtualPassword() {
@@ -117,7 +122,7 @@ public class Employee implements CSVNode {
                 .append(',')
                 .append(phone)
                 .append(',')
-                .append(role.ordinal());
+                .append(roles.toString());
 
         return builder.toString();
     }
@@ -130,7 +135,7 @@ public class Employee implements CSVNode {
         sb.append(", hashPassword='").append(hashPassword).append('\'');
         sb.append(", email='").append(email).append('\'');
         sb.append(", phone='").append(phone).append('\'');
-        sb.append(", role=").append(role);
+        sb.append(", role=").append(roles);
         sb.append('}');
         return sb.toString();
     }
