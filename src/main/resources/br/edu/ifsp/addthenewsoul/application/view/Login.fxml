@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="600.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.FazerLoginController">
+   <children>
+      <Label layoutX="324.0" layoutY="153.0" prefHeight="53.0" prefWidth="149.0" text="FAZER LOGIN">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtEmail" layoutX="351.0" layoutY="227.0" />
+      <Label layoutX="282.0" layoutY="226.0" prefHeight="25.0" prefWidth="42.0" text="Email:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="282.0" layoutY="275.0" prefHeight="25.0" prefWidth="50.0" text="Senha:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnLogin" layoutX="426.0" layoutY="310.0" mnemonicParsing="false" onAction="#login" prefHeight="32.0" prefWidth="72.0" text="Login" />
+      <PasswordField fx:id="txtPassword" layoutX="351.0" layoutY="275.0" />
+   </children>
+</AnchorPane>
