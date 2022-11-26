@@ -83,6 +83,10 @@ public class Employee implements CSVNode {
         return roles;
     }
 
+    public boolean hasRole(Role role) {
+        return roles.contains(role);
+    }
+
     public void setRoles(Role role) {
         this.roles.add(role);
     }

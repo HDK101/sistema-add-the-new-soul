@@ -78,7 +78,30 @@ public class SQLiteAssetDAO implements AssetDAO {
 
     @Override
     public Optional<Asset> findById(Integer id) {
-        return Optional.empty();
+        String sql = """
+            SELECT
+                a.id AS a_id, 
+                a.description AS a_description,
+                a.employee_reg AS a_employee_reg,
+                a.damage AS a_damage,
+                a.status AS a_status,
+                a.location_id AS a_location_id,
+                a.location_status AS a_location_status
+            FROM Asset a
+            WHERE a.id = ?
+        """;
+        Asset asset = null;
+        try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet resultSet = stmt.executeQuery();
+
+            if (resultSet.next()) {
+                asset = ResultToAsset.convert(resultSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Optional.of(asset);
     }
 
     @Override
@@ -115,7 +138,7 @@ public class SQLiteAssetDAO implements AssetDAO {
             stmt.setString(1, asset.getDescription());
             stmt.setDouble(2, asset.getValue());
             stmt.setString(3, asset.getStatus().toString());
-            stmt.setString(4, LocationStatus.NORMAL.toString());
+            stmt.setString(4, LocationStatus.CORRECT_LOCATION.toString());
             stmt.execute();
             ResultSet rs = stmt.getGeneratedKeys();
             return rs.getInt(1);
@@ -127,13 +150,31 @@ public class SQLiteAssetDAO implements AssetDAO {
 
     @Override
     public Map<Integer, Asset> bulkAdd(List<Asset> items) {
-        return null;
+        HashMap<Integer, Asset> assetHashMap = new HashMap<>();
+
+        // Tentei executar em batch, nao funciona, vai assim msm
+
+        items.forEach(item -> {
+            this.add(item);
+            assetHashMap.put(item.getId(), item);
+        });
+
+        return assetHashMap;
     }
 
     @Override
     public synchronized boolean update(Asset asset) {//SQLITE
-        String sql = "UPDATE Asset set description = ?, regNumberEmployeeInCharge = ?, value = ?, " +
-                "damage = ?, location = ? WHERE id = ?";
+        String sql = """
+            UPDATE Asset set 
+                description = ?,
+                employee_reg = ?, 
+                value = ?,
+                damage = ?,
+                location = ?,
+                status = ?
+            WHERE id = ?
+        """;
+
         try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
             stmt.setString(1, asset.getDescription());
             if (asset.getEmployeeInCharge() != null)
@@ -167,24 +208,28 @@ public class SQLiteAssetDAO implements AssetDAO {
 
     @Override
     public List<Asset> findAll() {
-        String sql = "SELECT * FROM Asset";
+        String sql = """
+            SELECT
+                a.id AS a_id, 
+                a.description AS a_description,
+                a.employee_reg AS a_employee_reg,
+                a.damage AS a_damage,
+                a.status AS a_status,
+                a.location_id AS a_location_id,
+                a.location_status AS a_location_status,
+            FROM Asset a
+        """;
         List<Asset> assets = new ArrayList<>();
         try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
             ResultSet resultSet = stmt.executeQuery();
-            /*while (resultSet.next()) { Precisa Arrumar
-                Asset asset = new Asset(
-                        resultSet.getInt("id"),
-                        resultSet.getString("description"),
-                        resultSet.getString("regNumberEmployeeInCharge"),
-                        resultSet.getDouble("value"),
-                        resultSet.getString("damage"),
-                        resultSet.getString("location")
-                )
+
+            while (resultSet.next()) {
+                Asset asset = ResultToAsset.convert(resultSet);
                 assets.add(asset);
-            }*/
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return assets;
     }
 }

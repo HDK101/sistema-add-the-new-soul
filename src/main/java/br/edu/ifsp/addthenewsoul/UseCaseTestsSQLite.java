@@ -36,12 +36,18 @@ public class UseCaseTestsSQLite {
         FindAssetUseCase findAssetUseCase = new FindAssetUseCase(assetDAO);
 
         Asset asset1 = Asset.builder().description("Cadeira").value(50.0).status(Status.NOT_VERIFIED).build();
+        Asset asset2 = Asset.builder().description("Cadeira").value(50.0).status(Status.NOT_VERIFIED).build();
+        Asset asset3 = Asset.builder().description("Cadeira").value(50.0).status(Status.NOT_VERIFIED).build();
 
-        addAssetUseCase.add(asset1);
+        assetDAO.bulkAdd(List.of(asset1, asset2, asset3));
 
-        System.out.println(
-            findAssetUseCase.findOne(1).orElseThrow()
-        );
+        System.out.println(assetDAO.findById(58).orElseThrow());
+
+        //addAssetUseCase.add(asset1);
+
+//        System.out.println(
+//            findAssetUseCase.findOne(1).orElseThrow()
+//        );
 
         //System.out.println(assetDAO.findAll());
 
@@ -52,6 +58,6 @@ public class UseCaseTestsSQLite {
         removeAssetUseCase.removeAsset(asset1);
          */
 
-        System.out.println(assetDAO.findAll());
+//        System.out.println(assetDAO.findAll());
     }
 }

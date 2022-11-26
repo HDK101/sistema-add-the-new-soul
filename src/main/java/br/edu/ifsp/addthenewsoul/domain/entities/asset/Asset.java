@@ -16,48 +16,12 @@ public class Asset implements CSVNode {
     private double value;
     private String damage;
     private Location location;
+    private LocationStatus locationStatus;
 
     //Esse Status daqui vem InventoryAsset -> Asset. Nao e possivel trocar direto no Asset
     private Status status;
 
     private InventoryAsset inventoryAsset;
-
-    /*
-    public Asset() {
-    }
-
-    //Fazer builder
-    public Asset(Integer id, String description, double value, String damage) {
-        this.id = id;
-        this.description = description;
-        this.value = value;
-        this.damage = damage;
-        this.status = Status.NOT_VERIFIED;
-    }
-
-    public Asset(String description, double value, String damage) {
-        this.description = description;
-        this.value = value;
-        this.damage = damage;
-        this.status = Status.NOT_VERIFIED;
-    }
-
-    public Asset(String description, double value) {
-        this.description = description;
-        this.value = value;
-        this.status = Status.NOT_VERIFIED;
-    }
-
-    public Asset(int id, String description, Employee employeeInCharge, double value, String damage, Location location) {
-        this.id = id;
-        this.description = description;
-        this.employeeInCharge = employeeInCharge;
-        this.value = value;
-        this.damage = damage;
-        this.location = location;
-        this.status = Status.NOT_VERIFIED;
-    }
-     */
 
     public Integer getId() {
         return id;
@@ -128,10 +92,13 @@ public class Asset implements CSVNode {
         final StringBuilder sb = new StringBuilder("Asset{");
         sb.append("id=").append(id);
         sb.append(", description='").append(description).append('\'');
-        sb.append(", employeeInCharge=").append(employeeInCharge != null ? employeeInCharge.getRegistrationNumber() : "null");
+        sb.append(", employeeInCharge=").append(employeeInCharge);
         sb.append(", value=").append(value);
         sb.append(", damage='").append(damage).append('\'');
-        sb.append(", location=").append(location != null ? location.fullLocation() : "null");
+        sb.append(", location=").append(location);
+        sb.append(", locationStatus=").append(locationStatus);
+        sb.append(", status=").append(status);
+        sb.append(", inventoryAsset=").append(inventoryAsset);
         sb.append('}');
         return sb.toString();
     }
