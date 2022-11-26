@@ -14,6 +14,7 @@ public class ResultToAsset {
                 .description(rs.getString("a_description"))
                 .damage(rs.getString("a_damage"))
                 .status(Status.valueOf(rs.getString("a_status")))
+                .locationStatus(LocationStatus.valueOf(rs.getString("a_location_status")))
                 .build();
     }
 }
