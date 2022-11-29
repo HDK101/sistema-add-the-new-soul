@@ -93,21 +93,22 @@ public class DatabaseBuilder {
         builder.append("CREATE TABLE InventoryAsset (\n");
         builder.append("id INTEGER PRIMARY KEY AUTOINCREMENT, \n");
         builder.append("asset_id INTEGER NOT NULL, \n");
-        builder.append("inventory_id INTEGER NOT NULL, \n");
-        builder.append("inventory_manager_id INTEGER NOT NULL, \n");
+        builder.append("inventory_id TEXT NOT NULL, \n");
+        builder.append("location_id INTEGER, \n");
+        builder.append("inventory_manager_reg INTEGER NOT NULL, \n");
+        builder.append("employee_reg TEXT, \n");
 
         builder.append("description TEXT NOT NULL, \n");
-        builder.append("employee_reg TEXT, \n");
         builder.append("value DOUBLE NOT NULL, \n");
         builder.append("damage TEXT, \n");
         builder.append("status TEXT NOT NULL DEFAULT 'NOT_VERIFIED', \n");
-        builder.append("location_id INTEGER, \n");
         builder.append("location_status TEXT, \n");
 
         builder.append("FOREIGN KEY(asset_id) REFERENCES Asset(id),\n");
         builder.append("FOREIGN KEY(inventory_id) REFERENCES Inventory(id),\n");
         builder.append("FOREIGN KEY(employee_reg) REFERENCES Employee(registration_number),\n");
-        builder.append("FOREIGN KEY(inventory_manager_id) REFERENCES Employee(registration_number)\n");
+        builder.append("FOREIGN KEY(inventory_manager_reg) REFERENCES Employee(registration_number)\n");
+        builder.append("FOREIGN KEY(location_id) REFERENCES Location(id)\n");
         builder.append("); \n");
 
         System.out.println(builder);
@@ -118,12 +119,12 @@ public class DatabaseBuilder {
         StringBuilder builder = new StringBuilder();
 
         builder.append("CREATE TABLE Inventory (\n");
-        builder.append("id INTEGER PRIMARY KEY AUTOINCREMENT, \n");
+        builder.append("id TEXT PRIMARY KEY, \n");
         builder.append("name TEXT NOT NULL, \n");
-        builder.append("president_id INTEGER NOT NULL, \n");
+        builder.append("president_reg TEXT NOT NULL, \n");
         builder.append("initial_date DATE NOT NULL, \n");
         builder.append("end_date DATE, \n");
-        builder.append("FOREIGN KEY(president_id) REFERENCES Employee(registration_number)\n");
+        builder.append("FOREIGN KEY(president_reg) REFERENCES Employee(registration_number)\n");
         builder.append("); \n");
 
         System.out.println(builder);
