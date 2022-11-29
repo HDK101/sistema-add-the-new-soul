@@ -109,7 +109,23 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
         }
     }
 
+    private boolean deleteRoles(String registrationNumber) {
+        String sql = "DELETE FROM EmployeeRole WHERE employee_reg = ?";
+
+        try(PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+            stmt.setString(1, registrationNumber);
+            return stmt.executeUpdate() == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     private boolean putRoles(Employee employee) {
+        boolean deleteRolesSuccess = this.deleteRoles(employee.getRegistrationNumber());
+
+        if (!deleteRolesSuccess) return false;
+
         List<Role> roles = employee.getRoles().stream().toList();
         String sql = """
                 INSERT INTO EmployeeRole (
@@ -123,7 +139,6 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
 
         for (Role role : roles) {
             boolean roleSuccess = this.addRole(employee.getRegistrationNumber(), role, sql);
-            System.out.println(roleSuccess);
             if (!roleSuccess) return false;
         }
 
