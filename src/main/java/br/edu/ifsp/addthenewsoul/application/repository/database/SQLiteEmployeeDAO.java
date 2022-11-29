@@ -1,12 +1,15 @@
-/*package br.edu.ifsp.addthenewsoul.application.repository.database;
+package br.edu.ifsp.addthenewsoul.application.repository.database;
 
+import br.edu.ifsp.addthenewsoul.application.repository.database.results.ResultToEmployee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeDAO;
+
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -15,123 +18,237 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
 
     @Override
     public Optional<Employee> findByRegistrationNumber(String registrationNumber) {
-        String sql = "SELECT * FROM Employee where registrationNumber = ?";
+        String sql = """
+                SELECT
+                    e.registration_number AS e_registration_number,
+                    e.name AS e_name,
+                    e.phone as e_phone,
+                    e.hash_password AS e_hash_password,
+                    e.email AS e_email,
+                    er.role AS er_role
+                FROM Employee e
+                LEFT JOIN EmployeeRole er
+                WHERE e.registration_number = ?
+                """;
+
         Employee employee = null;
 
-        try(PreparedStatement stmt = Database.createPreparedStatement(sql)){
+        try(PreparedStatement stmt = Database.createPreparedStatement(sql)) {
             stmt.setString(1, registrationNumber);
-            ResultSet rs = stmt.executeQuery();
-            if(rs.next()){
-                employee = resultSetToEntity(rs);
+            stmt.execute();
+            ResultSet resultSet = stmt.getResultSet();
+
+            if (resultSet.next()) {
+                employee = ResultToEmployee.convert(resultSet);
+                while (resultSet.next()) {
+                    employee.addRole(Role.valueOf(resultSet.getString("er_role")));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return Optional.ofNullable(employee);
 
+        return Optional.of(employee);
     }
 
     @Override
     public Optional<Employee> findByEmail(String email) {
-        return Optional.empty();
-    }
+        String sql = """
+                SELECT
+                    e.registration_number AS e_registration_number,
+                    e.name AS e_name,
+                    e.phone as e_phone,
+                    e.hash_password AS e_hash_password,
+                    e.email AS e_email,
+                    er.role AS er_role
+                FROM Employee e
+                LEFT JOIN EmployeeRole er
+                WHERE e.email = ?
+                """;
 
-    private Employee resultSetToEntity(ResultSet rs) throws SQLException {
-        return new Employee(
-                rs.getString("name"),
-                rs.getString("registrationNumber"),
-                rs.getString("hashPassword"),
-                rs.getString("email"),
-                rs.getString("phone"),
-                Role.toEnum(rs.getString("role"))
-        );
-    }
-
-
-    @Override
-
-    public String add(Employee employee) {
-        String sql = "INSERT INTO Employee(name, registrationNumber, hashPassword, email, phone, role) VALUES (?, ?, ?, ?, ?, ?)";
+        Employee employee = null;
 
         try(PreparedStatement stmt = Database.createPreparedStatement(sql)) {
-            stmt.setString(1, employee.getName());
-            stmt.setString(2, employee.getRegistrationNumber());
-            stmt.setString(3, employee.getHashPassword());
-            stmt.setString(4, employee.getEmail());
-            stmt.setString(5, employee.getPhone());
-            stmt.setString(6, employee.getRole().toString());
+            stmt.setString(1, email);
             stmt.execute();
+            ResultSet resultSet = stmt.getResultSet();
 
-            return employee.getRegistrationNumber();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-    @Override
-    public Map<String, Employee> bulkAdd(List<Employee> items) {
-        return null;
-    }
-
-    @Override
-    public List<Employee> findAll() {
-        String sql = "SELECT * FROM Employee";
-        List<Employee> employees = new ArrayList<>();
-
-        try(PreparedStatement stmt = Database.createPreparedStatement(sql)){
-            ResultSet rs = stmt.executeQuery();
-            while(rs.next()){
-                Employee employee = resultSetToEntity(rs);
-                employees.add(employee);
+            if (resultSet.next()) {
+                employee = ResultToEmployee.convert(resultSet);
+                while (resultSet.next()) {
+                    employee.addRole(Role.valueOf(resultSet.getString("er_role")));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return employees;
 
+        return Optional.of(employee);
+    }
 
+    @Override
+    public Map<String, Employee> bulkAdd(List<Employee> items) {
+        HashMap<String, Employee> employeeHashMap = new HashMap<>();
+
+        items.forEach(item -> {
+            this.add(item);
+            employeeHashMap.put(item.getRegistrationNumber(), item);
+        });
+
+        return employeeHashMap;
+    }
+
+    private boolean addRole(String registrationNumber, Role role, String sql) {
+        try(PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+            stmt.setString(1, registrationNumber);
+            stmt.setString(2, role.toString());
+            return stmt.executeUpdate() == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private boolean putRoles(Employee employee) {
+        List<Role> roles = employee.getRoles().stream().toList();
+        String sql = """
+                INSERT INTO EmployeeRole (
+                    employee_reg,
+                    role
+                ) VALUES (
+                    ?,
+                    ?
+                );
+                """;
+
+        for (Role role : roles) {
+            boolean roleSuccess = this.addRole(employee.getRegistrationNumber(), role, sql);
+            System.out.println(roleSuccess);
+            if (!roleSuccess) return false;
+        }
+
+        return true;
+    }
+
+    private boolean addEmployee(Employee employee) {
+        String sql = """
+                INSERT INTO Employee (
+                    registration_number,
+                    name,
+                    email,
+                    phone,
+                    hash_password
+                ) VALUES (
+                    ?,
+                    ?,
+                    ?,
+                    ?,
+                    ?
+                );
+                """;
+        try(PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+            stmt.setString(1, employee.getRegistrationNumber());
+            stmt.setString(2, employee.getName());
+            stmt.setString(3, employee.getEmail());
+            stmt.setString(4, employee.getPhone());
+            stmt.setString(5, employee.getHashPassword());
+            return stmt.executeUpdate() == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public String add(Employee employee) {
+        Connection connection = Database.getConnection();
+
+        try {
+            connection.setAutoCommit(false);
+
+            boolean employeeAddSuccess = this.addEmployee(employee);
+            boolean employeeRolesPutSuccess = this.putRoles(employee);
+
+            if (!employeeAddSuccess || !employeeRolesPutSuccess) {
+                connection.rollback();
+            }
+
+            connection.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return employee.getRegistrationNumber();
     }
 
     @Override
     public boolean update(Employee employee) {
-        String sql = "UPDATE Employee SET name = ?, registrationNumber = ?, hashPassword = ?, email = ?, phone = ?, role = ?";
-
-        try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+        String sql = """
+                UPDATE Employee set
+                    name = ?,
+                    email = ?,
+                    phone = ?,
+                    hash_password = ?
+                WHERE registration_number = ?
+                """;
+        try(PreparedStatement stmt = Database.createPreparedStatement(sql)) {
             stmt.setString(1, employee.getName());
-            stmt.setString(2, employee.getRegistrationNumber());
-            stmt.setString(3, employee.getHashPassword());
-            stmt.setString(4, employee.getEmail());
-            stmt.setString(5, employee.getPhone());
-            stmt.setString(6, employee.getRole().toString());
-            stmt.execute();
-            return true;
+            stmt.setString(2, employee.getEmail());
+            stmt.setString(3, employee.getPhone());
+            stmt.setString(4, employee.getHashPassword());
+            stmt.setString(5, employee.getRegistrationNumber());
+            return stmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
     }
-
 
     @Override
-    public boolean delete(String registrationNumber) {
-
-        String sql = "DELETE FROM Employee WHERE registrationNumber = ?";
-
+    public boolean delete(String key) {
+        String sql = "DELETE FROM Employee WHERE registration_number = ?";
+        //Deletar Roles em cascata
         try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
-            stmt.setString(1, registrationNumber);
+            stmt.setString(1, key);
             stmt.execute();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return false;
     }
 
+    @Override
+    public List<Employee> findAll() {
+        String sql = """
+                SELECT
+                    e.registration_number AS e_registration_number,
+                    e.name AS e_name,
+                    e.phone as e_phone,
+                    e.hash_password AS e_hash_password,
+                    e.email AS e_email,
+                    er.role AS er_role
+                FROM Employee e
+                LEFT JOIN EmployeeRole er
+                WHERE e.registration_number = er.employee_reg
+                """;
+        Map<String, Employee> employeeMap = new HashMap<>();
 
-    
+        try(PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+            stmt.execute();
+            ResultSet resultSet = stmt.getResultSet();
+
+            while (resultSet.next()) {
+                String registrationNumber = resultSet.getString("e_registration_number");
+                if (!employeeMap.containsKey(registrationNumber)) {
+                    employeeMap.put(registrationNumber, ResultToEmployee.convert(resultSet));
+                }
+                Employee employee = employeeMap.get(registrationNumber);
+                employee.addRole(Role.valueOf(resultSet.getString("er_role")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return employeeMap.values().stream().toList();
+    }
 }
-
-*/
