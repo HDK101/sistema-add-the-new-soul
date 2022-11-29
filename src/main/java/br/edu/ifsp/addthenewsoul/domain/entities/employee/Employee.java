@@ -4,7 +4,6 @@ import br.edu.ifsp.addthenewsoul.application.io.CSVNode;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import lombok.Builder;
 
-import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -18,26 +17,6 @@ public class Employee implements CSVNode {
     private String phone;
     private EnumSet<Role> roles;
     private List<Asset> assetsInCharge;
-
-    /*
-    public Employee(String name, String registrationNumber, String virtualPassword, String email, String phone, Role role) {
-        this.name = name;
-        this.registrationNumber = registrationNumber;
-        this.virtualPassword = virtualPassword;
-        this.email = email;
-        this.phone = phone;
-        this.role = role;
-        this.assetsInCharge = new ArrayList<>();
-    }
-
-    public Employee(String name, String registrationNumber, String email, String phone, Role role) {
-        this.name = name;
-        this.registrationNumber = registrationNumber;
-        this.email = email;
-        this.phone = phone;
-        this.role = role;
-    }
-     */
 
     public String getName() {
         return name;
@@ -87,11 +66,11 @@ public class Employee implements CSVNode {
         return roles.contains(role);
     }
 
-    public void setRoles(Role role) {
+    public void addRole(Role role) {
         this.roles.add(role);
     }
 
-    public void removeRoles (Role role) {
+    public void removeRole(Role role) {
         this.roles.remove(role);
     }
 

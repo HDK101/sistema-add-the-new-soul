@@ -1,6 +1,7 @@
 package br.edu.ifsp.addthenewsoul;
 
 import br.edu.ifsp.addthenewsoul.application.repository.database.SQLiteAssetDAO;
+import br.edu.ifsp.addthenewsoul.application.repository.database.SQLiteEmployeeDAO;
 import br.edu.ifsp.addthenewsoul.application.repository.inMemory.InMemoryAssetDAO;
 import br.edu.ifsp.addthenewsoul.application.repository.inMemory.InMemoryEmployeeDAO;
 import br.edu.ifsp.addthenewsoul.application.repository.inMemory.InMemoryInventoryDAO;
@@ -22,26 +23,43 @@ import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Session;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 public class UseCaseTestsSQLite {
     public static void main(String[] args) throws IOException {
+        EmployeeDAO employeeDAO = new SQLiteEmployeeDAO();
 
-	System.out.println("----- Apresentação Parcial -----");
-        AssetDAO assetDAO = new SQLiteAssetDAO();
+        Employee employee = Employee.builder()
+                .registrationNumber("REG123")
+                .name("Lucas")
+                .email("lucas@gmail.com")
+                .hashPassword("asdasd")
+                .roles(EnumSet.of(Role.CHAIRMAN_OF_THE_COMISSION, Role.INVENTORY_MANAGER))
+                .build();
 
-        AddAssetUseCase addAssetUseCase = new AddAssetUseCase(assetDAO);
-        UpdateAssetUseCase updateAssetUseCase = new UpdateAssetUseCase(assetDAO);
-        RemoveAssetUseCase removeAssetUseCase = new RemoveAssetUseCase(assetDAO);
-        FindAssetUseCase findAssetUseCase = new FindAssetUseCase(assetDAO);
+        employeeDAO.add(employee);
 
-        Asset asset1 = Asset.builder().description("Cadeira").value(50.0).status(Status.NOT_VERIFIED).build();
-        Asset asset2 = Asset.builder().description("Cadeira").value(50.0).status(Status.NOT_VERIFIED).build();
-        Asset asset3 = Asset.builder().description("Cadeira").value(50.0).status(Status.NOT_VERIFIED).build();
+        Employee employee1 = employeeDAO.findAll().get(0);
 
-        assetDAO.bulkAdd(List.of(asset1, asset2, asset3));
+        System.out.println(employee1);
 
-        System.out.println(assetDAO.findById(58).orElseThrow());
+
+//	System.out.println("----- Apresentação Parcial -----");
+//        AssetDAO assetDAO = new SQLiteAssetDAO();
+//
+//        AddAssetUseCase addAssetUseCase = new AddAssetUseCase(assetDAO);
+//        UpdateAssetUseCase updateAssetUseCase = new UpdateAssetUseCase(assetDAO);
+//        RemoveAssetUseCase removeAssetUseCase = new RemoveAssetUseCase(assetDAO);
+//        FindAssetUseCase findAssetUseCase = new FindAssetUseCase(assetDAO);
+//
+//        Asset asset1 = Asset.builder().description("Cadeira").value(50.0).status(Status.NOT_VERIFIED).build();
+//        Asset asset2 = Asset.builder().description("Cadeira").value(50.0).status(Status.NOT_VERIFIED).build();
+//        Asset asset3 = Asset.builder().description("Cadeira").value(50.0).status(Status.NOT_VERIFIED).build();
+//
+//        assetDAO.bulkAdd(List.of(asset1, asset2, asset3));
+//
+//        System.out.println(assetDAO.findById(58).orElseThrow());
 
         //addAssetUseCase.add(asset1);
 

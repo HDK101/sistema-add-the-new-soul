@@ -17,7 +17,7 @@ public class LoginEmployeeUseCase {
     public Employee login (String email, String password) {
         Employee employee = this.employeeDAO.findByEmail(email).orElseThrow();
 
-        if (employee.getRoles().contains(Role.EMPLOYEE)) throw new IllegalStateException("Employee must not have a EMPLOYEE role");
+        if (employee.getRoles().isEmpty()) throw new IllegalStateException("Employee must have a role to authenticate");
 
         String hashPassword = employee.getHashPassword();
         BCrypt.Result result = Hash.verify(hashPassword, password);

@@ -26,6 +26,7 @@ public class DatabaseBuilder {
         try (Statement statement = Database.getStatement()) {
             statement.addBatch(createAssetTable());
             statement.addBatch(createEmployeeTable());
+            statement.addBatch(createEmployeeRoleTable());
             statement.addBatch(createInventoryTable());
             statement.addBatch(createInventoryAssetTable());
             //statement.addBatch(createComissionTable());
@@ -63,10 +64,23 @@ public class DatabaseBuilder {
         builder.append("CREATE TABLE Employee (\n");
         builder.append("registration_number TEXT NOT NULL PRIMARY KEY, \n");
         builder.append("name TEXT NOT NULL, \n");
-        builder.append("hashPassword TEXT NOT NULL, \n");
+        builder.append("hash_password TEXT NOT NULL, \n");
         builder.append("email TEXT NOT NULL UNIQUE, \n");
-        builder.append("phone TEXT, \n");
-        builder.append("role TEXT NOT NULL\n");
+        builder.append("phone TEXT \n");
+        builder.append("); \n");
+
+        System.out.println(builder);
+        return builder.toString();
+    }
+
+    private static String createEmployeeRoleTable() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("CREATE TABLE EmployeeRole (\n");
+        builder.append("employee_reg TEXT NOT NULL, \n");
+        builder.append("role TEXT NOT NULL,\n");
+        builder.append("PRIMARY KEY(employee_reg, role),\n");
+        builder.append("FOREIGN KEY(employee_reg) REFERENCES Employee(registration_number)\n");
         builder.append("); \n");
 
         System.out.println(builder);
@@ -91,8 +105,8 @@ public class DatabaseBuilder {
         builder.append("location_status TEXT, \n");
 
         builder.append("FOREIGN KEY(asset_id) REFERENCES Asset(id),\n");
-        builder.append("FOREIGN KEY(inventory_id) REFERENCES Inventory(id)\n");
-        builder.append("FOREIGN KEY(employee_reg) REFERENCES Employee(registration_number)\n");
+        builder.append("FOREIGN KEY(inventory_id) REFERENCES Inventory(id),\n");
+        builder.append("FOREIGN KEY(employee_reg) REFERENCES Employee(registration_number),\n");
         builder.append("FOREIGN KEY(inventory_manager_id) REFERENCES Employee(registration_number)\n");
         builder.append("); \n");
 

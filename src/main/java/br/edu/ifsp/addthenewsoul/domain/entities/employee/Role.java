@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.EnumSet;
 
 public enum Role {
-    EMPLOYEE,
     CHAIRMAN_OF_THE_COMISSION,
     INVENTORY_MANAGER,
     EXECUTOR;

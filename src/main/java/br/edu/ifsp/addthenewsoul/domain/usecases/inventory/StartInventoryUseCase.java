@@ -12,7 +12,6 @@ import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Validator;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class StartInventoryUseCase {
 
@@ -24,17 +23,17 @@ public class StartInventoryUseCase {
 
     private void designateEmployeeAsPresident(Employee employee) {
         if (employee.getRoles().contains(Role.CHAIRMAN_OF_THE_COMISSION)) throw new InventoryInvalidPresidentException(employee, "Employee is already a president");
-        employee.setRoles(Role.CHAIRMAN_OF_THE_COMISSION);
+        employee.addRole(Role.CHAIRMAN_OF_THE_COMISSION);
     }
 
     private void designateComission(List<Employee> employees) {
         employees.forEach(employee -> {
-            if (!employee.getRoles().contains(Role.EMPLOYEE)) {
-                throw new IllegalArgumentException("All employess must have Role.EMPLOYEE role");
+            if (!employee.getRoles().contains(Role.INVENTORY_MANAGER)) {
+                throw new IllegalArgumentException("All employess must not have the INVENTORY_MANAGER role");
             }
         });
         employees.forEach(employee -> {
-            employee.setRoles(Role.EXECUTOR);
+            employee.addRole(Role.INVENTORY_MANAGER);
         });
     }
 

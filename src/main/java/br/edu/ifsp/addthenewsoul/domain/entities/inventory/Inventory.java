@@ -1,6 +1,5 @@
 package br.edu.ifsp.addthenewsoul.domain.entities.inventory;
 
-import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.InventoryStatus;
@@ -61,12 +60,12 @@ public class Inventory {
 
     private void setEmployeeRolesToNormal() {
         for (Employee employee : comission) {
-            employee.removeRoles(Role.EMPLOYEE);
+            employee.removeRole(Role.INVENTORY_MANAGER);
         }
     }
 
     public void finish() {
-        comissionPresident.setRoles(Role.EMPLOYEE);
+        comissionPresident.removeRole(Role.CHAIRMAN_OF_THE_COMISSION);
         setEmployeeRolesToNormal();
         setInventoryStatus(InventoryStatus.CLOSED);
     }
