@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Optional;
 
 
-public interface InventoryDAO extends DAO<Inventory, Integer> {
-    Optional<Inventory> findInventoryById(Integer id);
+public interface InventoryDAO extends DAO<Inventory, String> {
+    Optional<Inventory> findInventoryById(String id);
 
     void filterByPeriod(List<Inventory> all, LocalDate initialDate, LocalDate endDate);
 

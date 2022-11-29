@@ -3,10 +3,12 @@ package br.edu.ifsp.addthenewsoul.domain.entities.inventory;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.InventoryStatus;
+import lombok.Builder;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Builder
 public class Inventory {
     private Integer id;
     private String name;
@@ -17,30 +19,7 @@ public class Inventory {
     private List<InventoryAsset> assets;
     private InventoryStatus inventoryStatus;
 
-    public Inventory(Integer id, String name, Employee comissionPresident, List<Employee> comission, LocalDate initialDate, LocalDate endDate, List<InventoryAsset> assets) {
-        this.id = id;
-        this.name = name;
-        this.comissionPresident = comissionPresident;
-        this.comission = comission;
-        this.initialDate = initialDate;
-        this.endDate = endDate;
-        this.assets = assets;
-        setInventoryAssetsParent();
-    }
-
-    public Inventory(String name, LocalDate initialDate, LocalDate endDate, Employee comissionPresident, List<Employee> comission, List<InventoryAsset> assets) {
-        this.name = name;
-        this.comissionPresident = comissionPresident;
-        this.comission = comission;
-        this.initialDate = initialDate;
-        this.endDate = endDate;
-        this.assets = assets;
-        setInventoryAssetsParent();
-
-        if (!hasUnverifiedAssets()) throw new IllegalArgumentException("Some assets were already verified");
-    }
-
-    private void setInventoryAssetsParent() {
+    public void setInventoryAssetsParent() {
         this.assets.forEach(asset -> asset.setInventory(this));
     }
 

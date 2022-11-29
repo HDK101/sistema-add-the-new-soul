@@ -52,7 +52,14 @@ public class StartInventoryUseCase {
         if (inventoryDAO.getStatusFromInventories()) throw new IllegalArgumentException("There is currently an open inventory");
         designateEmployeeAsPresident(comissionPresident);
         designateComission(employees);
-        Inventory inventory = new Inventory(name, initialDate, endDate, comissionPresident, employees, createInventoryAssets(assets));
+        Inventory inventory = Inventory.builder()
+                .name(name)
+                .initialDate(initialDate)
+                .endDate(endDate)
+                .comissionPresident(comissionPresident)
+                .comission(employees)
+                .assets(createInventoryAssets(assets))
+                .build();
         inventoryDAO.add(inventory);
     }
 }

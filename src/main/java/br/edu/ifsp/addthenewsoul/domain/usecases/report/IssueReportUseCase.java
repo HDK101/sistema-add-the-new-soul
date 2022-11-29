@@ -26,7 +26,7 @@ public class IssueReportUseCase {
         this.locationDAO = locationDAO;
     }
 
-    public void issueInventoryReport(Integer inventoryId) {
+    public void issueInventoryReport(String inventoryId) {
         Inventory inventory = inventoryDAO.findInventoryById(inventoryId).orElseThrow();
 
         try {

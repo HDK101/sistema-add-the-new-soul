@@ -1,3 +1,4 @@
+/*
 package br.edu.ifsp.addthenewsoul.application.repository.inMemory;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
@@ -17,12 +18,12 @@ public class InMemoryInventoryDAO implements InventoryDAO {
     private int currentInventoryAssetId = 0;
 
     @Override
-    public Map<Integer, Inventory> bulkAdd(List<Inventory> items) {
+    public Map<String, Inventory> bulkAdd(List<Inventory> items) {
         return null;
     }
 
     @Override
-    public Integer add(Inventory inventory) {
+    public String add(Inventory inventory) {
         currentInventoryId++;
         dbMemoryInventory.put(currentInventoryId, inventory);
 
@@ -60,7 +61,7 @@ public class InMemoryInventoryDAO implements InventoryDAO {
     }
 
     @Override
-    public Optional<Inventory> findInventoryById(Integer id) {
+    public Optional<Inventory> findInventoryById(String id) {
         if (dbMemoryInventory.containsKey(id))
             return Optional.of(dbMemoryInventory.get(id));
         return Optional.empty();
@@ -79,5 +80,56 @@ public class InMemoryInventoryDAO implements InventoryDAO {
                 return true;
         }
         return false;
+    }
+}
+*/
+
+package br.edu.ifsp.addthenewsoul.application.repository.inMemory;
+
+import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
+import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;
+
+import java.time.LocalDate;
+import java.util.*;
+
+public class InMemoryInventoryDAO implements InventoryDAO {
+    @Override
+    public Optional<Inventory> findInventoryById(String id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public void filterByPeriod(List<Inventory> all, LocalDate initialDate, LocalDate endDate) {
+
+    }
+
+    @Override
+    public boolean getStatusFromInventories() {
+        return false;
+    }
+
+    @Override
+    public Map<String, Inventory> bulkAdd(List<Inventory> items) {
+        return null;
+    }
+
+    @Override
+    public String add(Inventory type) {
+        return null;
+    }
+
+    @Override
+    public boolean update(Inventory type) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(String key) {
+        return false;
+    }
+
+    @Override
+    public List<Inventory> findAll() {
+        return null;
     }
 }
