@@ -87,6 +87,14 @@ public class Asset implements CSVNode {
         this.inventoryAsset = inventoryAsset;
     }
 
+    public LocationStatus getLocationStatus() {
+        return locationStatus;
+    }
+
+    public void setLocationStatus(LocationStatus locationStatus) {
+        this.locationStatus = locationStatus;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Asset{");
