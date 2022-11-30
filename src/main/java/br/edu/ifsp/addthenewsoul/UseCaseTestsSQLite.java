@@ -12,6 +12,7 @@ import br.edu.ifsp.addthenewsoul.domain.entities.asset.LocationStatus;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
+import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.*;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.*;
@@ -30,19 +31,105 @@ public class UseCaseTestsSQLite {
     public static void main(String[] args) throws IOException {
         EmployeeDAO employeeDAO = new SQLiteEmployeeDAO();
 
+        Asset asset = Asset.builder()
+                .value(300.0)
+                .description("Cadeira gamer")
+                .damage("Estofado estragado")
+                .locationStatus(LocationStatus.CORRECT_LOCATION)
+                .build();
+
+        Asset asset2 = Asset.builder()
+                .value(300.0)
+                .description("Cadeira asd")
+                .damage("Estofado estragado")
+                .locationStatus(LocationStatus.CORRECT_LOCATION)
+                .build();
+
         Employee employee = Employee.builder()
                 .registrationNumber("REG123")
                 .name("Lucas")
                 .email("lucas@gmail.com")
                 .hashPassword("asdasd")
-                .roles(EnumSet.of(Role.CHAIRMAN_OF_THE_COMISSION, Role.INVENTORY_MANAGER))
+                .roles(EnumSet.noneOf(Role.class))
+                .assetsInCharge(List.of(
+                        asset,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2
+                ))
+                .build();
+
+        Employee employee1 = Employee.builder()
+                .registrationNumber("REG124")
+                .name("Walter")
+                .email("walter@gmail.com")
+                .hashPassword("asdasd")
+                .roles(EnumSet.noneOf(Role.class))
                 .build();
 
         employeeDAO.add(employee);
 
-        Employee employee1 = employeeDAO.findAll().get(0);
 
-        System.out.println(employee1);
+        EmployeePDFReportWriter employeePDFReportWriter = new EmployeePDFReportWriter();
+
+        employeePDFReportWriter.write(employee);
+
+        LocationPDFReportWriter locationPDFReportWriter = new LocationPDFReportWriter();
+
+        Location location = Location.builder()
+                .number(1234)
+                .section("Seção 13")
+                .assets(List.of(
+                        asset,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2,
+                        asset2
+                ))
+                .build();
+
+
+        locationPDFReportWriter.write(location);
+
+        InventoryPDFReportWriter inventoryPDFReportWriter = new InventoryPDFReportWriter();
+        inventoryPDFReportWriter.write(Inventory.builder()
+                .initialDate(LocalDate.now().plusDays(3))
+                .endDate(LocalDate.now().plusDays(90))
+                .assets(List.of(InventoryAsset.createFromAsset(asset), InventoryAsset.createFromAsset(asset2)))
+                .name("Inventário 1234")
+                .comissionPresident(employee)
+                .comission(List.of(employee1))
+                .build()
+        );
 
 
 //	System.out.println("----- Apresentação Parcial -----");
