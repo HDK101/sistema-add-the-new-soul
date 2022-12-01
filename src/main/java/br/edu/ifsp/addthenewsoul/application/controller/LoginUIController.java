@@ -20,7 +20,7 @@ public class LoginUIController {
         try {
             Employee employee = loginEmployeeUseCase.login(txtEmail.getText(), txtPassword.getText());
             System.out.println(employee);
-            // Ir pro dashboard WindowLoader.setRoot("MainUI");
+            // Ir pro dashboard: WindowLoader.setRoot("MainUI");
         } catch (InvalidCredentialsException | IllegalStateException ex) {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("Erro");
