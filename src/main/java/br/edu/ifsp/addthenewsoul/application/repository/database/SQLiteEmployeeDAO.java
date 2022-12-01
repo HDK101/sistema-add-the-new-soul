@@ -83,7 +83,7 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
             e.printStackTrace();
         }
 
-        return Optional.of(employee);
+        return Optional.ofNullable(employee);
     }
 
     @Override
