@@ -15,9 +15,9 @@ public class LoginEmployeeUseCase {
     }
 
     public Employee login (String email, String password) {
-        Employee employee = this.employeeDAO.findByEmail(email).orElseThrow();
+        Employee employee = this.employeeDAO.findByEmail(email).orElseThrow(() -> new InvalidCredentialsException("Credênciais inválidas"));
 
-        if (employee.getRoles().isEmpty()) throw new IllegalStateException("Employee must have a role to authenticate");
+        if (employee.getRoles().isEmpty()) throw new IllegalStateException("Funcionário não possui nenhum papel");
 
         String hashPassword = employee.getHashPassword();
         BCrypt.Result result = Hash.verify(hashPassword, password);
@@ -25,6 +25,7 @@ public class LoginEmployeeUseCase {
             Session.login(employee);
             return employee;
         }
-        throw new InvalidCredentialsException("Invalid credentials");
+
+        throw new InvalidCredentialsException("Credênciais inválidas");
     }
 }
