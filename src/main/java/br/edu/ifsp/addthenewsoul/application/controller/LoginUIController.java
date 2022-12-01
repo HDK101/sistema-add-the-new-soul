@@ -1,31 +1,39 @@
 package br.edu.ifsp.addthenewsoul.application.controller;
 
-import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
-import br.edu.ifsp.addthenewsoul.domain.usecases.UseCases;
-import br.edu.ifsp.addthenewsoul.domain.usecases.employee.LoginEmployeeUseCase;
-import br.edu.ifsp.addthenewsoul.domain.usecases.utils.exceptions.InvalidCredentialsException;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+import static br.edu.ifsp.addthenewsoul.application.Main.loginEmployeeUseCase;
+
 public class LoginUIController {
-    public TextField txtEmail;
-    public Button btnLogin;
-    public PasswordField txtPassword;
+
+    @FXML
+    private TextField txtEmail;
+
+    @FXML
+    private PasswordField txtPassword;
 
     public void login(ActionEvent actionEvent) {
-        LoginEmployeeUseCase loginEmployeeUseCase = UseCases.getInstance().loginEmployeeUseCase;
+        String email = txtEmail.getText();
+        String password = txtPassword.getText();
+
         try {
-            Employee employee = loginEmployeeUseCase.login(txtEmail.getText(), txtPassword.getText());
-            System.out.println(employee);
-            // Ir pro dashboard
-        } catch (InvalidCredentialsException | IllegalStateException ex) {
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText("Erro");
-            errorAlert.setContentText(ex.getMessage());
-            errorAlert.showAndWait();
+            loginEmployeeUseCase.login(email, password);
+            //WindowLoader.setRoot("MainUI");
+        } catch (Exception e) {
+            showAlert("Erro", e.getMessage(), Alert.AlertType.ERROR);
         }
+
+    }
+
+     private void showAlert(String title, String message, Alert.AlertType type){
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.setHeaderText(null);
+        alert.showAndWait();
     }
 }

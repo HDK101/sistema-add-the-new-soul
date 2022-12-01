@@ -28,6 +28,17 @@ public class ValidationOfEmployeeAttributes extends Validator<Employee> {
 
         return notification;
     }
+    
+    public Notification loginIsValid(String email, String password) {
+        Notification notification = new Notification();
+
+        if (nullOrEmpty(email))
+            notification.addError("Email is null or empty");
+        if (nullOrEmpty(password))
+            notification.addError("Password is null or empty");
+
+        return notification;
+    }
 
 }
 
