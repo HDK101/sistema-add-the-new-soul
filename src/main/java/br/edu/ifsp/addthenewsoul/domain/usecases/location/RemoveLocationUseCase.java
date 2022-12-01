@@ -8,11 +8,9 @@ import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetDAO;
 public class RemoveLocationUseCase {
 
     private LocationDAO locationDAO;
-    private AssetDAO assetDAO;
 
-    public RemoveLocationUseCase(LocationDAO locationDAO, AssetDAO assetDAO) {
+    public RemoveLocationUseCase(LocationDAO locationDAO) {
         this.locationDAO = locationDAO;
-        this.assetDAO = assetDAO;
     }
 
     public boolean deleteLocation (Location location) {
