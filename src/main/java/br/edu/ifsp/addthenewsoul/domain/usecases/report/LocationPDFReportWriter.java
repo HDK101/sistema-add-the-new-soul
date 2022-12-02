@@ -9,7 +9,7 @@ import java.util.List;
 
 public class LocationPDFReportWriter extends PDFReportWriter implements ReportWriter<Location> {
     @Override
-    public void write(Location location) throws IOException {
+    public void write(String filename, Location location) throws IOException {
 //        addDetail("Number: ", location.getNumber());
 //        addDetail("Section: ", location.getSection());
 //
@@ -48,7 +48,7 @@ public class LocationPDFReportWriter extends PDFReportWriter implements ReportWr
                 }
 
                 this
-                        .addText("Status em relação ao local: " + asset.getLocationStatus().toString())
+                        .addText("Status em relação ao local: " + asset.getLocationStatus().getName())
                         .addNewLine();
             }
         }

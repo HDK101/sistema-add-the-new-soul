@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class EmployeeTXTReportWriter extends TXTWriter implements ReportWriter<Employee> {
     @Override
-    public void write(Employee employee) throws IOException {
+    public void write(String filename, Employee employee) throws IOException {
         reportBuilder = new StringBuilder();
         addDetail("Employee registration number: ", employee.getRegistrationNumber());
         addDetail("E-mail: ", employee.getEmail());

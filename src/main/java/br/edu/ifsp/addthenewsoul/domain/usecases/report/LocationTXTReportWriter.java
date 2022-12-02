@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class LocationTXTReportWriter extends TXTWriter implements ReportWriter<Location> {
     @Override
-    public void write(Location location) throws IOException {
+    public void write(String filename, Location location) throws IOException {
         reportBuilder = new StringBuilder();
         addDetail("Location ID: ", location.getId());
         addDetail("Number: ", location.getNumber());

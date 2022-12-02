@@ -9,13 +9,13 @@ import br.edu.ifsp.addthenewsoul.domain.usecases.location.LocationDAO;
 
 public class IssueReportUseCase {
 
-    private ReportWriter<Employee> employeeReportWriter;
-    private ReportWriter<Inventory> inventoryReportWriter;
-    private ReportWriter<Location> locationReportWriter;
+    private final ReportWriter<Employee> employeeReportWriter;
+    private final ReportWriter<Inventory> inventoryReportWriter;
+    private final ReportWriter<Location> locationReportWriter;
 
-    private EmployeeDAO employeeDAO;
-    private InventoryDAO inventoryDAO;
-    private LocationDAO locationDAO;
+    private final EmployeeDAO employeeDAO;
+    private final InventoryDAO inventoryDAO;
+    private final LocationDAO locationDAO;
 
     public IssueReportUseCase(ReportWriter<Employee> employeeReportWriter, ReportWriter<Inventory> inventoryReportWriter, ReportWriter<Location> locationReportWriter, EmployeeDAO employeeDAO, InventoryDAO inventoryDAO, LocationDAO locationDAO) {
         this.employeeReportWriter = employeeReportWriter;
@@ -26,11 +26,11 @@ public class IssueReportUseCase {
         this.locationDAO = locationDAO;
     }
 
-    public void issueInventoryReport(String inventoryId) {
+    public void issueInventoryReport(String filename, String inventoryId) {
         Inventory inventory = inventoryDAO.findInventoryById(inventoryId).orElseThrow();
 
         try {
-            inventoryReportWriter.write(inventory);
+            inventoryReportWriter.write(filename, inventory);
             System.out.println("Report issued.");
         } catch (Exception e) {
             e.printStackTrace();
@@ -38,10 +38,11 @@ public class IssueReportUseCase {
         }
     }
 
-    public void issueEmployeeReport(String registrationNumber) {
+    public void issueEmployeeReport(String filename, String registrationNumber) {
         try {
             Employee employee = employeeDAO.findByRegistrationNumber(registrationNumber).orElseThrow();
-            employeeReportWriter.write(employee);
+
+            employeeReportWriter.write(filename, employee);
 
             System.out.println("Employee report issued.");
         } catch (Exception e) {
@@ -50,11 +51,11 @@ public class IssueReportUseCase {
         }
     }
 
-    public void issueLocationReport(Integer locationId) {
+    public void issueLocationReport(String filename, Integer locationId) {
         Location location = locationDAO.findById(locationId).orElseThrow();
 
         try {
-            locationReportWriter.write(location);
+            locationReportWriter.write(filename, location);
             System.out.println("Report issued.");
         } catch (Exception e) {
             e.printStackTrace();

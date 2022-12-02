@@ -29,4 +29,12 @@ public class DashboardUIController {
             e.printStackTrace();
         }
     }
+
+    public void goToInventories(ActionEvent actionEvent) {
+        try {
+            WindowLoader.setRoot("InventoryManagementUI");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

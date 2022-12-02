@@ -87,7 +87,7 @@ public class UseCaseTestsSQLite {
 
         EmployeePDFReportWriter employeePDFReportWriter = new EmployeePDFReportWriter();
 
-        employeePDFReportWriter.write(employee);
+        //employeePDFReportWriter.write(employee);
 
         LocationPDFReportWriter locationPDFReportWriter = new LocationPDFReportWriter();
 
@@ -116,20 +116,6 @@ public class UseCaseTestsSQLite {
                         asset2
                 ))
                 .build();
-
-
-        locationPDFReportWriter.write(location);
-
-        InventoryPDFReportWriter inventoryPDFReportWriter = new InventoryPDFReportWriter();
-        inventoryPDFReportWriter.write(Inventory.builder()
-                .initialDate(LocalDate.now().plusDays(3))
-                .endDate(LocalDate.now().plusDays(90))
-                .assets(List.of(InventoryAsset.createFromAsset(asset), InventoryAsset.createFromAsset(asset2)))
-                .name("Inventário 1234")
-                .comissionPresident(employee)
-                .comission(List.of(employee1))
-                .build()
-        );
 
 
 //	System.out.println("----- Apresentação Parcial -----");

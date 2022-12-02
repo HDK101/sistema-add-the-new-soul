@@ -15,8 +15,10 @@ import java.io.IOException;
 import java.util.List;
 
 public class EmployeePDFReportWriter extends PDFReportWriter implements ReportWriter<Employee>{
-    public void write(Employee employee) throws IOException {
-        setFilename("pdf.pdf");
+    public void write(String filename, Employee employee) throws IOException {
+        setFilename(filename);
+
+        System.out.println(employee);
 
         this.contentStart()
                 .setLeading(48)
@@ -32,7 +34,7 @@ public class EmployeePDFReportWriter extends PDFReportWriter implements ReportWr
         List<Role> roles = employee.getRoles().stream().toList();
         this.addText("Cargos:");
         for(Role role : roles) {
-            this.addText("  " + role.toString());
+            this.addText("  " + role.getName());
         }
 
         this.addNewLine()

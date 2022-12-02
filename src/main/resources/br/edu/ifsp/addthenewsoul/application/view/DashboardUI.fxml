@@ -15,5 +15,6 @@
       <Button layoutX="32.0" layoutY="50.0" mnemonicParsing="false" onAction="#goToEmployees" text="Gerenciar funcionarios" />
       <Button layoutX="32.0" layoutY="90.0" mnemonicParsing="false" onAction="#goToAssets" text="Gerenciar bens" />
       <Button layoutX="32.0" layoutY="131.0" mnemonicParsing="false" onAction="#goToLocations" text="Gerenciar locais" />
+      <Button layoutX="32.0" layoutY="177.0" mnemonicParsing="false" onAction="#goToInventories" text="Gerenciar inventários" />
    </children>
 </AnchorPane>

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.EmployeeManagementUIController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.EmployeeManagementUIController">
     <children>
         <Label layoutX="212.0" layoutY="14.0" text="ASSET MANAGEMENT">
             <font>
@@ -36,8 +36,9 @@
         <Button layoutX="36.0" layoutY="310.0" mnemonicParsing="false" text="ADD NEW +" />
         <Button layoutX="127.0" layoutY="310.0" mnemonicParsing="false" text="EDIT" />
         <Button layoutX="176.0" layoutY="310.0" mnemonicParsing="false" text="REMOVE" />
-        <Button onAction="#importCSV" layoutX="249.0" layoutY="310.0" mnemonicParsing="false" text="IMPORT CSV" />
-        <Button onAction="#exportCSV" layoutX="345.0" layoutY="310.0" mnemonicParsing="false" text="EXPORT CSV" />
-        <Button onAction="#goBack" layoutX="498.0" layoutY="348.0" mnemonicParsing="false" text="CANCEL" />
+        <Button layoutX="249.0" layoutY="310.0" mnemonicParsing="false" onAction="#importCSV" text="IMPORT CSV" />
+        <Button layoutX="345.0" layoutY="310.0" mnemonicParsing="false" onAction="#exportCSV" text="EXPORT CSV" />
+        <Button layoutX="498.0" layoutY="348.0" mnemonicParsing="false" onAction="#goBack" text="CANCEL" />
+      <Button layoutX="438.0" layoutY="310.0" mnemonicParsing="false" onAction="#createReport" text="CREATE REPORT" />
     </children>
 </AnchorPane>
