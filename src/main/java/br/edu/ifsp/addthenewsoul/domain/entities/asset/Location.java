@@ -13,22 +13,6 @@ public class Location implements CSVNode {
     private String section;
     private List<Asset> assets;
 
-    public Location() {}
-
-    public Location(Integer id, Integer number, String section) {
-        this.id = id;
-        this.section = section;
-        this.number = number;
-        this.assets = new ArrayList<>();
-    }
-
-    public Location(Integer number, String section) {
-        this.section = section;
-        this.number = number;
-        this.assets = new ArrayList<>();
-    }
-
-
     public void setId(Integer id) {
         this.id = id;
     }

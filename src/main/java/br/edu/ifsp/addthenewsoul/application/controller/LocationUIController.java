@@ -55,7 +55,7 @@ public class LocationUIController {
 
     private void getEntityToView(){
         if (location == null) {
-            location = new Location();
+            location = Location.builder().build();
         }
         location.setNumber(Integer.valueOf(txtNumber.getText()));
         location.setSection(txtSection.getText());
