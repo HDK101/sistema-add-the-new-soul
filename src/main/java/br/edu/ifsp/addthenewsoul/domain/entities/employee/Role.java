@@ -21,9 +21,5 @@ public enum Role {
                 .orElseThrow(IllegalArgumentException::new);
     }
 
-    public String toString() {
-        return name;
-    }
-
-
+    public String getName() { return name; }
 }

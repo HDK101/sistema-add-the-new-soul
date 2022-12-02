@@ -13,12 +13,14 @@ public class WindowLoader extends Application {
 
     private static Scene scene;
     private static Object controller;
+    private static Stage stage;
 
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("LoginUI"));
         stage.setScene(scene);
         stage.show();
+
     }
 
     public static void setRoot(String fxml) throws IOException {

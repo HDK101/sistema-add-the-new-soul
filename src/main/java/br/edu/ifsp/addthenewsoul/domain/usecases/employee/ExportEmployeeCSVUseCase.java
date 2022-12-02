@@ -19,6 +19,5 @@ public class ExportEmployeeCSVUseCase {
     public void export(String fileName) throws IOException {
         List<Employee> employees = employeeDAO.findAll();
         employeeCSV.write(fileName, employees);
-        System.out.println("Employees CSV file generated with success.");
     }
 }

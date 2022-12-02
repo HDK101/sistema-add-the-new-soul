@@ -1,11 +1,13 @@
 package br.edu.ifsp.addthenewsoul.application.repository.database;
 
+import br.edu.ifsp.addthenewsoul.application.repository.database.results.ResultToLocation;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.LocationDAO;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -46,19 +48,36 @@ public class SQLiteLocationDAO implements LocationDAO {
 
     @Override
     public List<Location> findAll() {
-        return null;
+        String sql = """
+                SELECT
+                    l.id AS l_id,
+                    l.number AS l_number,
+                    l.section AS l_section
+                FROM Location l
+                """;
+        List<Location> locations = new ArrayList<>();
+
+        try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                locations.add(ResultToLocation.convert(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return locations;
     }
 
     @Override
     public Optional<Location> findById(Integer id) {
-        String sql = "SELECT * FROM Local WHERE id = ?";
+        String sql = "SELECT * FROM Location WHERE id = ?";
         Location location = null;
 
         try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet resultSet = stmt.executeQuery();
             if (resultSet.next()) {
-                location = resultSetToEntity(resultSet);
+                location = ResultToLocation.convert(resultSet);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -75,13 +94,4 @@ public class SQLiteLocationDAO implements LocationDAO {
     public boolean haveAssets(List<Asset> assets, Location location) {
         return false;
     }
-
-    private Location resultSetToEntity(ResultSet rs) throws SQLException {
-        return Location.builder()
-                .id(rs.getInt("l_id"))
-                .number(rs.getInt("l_number"))
-                .section(rs.getString("l_section"))
-                .build();
-    }
-
 }

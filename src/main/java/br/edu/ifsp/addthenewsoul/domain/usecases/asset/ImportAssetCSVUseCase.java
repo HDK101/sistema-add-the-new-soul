@@ -47,15 +47,10 @@ public class ImportAssetCSVUseCase {
         return locationMap;
     }
 
-    public void importAssets(String fileName, boolean withInvalidDependencies) throws IOException {
-        List<Employee> employees = employeeDAO.findAll();
-        List<Location> locations = locationDAO.findAll();
-        //List<Asset> assets = assetCSV.read(fileName, withInvalidDependencies, employeesToMap(employees), locationsToMap(locations));
-        //assetDAO.bulkAdd(assets);
-    }
-
-    public void importAssets(String fileName) throws IOException {
+    public List<Asset> importAssets(String fileName) throws IOException {
         List<Asset> assets = assetCSV.read(fileName);
-        assetDAO.bulkAdd(assets);
+        Map<Integer, Asset> assetMap = assetDAO.bulkAdd(assets);
+        assets.removeAll(assetMap.values());
+        return assets;
     }
 }

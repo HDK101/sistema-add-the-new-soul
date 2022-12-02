@@ -30,7 +30,7 @@ public class DatabaseBuilder {
             statement.addBatch(createInventoryTable());
             statement.addBatch(createInventoryAssetTable());
             //statement.addBatch(createComissionTable());
-            //statement.addBatch(createLocationTable());
+            statement.addBatch(createLocationTable());
             statement.executeBatch();
 
             System.out.println("Database successfully created.");
@@ -50,7 +50,7 @@ public class DatabaseBuilder {
         builder.append("damage TEXT, \n");
         builder.append("status TEXT NOT NULL DEFAULT 'NOT_VERIFIED', \n");
         builder.append("location_id INTEGER, \n");
-        builder.append("location_status TEXT, \n");
+        builder.append("location_status TEXT NOT NULL DEFAULT 'NONE', \n");
         builder.append("FOREIGN KEY(employee_reg) REFERENCES Employee(registration_number)\n");
         builder.append("); \n");
 
@@ -147,11 +147,11 @@ public class DatabaseBuilder {
         return builder.toString();
     }
 
-    private String createLocationTable() {
+    private static String createLocationTable() {
         StringBuilder builder = new StringBuilder();
 
         builder.append("CREATE TABLE Location (\n");
-        builder.append("id INTEGER INTEGER PRIMARY KEY AUTOINCREMENT, \n");
+        builder.append("id INTEGER PRIMARY KEY AUTOINCREMENT, \n");
         builder.append("section TEXT NOT NULL, \n");
         builder.append("number INTEGER NOT NULL \n");
         builder.append("); \n");

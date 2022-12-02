@@ -36,8 +36,8 @@
       <Button layoutX="36.0" layoutY="310.0" mnemonicParsing="false" text="ADD NEW +" />
       <Button layoutX="127.0" layoutY="310.0" mnemonicParsing="false" text="EDIT" />
       <Button layoutX="176.0" layoutY="310.0" mnemonicParsing="false" text="REMOVE" />
-      <Button layoutX="249.0" layoutY="310.0" mnemonicParsing="false" text="IMPORT CSV" />
-      <Button layoutX="345.0" layoutY="310.0" mnemonicParsing="false" text="EXPORT CSV" />
+       <Button onAction="#importCSV" layoutX="249.0" layoutY="310.0" mnemonicParsing="false" text="IMPORT CSV" />
+       <Button onAction="#exportCSV" layoutX="345.0" layoutY="310.0" mnemonicParsing="false" text="EXPORT CSV" />
       <Button layoutX="498.0" layoutY="348.0" mnemonicParsing="false" text="CANCEL" />
    </children>
 </AnchorPane>

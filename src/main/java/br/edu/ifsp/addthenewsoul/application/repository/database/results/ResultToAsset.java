@@ -12,6 +12,7 @@ public class ResultToAsset {
         return Asset.builder()
                 .id(rs.getInt("a_id"))
                 .description(rs.getString("a_description"))
+                .value(rs.getDouble("a_value"))
                 .damage(rs.getString("a_damage"))
                 .status(Status.valueOf(rs.getString("a_status")))
                 .locationStatus(LocationStatus.valueOf(rs.getString("a_location_status")))
