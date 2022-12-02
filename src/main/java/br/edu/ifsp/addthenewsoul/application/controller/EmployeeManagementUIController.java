@@ -1,5 +1,6 @@
 package br.edu.ifsp.addthenewsoul.application.controller;
 
+import br.edu.ifsp.addthenewsoul.application.view.WindowLoader;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.usecases.UseCases;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.ExportEmployeeCSVUseCase;
@@ -83,6 +84,14 @@ public class EmployeeManagementUIController {
             errorAlert.setHeaderText("Erro");
             errorAlert.setContentText("Não foi possível exportar o arquivo CSV");
             errorAlert.showAndWait();
+            e.printStackTrace();
+        }
+    }
+
+    public void goBack(ActionEvent actionEvent) {
+        try {
+            WindowLoader.setRoot("DashboardUI");
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

@@ -36,6 +36,6 @@
       <Button layoutX="202.0" layoutY="290.0" mnemonicParsing="false" onAction="#removeLocation" prefHeight="25.0" prefWidth="94.0" text="REMOVE" />
       <Button layoutX="301.0" layoutY="290.0" mnemonicParsing="false" onAction="#importCSV" prefHeight="25.0" prefWidth="130.0" text="IMPORT CSV" />
       <Button layoutX="434.0" layoutY="290.0" mnemonicParsing="false" onAction="#exportCSV" prefHeight="25.0" prefWidth="130.0" text="EXPORT CSV" />
-      <Button layoutX="496.0" layoutY="328.0" mnemonicParsing="false" onAction="#backToPreviousScene" text="CANCEL" />
+      <Button layoutX="496.0" layoutY="328.0" mnemonicParsing="false" onAction="#goBack" text="CANCEL" />
    </children>
 </AnchorPane>

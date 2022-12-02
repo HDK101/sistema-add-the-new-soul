@@ -1,5 +1,6 @@
 package br.edu.ifsp.addthenewsoul.application.controller;
 
+import br.edu.ifsp.addthenewsoul.application.view.WindowLoader;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.usecases.UseCases;
@@ -14,6 +15,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class AssetManagementUIController {
@@ -83,6 +85,14 @@ public class AssetManagementUIController {
             errorAlert.setHeaderText("Erro");
             errorAlert.setContentText("Não foi possível exportar o arquivo CSV");
             errorAlert.showAndWait();
+            e.printStackTrace();
+        }
+    }
+
+    public void goBack(ActionEvent actionEvent) {
+        try {
+            WindowLoader.setRoot("DashboardUI");
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

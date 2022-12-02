@@ -168,4 +168,12 @@ public class LocationManagementUIController {
 
     public void findAllLocations(ActionEvent actionEvent) {
     }
+
+    public void goBack(ActionEvent actionEvent) {
+        try {
+            WindowLoader.setRoot("DashboardUI");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

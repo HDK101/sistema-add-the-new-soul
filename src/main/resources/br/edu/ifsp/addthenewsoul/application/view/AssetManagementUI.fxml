@@ -38,6 +38,6 @@
       <Button layoutX="176.0" layoutY="310.0" mnemonicParsing="false" text="REMOVE" />
        <Button onAction="#importCSV" layoutX="249.0" layoutY="310.0" mnemonicParsing="false" text="IMPORT CSV" />
        <Button onAction="#exportCSV" layoutX="345.0" layoutY="310.0" mnemonicParsing="false" text="EXPORT CSV" />
-      <Button layoutX="498.0" layoutY="348.0" mnemonicParsing="false" text="CANCEL" />
+      <Button onAction="#goBack" layoutX="498.0" layoutY="348.0" mnemonicParsing="false" text="CANCEL" />
    </children>
 </AnchorPane>
