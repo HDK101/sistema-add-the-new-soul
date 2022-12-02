@@ -19,7 +19,7 @@ public class LocationPDFReportWriter extends PDFReportWriter implements ReportWr
 //            addAssetDetail("Damage: ", asset.getDamage());
 //        }
 
-        setFilename("pdf.pdf");
+        setFilename(filename);
 
         this.contentStart()
                 .setFontSize(36)

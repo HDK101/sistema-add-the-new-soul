@@ -70,7 +70,14 @@ public class SQLiteLocationDAO implements LocationDAO {
 
     @Override
     public Optional<Location> findById(Integer id) {
-        String sql = "SELECT * FROM Location WHERE id = ?";
+        String sql = """
+            SELECT
+                l.id AS l_id,
+                l.number AS l_number,
+                l.section AS l_section
+            FROM Location l 
+            WHERE id = ?
+        """;
         Location location = null;
 
         try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {

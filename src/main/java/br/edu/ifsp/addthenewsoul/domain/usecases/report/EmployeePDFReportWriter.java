@@ -18,8 +18,6 @@ public class EmployeePDFReportWriter extends PDFReportWriter implements ReportWr
     public void write(String filename, Employee employee) throws IOException {
         setFilename(filename);
 
-        System.out.println(employee);
-
         this.contentStart()
                 .setLeading(48)
                 .setFontSize(36)
