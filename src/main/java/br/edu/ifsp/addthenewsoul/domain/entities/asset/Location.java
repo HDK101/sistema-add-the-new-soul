@@ -65,7 +65,7 @@ public class Location implements CSVNode {
         builder
                 .append(id).append(",")
                 .append(number).append(",")
-                .append(section).append(",");
+                .append(section);
         return builder.toString();
     }
 }

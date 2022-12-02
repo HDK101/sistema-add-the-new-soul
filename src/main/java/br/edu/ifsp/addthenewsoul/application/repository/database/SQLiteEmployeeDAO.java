@@ -15,6 +15,10 @@ import java.util.Map;
 import java.util.Optional;
 
 public class SQLiteEmployeeDAO implements EmployeeDAO {
+    class BulkAddResponse {
+        public Employee employee;
+        public boolean success;
+    }
 
     @Override
     public Optional<Employee> findByRegistrationNumber(String registrationNumber) {
@@ -48,7 +52,7 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
             e.printStackTrace();
         }
 
-        return Optional.of(employee);
+        return Optional.ofNullable(employee);
     }
 
     @Override
@@ -86,13 +90,49 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
         return Optional.ofNullable(employee);
     }
 
+    public BulkAddResponse bulkAddItem(Employee employee) {
+            String sql = """
+                INSERT INTO Employee (
+                    registration_number,
+                    name,
+                    email,
+                    phone,
+                    hash_password
+                ) VALUES (
+                    ?,
+                    ?,
+                    ?,
+                    ?,
+                    ?
+                );
+                """;
+            try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+                stmt.setString(1, employee.getRegistrationNumber());
+                stmt.setString(2, employee.getName());
+                stmt.setString(3, employee.getEmail());
+                stmt.setString(4, employee.getPhone());
+                stmt.setString(5, employee.getHashPassword());
+
+                BulkAddResponse bulkAddResponse = new BulkAddResponse();
+
+                bulkAddResponse.employee = employee;
+                bulkAddResponse.success = stmt.executeUpdate() == 1;
+                return bulkAddResponse;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+    }
+
     @Override
     public Map<String, Employee> bulkAdd(List<Employee> items) {
         HashMap<String, Employee> employeeHashMap = new HashMap<>();
 
-        items.forEach(item -> {
-            this.add(item);
-            employeeHashMap.put(item.getRegistrationNumber(), item);
+        List<Employee> employees = items.stream().filter(this::addEmployee).toList();
+        System.out.println(employees);
+        employees.forEach(employee -> {
+            employeeHashMap.put(employee.getRegistrationNumber(), employee);
         });
 
         return employeeHashMap;

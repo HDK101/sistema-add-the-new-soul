@@ -5,20 +5,20 @@ import br.edu.ifsp.addthenewsoul.domain.usecases.utils.EmployeePasswordHash;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public class ImportEmployeeCSVUseCase {
     private EmployeeCSV employeeCSV;
     private EmployeeDAO employeeDAO;
-    private EmployeePasswordHash employeePasswordHash;
 
     public ImportEmployeeCSVUseCase(EmployeeCSV employeeCSV, EmployeeDAO employeeDAO) {
         this.employeeCSV = employeeCSV;
         this.employeeDAO = employeeDAO;
     }
 
-    public void importEmployees(String fileName) throws IOException {
+    public List<Employee> importEmployees(String fileName) throws IOException {
         List<Employee> employees = employeeCSV.read(fileName);
-        employeeDAO.bulkAdd(employees);
-        System.out.println("Employees CSV file imported with success.");
+        employees.removeAll(employeeDAO.bulkAdd(employees).values());
+        return employees;
     }
 }

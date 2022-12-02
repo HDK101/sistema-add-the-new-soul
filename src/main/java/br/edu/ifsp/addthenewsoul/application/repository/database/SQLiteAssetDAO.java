@@ -126,8 +126,10 @@ public class SQLiteAssetDAO implements AssetDAO {
                     description,
                     value,
                     status,
-                    location_status
+                    location_status,
+                    damage
                 ) VALUES (
+                    ?,
                     ?,
                     ?,
                     ?,
@@ -138,7 +140,8 @@ public class SQLiteAssetDAO implements AssetDAO {
             stmt.setString(1, asset.getDescription());
             stmt.setDouble(2, asset.getValue());
             stmt.setString(3, asset.getStatus().toString());
-            stmt.setString(4, LocationStatus.CORRECT_LOCATION.toString());
+            stmt.setString(4, LocationStatus.NONE.toString());
+            stmt.setString(5, asset.getDamage());
             stmt.execute();
             ResultSet rs = stmt.getGeneratedKeys();
             return rs.getInt(1);
@@ -155,8 +158,8 @@ public class SQLiteAssetDAO implements AssetDAO {
         // Tentei executar em batch, nao funciona, vai assim msm
 
         items.forEach(item -> {
-            this.add(item);
-            assetHashMap.put(item.getId(), item);
+            Integer id = this.add(item);
+            if (id != null) assetHashMap.put(item.getId(), item);
         });
 
         return assetHashMap;
@@ -213,10 +216,11 @@ public class SQLiteAssetDAO implements AssetDAO {
                 a.id AS a_id, 
                 a.description AS a_description,
                 a.employee_reg AS a_employee_reg,
+                a.value AS a_value,
                 a.damage AS a_damage,
                 a.status AS a_status,
                 a.location_id AS a_location_id,
-                a.location_status AS a_location_status,
+                a.location_status AS a_location_status
             FROM Asset a
         """;
         List<Asset> assets = new ArrayList<>();

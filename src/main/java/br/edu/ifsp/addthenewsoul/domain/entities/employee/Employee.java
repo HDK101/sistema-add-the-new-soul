@@ -103,9 +103,7 @@ public class Employee implements CSVNode {
                 .append(',')
                 .append(email)
                 .append(',')
-                .append(phone)
-                .append(',')
-                .append(roles.toString());
+                .append(phone);
 
         return builder.toString();
     }

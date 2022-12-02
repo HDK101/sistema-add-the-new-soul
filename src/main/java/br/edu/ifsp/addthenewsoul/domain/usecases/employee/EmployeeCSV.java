@@ -25,8 +25,7 @@ public class EmployeeCSV extends CSV<Employee> {
                     .registrationNumber(parts[1])
                     .hashPassword(parts[2])
                     .email(parts[3])
-                    .phone(parts[4])
-                    .roles(EnumSet.allOf(Role.class)).build();
+                    .phone(parts[4]).build();
 
             employees.add(employee);
         }
