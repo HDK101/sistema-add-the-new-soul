@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.InventoryManagementUIController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.InventoryManagementUIController">
    <children>
       <Label layoutX="202.0" layoutY="14.0" text="INVENTORY MANAGEMENT">
          <font>
@@ -34,5 +33,6 @@
       <Button layoutX="153.0" layoutY="271.0" mnemonicParsing="false" text="FINISH INVENTORY" />
       <Button layoutX="503.0" layoutY="344.0" mnemonicParsing="false" text="CANCEL" />
       <Button layoutX="285.0" layoutY="271.0" mnemonicParsing="false" text="DETAIL ASSETS" />
+      <Button onAction="#createReport" layoutX="389.0" layoutY="271.0" mnemonicParsing="false" text="CREATE REPORT" />
    </children>
 </AnchorPane>
