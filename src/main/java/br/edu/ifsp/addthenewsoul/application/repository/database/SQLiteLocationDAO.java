@@ -2,26 +2,49 @@ package br.edu.ifsp.addthenewsoul.application.repository.database;
 
 import br.edu.ifsp.addthenewsoul.application.repository.database.results.ResultToLocation;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.LocationStatus;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.LocationDAO;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class SQLiteLocationDAO implements LocationDAO {
 
     @Override
     public Integer add(Location location) {
+        String sql = """
+                INSERT INTO Location (
+                    number,
+                    section
+                ) VALUES (
+                    ?,
+                    ?
+                );
+                """;
+        try(PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+            stmt.setInt(1, location.getNumber());
+            stmt.setString(2, location.getSection());
+            stmt.execute();
+            ResultSet rs = stmt.getGeneratedKeys();
+            return rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
     public Map<Integer, Location> bulkAdd(List<Location> items) {
-        return null;
+        HashMap<Integer, Location> locationHashMap = new HashMap<>();
+
+        items.forEach(item -> {
+            Integer id = this.add(item);
+            if (id != null) locationHashMap.put(item.getId(), item);
+        });
+
+        return locationHashMap;
     }
 
     @Override
@@ -43,7 +66,15 @@ public class SQLiteLocationDAO implements LocationDAO {
 
     @Override
     public boolean delete(Integer location) {
-        return false;
+        String sql = "DELETE FROM Location WHERE id = ?";
+
+        try(PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+            stmt.setInt(1, location);
+            return stmt.executeUpdate() == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
@@ -94,7 +125,29 @@ public class SQLiteLocationDAO implements LocationDAO {
 
     @Override
     public Optional<Location> findByLocation(Integer number, String section) {
-        return Optional.empty();
+        String sql = """
+            SELECT
+                l.id AS l_id,
+                l.number AS l_number,
+                l.section AS l_section
+            FROM Location l
+            WHERE
+                l.number = ? AND
+                l.section = ?
+        """;
+        Location location = null;
+
+        try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+            stmt.setInt(1, number);
+            stmt.setString(2, section);
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                location = ResultToLocation.convert(resultSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Optional.ofNullable(location);
     }
 
     @Override
