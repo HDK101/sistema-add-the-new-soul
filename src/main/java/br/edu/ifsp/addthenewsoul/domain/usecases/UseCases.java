@@ -31,6 +31,10 @@ public class UseCases {
     public FindLocationUseCase findLocationUseCase;
     public RemoveLocationUseCase removeLocationUseCase;
 
+    public AddEmployeeUseCase addEmployeeUseCase;
+    public UpdateEmployeeUseCase updateEmployeeUseCase;
+    public RemoveEmployeeUseCase removeEmployeeUseCase;
+    public FindEmployeeUseCase findEmployeeUseCase;
     public ExportEmployeeCSVUseCase exportEmployeeCSVUseCase;
     public ImportEmployeeCSVUseCase importEmployeeCSVUseCase;
 
