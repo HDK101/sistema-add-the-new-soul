@@ -110,7 +110,7 @@ public class InventoryManagementUIController {
     @FXML
     void findInventoryById(ActionEvent event) {
         FindInventoryUseCase findInventoryUseCase = UseCases.getInstance().findInventoryUseCase;
-        Optional<Inventory> inventory = findInventoryUseCase.findOne(Integer.valueOf(txtIdInventory.getText()));
+        Optional<Inventory> inventory = findInventoryUseCase.findOne(txtIdInventory.getText());
         tableDataInventory.clear();
         tableDataInventory.add(inventory.orElseThrow());
     }

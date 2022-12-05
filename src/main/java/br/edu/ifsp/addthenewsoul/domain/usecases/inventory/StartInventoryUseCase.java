@@ -6,6 +6,7 @@ import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.InventoryStatus;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.exceptions.InventoryInvalidPresidentException;
 
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Validator;
@@ -59,6 +60,7 @@ public class StartInventoryUseCase {
                 .comissionPresident(comissionPresident)
                 .comission(employees)
                 .assets(createInventoryAssets(assets))
+                .inventoryStatus(InventoryStatus.OPEN)
                 .build();
         inventoryDAO.add(inventory);
     }

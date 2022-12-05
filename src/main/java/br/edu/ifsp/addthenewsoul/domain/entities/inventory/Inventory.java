@@ -10,7 +10,7 @@ import java.util.List;
 
 @Builder
 public class Inventory {
-    private Integer id;
+    private String id;
     private String name;
     private Employee comissionPresident;
     private List<Employee> comission;
@@ -69,11 +69,15 @@ public class Inventory {
         this.assets = assets;
     }
 
-    public Integer getId() {
+    public void addAsset(InventoryAsset asset) {
+        this.assets.add(asset);
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -14,8 +14,8 @@ public class FindInventoryUseCase {
         this.inventoryDAO = inventoryDAO;
     }
 
-    public Optional<Inventory> findOne (Integer id) {
-        if (Validator.nullOrEmpty(id.toString()))
+    public Optional<Inventory> findOne (String id) {
+        if (Validator.nullOrEmpty(id))
             throw new EntityNotFoundException("Inventory not found. ID cannot be null or empty.");
         return inventoryDAO.findInventoryById(id);
     }

@@ -123,6 +123,7 @@ public class DatabaseBuilder {
         builder.append("name TEXT NOT NULL, \n");
         builder.append("president_reg TEXT NOT NULL, \n");
         builder.append("initial_date DATE NOT NULL, \n");
+        builder.append("status TEXT NOT NULL DEFAULT 'OPEN', \n");
         builder.append("end_date DATE, \n");
         builder.append("FOREIGN KEY(president_reg) REFERENCES Employee(registration_number)\n");
         builder.append("); \n");

@@ -16,7 +16,7 @@ public class FinishInventoryUseCase {
     public void finalizeInventory (Inventory inventory, Employee comissionPresident) {
         if (inventory == null || comissionPresident == null) return;
 
-        if (!inventory.getInventoryStatus().equals(InventoryStatus.OPENED))
+        if (!inventory.getInventoryStatus().equals(InventoryStatus.OPEN))
             throw new IllegalArgumentException("There is no open inventory");
         if (inventory.hasUnverifiedAssets())
             throw new IllegalArgumentException("Inventory can only be finalized if all goods are checked");
