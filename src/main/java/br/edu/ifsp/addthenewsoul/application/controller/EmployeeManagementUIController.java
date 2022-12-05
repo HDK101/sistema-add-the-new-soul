@@ -66,7 +66,7 @@ public class EmployeeManagementUIController {
     private TextField txtFilterById;
 
     @FXML
-    private TableColumn<Employee, EnumSet<Role>> cRoles;
+    private TableColumn<Employee, String> cRoles;
 
     private ObservableList<Employee> tableDataEmployees;
 
@@ -87,12 +87,13 @@ public class EmployeeManagementUIController {
         cName.setCellValueFactory(new PropertyValueFactory<>("name"));
         cPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
         cEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-        cRoles.setCellValueFactory(new PropertyValueFactory<>("roles"));
+        cRoles.setCellValueFactory(new PropertyValueFactory<>("rolesDescription"));
     }
 
     private void loadDataAndShow() {
         FindEmployeeUseCase findEmployeeUseCase = UseCases.getInstance().findEmployeeUseCase;
         List<Employee> employees = findEmployeeUseCase.findAll();
+        System.out.println(employees);
         tableDataEmployees.clear();
         if(employees != null)
             tableDataEmployees.addAll(employees);

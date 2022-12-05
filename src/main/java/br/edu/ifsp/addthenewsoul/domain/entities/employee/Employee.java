@@ -6,16 +6,18 @@ import lombok.Builder;
 
 import java.util.EnumSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Builder
 public class Employee implements CSVNode {
-    private String name;
+    public String name;
     private String registrationNumber;
     private String hashPassword;
     private String virtualPassword;
     private String email;
     private String phone;
     private EnumSet<Role> roles;
+    private String rolesDescription;
     private List<Asset> assetsInCharge;
 
     public String getName() {
@@ -68,10 +70,20 @@ public class Employee implements CSVNode {
 
     public void addRole(Role role) {
         this.roles.add(role);
+        updateRoleDescription();
+        System.out.println(this.rolesDescription);
     }
 
     public void removeRole(Role role) {
         this.roles.remove(role);
+        updateRoleDescription();
+    }
+
+    private void updateRoleDescription() {
+        this.rolesDescription =
+                this.roles.stream()
+                        .map(Role::getName)
+                        .collect(Collectors.joining(","));
     }
 
     public String getVirtualPassword() {
@@ -88,6 +100,14 @@ public class Employee implements CSVNode {
 
     public void setAssetsInCharge(List<Asset> assetsInCharge) {
         this.assetsInCharge = assetsInCharge;
+    }
+
+    public String getRolesDescription() {
+        return rolesDescription;
+    }
+
+    public void setRolesDescription(String rolesDescription) {
+        this.rolesDescription = rolesDescription;
     }
 
     @Override

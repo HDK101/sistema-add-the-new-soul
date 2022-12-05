@@ -18,6 +18,7 @@ public class ResultToEmployee {
                 .hashPassword(rs.getString("e_hash_password"))
                 .name(rs.getString("e_name"))
                 .roles(EnumSet.noneOf(Role.class))
+                .rolesDescription("")
                 .build();
     }
 }
