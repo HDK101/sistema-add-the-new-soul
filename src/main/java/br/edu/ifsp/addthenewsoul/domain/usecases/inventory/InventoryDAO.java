@@ -10,7 +10,7 @@ import java.util.Optional;
 
 
 public interface InventoryDAO extends DAO<Inventory, String> {
-    Optional<Inventory> findInventoryById(String id);
+    Optional<Inventory> findInventoryById(Integer id);
 
     void filterByPeriod(List<Inventory> all, LocalDate initialDate, LocalDate endDate);
 
