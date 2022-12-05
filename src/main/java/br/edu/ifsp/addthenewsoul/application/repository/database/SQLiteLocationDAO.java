@@ -2,7 +2,6 @@ package br.edu.ifsp.addthenewsoul.application.repository.database;
 
 import br.edu.ifsp.addthenewsoul.application.repository.database.results.ResultToLocation;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
-import br.edu.ifsp.addthenewsoul.domain.entities.asset.LocationStatus;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.LocationDAO;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import java.sql.PreparedStatement;
@@ -106,7 +105,7 @@ public class SQLiteLocationDAO implements LocationDAO {
                 l.id AS l_id,
                 l.number AS l_number,
                 l.section AS l_section
-            FROM Location l 
+            FROM Location l
             WHERE id = ?
         """;
         Location location = null;
