@@ -5,16 +5,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="408.0" prefWidth="585.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.DashboardUIController">
+<AnchorPane prefHeight="408.0" prefWidth="585.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.DashboardUIController">
    <children>
       <Label layoutX="231.0" layoutY="14.0" text="Página principal" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <Button layoutX="32.0" layoutY="50.0" mnemonicParsing="false" onAction="#goToEmployees" text="Gerenciar funcionarios" />
-      <Button layoutX="32.0" layoutY="90.0" mnemonicParsing="false" onAction="#goToAssets" text="Gerenciar bens" />
-      <Button layoutX="32.0" layoutY="131.0" mnemonicParsing="false" onAction="#goToLocations" text="Gerenciar locais" />
-      <Button layoutX="32.0" layoutY="177.0" mnemonicParsing="false" onAction="#goToInventories" text="Gerenciar inventários" />
+      <Button layoutX="31.0" layoutY="63.0" mnemonicParsing="false" onAction="#goToEmployees" text="GERENCIAR FUNCIONÁRIOS" />
+      <Button layoutX="31.0" layoutY="192.0" mnemonicParsing="false" onAction="#goToAssets" prefHeight="25.0" prefWidth="181.0" text="GERENCIAR BENS" />
+      <Button layoutX="31.0" layoutY="106.0" mnemonicParsing="false" onAction="#goToLocations" prefHeight="25.0" prefWidth="181.0" text="GERENCIAR LOCAIS" />
+      <Button layoutX="31.0" layoutY="150.0" mnemonicParsing="false" onAction="#goToInventories" prefHeight="25.0" prefWidth="181.0" text="GERENCIAR INVENTÁRIOS" />
+      <Button layoutX="31.0" layoutY="239.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="181.0" text="RELATÓRIOS" />
    </children>
 </AnchorPane>

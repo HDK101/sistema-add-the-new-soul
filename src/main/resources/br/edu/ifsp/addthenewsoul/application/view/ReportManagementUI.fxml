@@ -1,14 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="br.edu.ifsp.addthenewsoul.application.controller.ReportManagementUIController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.ReportManagementUIController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3d3d3" height="261.0" layoutX="418.0" layoutY="70.0" stroke="BLACK" strokeType="INSIDE" width="159.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3d3d3" height="261.0" layoutX="225.0" layoutY="70.0" stroke="BLACK" strokeType="INSIDE" width="159.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3d3d3" height="261.0" layoutX="45.0" layoutY="70.0" stroke="BLACK" strokeType="INSIDE" width="159.0" />
+      <Button fx:id="btnReportInventory" layoutX="433.0" layoutY="248.0" mnemonicParsing="false" onAction="#createReportInventory" prefHeight="25.0" prefWidth="132.0" text="GERAR RELATÓRIO" />
+      <TextField layoutX="83.0" layoutY="168.0" prefHeight="2.0" prefWidth="85.0" />
+      <TextField layoutX="262.0" layoutY="143.0" prefHeight="2.0" prefWidth="85.0" />
+      <TextField layoutX="456.0" layoutY="168.0" prefHeight="2.0" prefWidth="85.0" />
+      <Button fx:id="btnReportLocation" layoutX="239.0" layoutY="248.0" mnemonicParsing="false" onAction="#createReportLocation" prefHeight="25.0" prefWidth="132.0" text="GERAR RELATÓRIO" />
+      <Button fx:id="btnReportEmployee" layoutX="59.0" layoutY="248.0" mnemonicParsing="false" onAction="#createReportEmployee" prefHeight="25.0" prefWidth="132.0" text="GERAR RELATÓRIO" />
+      <Label layoutX="73.0" layoutY="88.0" text="FUNCIONÁRIO">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="280.0" layoutY="88.0" text="LOCAL">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="455.0" layoutY="88.0" text="INVENTÁRIO">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField layoutX="263.0" layoutY="193.0" prefHeight="2.0" prefWidth="85.0" />
+      <Label layoutX="284.0" layoutY="120.0" text="Seção" />
+      <Label layoutX="278.0" layoutY="172.0" text="Número" />
+      <Label layoutX="492.0" layoutY="138.0" text="ID" />
+      <Label layoutX="119.0" layoutY="138.0" text="ID" />
+      <Label layoutX="204.0" layoutY="21.0" text="GERENCIAR RELATÓRIOS">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Button layoutX="492.0" layoutY="349.0" mnemonicParsing="false" text="CANCELAR" />
+   </children>
 </AnchorPane>

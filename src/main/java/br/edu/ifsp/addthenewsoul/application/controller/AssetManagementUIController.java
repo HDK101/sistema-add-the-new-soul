@@ -2,12 +2,9 @@ package br.edu.ifsp.addthenewsoul.application.controller;
 
 import br.edu.ifsp.addthenewsoul.application.view.WindowLoader;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
-import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.usecases.UseCases;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.ExportAssetCSVUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.ImportAssetCSVUseCase;
-import br.edu.ifsp.addthenewsoul.domain.usecases.employee.ExportEmployeeCSVUseCase;
-import br.edu.ifsp.addthenewsoul.domain.usecases.employee.ImportEmployeeCSVUseCase;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -19,7 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class AssetManagementUIController {
-    public void importCSV(ActionEvent actionEvent) {
+    public void importCSVAssets(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Importar CSV");
         fileChooser.getExtensionFilters().addAll(
@@ -61,7 +58,7 @@ public class AssetManagementUIController {
         }
     }
 
-    public void exportCSV(ActionEvent actionEvent) {
+    public void exportCSVAssets(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Exportar CSV");
         fileChooser.getExtensionFilters().addAll(
