@@ -8,30 +8,30 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.InventoryManagementUIController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.InventoryManagementUIController">
    <children>
       <Label layoutX="202.0" layoutY="14.0" text="INVENTORY MANAGEMENT">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TableView layoutX="22.0" layoutY="80.0" prefHeight="181.0" prefWidth="549.0">
+      <TableView fx:id="tableViewInventory" layoutX="22.0" layoutY="80.0" prefHeight="181.0" prefWidth="549.0">
         <columns>
-          <TableColumn prefWidth="42.0" text="ID" />
-          <TableColumn prefWidth="73.0" text="NAME" />
-            <TableColumn prefWidth="84.0" text="CHAIRMAN" />
-            <TableColumn prefWidth="145.0" text="COMISSION " />
-            <TableColumn prefWidth="109.0" text="START DATE" />
-            <TableColumn prefWidth="95.0" text="END DATE" />
+          <TableColumn fx:id="cIdInventory" prefWidth="42.0" text="ID" />
+          <TableColumn fx:id="cNameInventory" prefWidth="73.0" text="NAME" />
+            <TableColumn fx:id="cChairmanInventory" prefWidth="84.0" text="CHAIRMAN" />
+            <TableColumn fx:id="cComissionInventory" prefWidth="145.0" text="COMISSION " />
+            <TableColumn fx:id="cStartDateInventory" prefWidth="109.0" text="START DATE" />
+            <TableColumn fx:id="cEndDateInventory" prefWidth="95.0" text="END DATE" />
         </columns>
       </TableView>
-      <TextField layoutX="113.0" layoutY="48.0" />
+      <TextField fx:id="txtIdInventory" layoutX="113.0" layoutY="48.0" />
       <Label layoutX="22.0" layoutY="52.0" text="Find inventory:" />
-      <Button layoutX="282.0" layoutY="48.0" mnemonicParsing="false" text="OK" />
-      <Button layoutX="325.0" layoutY="48.0" mnemonicParsing="false" text="ALL INVENTORIES" />
-      <Button layoutX="22.0" layoutY="271.0" mnemonicParsing="false" text="START INVENTORY" />
-      <Button layoutX="153.0" layoutY="271.0" mnemonicParsing="false" text="FINISH INVENTORY" />
-      <Button layoutX="503.0" layoutY="344.0" mnemonicParsing="false" text="CANCEL" />
-      <Button layoutX="285.0" layoutY="271.0" mnemonicParsing="false" text="DETAIL ASSETS" />
+      <Button fx:id="btnOkInventory" layoutX="282.0" layoutY="48.0" mnemonicParsing="false" onAction="#findInventoryById" text="OK" />
+      <Button fx:id="btnAllInventories" layoutX="325.0" layoutY="48.0" mnemonicParsing="false" onAction="#findAllInventories" text="ALL INVENTORIES" />
+      <Button fx:id="btnStartInventory" layoutX="22.0" layoutY="271.0" mnemonicParsing="false" onAction="#startInventory" text="START INVENTORY" />
+      <Button fx:id="btnFinishInventory" layoutX="153.0" layoutY="271.0" mnemonicParsing="false" onAction="#finishInventory" text="FINISH INVENTORY" />
+      <Button fx:id="btnCancelInventory" layoutX="503.0" layoutY="344.0" mnemonicParsing="false" onAction="#goBack" text="CANCEL" />
+      <Button fx:id="btnDetailAssets" layoutX="285.0" layoutY="271.0" mnemonicParsing="false" onAction="#detailAsset" text="DETAIL ASSETS" />
    </children>
 </AnchorPane>

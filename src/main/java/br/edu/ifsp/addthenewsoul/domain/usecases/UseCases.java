@@ -9,7 +9,7 @@ import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetDAO;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.ExportAssetCSVUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.ImportAssetCSVUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.*;
-import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;
+import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.*;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.*;
 import br.edu.ifsp.addthenewsoul.domain.usecases.report.EmployeePDFReportWriter;
 import br.edu.ifsp.addthenewsoul.domain.usecases.report.InventoryPDFReportWriter;
@@ -24,19 +24,23 @@ public class UseCases {
     public LocationDAO locationDAO;
     public InventoryDAO inventoryDAO;
 
-    public LoginEmployeeUseCase loginEmployeeUseCase;
-
     public AddLocationUseCase addLocationUseCase;
     public UpdateLocationUseCase updateLocationUseCase;
     public FindLocationUseCase findLocationUseCase;
     public RemoveLocationUseCase removeLocationUseCase;
 
+    public LoginEmployeeUseCase loginEmployeeUseCase;
     public AddEmployeeUseCase addEmployeeUseCase;
     public UpdateEmployeeUseCase updateEmployeeUseCase;
     public RemoveEmployeeUseCase removeEmployeeUseCase;
     public FindEmployeeUseCase findEmployeeUseCase;
     public ExportEmployeeCSVUseCase exportEmployeeCSVUseCase;
     public ImportEmployeeCSVUseCase importEmployeeCSVUseCase;
+
+    public EvaluateAssetUseCase evaluateAssetUseCase;
+    public StartInventoryUseCase startInventoryUseCase;
+    public FinishInventoryUseCase finishInventoryUseCase;
+    public FindInventoryUseCase findInventoryUseCase;
 
     public ImportAssetCSVUseCase importAssetCSVUseCase;
     public ExportAssetCSVUseCase exportAssetCSVUseCase;

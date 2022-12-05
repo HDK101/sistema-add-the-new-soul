@@ -119,4 +119,7 @@ public class EmployeeUIController {
         }
     }
 
+    public void uploadImage(ActionEvent actionEvent) {
+        //optional
+    }
 }

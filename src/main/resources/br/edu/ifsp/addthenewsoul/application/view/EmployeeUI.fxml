@@ -36,7 +36,7 @@
             <CheckBox fx:id="ckInventorymanager" layoutX="247.0" layoutY="313.0" mnemonicParsing="false" text="Almoxarife" />
             <ImageView fitHeight="192.0" fitWidth="126.0" layoutX="416.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../../../PngItem_1055689.png" />
+                  <Image url="@../images/avatar.png" />
                </image>
             </ImageView>
             <Button fx:id="btnUploadImage" layoutX="432.0" layoutY="271.0" mnemonicParsing="false" onAction="#uploadImage" text="Upload Image" />
