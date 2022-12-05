@@ -33,6 +33,5 @@
       <Button layoutX="277.0" layoutY="290.0" mnemonicParsing="false" onAction="#importCSV" prefHeight="28.0" prefWidth="96.0" text="IMPORT CSV" />
       <Button layoutX="374.0" layoutY="290.0" mnemonicParsing="false" onAction="#exportCSV" prefHeight="28.0" prefWidth="95.0" text="EXPORT CSV" />
       <Button layoutX="496.0" layoutY="328.0" mnemonicParsing="false" onAction="#goBack" text="CANCEL" />
-      <Button layoutX="40.0" layoutY="327.0" mnemonicParsing="false" onAction="#createReport" prefHeight="29.0" prefWidth="128.0" text="CREATE REPORT" />
    </children>
 </AnchorPane>

@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class AssetManagementUIController {
-    public void importCSVAssets(ActionEvent actionEvent) {
+    public void importCSV(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Importar CSV");
         fileChooser.getExtensionFilters().addAll(
@@ -58,7 +58,7 @@ public class AssetManagementUIController {
         }
     }
 
-    public void exportCSVAssets(ActionEvent actionEvent) {
+    public void exportCSV(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Exportar CSV");
         fileChooser.getExtensionFilters().addAll(

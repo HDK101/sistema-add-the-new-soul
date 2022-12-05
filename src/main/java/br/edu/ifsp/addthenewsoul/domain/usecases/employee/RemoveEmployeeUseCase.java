@@ -22,7 +22,7 @@ public class RemoveEmployeeUseCase {
         //if(employeeDAO.findByRegistrationNumber(registrationNumber).orElseThrow().getAssetsInCharge() != null)
         //   throw new IllegalArgumentException("Cannot remove employee that is in charge of assets.");
 
-        if(inventoryDAO.getStatusFromInventories() == true){
+        if(inventoryDAO.getStatusFromInventories()){
            for(Inventory inventory : inventoryDAO.findAll()){
                for(Employee employee : inventory.getComission()){
                    if(employee.getRegistrationNumber().equals(registrationNumber))

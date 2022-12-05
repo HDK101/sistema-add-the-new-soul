@@ -63,6 +63,11 @@ public class UseCases {
         findLocationUseCase = new FindLocationUseCase(locationDAO);
         removeLocationUseCase = new RemoveLocationUseCase(locationDAO);
 
+        addEmployeeUseCase = new AddEmployeeUseCase(employeeDAO);
+        findEmployeeUseCase = new FindEmployeeUseCase(employeeDAO);
+        updateEmployeeUseCase = new UpdateEmployeeUseCase(employeeDAO);
+        removeEmployeeUseCase = new RemoveEmployeeUseCase(employeeDAO, inventoryDAO);
+
         exportEmployeeCSVUseCase = new ExportEmployeeCSVUseCase(employeeCSV, employeeDAO);
         importEmployeeCSVUseCase = new ImportEmployeeCSVUseCase(employeeCSV, employeeDAO);
 
