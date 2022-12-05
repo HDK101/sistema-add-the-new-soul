@@ -31,10 +31,9 @@
             <Button fx:id="btnSaveEmployee" layoutX="500.0" layoutY="339.0" mnemonicParsing="false" onAction="#saveOrUpdateEmployee" text="SAVE" />
             <ImageView id="imgEmployee" fitHeight="225.0" fitWidth="200.0" layoutX="365.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true" />
             <Label layoutX="39.0" layoutY="313.0" text="Roles:" />
-            <CheckBox fx:id="ckEmployee" layoutX="86.0" layoutY="312.0" mnemonicParsing="false" text="Employee" />
-            <CheckBox fx:id="ckExecutor" layoutX="233.0" layoutY="313.0" mnemonicParsing="false" text="Executor" />
-            <CheckBox fx:id="ckComissionChief" layoutX="86.0" layoutY="346.0" mnemonicParsing="false" text="Comission Chief" />
-            <CheckBox fx:id="ckInventorymanager" layoutX="233.0" layoutY="346.0" mnemonicParsing="false" text="Inventory Manager" />
+            <CheckBox fx:id="ckExecutor" layoutX="86.0" layoutY="313.0" mnemonicParsing="false" text="Inventariante" />
+            <CheckBox fx:id="ckComissionChief" layoutX="86.0" layoutY="343.0" mnemonicParsing="false" text="Presidente da comissão" />
+            <CheckBox fx:id="ckInventorymanager" layoutX="247.0" layoutY="313.0" mnemonicParsing="false" text="Almoxarife" />
             <ImageView fitHeight="192.0" fitWidth="126.0" layoutX="416.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../../../../../../../PngItem_1055689.png" />
