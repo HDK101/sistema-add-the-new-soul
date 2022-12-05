@@ -63,8 +63,12 @@ public class LocationUIController {
     }
 
     @FXML
-    void backToPreviousScene(ActionEvent event) throws IOException {
-        WindowLoader.setRoot("LocationManagementUI");
+    public void goBack(ActionEvent actionEvent) {
+        try {
+            WindowLoader.setRoot("LocationManagementUI");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setLocation(Location location, UIMode mode) {

@@ -24,6 +24,6 @@
       <TextField fx:id="txtSection" layoutX="109.0" layoutY="110.0" />
       <TextField fx:id="txtNumber" layoutX="109.0" layoutY="157.0" />
       <Button layoutX="478.0" layoutY="332.0" mnemonicParsing="false" onAction="#saveOrUpdate" text="SAVE" />
-      <Button layoutX="400.0" layoutY="332.0" mnemonicParsing="false" onAction="#backToPreviousScene" text="CANCEL" />
+      <Button layoutX="400.0" layoutY="332.0" mnemonicParsing="false" onAction="#goBack" text="CANCEL" />
    </children>
 </AnchorPane>
