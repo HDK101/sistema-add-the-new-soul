@@ -4,10 +4,7 @@ import br.edu.ifsp.addthenewsoul.application.repository.database.SQLiteAssetDAO;
 import br.edu.ifsp.addthenewsoul.application.repository.database.SQLiteEmployeeDAO;
 import br.edu.ifsp.addthenewsoul.application.repository.database.SQLiteInventoryDAO;
 import br.edu.ifsp.addthenewsoul.application.repository.database.SQLiteLocationDAO;
-import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetCSV;
-import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetDAO;
-import br.edu.ifsp.addthenewsoul.domain.usecases.asset.ExportAssetCSVUseCase;
-import br.edu.ifsp.addthenewsoul.domain.usecases.asset.ImportAssetCSVUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.asset.*;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.*;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.*;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.*;
@@ -24,31 +21,41 @@ public class UseCases {
     public LocationDAO locationDAO;
     public InventoryDAO inventoryDAO;
 
-    public AddLocationUseCase addLocationUseCase;
-    public UpdateLocationUseCase updateLocationUseCase;
-    public FindLocationUseCase findLocationUseCase;
-    public RemoveLocationUseCase removeLocationUseCase;
+    public static AddLocationUseCase addLocationUseCase;
+    public static UpdateLocationUseCase updateLocationUseCase;
+    public static FindLocationUseCase findLocationUseCase;
+    public static RemoveLocationUseCase removeLocationUseCase;
 
-    public LoginEmployeeUseCase loginEmployeeUseCase;
-    public AddEmployeeUseCase addEmployeeUseCase;
-    public UpdateEmployeeUseCase updateEmployeeUseCase;
-    public RemoveEmployeeUseCase removeEmployeeUseCase;
-    public FindEmployeeUseCase findEmployeeUseCase;
-    public ExportEmployeeCSVUseCase exportEmployeeCSVUseCase;
-    public ImportEmployeeCSVUseCase importEmployeeCSVUseCase;
+    public static AddAssetUseCase addAssetUseCase;
 
-    public EvaluateAssetUseCase evaluateAssetUseCase;
-    public StartInventoryUseCase startInventoryUseCase;
-    public FinishInventoryUseCase finishInventoryUseCase;
-    public FindInventoryUseCase findInventoryUseCase;
+    public static UpdateAssetUseCase updateAssetUseCase;
 
-    public ImportAssetCSVUseCase importAssetCSVUseCase;
-    public ExportAssetCSVUseCase exportAssetCSVUseCase;
+    public static FindAssetUseCase findAssetUseCase;
 
-    public ExportLocationCSVUseCase exportLocationCSVUseCase;
-    public ImportLocationCSVUseCase importLocationCSVUseCase;
+    public static RemoveAssetUseCase removeAssetUseCase;
 
-    public IssueReportUseCase issueReportUseCase;
+    public static FilterAssetsUseCase filterAssetsUseCase;
+
+    public static LoginEmployeeUseCase loginEmployeeUseCase;
+    public static AddEmployeeUseCase addEmployeeUseCase;
+    public static UpdateEmployeeUseCase updateEmployeeUseCase;
+    public static RemoveEmployeeUseCase removeEmployeeUseCase;
+    public static FindEmployeeUseCase findEmployeeUseCase;
+    public static ExportEmployeeCSVUseCase exportEmployeeCSVUseCase;
+    public static ImportEmployeeCSVUseCase importEmployeeCSVUseCase;
+
+    public static EvaluateAssetUseCase evaluateAssetUseCase;
+    public static StartInventoryUseCase startInventoryUseCase;
+    public static FinishInventoryUseCase finishInventoryUseCase;
+    public static FindInventoryUseCase findInventoryUseCase;
+
+    public static ImportAssetCSVUseCase importAssetCSVUseCase;
+    public static ExportAssetCSVUseCase exportAssetCSVUseCase;
+
+    public static ExportLocationCSVUseCase exportLocationCSVUseCase;
+    public static ImportLocationCSVUseCase importLocationCSVUseCase;
+
+    public static IssueReportUseCase issueReportUseCase;
 
     public UseCases() {
         EmployeeCSV employeeCSV = new EmployeeCSV();
@@ -71,6 +78,11 @@ public class UseCases {
         findEmployeeUseCase = new FindEmployeeUseCase(employeeDAO);
         updateEmployeeUseCase = new UpdateEmployeeUseCase(employeeDAO);
         removeEmployeeUseCase = new RemoveEmployeeUseCase(employeeDAO, inventoryDAO);
+
+        addAssetUseCase = new AddAssetUseCase(assetDAO);
+        findAssetUseCase = new FindAssetUseCase(assetDAO);
+        updateAssetUseCase = new UpdateAssetUseCase(assetDAO);
+        removeAssetUseCase = new RemoveAssetUseCase(assetDAO);
 
         exportEmployeeCSVUseCase = new ExportEmployeeCSVUseCase(employeeCSV, employeeDAO);
         importEmployeeCSVUseCase = new ImportEmployeeCSVUseCase(employeeCSV, employeeDAO);
