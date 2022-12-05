@@ -44,6 +44,7 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
 
             if (resultSet.next()) {
                 employee = ResultToEmployee.convert(resultSet);
+                employee.addRole(Role.valueOf(resultSet.getString("er_role")));
                 while (resultSet.next()) {
                     employee.addRole(Role.valueOf(resultSet.getString("er_role")));
                 }
