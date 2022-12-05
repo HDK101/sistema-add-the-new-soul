@@ -1,7 +1,7 @@
 package br.edu.ifsp.addthenewsoul.domain.usecases.utils;
 
 public enum InventoryStatus {
-    OPENED("Open Inventory"),
+    OPEN("Open Inventory"),
     CLOSED("Closed Inventory");
 
     final private String description;

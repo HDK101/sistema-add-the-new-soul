@@ -67,7 +67,7 @@ public class ReportManagementUIController {
 
         try {
             IssueReportUseCase issueReportUseCase = UseCases.getInstance().issueReportUseCase;
-            issueReportUseCase.issueInventoryReport(file.getAbsolutePath(), 123);
+            issueReportUseCase.issueInventoryReport(file.getAbsolutePath(), "123");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Sucesso");
             alert.setContentText("O relatório em PDF foi criado");

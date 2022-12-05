@@ -45,6 +45,7 @@ public class SQLiteAssetDAO implements AssetDAO {
                     ia.damage AS ia_damage,
                     ia.description AS ia_description,
                     ia.status AS ia_status,
+                    ia.value AS ia_value,
                     ia.location_id AS ia_location_id,
                     ia.location_status AS ia_location_status,
                     

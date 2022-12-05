@@ -2,6 +2,7 @@ package br.edu.ifsp.addthenewsoul;
 
 import br.edu.ifsp.addthenewsoul.application.repository.database.SQLiteAssetDAO;
 import br.edu.ifsp.addthenewsoul.application.repository.database.SQLiteEmployeeDAO;
+import br.edu.ifsp.addthenewsoul.application.repository.database.SQLiteInventoryDAO;
 import br.edu.ifsp.addthenewsoul.application.repository.inMemory.InMemoryAssetDAO;
 import br.edu.ifsp.addthenewsoul.application.repository.inMemory.InMemoryEmployeeDAO;
 import br.edu.ifsp.addthenewsoul.application.repository.inMemory.InMemoryInventoryDAO;
@@ -26,97 +27,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Optional;
 
 public class UseCaseTestsSQLite {
     public static void main(String[] args) throws IOException {
-        EmployeeDAO employeeDAO = new SQLiteEmployeeDAO();
+        FindInventoryUseCase findInventoryUseCase = new FindInventoryUseCase(new SQLiteInventoryDAO());
 
-        Asset asset = Asset.builder()
-                .value(300.0)
-                .description("Cadeira gamer")
-                .damage("Estofado estragado")
-                .locationStatus(LocationStatus.CORRECT_LOCATION)
-                .build();
-
-        Asset asset2 = Asset.builder()
-                .value(300.0)
-                .description("Cadeira asd")
-                .damage("Estofado estragado")
-                .locationStatus(LocationStatus.CORRECT_LOCATION)
-                .build();
-
-        Employee employee = Employee.builder()
-                .registrationNumber("REG123")
-                .name("Lucas")
-                .email("lucas@gmail.com")
-                .hashPassword("asdasd")
-                .roles(EnumSet.noneOf(Role.class))
-                .assetsInCharge(List.of(
-                        asset,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2
-                ))
-                .build();
-
-        Employee employee1 = Employee.builder()
-                .registrationNumber("REG124")
-                .name("Walter")
-                .email("walter@gmail.com")
-                .hashPassword("asdasd")
-                .roles(EnumSet.noneOf(Role.class))
-                .build();
-
-        employeeDAO.add(employee);
-
-
-        EmployeePDFReportWriter employeePDFReportWriter = new EmployeePDFReportWriter();
-
-        //employeePDFReportWriter.write(employee);
-
-        LocationPDFReportWriter locationPDFReportWriter = new LocationPDFReportWriter();
-
-        Location location = Location.builder()
-                .number(1234)
-                .section("Seção 13")
-                .assets(List.of(
-                        asset,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2,
-                        asset2
-                ))
-                .build();
-
+        Optional<Inventory> inventory = findInventoryUseCase.findOne("asdf");
+        System.out.println(inventory.isEmpty());
 
 //	System.out.println("----- Apresentação Parcial -----");
 //        AssetDAO assetDAO = new SQLiteAssetDAO();

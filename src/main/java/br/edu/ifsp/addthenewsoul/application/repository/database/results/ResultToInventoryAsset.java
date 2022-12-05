@@ -13,6 +13,7 @@ public class ResultToInventoryAsset {
                 .id(rs.getInt("ia_id"))
                 .description(rs.getString("ia_description"))
                 .damage(rs.getString("ia_damage"))
+                .value(rs.getDouble("ia_value"))
                 .status(Status.valueOf(rs.getString("ia_status")))
                 .build();
     }

@@ -1,19 +1,56 @@
 package br.edu.ifsp.addthenewsoul.application.repository.database;
 
+import br.edu.ifsp.addthenewsoul.application.repository.database.results.ResultToInventory;
+import br.edu.ifsp.addthenewsoul.application.repository.database.results.ResultToInventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;
 
 import java.sql.*;
+import java.sql.Date;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 public class SQLiteInventoryDAO implements InventoryDAO {
     @Override
     public Optional<Inventory> findInventoryById(String id) {
+        String sql = """
+                SELECT
+                    i.id AS i_id,
+                    i.name AS i_name,
+                    i.president_reg AS i_president_reg,
+                    i.initial_date AS i_initial_date,
+                    i.end_date AS i_end_date,
+                    
+                    ia.id AS ia_id,
+                    ia.inventory_id AS ia_inventory_id,
+                    ia.damage AS ia_damage,
+                    ia.description AS ia_description,
+                    ia.status AS ia_status,
+                    ia.value AS ia_value,
+                    ia.location_id AS ia_location_id,
+                    ia.location_status AS ia_location_status
+                FROM Inventory i
+                LEFT JOIN InventoryAsset ia ON ia.inventory_id = i.id
+                WHERE i.id = ?
+                """;
+
+        try (PreparedStatement statement = Database.createPreparedStatement(sql)) {
+            statement.setString(1, id);
+            statement.execute();
+
+            ResultSet resultSet = statement.getResultSet();
+            Inventory inventory = null;
+            while (resultSet.next()) {
+                if (inventory == null) inventory = ResultToInventory.convert(resultSet);
+                InventoryAsset inventoryAsset = ResultToInventoryAsset.convert(resultSet);
+                inventory.addAsset(inventoryAsset);
+            }
+            return Optional.ofNullable(inventory);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return Optional.empty();
     }
 
@@ -106,8 +143,10 @@ public class SQLiteInventoryDAO implements InventoryDAO {
                     name,
                     president_id,
                     initial_date,
-                    end_date
+                    end_date,
+                    status
                 ) VALUES (
+                    ?,
                     ?,
                     ?,
                     ?,
@@ -121,6 +160,7 @@ public class SQLiteInventoryDAO implements InventoryDAO {
             stmt.setString(3, inventory.getComissionPresident().getRegistrationNumber());
             stmt.setDate(4, Date.valueOf(inventory.getInitialDate()));
             stmt.setDate(5, Date.valueOf(inventory.getEndDate()));
+            stmt.setString(6, inventory.getInventoryStatus().toString());
             return stmt.executeUpdate() == 1;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -163,6 +203,30 @@ public class SQLiteInventoryDAO implements InventoryDAO {
 
     @Override
     public List<Inventory> findAll() {
-        return null;
+        String sql = """
+                SELECT
+                    i.id AS i_id,
+                    i.name AS i_name,
+                    i.president_reg AS i_president_reg,
+                    i.initial_date AS i_initial_date,
+                    i.end_date AS i_end_date,
+                    i.status AS i_status
+                FROM Inventory i
+                """;
+
+        List<Inventory> inventories = new ArrayList<>();
+
+        try (PreparedStatement statement = Database.createPreparedStatement(sql)) {
+            statement.execute();
+
+            ResultSet resultSet = statement.getResultSet();
+            while (resultSet.next()) {
+                inventories.add(ResultToInventory.convert(resultSet));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return inventories;
     }
 }
