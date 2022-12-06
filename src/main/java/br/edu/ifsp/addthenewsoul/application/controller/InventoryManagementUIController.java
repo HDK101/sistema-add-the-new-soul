@@ -83,7 +83,6 @@ public class InventoryManagementUIController {
         cIdInventory.setCellValueFactory(new PropertyValueFactory<>("id"));
         cNameInventory.setCellValueFactory(new PropertyValueFactory<>("name"));
         cChairmanInventory.setCellValueFactory(new PropertyValueFactory<>("comissionPresident"));
-        cComissionInventory.setCellValueFactory(new PropertyValueFactory<>("comission"));
         cStartDateInventory.setCellValueFactory(new PropertyValueFactory<>("initialDate"));
         cEndDateInventory.setCellValueFactory(new PropertyValueFactory<>("endDate"));
     }

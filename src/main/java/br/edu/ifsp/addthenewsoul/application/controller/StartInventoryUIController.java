@@ -19,6 +19,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,6 +89,9 @@ public class StartInventoryUIController {
 
     private ObservableList<Employee> tableDataEmployees;
     private ObservableList<Asset> tableDataAsset;
+    private List<Employee> employeesComission = new ArrayList<>();
+    private List<Asset> assets = new ArrayList<>();
+    private String lblEmployees = "";
 
     @FXML
     private void initialize(){
@@ -136,15 +140,38 @@ public class StartInventoryUIController {
             tableDataAsset.addAll(assets);
     }
 
+    public void addNewComissionMember(ActionEvent actionEvent) {
+        Employee employee = tableViewEmployees.getSelectionModel().getSelectedItem();
+        lblEmployees += employee.getName() + ", ";
+        lblComissionMembers.setText(lblEmployees);
+    }
+
+    @FXML
+    void removeComissionMember(ActionEvent event) {
+        Employee employee = tableViewEmployees.getSelectionModel().getSelectedItem();
+        employeesComission.remove(employee);
+        String employeeName = employee.getName();
+        List<String> newLblEmployees = List.of(lblEmployees.split(", "));
+        System.out.println(newLblEmployees);
+        //CORRIGIR
+        /*
+        for(String piece : newLblEmployees){
+            if(piece.equals(employeeName))
+                newLblEmployees.replace(employeeName, "");
+
+        }*/
+    }
+
+
     @FXML
     void addNewAssetToInventory(ActionEvent event) {
         StartInventoryUseCase startInventoryUseCase = UseCases.getInstance().startInventoryUseCase;
-        List<Asset> assets = new ArrayList<>();
         Asset asset = tableViewAssets.getSelectionModel().getSelectedItem();
         assets.add(asset);
         startInventoryUseCase.createInventoryAssets(assets);
         lblInventoryAssets.setText(String.valueOf(asset.getId()));
     }
+
 
     @FXML
     void removeAssetFromInventory(ActionEvent event) {
@@ -152,22 +179,41 @@ public class StartInventoryUIController {
 
     }
 
+
+
     @FXML
     void goBack(ActionEvent event) throws IOException {
         WindowLoader.setRoot("InventoryManagementUI");
     }
 
-    @FXML
-    void removeComissionMember(ActionEvent event) {
 
-    }
 
     @FXML
     void saveNewInventory(ActionEvent event) {
+        StartInventoryUseCase startInventoryUseCase = UseCases.getInstance().startInventoryUseCase;
+        String nameInventory = txtNameInventory.getText();
+        LocalDate initialDate = LocalDate.now();
+        LocalDate endDate = null;
+        Employee comissionChief = cbComissionChief.getValue();
 
+        startInventoryUseCase.initializeInventory(nameInventory, initialDate, endDate, employeesComission, comissionChief, assets);
     }
 
-    public void addNewComissionMember(ActionEvent actionEvent) {
 
-    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
