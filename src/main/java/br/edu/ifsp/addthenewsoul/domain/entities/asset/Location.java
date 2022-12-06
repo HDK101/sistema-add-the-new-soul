@@ -45,6 +45,10 @@ public class Location implements CSVNode {
         return assets;
     }
 
+    public void addAsset(Asset asset) {
+        this.assets.add(asset);
+    }
+
     public void setAssets(List<Asset> assets) {
         this.assets = assets;
     }
