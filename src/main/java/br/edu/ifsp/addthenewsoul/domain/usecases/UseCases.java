@@ -93,6 +93,8 @@ public class UseCases {
         exportLocationCSVUseCase = new ExportLocationCSVUseCase(locationCSV, locationDAO);
         importLocationCSVUseCase = new ImportLocationCSVUseCase(locationCSV, locationDAO);
 
+        findInventoryUseCase = new FindInventoryUseCase(inventoryDAO);
+
         EmployeePDFReportWriter employeePDFReportWriter = new EmployeePDFReportWriter();
         InventoryPDFReportWriter inventoryPDFReportWriter = new InventoryPDFReportWriter();
         LocationPDFReportWriter locationPDFReportWriter = new LocationPDFReportWriter();
