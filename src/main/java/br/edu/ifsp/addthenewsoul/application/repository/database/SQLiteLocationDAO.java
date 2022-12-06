@@ -105,8 +105,17 @@ public class SQLiteLocationDAO implements LocationDAO {
             SELECT
                 l.id AS l_id,
                 l.number AS l_number,
-                l.section AS l_section
+                l.section AS l_section,
+                
+                a.id AS a_id,
+                a.description AS a_description,
+                a.employee_reg AS a_employee_reg,
+                a.damage AS a_damage,
+                a.status AS a_status,
+                a.location_id AS a_location_id,
+                a.location_status AS a_location_status
             FROM Location l
+            LEFT JOIN Asset a ON l.id = a.location_id
             WHERE id = ?
         """;
         Location location = null;
@@ -114,8 +123,9 @@ public class SQLiteLocationDAO implements LocationDAO {
         try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet resultSet = stmt.executeQuery();
-            if (resultSet.next()) {
-                location = ResultToLocation.convert(resultSet);
+            while (resultSet.next()) {
+                if (location == null) location = ResultToLocation.convert(resultSet);
+                location.addAsset(ResultToAsset.convert(resultSet));
             }
         } catch (SQLException e) {
             e.printStackTrace();
