@@ -67,7 +67,7 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
                     e.email AS e_email,
                     er.role AS er_role
                 FROM Employee e
-                LEFT JOIN EmployeeRole er
+                LEFT JOIN EmployeeRole er ON e.registration_number = er.registration_number
                 WHERE e.email = ?
                 """;
 
@@ -78,11 +78,9 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
             stmt.execute();
             ResultSet resultSet = stmt.getResultSet();
 
-            if (resultSet.next()) {
-                employee = ResultToEmployee.convert(resultSet);
-                while (resultSet.next()) {
-                    employee.addRole(Role.valueOf(resultSet.getString("er_role")));
-                }
+            while (resultSet.next()) {
+                if (employee == null) employee = ResultToEmployee.convert(resultSet);
+                employee.addRole(Role.valueOf(resultSet.getString("er_role")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
