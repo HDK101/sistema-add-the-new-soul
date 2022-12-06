@@ -116,7 +116,7 @@ public class SQLiteLocationDAO implements LocationDAO {
                 a.location_status AS a_location_status
             FROM Location l
             LEFT JOIN Asset a ON l.id = a.location_id
-            WHERE id = ?
+            WHERE l.id = ?
         """;
         Location location = null;
 

@@ -87,9 +87,14 @@ public class LocationManagementUIController {
     void removeLocation(ActionEvent event) {
         Location selectedItem = tableView.getSelectionModel().getSelectedItem();
         RemoveLocationUseCase removeLocationUseCase = UseCases.getInstance().removeLocationUseCase;
-        if (selectedItem != null)
+        FindLocationUseCase findLocationUseCase = UseCases.getInstance().findLocationUseCase;
+
+
+        if (selectedItem != null) {
+            System.out.println(selectedItem.getId());
+            Location locationWithAssets = findLocationUseCase.findOne(selectedItem.getId()).orElseThrow();
             try {
-                removeLocationUseCase.deleteLocation(selectedItem);
+                removeLocationUseCase.deleteLocation(locationWithAssets);
                 loadDataAndShow();
             } catch (Exception e) {
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
@@ -97,6 +102,7 @@ public class LocationManagementUIController {
                 errorAlert.setContentText(e.getMessage());
                 errorAlert.showAndWait();
             }
+        }
     }
 
     public void findLocationById(ActionEvent actionEvent) {

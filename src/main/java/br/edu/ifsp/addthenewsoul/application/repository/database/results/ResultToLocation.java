@@ -6,6 +6,7 @@ import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ResultToLocation {
     public static Location convert(ResultSet rs) throws SQLException {
@@ -13,6 +14,7 @@ public class ResultToLocation {
                 .id(rs.getInt("l_id"))
                 .number(rs.getInt("l_number"))
                 .section(rs.getString("l_section"))
+                .assets(new ArrayList<>())
                 .build();
     }
 }
