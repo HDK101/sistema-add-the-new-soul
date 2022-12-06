@@ -50,7 +50,9 @@ public class AssetManagementUIController {
 
     @FXML
     public void initialize () {
-
+        bindTableViewToItemsList();
+        bindColumnsToValueSources();
+        loadDataAndShow();
     }
 
     private void bindTableViewToItemsList() {
@@ -68,7 +70,7 @@ public class AssetManagementUIController {
     }
 
     private void loadDataAndShow() {
-        List<Asset> assets = findAssetUseCase.findAll();
+        List<Asset> assets = getInstance().findAssetUseCase.findAll();
         tableData.clear();
         tableData.addAll(assets);
     }
@@ -169,7 +171,7 @@ public class AssetManagementUIController {
     public void removeAsset(ActionEvent actionEvent) {
         Asset selectedItem = tableView.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
-            removeAssetUseCase.removeAsset(selectedItem);
+            getInstance().removeAssetUseCase.removeAsset(selectedItem);
             loadDataAndShow();
         }
     }

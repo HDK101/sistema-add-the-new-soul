@@ -21,39 +21,39 @@ public class UseCases {
     public LocationDAO locationDAO;
     public InventoryDAO inventoryDAO;
 
-    public static AddLocationUseCase addLocationUseCase;
-    public static UpdateLocationUseCase updateLocationUseCase;
-    public static FindLocationUseCase findLocationUseCase;
-    public static RemoveLocationUseCase removeLocationUseCase;
+    public AddLocationUseCase addLocationUseCase;
+    public UpdateLocationUseCase updateLocationUseCase;
+    public FindLocationUseCase findLocationUseCase;
+    public RemoveLocationUseCase removeLocationUseCase;
 
-    public static AddAssetUseCase addAssetUseCase;
+    public AddAssetUseCase addAssetUseCase;
 
-    public static UpdateAssetUseCase updateAssetUseCase;
+    public UpdateAssetUseCase updateAssetUseCase;
 
-    public static FindAssetUseCase findAssetUseCase;
+    public FindAssetUseCase findAssetUseCase;
 
-    public static RemoveAssetUseCase removeAssetUseCase;
+    public RemoveAssetUseCase removeAssetUseCase;
 
-    public static FilterAssetsUseCase filterAssetsUseCase;
+    public FilterAssetsUseCase filterAssetsUseCase;
 
-    public static LoginEmployeeUseCase loginEmployeeUseCase;
-    public static AddEmployeeUseCase addEmployeeUseCase;
-    public static UpdateEmployeeUseCase updateEmployeeUseCase;
-    public static RemoveEmployeeUseCase removeEmployeeUseCase;
-    public static FindEmployeeUseCase findEmployeeUseCase;
-    public static ExportEmployeeCSVUseCase exportEmployeeCSVUseCase;
-    public static ImportEmployeeCSVUseCase importEmployeeCSVUseCase;
+    public LoginEmployeeUseCase loginEmployeeUseCase;
+    public AddEmployeeUseCase addEmployeeUseCase;
+    public UpdateEmployeeUseCase updateEmployeeUseCase;
+    public RemoveEmployeeUseCase removeEmployeeUseCase;
+    public FindEmployeeUseCase findEmployeeUseCase;
+    public ExportEmployeeCSVUseCase exportEmployeeCSVUseCase;
+    public ImportEmployeeCSVUseCase importEmployeeCSVUseCase;
 
-    public static EvaluateAssetUseCase evaluateAssetUseCase;
-    public static StartInventoryUseCase startInventoryUseCase;
-    public static FinishInventoryUseCase finishInventoryUseCase;
-    public static FindInventoryUseCase findInventoryUseCase;
+    public EvaluateAssetUseCase evaluateAssetUseCase;
+    public StartInventoryUseCase startInventoryUseCase;
+    public FinishInventoryUseCase finishInventoryUseCase;
+    public FindInventoryUseCase findInventoryUseCase;
 
-    public static ImportAssetCSVUseCase importAssetCSVUseCase;
-    public static ExportAssetCSVUseCase exportAssetCSVUseCase;
+    public ImportAssetCSVUseCase importAssetCSVUseCase;
+    public ExportAssetCSVUseCase exportAssetCSVUseCase;
 
-    public static ExportLocationCSVUseCase exportLocationCSVUseCase;
-    public static ImportLocationCSVUseCase importLocationCSVUseCase;
+    public ExportLocationCSVUseCase exportLocationCSVUseCase;
+    public ImportLocationCSVUseCase importLocationCSVUseCase;
 
     public static IssueReportUseCase issueReportUseCase;
 
