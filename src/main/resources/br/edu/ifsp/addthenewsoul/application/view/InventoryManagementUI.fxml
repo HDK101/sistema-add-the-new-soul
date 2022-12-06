@@ -32,6 +32,6 @@
       <Button fx:id="btnStartInventory" layoutX="22.0" layoutY="271.0" mnemonicParsing="false" onAction="#startInventory" text="START INVENTORY" />
       <Button fx:id="btnFinishInventory" layoutX="153.0" layoutY="271.0" mnemonicParsing="false" onAction="#finishInventory" text="FINISH INVENTORY" />
       <Button fx:id="btnCancelInventory" layoutX="503.0" layoutY="344.0" mnemonicParsing="false" onAction="#goBack" text="CANCEL" />
-      <Button fx:id="btnDetailAssets" layoutX="285.0" layoutY="271.0" mnemonicParsing="false" onAction="#detailAsset" text="DETAIL ASSETS" />
+      <Button fx:id="btnDetailInventory" layoutX="285.0" layoutY="271.0" mnemonicParsing="false" onAction="#detailInventory" text="DETAIL INVENTORY" />
    </children>
 </AnchorPane>

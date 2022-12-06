@@ -30,7 +30,7 @@ public class InventoryManagementUIController {
     private Button btnCancelInventory;
 
     @FXML
-    private Button btnDetailAssets;
+    private Button btnDetailInventory;
 
     @FXML
     private Button btnFinishInventory;
@@ -98,8 +98,8 @@ public class InventoryManagementUIController {
     }
 
     @FXML
-    void detailAsset(ActionEvent event) throws IOException {
-        WindowLoader.setRoot("DetailInventoryAssetsUI");
+    void detailInventory(ActionEvent event) throws IOException {
+        WindowLoader.setRoot("InventoryUI");
     }
 
     @FXML
