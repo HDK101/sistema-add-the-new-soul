@@ -105,6 +105,7 @@ public class AssetManagementUIController {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Sucesso");
             alert.setContentText(builder.toString());
+            loadDataAndShow();
             alert.showAndWait();
         } catch (Exception e) {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);

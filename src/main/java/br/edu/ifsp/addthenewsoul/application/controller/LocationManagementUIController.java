@@ -146,6 +146,7 @@ public class LocationManagementUIController {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Sucesso");
             alert.setContentText("O arquivo CSV foi importado");
+            loadDataAndShow();
             alert.showAndWait();
         } catch (Exception e) {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
