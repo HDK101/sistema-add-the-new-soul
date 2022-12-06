@@ -131,6 +131,7 @@ public class SQLiteLocationDAO implements LocationDAO {
                 l.number AS l_number,
                 l.section AS l_section
             FROM Location l
+            LEFT JOIN Asset a
             WHERE
                 l.number = ? AND
                 l.section = ?

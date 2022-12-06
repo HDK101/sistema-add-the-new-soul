@@ -150,22 +150,19 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
         }
     }
 
-    private boolean deleteRoles(String registrationNumber) {
+    private void deleteRoles(String registrationNumber) {
         String sql = "DELETE FROM EmployeeRole WHERE employee_reg = ?";
 
         try(PreparedStatement stmt = Database.createPreparedStatement(sql)) {
             stmt.setString(1, registrationNumber);
-            return stmt.executeUpdate() == 1;
+            stmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
     }
 
     private boolean putRoles(Employee employee) {
-        boolean deleteRolesSuccess = this.deleteRoles(employee.getRegistrationNumber());
-
-        if (!deleteRolesSuccess) return false;
+        this.deleteRoles(employee.getRegistrationNumber());
 
         List<Role> roles = employee.getRoles().stream().toList();
         String sql = """
