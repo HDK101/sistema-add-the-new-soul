@@ -5,6 +5,7 @@ import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
+import br.edu.ifsp.addthenewsoul.domain.usecases.UseCases;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -38,18 +39,19 @@ public class AssetUIController {
 
     @FXML
     private void initialize(){
-        cbLocation.getItems().setAll(findLocationUseCase.findAll());
-        cbEmployeeInCharge.getItems().setAll(findEmployeeUseCase.findAll());
+        cbLocation.getItems().setAll(getInstance().findLocationUseCase.findAll());
+        cbEmployeeInCharge.getItems().setAll(getInstance().findEmployeeUseCase.findAll());
         cbStatus.setVisible(false);
         txtDamages.setVisible(false);
     }
 
-    public void saveOrUpdate(ActionEvent actionEvent) {
+    public void saveOrUpdate(ActionEvent actionEvent) throws IOException {
         getEntityToView();
         if (asset.getId() == null)
-            addAssetUseCase.add(asset);
+            getInstance().addAssetUseCase.add(asset);
         else
-            updateAssetUseCase.updateAsset(asset);
+            getInstance().updateAssetUseCase.updateAsset(asset);
+        WindowLoader.setRoot("AssetManagementUI");
     }
 
     private void getEntityToView(){

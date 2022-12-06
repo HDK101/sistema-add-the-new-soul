@@ -81,7 +81,7 @@ public class SQLiteAssetDAO implements AssetDAO {
     public Optional<Asset> findById(Integer id) {
         String sql = """
             SELECT
-                a.id AS a_id, 
+                a.id AS a_id,
                 a.description AS a_description,
                 a.employee_reg AS a_employee_reg,
                 a.damage AS a_damage,

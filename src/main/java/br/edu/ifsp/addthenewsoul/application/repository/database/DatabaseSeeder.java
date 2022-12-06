@@ -16,10 +16,10 @@ public class DatabaseSeeder {
 
         String reg = employeeDAO.add(
                 Employee.builder()
-                        .name("Durandal")
-                        .email("lucas@gmsail.com")
-                        .hashPassword("$2y$10$y0PMpYhM8ZWOgcA4y1D3y.VTXAhrVllWQKT4YDNxVq4lFdlU1Nq1K")
-                        .registrationNumber("REG123")
+                        .name("Vinicius")
+                        .email("vinicius@gmail.com")
+                        .hashPassword("$2y$10$NjQsT36YeV6TdeLLntUus.t.37KgOXVcgohrmSVIVRxGKFkV42zvC")
+                        .registrationNumber("REG456")
                         .roles(EnumSet.of(Role.EXECUTOR))
                         .build()
         );

@@ -89,7 +89,7 @@ public class SQLiteLocationDAO implements LocationDAO {
 
         try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
             ResultSet resultSet = stmt.executeQuery();
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 locations.add(ResultToLocation.convert(resultSet));
             }
         } catch (SQLException e) {
