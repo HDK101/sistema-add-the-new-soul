@@ -34,11 +34,6 @@
             <CheckBox fx:id="ckExecutor" layoutX="86.0" layoutY="313.0" mnemonicParsing="false" text="Inventariante" />
             <CheckBox fx:id="ckComissionChief" layoutX="86.0" layoutY="343.0" mnemonicParsing="false" text="Presidente da comissão" />
             <CheckBox fx:id="ckInventorymanager" layoutX="247.0" layoutY="313.0" mnemonicParsing="false" text="Almoxarife" />
-            <ImageView fitHeight="192.0" fitWidth="126.0" layoutX="416.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/avatar.png" />
-               </image>
-            </ImageView>
             <Button fx:id="btnUploadImage" layoutX="432.0" layoutY="271.0" mnemonicParsing="false" onAction="#uploadImage" text="Upload Image" />
          </children>
       </AnchorPane>
