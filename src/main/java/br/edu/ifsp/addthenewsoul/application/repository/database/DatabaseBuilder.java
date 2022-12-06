@@ -96,7 +96,7 @@ public class DatabaseBuilder {
         builder.append("asset_id INTEGER NOT NULL, \n");
         builder.append("inventory_id TEXT NOT NULL, \n");
         builder.append("location_id INTEGER, \n");
-        builder.append("inventory_manager_reg INTEGER NOT NULL, \n");
+        builder.append("inventory_manager_reg INTEGER, \n");
         builder.append("employee_reg TEXT, \n");
 
         builder.append("description TEXT NOT NULL, \n");

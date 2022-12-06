@@ -71,12 +71,12 @@ public class SQLiteInventoryDAO implements InventoryDAO {
 
     private boolean addAsset(String inventoryId, InventoryAsset inventoryAsset) {
         String sql = """
-                INSERT INTO InventoryAssets (
+                INSERT INTO InventoryAsset (
                     asset_id,
                     inventory_id,
                     location_id,
                     inventory_manager_reg,
-                    employee_reg
+                    employee_reg,
                     description,
                     value,
                     damage,

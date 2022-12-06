@@ -1,6 +1,7 @@
 package br.edu.ifsp.addthenewsoul.domain.usecases.inventory;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.LocationStatus;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
@@ -29,7 +30,7 @@ public class StartInventoryUseCase {
 
     private void designateComission(List<Employee> employees) {
         employees.forEach(employee -> {
-            if (!employee.getRoles().contains(Role.INVENTORY_MANAGER)) {
+            if (employee.getRoles().contains(Role.INVENTORY_MANAGER)) {
                 throw new IllegalArgumentException("All employess must not have the INVENTORY_MANAGER role");
             }
         });
@@ -42,7 +43,9 @@ public class StartInventoryUseCase {
         List<InventoryAsset> inventoryAssets = assets.stream().map(InventoryAsset::createFromAsset).toList();
         for (InventoryAsset inventoryAsset : inventoryAssets) {
             inventoryAsset.setStatus(Status.NOT_VERIFIED);
+            inventoryAsset.setLocationStatus(LocationStatus.NONE);
         }
+
         return inventoryAssets;
     }
 
