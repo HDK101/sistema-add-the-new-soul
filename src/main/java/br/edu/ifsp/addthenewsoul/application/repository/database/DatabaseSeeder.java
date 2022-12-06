@@ -37,5 +37,17 @@ public class DatabaseSeeder {
                         .build()
         );
         System.out.println(reg1);
+        String reg2 = employeeDAO.add(
+                Employee.builder()
+                        .name("Caue")
+                        .email("caue@gmail.com")
+                        .hashPassword("$2y$10$PsNwhKinrm2SL5bvqlsQ6etCWCOxrXb8A/4rkw0QgMFR.T7Vqs7Yu")
+                        .phone("(16) 99333-333")
+                        .registrationNumber("REG980")
+                        .roles(EnumSet.of(Role.EXECUTOR))
+                        .build()
+        );
+        System.out.println(reg2);
+
     }
 }
