@@ -87,11 +87,15 @@ public class StartInventoryUIController {
     @FXML
     private TableColumn<Asset, Employee> cEmployeeInChargeAsset;
 
+    @FXML
+    private DatePicker dpEndDateInventory;
+
     private ObservableList<Employee> tableDataEmployees;
     private ObservableList<Asset> tableDataAsset;
     private List<Employee> employeesComission = new ArrayList<>();
     private List<Asset> assets = new ArrayList<>();
     private String lblEmployees = "";
+    private String lblAssets = "";
 
     @FXML
     private void initialize(){
@@ -119,10 +123,9 @@ public class StartInventoryUIController {
 
         cIdAsset.setCellValueFactory(new PropertyValueFactory<>("id"));
         cDescriptionAsset.setCellValueFactory(new PropertyValueFactory<>("description"));
-        //falta adicionar essa coluna de valor na tabela do sqlite de assets
-        //cValueAsset.setCellValueFactory(new PropertyValueFactory<>("value"));
-        cEmployeeInChargeAsset.setCellValueFactory(new PropertyValueFactory<>("employee_reg"));
-        cLocationAsset.setCellValueFactory(new PropertyValueFactory<>("location_id"));
+        cValueAsset.setCellValueFactory(new PropertyValueFactory<>("value"));
+        cEmployeeInChargeAsset.setCellValueFactory(new PropertyValueFactory<>("employeeInCharge"));
+        cLocationAsset.setCellValueFactory(new PropertyValueFactory<>("location"));
 
     }
 
@@ -142,6 +145,7 @@ public class StartInventoryUIController {
 
     public void addNewComissionMember(ActionEvent actionEvent) {
         Employee employee = tableViewEmployees.getSelectionModel().getSelectedItem();
+        employeesComission.add(employee);
         lblEmployees += employee.getName() + ", ";
         lblComissionMembers.setText(lblEmployees);
     }
@@ -150,16 +154,12 @@ public class StartInventoryUIController {
     void removeComissionMember(ActionEvent event) {
         Employee employee = tableViewEmployees.getSelectionModel().getSelectedItem();
         employeesComission.remove(employee);
-        String employeeName = employee.getName();
-        List<String> newLblEmployees = List.of(lblEmployees.split(", "));
-        System.out.println(newLblEmployees);
-        //CORRIGIR
-        /*
-        for(String piece : newLblEmployees){
-            if(piece.equals(employeeName))
-                newLblEmployees.replace(employeeName, "");
-
-        }*/
+        lblComissionMembers.setText("");
+        for(Employee e : employeesComission){
+            lblEmployees = e.getName() + ", ";
+        }
+        System.out.println(lblEmployees);
+        lblComissionMembers.setText(lblEmployees);
     }
 
 
@@ -168,15 +168,24 @@ public class StartInventoryUIController {
         StartInventoryUseCase startInventoryUseCase = UseCases.getInstance().startInventoryUseCase;
         Asset asset = tableViewAssets.getSelectionModel().getSelectedItem();
         assets.add(asset);
+        lblAssets += asset.getId() + ", ";
+        lblInventoryAssets.setText(lblAssets);
         startInventoryUseCase.createInventoryAssets(assets);
-        lblInventoryAssets.setText(String.valueOf(asset.getId()));
+
+
     }
 
 
     @FXML
     void removeAssetFromInventory(ActionEvent event) {
-        StartInventoryUseCase startInventoryUseCase = UseCases.getInstance().startInventoryUseCase;
-
+        Asset asset = tableViewAssets.getSelectionModel().getSelectedItem();
+        assets.remove(asset);
+        lblInventoryAssets.setText("");
+        for(Asset a : assets){
+            lblAssets = a.getId() + ", ";
+        }
+        System.out.println(lblAssets);
+        lblInventoryAssets.setText(lblAssets);
     }
 
 
@@ -193,7 +202,7 @@ public class StartInventoryUIController {
         StartInventoryUseCase startInventoryUseCase = UseCases.getInstance().startInventoryUseCase;
         String nameInventory = txtNameInventory.getText();
         LocalDate initialDate = LocalDate.now();
-        LocalDate endDate = null;
+        LocalDate endDate = dpEndDateInventory.getValue();
         Employee comissionChief = cbComissionChief.getValue();
 
         startInventoryUseCase.initializeInventory(nameInventory, initialDate, endDate, employeesComission, comissionChief, assets);
