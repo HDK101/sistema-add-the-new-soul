@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.InventoryUIController">
    <children>
       <Label layoutX="204.0" layoutY="14.0" text="DETALHES DE INVENTÁRIO">
@@ -18,39 +17,39 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="18.0" layoutY="56.0" text="ID:" />
-      <Label layoutX="153.0" layoutY="56.0" text="NOME:" />
-      <Label layoutX="375.0" layoutY="56.0" text="PRESIDENTE:" />
-      <Label layoutX="18.0" layoutY="93.0" text="DATA DE INÍCIO:" />
-      <Label layoutX="290.0" layoutY="93.0" text="DATA DE CONCUSÃO:" />
-      <TextField layoutX="41.0" layoutY="52.0" prefHeight="25.0" prefWidth="94.0" />
-      <TextField layoutX="200.0" layoutY="52.0" />
-      <ComboBox layoutX="454.0" layoutY="52.0" prefHeight="25.0" prefWidth="129.0" />
-      <DatePicker layoutX="123.0" layoutY="89.0" prefHeight="25.0" prefWidth="154.0" />
-      <DatePicker layoutX="429.0" layoutY="89.0" prefHeight="25.0" prefWidth="154.0" />
-      <TableView layoutX="115.0" layoutY="126.0" prefHeight="104.0" prefWidth="471.0">
+      <Label layoutX="18.0" layoutY="56.0" text="Id:" />
+      <Label layoutX="153.0" layoutY="56.0" text="Nome:" />
+      <Label layoutX="375.0" layoutY="56.0" text="Presidente:" />
+      <Label layoutX="18.0" layoutY="93.0" text="Data de início:" />
+      <Label layoutX="309.0" layoutY="93.0" text="Data de conclusão:" />
+      <TextField fx:id="txtIdInventoryDetailed" layoutX="41.0" layoutY="52.0" prefHeight="25.0" prefWidth="94.0" />
+      <TextField fx:id="txtNomeInventoryDetailed" layoutX="200.0" layoutY="52.0" />
+      <ComboBox fx:id="cbComissionChiefInventoryDetailed" layoutX="454.0" layoutY="52.0" prefHeight="25.0" prefWidth="129.0" />
+      <DatePicker fx:id="dpInitialDateInventoryDetailed" layoutX="123.0" layoutY="89.0" prefHeight="25.0" prefWidth="154.0" />
+      <DatePicker fx:id="dpEndDataInventoryDetailed" layoutX="429.0" layoutY="89.0" prefHeight="25.0" prefWidth="154.0" />
+      <TableView fx:id="tableViewComissionMembers" layoutX="115.0" layoutY="126.0" prefHeight="104.0" prefWidth="471.0">
         <columns>
-          <TableColumn prefWidth="57.0" text="R.N." />
-          <TableColumn prefWidth="101.0" text="NOME" />
-            <TableColumn prefWidth="75.0" text="E-MAIL" />
-            <TableColumn prefWidth="95.0" text="TELEFONE" />
-            <TableColumn prefWidth="142.0" text="CARGOS" />
+          <TableColumn fx:id="cRNInventoryDetailed" prefWidth="57.0" text="R.N." />
+          <TableColumn fx:id="cNameInventoryDetailed" prefWidth="101.0" text="Nome" />
+            <TableColumn fx:id="cEmailInventoryDetailed" prefWidth="75.0" text="E-mail" />
+            <TableColumn fx:id="cPhoneInventoryDetailed" prefWidth="95.0" text="Telefone" />
+            <TableColumn fx:id="cRolesInventoryDetailed" prefWidth="142.0" text="Cargos" />
         </columns>
       </TableView>
       <Label layoutX="18.0" layoutY="144.0" text="COMISSÃO:" />
-      <TableView layoutX="115.0" layoutY="234.0" prefHeight="117.0" prefWidth="471.0">
+      <TableView fx:id="tableViewAssets" layoutX="115.0" layoutY="234.0" prefHeight="117.0" prefWidth="471.0">
         <columns>
-          <TableColumn prefWidth="50.0" text="ID" />
-          <TableColumn prefWidth="115.0" text="DESCRIÇÃO" />
-            <TableColumn prefWidth="115.0" text="LOCAL" />
-            <TableColumn prefWidth="112.0" text="RESPONSÁVEL" />
-            <TableColumn prefWidth="78.0" text="STATUS" />
+          <TableColumn fx:id="cIdAssetInventoryDetailed" prefWidth="50.0" text="Id" />
+          <TableColumn fx:id="cDescriptionInventoryDetailed" prefWidth="115.0" text="Descrição" />
+            <TableColumn fx:id="cLocalInventoryDetailed" prefWidth="115.0" text="Local" />
+            <TableColumn fx:id="cEmployeeInChargeInventoryDetailed" prefWidth="112.0" text="Responsável" />
+            <TableColumn fx:id="cStatusInventoryDetailed" prefWidth="78.0" text="Status" />
         </columns>
       </TableView>
       <Label layoutX="23.0" layoutY="259.0" text="BENS:" />
-      <Button layoutX="519.0" layoutY="361.0" mnemonicParsing="false" text="SALVAR" />
-      <Button layoutX="429.0" layoutY="361.0" mnemonicParsing="false" text="CANCELAR" />
-      <Button layoutX="11.0" layoutY="293.0" mnemonicParsing="false" text="AVALIAR BEM" />
-      <Button layoutX="12.0" layoutY="166.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="EDITAR " />
+      <Button fx:id="btnSaveInventoryDetailed" layoutX="534.0" layoutY="361.0" mnemonicParsing="false" onAction="#saveInventory" text="Salvar" />
+      <Button fx:id="btnCancelInventoryDetailed" layoutX="460.0" layoutY="361.0" mnemonicParsing="false" onAction="#goBack" text="Cancelar" />
+      <Button fx:id="btnEvaluateAssetInventoryDetailed" layoutX="11.0" layoutY="293.0" mnemonicParsing="false" onAction="#evaluateAsset" text="Avaliar bem" />
+      <Button fx:id="btnEditComissionInventoryDetailed" layoutX="12.0" layoutY="166.0" mnemonicParsing="false" onAction="#editComissionMembers" prefHeight="25.0" prefWidth="94.0" text="Editar" />
    </children>
 </AnchorPane>

@@ -19,10 +19,23 @@ public class DatabaseSeeder {
                         .name("Vinicius")
                         .email("vinicius@gmail.com")
                         .hashPassword("$2y$10$NjQsT36YeV6TdeLLntUus.t.37KgOXVcgohrmSVIVRxGKFkV42zvC")
+                        .phone("(16) 99111-1111")
                         .registrationNumber("REG456")
                         .roles(EnumSet.of(Role.EXECUTOR))
                         .build()
         );
         System.out.println(reg);
+
+        String reg1 = employeeDAO.add(
+                Employee.builder()
+                        .name("Isabela")
+                        .email("isabela@gmail.com")
+                        .hashPassword("$2y$10$CeErrZWHe0CmjL35InDs1OfuBahG/N.XkXSnBG0zcVnPbHhVPn3ba")
+                        .phone("(16) 99222-2222")
+                        .registrationNumber("REG789")
+                        .roles(EnumSet.of(Role.EXECUTOR))
+                        .build()
+        );
+        System.out.println(reg1);
     }
 }
