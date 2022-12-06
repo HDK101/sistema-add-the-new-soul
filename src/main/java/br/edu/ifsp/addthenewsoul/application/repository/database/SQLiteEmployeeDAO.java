@@ -42,12 +42,9 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
             stmt.execute();
             ResultSet resultSet = stmt.getResultSet();
 
-            if (resultSet.next()) {
-                employee = ResultToEmployee.convert(resultSet);
-                employee.addRole(Role.valueOf(resultSet.getString("er_role")));
-                while (resultSet.next()) {
-                    employee.addRole(Role.valueOf(resultSet.getString("er_role")));
-                }
+            while (resultSet.next()) {
+                if (employee == null) employee = ResultToEmployee.convert(resultSet);
+                if (resultSet.getString("er_role") != null) employee.addRole(Role.valueOf(resultSet.getString("er_role")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,7 +77,7 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
 
             while (resultSet.next()) {
                 if (employee == null) employee = ResultToEmployee.convert(resultSet);
-                employee.addRole(Role.valueOf(resultSet.getString("er_role")));
+                if (resultSet.getString("er_role") != null) employee.addRole(Role.valueOf(resultSet.getString("er_role")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -225,14 +222,14 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
             }
 
             connection.commit();
+            connection.setAutoCommit(true);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return employee.getRegistrationNumber();
     }
 
-    @Override
-    public boolean update(Employee employee) {
+    private boolean updateEmployee(Employee employee) {
         String sql = """
                 UPDATE Employee set
                     name = ?,
@@ -247,7 +244,34 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
             stmt.setString(3, employee.getPhone());
             stmt.setString(4, employee.getHashPassword());
             stmt.setString(5, employee.getRegistrationNumber());
-            return stmt.execute();
+            stmt.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean update(Employee employee) {
+        Connection connection = Database.getConnection();
+
+        try {
+            connection.setAutoCommit(false);
+
+            boolean employeeUpdateSuccess = updateEmployee(employee);
+            boolean employeeRolesPutSuccess = this.putRoles(employee);
+
+            System.out.println(employeeUpdateSuccess);
+            System.out.println(employeeRolesPutSuccess);
+
+            if (!employeeUpdateSuccess || !employeeRolesPutSuccess) {
+                connection.rollback();
+            }
+
+            connection.commit();
+            connection.setAutoCommit(true);
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -279,8 +303,7 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
                     e.email AS e_email,
                     er.role AS er_role
                 FROM Employee e
-                LEFT JOIN EmployeeRole er
-                WHERE e.registration_number = er.employee_reg
+                LEFT JOIN EmployeeRole er ON e.registration_number = er.employee_reg
                 """;
         Map<String, Employee> employeeMap = new HashMap<>();
 
@@ -294,7 +317,7 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
                     employeeMap.put(registrationNumber, ResultToEmployee.convert(resultSet));
                 }
                 Employee employee = employeeMap.get(registrationNumber);
-                employee.addRole(Role.valueOf(resultSet.getString("er_role")));
+                if (resultSet.getString("er_role") != null) employee.addRole(Role.valueOf(resultSet.getString("er_role")));
             }
         } catch (SQLException e) {
             e.printStackTrace();

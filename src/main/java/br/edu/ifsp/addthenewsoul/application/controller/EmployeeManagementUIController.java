@@ -93,7 +93,6 @@ public class EmployeeManagementUIController {
     private void loadDataAndShow() {
         FindEmployeeUseCase findEmployeeUseCase = UseCases.getInstance().findEmployeeUseCase;
         List<Employee> employees = findEmployeeUseCase.findAll();
-        System.out.println(employees);
         tableDataEmployees.clear();
         if(employees != null)
             tableDataEmployees.addAll(employees);
@@ -102,6 +101,8 @@ public class EmployeeManagementUIController {
     @FXML
     void addNewEmployee(ActionEvent event) throws IOException {
         WindowLoader.setRoot("EmployeeUI");
+        EmployeeUIController controller = (EmployeeUIController) WindowLoader.getController();
+        controller.createEmployee();
     }
 
     @FXML

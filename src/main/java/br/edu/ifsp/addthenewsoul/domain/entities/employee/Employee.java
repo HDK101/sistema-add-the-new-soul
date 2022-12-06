@@ -6,6 +6,7 @@ import lombok.Builder;
 
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Builder
@@ -71,7 +72,6 @@ public class Employee implements CSVNode {
     public void addRole(Role role) {
         this.roles.add(role);
         updateRoleDescription();
-        System.out.println(this.rolesDescription);
     }
 
     public void removeRole(Role role) {
@@ -139,5 +139,18 @@ public class Employee implements CSVNode {
         sb.append(", role=").append(roles);
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return registrationNumber.equals(employee.registrationNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(registrationNumber);
     }
 }
