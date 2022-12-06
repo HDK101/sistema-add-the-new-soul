@@ -67,7 +67,7 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
                     e.email AS e_email,
                     er.role AS er_role
                 FROM Employee e
-                LEFT JOIN EmployeeRole er ON e.registration_number = er.registration_number
+                LEFT JOIN EmployeeRole er ON e.registration_number = er.employee_reg
                 WHERE e.email = ?
                 """;
 
