@@ -86,6 +86,39 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
         return Optional.ofNullable(employee);
     }
 
+    @Override
+    public Employee findByName(String name) {
+        String sql = """
+                SELECT
+                    e.registration_number AS e_registration_number,
+                    e.name AS e_name,
+                    e.phone as e_phone,
+                    e.hash_password AS e_hash_password,
+                    e.email AS e_email,
+                    er.role AS er_role
+                FROM Employee e
+                LEFT JOIN EmployeeRole er ON e.registration_number = er.employee_reg
+                WHERE e.email = ?
+                """;
+
+        Employee employee = null;
+
+        try(PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+            stmt.setString(1, name);
+            stmt.execute();
+            ResultSet resultSet = stmt.getResultSet();
+
+            if (resultSet.next()) {
+                employee = ResultToEmployee.convert(resultSet);
+                employee.addRole(Role.valueOf(resultSet.getString("er_role")));
+                return employee;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public BulkAddResponse bulkAddItem(Employee employee) {
             String sql = """
                 INSERT INTO Employee (

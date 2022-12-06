@@ -28,6 +28,11 @@ public class InMemoryEmployeeDAO implements EmployeeDAO {
     }
 
     @Override
+    public Employee findByName(String name) {
+        return null;
+    }
+
+    @Override
     public String add(Employee employee) {
         dbMemoryEmployee.put(employee.getRegistrationNumber(), employee);
         return employee.getRegistrationNumber();

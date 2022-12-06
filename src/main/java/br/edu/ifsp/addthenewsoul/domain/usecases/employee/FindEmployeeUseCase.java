@@ -20,6 +20,12 @@ public class FindEmployeeUseCase {
         return employeeDAO.findByRegistrationNumber(registrationNumber);
     }
 
+    public Employee findByName (String name) {
+        if (Validator.nullOrEmpty(name))
+            throw new EntityNotFoundException("Employee not found. Name cannot be null or empty.");
+        return employeeDAO.findByName(name);
+    }
+
     public List<Employee> findAll () {
         return employeeDAO.findAll();
     }

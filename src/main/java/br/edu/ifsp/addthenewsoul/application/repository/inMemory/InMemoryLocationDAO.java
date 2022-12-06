@@ -28,6 +28,11 @@ public class InMemoryLocationDAO implements LocationDAO {
     }
 
     @Override
+    public Location findBySectionAndNumber(Integer number, String section) {
+        return null;
+    }
+
+    @Override
     public boolean haveAssets(List<Asset> assets, Location location) {
         for (Asset asset : assets) {
             if (asset.getLocation() != null && asset.getLocation().getId().equals(location.getId()))

@@ -20,10 +20,6 @@ public class AddAssetUseCase {
         if (notification.hasErrors())
             throw new IllegalArgumentException(notification.errorMessage());
 
-        Integer id = asset.getId();
-        if (assetDAO.findById(id).isPresent())
-            throw new EntityAlreadyExistsException("This asset id is already in use");
-
         return assetDAO.add(asset);
     }
 }
