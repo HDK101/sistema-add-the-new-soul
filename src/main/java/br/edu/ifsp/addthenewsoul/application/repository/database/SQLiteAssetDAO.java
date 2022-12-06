@@ -3,6 +3,7 @@ package br.edu.ifsp.addthenewsoul.application.repository.database;
 import br.edu.ifsp.addthenewsoul.application.repository.database.results.ResultToAsset;
 import br.edu.ifsp.addthenewsoul.application.repository.database.results.ResultToEmployee;
 import br.edu.ifsp.addthenewsoul.application.repository.database.results.ResultToInventoryAsset;
+import br.edu.ifsp.addthenewsoul.application.repository.database.results.ResultToLocation;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.LocationStatus;
@@ -26,6 +27,30 @@ public class SQLiteAssetDAO implements AssetDAO {
         asset.setEmployeeInCharge(employee);
         asset.setInventoryAsset(inventoryAsset);
 
+        return asset;
+    }
+
+    private Asset resultSetToEntityWithLocationAndEmployee(ResultSet rs) throws SQLException {
+        Asset asset = ResultToAsset.convert(rs);
+        Employee employee = rs.getString("e_registration_number") != null ? ResultToEmployee.convert(rs) : null;
+        Location location = rs.getInt("l_id") != 0 ? ResultToLocation.convert(rs) : null;
+        asset.setEmployeeInCharge(employee);
+        asset.setLocation(location);
+        System.out.println(asset.getEmployeeInCharge());
+        return asset;
+    }
+
+    private Asset resultSetToEntityWithLocation(ResultSet rs) throws SQLException {
+        Asset asset = ResultToAsset.convert(rs);
+        Location location = rs.getInt("l_id") != 0 ? ResultToLocation.convert(rs) : null;
+        asset.setLocation(location);
+        return asset;
+    }
+
+    private Asset resultSetToEntityWithEmployee(ResultSet rs) throws SQLException {
+        Asset asset = ResultToAsset.convert(rs);
+        Employee employee = rs.getString("e_registration_number") != null ? ResultToEmployee.convert(rs) : null;
+        asset.setEmployeeInCharge(employee);
         return asset;
     }
 
@@ -86,6 +111,7 @@ public class SQLiteAssetDAO implements AssetDAO {
                 a.employee_reg AS a_employee_reg,
                 a.damage AS a_damage,
                 a.status AS a_status,
+                a.value AS a_value,
                 a.location_id AS a_location_id,
                 a.location_status AS a_location_status
             FROM Asset a
@@ -107,17 +133,114 @@ public class SQLiteAssetDAO implements AssetDAO {
 
     @Override
     public List<Asset> filterByLocation(Location location) {
-        return null;
+        String sql = """
+            SELECT
+                a.id AS a_id,
+                a.description AS a_description,
+                a.employee_reg AS a_employee_reg,
+                a.value AS a_value,
+                a.damage AS a_damage,
+                a.status AS a_status,
+                a.location_id AS a_location_id,
+                a.location_status AS a_location_status,
+                
+                l.id AS l_id,
+                l.section AS l_section,
+                l.number AS l_number
+            FROM Asset a
+            INNER JOIN Location l ON l.id = a.location_id
+        """;
+        Asset asset = null;
+        List<Asset> assets = new ArrayList<>();
+        try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                asset = resultSetToEntityWithLocation(resultSet);
+                assets.add(asset);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return assets;
     }
 
     @Override
     public List<Asset> filterByEmployee(Employee employee) {
-        return null;
+        String sql = """
+            SELECT
+                a.id AS a_id,
+                a.description AS a_description,
+                a.employee_reg AS a_employee_reg,
+                a.value AS a_value,
+                a.damage AS a_damage,
+                a.status AS a_status,
+                a.location_id AS a_location_id,
+                a.location_status AS a_location_status,
+                
+                e.registration_number AS e_registration_number,
+                e.name AS e_name,
+                e.phone as e_phone,
+                e.hash_password AS e_hash_password,
+                e.email AS e_email
+            FROM Asset a
+            INNER JOIN Employee e ON e.registration_number = a.employee_reg
+        """;
+        Asset asset = null;
+        List<Asset> assets = new ArrayList<>();
+        try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                asset = resultSetToEntityWithEmployee(resultSet);
+                assets.add(asset);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return assets;
     }
 
     @Override
     public List<Asset> filterByLocationAndEmployee(Location location, Employee employee) {
-        return null;
+        String sql = """
+            SELECT
+                a.id AS a_id,
+                a.description AS a_description,
+                a.employee_reg AS a_employee_reg,
+                a.value AS a_value,
+                a.damage AS a_damage,
+                a.status AS a_status,
+                a.location_id AS a_location_id,
+                a.location_status AS a_location_status,
+                
+                l.id AS l_id,
+                l.section AS l_section,
+                l.number AS l_number,
+                
+                e.registration_number AS e_registration_number,
+                e.name AS e_name,
+                e.phone as e_phone,
+                e.hash_password AS e_hash_password,
+                e.email AS e_email
+            FROM Asset a
+            INNER JOIN Location l ON l.id = a.location_id
+            INNER JOIN Employee e ON e.registration_number = a.employee_reg
+        """;
+        Asset asset = null;
+
+        List<Asset> assets = new ArrayList<>();
+        try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                asset = resultSetToEntityWithLocationAndEmployee(resultSet);
+                assets.add(asset);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return assets;
     }
 
     @Override
@@ -127,9 +250,13 @@ public class SQLiteAssetDAO implements AssetDAO {
                     description,
                     value,
                     status,
+                    employee_reg,
+                    location_id,
                     location_status,
                     damage
                 ) VALUES (
+                    ?,
+                    ?,
                     ?,
                     ?,
                     ?,
@@ -141,8 +268,10 @@ public class SQLiteAssetDAO implements AssetDAO {
             stmt.setString(1, asset.getDescription());
             stmt.setDouble(2, asset.getValue());
             stmt.setString(3, asset.getStatus().toString());
-            stmt.setString(4, LocationStatus.NONE.toString());
-            stmt.setString(5, asset.getDamage());
+            stmt.setString(4, asset.getEmployeeInCharge().getRegistrationNumber());
+            stmt.setInt(5, asset.getLocation().getId());
+            stmt.setString(6, LocationStatus.NONE.toString());
+            stmt.setString(7, null);
             stmt.execute();
             ResultSet rs = stmt.getGeneratedKeys();
             return rs.getInt(1);
@@ -169,12 +298,12 @@ public class SQLiteAssetDAO implements AssetDAO {
     @Override
     public synchronized boolean update(Asset asset) {//SQLITE
         String sql = """
-            UPDATE Asset set 
+            UPDATE Asset set
                 description = ?,
-                employee_reg = ?, 
+                employee_reg = ?,
                 value = ?,
                 damage = ?,
-                location = ?,
+                location_id = ?,
                 status = ?
             WHERE id = ?
         """;
@@ -188,7 +317,9 @@ public class SQLiteAssetDAO implements AssetDAO {
 
             stmt.setDouble(3, asset.getValue());
             stmt.setString(4, asset.getDamage());
-            stmt.setString(5, asset.getLocation().fullLocation());
+            stmt.setInt(5, asset.getLocation().getId());
+            stmt.setString(6, asset.getStatus().toString());
+            stmt.setInt(7, asset.getId());
             stmt.execute();
             return true;
         } catch (SQLException e) {
@@ -214,22 +345,40 @@ public class SQLiteAssetDAO implements AssetDAO {
     public List<Asset> findAll() {
         String sql = """
             SELECT
-                a.id AS a_id, 
+                a.id AS a_id,
                 a.description AS a_description,
                 a.employee_reg AS a_employee_reg,
                 a.value AS a_value,
                 a.damage AS a_damage,
                 a.status AS a_status,
                 a.location_id AS a_location_id,
-                a.location_status AS a_location_status
+                a.location_status AS a_location_status,
+                
+                l.id AS l_id,
+                l.section AS l_section,
+                l.number AS l_number,
+                
+                e.registration_number AS e_registration_number,
+                e.name AS e_name,
+                e.phone as e_phone,
+                e.hash_password AS e_hash_password,
+                e.email AS e_email,
+                
+                er.employee_reg AS er_employee_reg,
+                er.role AS er_role
             FROM Asset a
+            LEFT JOIN Location l ON l.id = a.location_id
+            LEFT JOIN Employee e ON e.registration_number = a.employee_reg
+            LEFT JOIN EmployeeRole er ON er.employee_reg = e.registration_number
         """;
+        Asset asset = null;
+
         List<Asset> assets = new ArrayList<>();
         try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
             ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()) {
-                Asset asset = ResultToAsset.convert(resultSet);
+                asset = resultSetToEntityWithLocationAndEmployee(resultSet);
                 assets.add(asset);
             }
         } catch (SQLException e) {

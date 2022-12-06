@@ -51,7 +51,8 @@ public class DatabaseBuilder {
         builder.append("status TEXT NOT NULL DEFAULT 'NOT_VERIFIED', \n");
         builder.append("location_id INTEGER, \n");
         builder.append("location_status TEXT NOT NULL DEFAULT 'NONE', \n");
-        builder.append("FOREIGN KEY(employee_reg) REFERENCES Employee(registration_number)\n");
+        builder.append("FOREIGN KEY(employee_reg) REFERENCES Employee(registration_number), \n");
+        builder.append("FOREIGN KEY(location_id) REFERENCES Location(id)\n");
         builder.append("); \n");
 
         System.out.println(builder);

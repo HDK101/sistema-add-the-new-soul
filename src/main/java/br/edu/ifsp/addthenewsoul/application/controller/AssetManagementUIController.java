@@ -7,28 +7,35 @@ import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.usecases.UseCases;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.ExportAssetCSVUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.ImportAssetCSVUseCase;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static br.edu.ifsp.addthenewsoul.domain.usecases.UseCases.*;
 
 public class AssetManagementUIController {
 
+    @FXML
+    public RadioButton rbId;
+    @FXML
+    public RadioButton rbLocation;
+    @FXML
+    public RadioButton rbEmployeeInCharge;
+    @FXML
+    public RadioButton rbLocationAndEmployee;
     @FXML
     private TableView<Asset> tableView;
     @FXML
@@ -155,9 +162,34 @@ public class AssetManagementUIController {
     }
 
     public void find(ActionEvent actionEvent) {
+        List<Asset> filterAssets = new ArrayList<>();
+        String textLocation = txtFilter.getText();
+        String[] section_number = textLocation.split(" ");
+        System.out.println(Arrays.toString(section_number));
+        String section = section_number[0] + " " + section_number[1];
+        Integer number = Integer.valueOf(section_number[2]);
+        Employee employee = getInstance().findEmployeeUseCase.findByName(txtFilter.getText());
+        Location location = getInstance().findLocationUseCase.findBySectionAndNumber(section, number);
+        System.out.println(location);
+        System.out.println(employee);
+        if (rbLocation.isSelected()) {
+            filterAssets = getInstance().filterAssetsUseCase.filterAssetsByLocal(location);
+            System.out.println(filterAssets);
+        }
+        if (rbEmployeeInCharge.isSelected())
+            filterAssets = getInstance().filterAssetsUseCase.filterAssetsByEmployee(employee);
+        if (rbLocationAndEmployee.isSelected())
+            filterAssets = getInstance().filterAssetsUseCase.filterAssetsByLocationAndEmployee(location, employee);
+        loadDataFilterShow(filterAssets);
+    }
+
+    private void loadDataFilterShow(List<Asset> filters) {
+        tableData.clear();
+        tableData.addAll(filters);
     }
 
     public void allAssets(ActionEvent actionEvent) {
+        loadDataAndShow();
     }
 
     public void addAsset(ActionEvent actionEvent) throws IOException {
@@ -170,6 +202,7 @@ public class AssetManagementUIController {
 
     public void removeAsset(ActionEvent actionEvent) {
         Asset selectedItem = tableView.getSelectionModel().getSelectedItem();
+        System.out.println(selectedItem);
         if (selectedItem != null) {
             getInstance().removeAssetUseCase.removeAsset(selectedItem);
             loadDataAndShow();
@@ -179,7 +212,7 @@ public class AssetManagementUIController {
     private void showBookInMode(UIMode mode) throws IOException {
         Asset selectedItem = tableView.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
-            WindowLoader.setRoot("BookUI");
+            WindowLoader.setRoot("AssetUI");
             AssetUIController controller = (AssetUIController) WindowLoader.getController();
             controller.setBook(selectedItem, mode);
         }

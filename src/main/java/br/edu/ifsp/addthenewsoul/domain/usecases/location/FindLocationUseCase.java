@@ -20,6 +20,18 @@ public class FindLocationUseCase {
         return locationDAO.findById(id);
     }
 
+    public Optional<Location> findByLocation (Integer number, String section) {
+        if (Validator.nullOrEmpty(String.valueOf(number)) || Validator.nullOrEmpty(section))
+            throw new EntityNotFoundException("Location not found. ID cannot be null or empty.");
+        return locationDAO.findByLocation(number, section);
+    }
+
+    public Location findBySectionAndNumber (String section, Integer number) {
+        if (Validator.nullOrEmpty(String.valueOf(number)) || Validator.nullOrEmpty(section))
+            throw new EntityNotFoundException("Location not found. ID cannot be null or empty.");
+        return locationDAO.findBySectionAndNumber(number, section);
+    }
+
     public List<Location> findAll () {
         return locationDAO.findAll();
     }
