@@ -118,8 +118,4 @@ public class EmployeeUIController {
                 ckInventorymanager.setSelected(true);
         }
     }
-
-    public void uploadImage(ActionEvent actionEvent) {
-        //optional
-    }
 }

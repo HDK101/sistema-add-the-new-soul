@@ -38,7 +38,7 @@ public class StartInventoryUseCase {
         });
     }
 
-    private List<InventoryAsset> createInventoryAssets(List<Asset> assets) {
+    public List<InventoryAsset> createInventoryAssets(List<Asset> assets) {
         List<InventoryAsset> inventoryAssets = assets.stream().map(InventoryAsset::createFromAsset).toList();
         for (InventoryAsset inventoryAsset : inventoryAssets) {
             inventoryAsset.setStatus(Status.NOT_VERIFIED);
