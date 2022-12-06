@@ -7,6 +7,7 @@ import br.edu.ifsp.addthenewsoul.domain.usecases.UseCases;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.AddEmployeeUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.FindEmployeeUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.UpdateEmployeeUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -39,13 +40,7 @@ public class EmployeeUIController {
     private TextField txtRegistrationNumber;
 
     @FXML
-    private CheckBox ckComissionChief;
-
-    @FXML
     private CheckBox ckExecutor;
-
-    @FXML
-    private CheckBox ckInventorymanager;
 
     private Employee employee;
 
@@ -71,9 +66,7 @@ public class EmployeeUIController {
     }
 
     private void getEntityFromView() {
-        if (employee == null) {
-            setEmployeeRoles();
-        }
+        setEmployeeRoles();
         employee.setRegistrationNumber(txtRegistrationNumber.getText());
         employee.setName(txtNameEmployee.getText());
         employee.setPhone(txtPhoneEmployee.getText());
@@ -84,11 +77,10 @@ public class EmployeeUIController {
 
     private void setEmployeeRoles() {
         if (ckExecutor.isSelected())
-            employee.addRole(Role.valueOf(ckExecutor.getText()));
-        if(ckComissionChief.isSelected())
-            employee.addRole(Role.valueOf(ckComissionChief.getText()));
-        if(ckInventorymanager.isSelected())
-            employee.addRole(Role.valueOf(ckInventorymanager.getText()));
+            employee.addRole(Role.EXECUTOR);
+        else {
+            employee.removeRole(Role.EXECUTOR);
+        }
     }
 
     public void setEmployee(Employee employee, UIMode mode) {
@@ -99,8 +91,13 @@ public class EmployeeUIController {
         setEntityIntoView();
 
         txtRegistrationNumber.setDisable(true);
+    }
 
-
+    public void createEmployee() {
+        this.employee = Employee
+                .builder()
+                .roles(EnumSet.noneOf(Role.class))
+                .build();
     }
 
     private void setEntityIntoView() {
@@ -109,13 +106,12 @@ public class EmployeeUIController {
         txtPhoneEmployee.setText(employee.getPhone());
         txtEmailEmployee.setText(employee.getEmail());
         txtPasswordEmployee.setText(employee.getVirtualPassword());
-        for(Role role : employee.getRoles()){
-            if(role.equals(Role.valueOf("Inventariante")))
-                ckExecutor.setSelected(true);
-            if(role.equals(Role.valueOf("Presidente da comissão")))
-                ckComissionChief.setSelected(true);
-            if(role.equals(Role.valueOf("Almoxarife")))
-                ckInventorymanager.setSelected(true);
+
+        if (employee.hasRole(Role.EXECUTOR)) {
+            ckExecutor.setSelected(true);
         }
+
+        Employee loggedEmployee = Session.getInstance().getLoggedUser();
+        ckExecutor.setDisable(loggedEmployee.equals(employee));
     }
 }
