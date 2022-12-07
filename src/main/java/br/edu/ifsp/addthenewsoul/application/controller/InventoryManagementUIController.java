@@ -231,9 +231,10 @@ public class InventoryManagementUIController {
             return;
         }
 
-        finishInventoryUseCase.finalizeInventory(fullInventory);
 
+        finishInventoryUseCase.finalizeInventory(fullInventory);
         loadDataAndShow();
+
     }
 
     @FXML

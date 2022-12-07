@@ -48,6 +48,7 @@ public class Inventory {
         comissionPresident.removeRole(Role.CHAIRMAN_OF_THE_COMISSION);
         setEmployeeRolesToNormal();
         setInventoryStatus(InventoryStatus.CLOSED);
+
     }
 
     public boolean hasEmployeeInCommision(Employee employee) {
