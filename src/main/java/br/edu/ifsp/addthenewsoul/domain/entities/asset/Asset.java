@@ -6,6 +6,7 @@ import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
 import lombok.Builder;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Builder
@@ -138,5 +139,18 @@ public class Asset implements CSVNode {
                 .append(damage);
 
         return builder.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Asset asset = (Asset) o;
+        return id.equals(asset.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
