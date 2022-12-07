@@ -145,10 +145,8 @@ public class SQLiteInventoryDAO implements InventoryDAO {
                     president_reg,
                     initial_date,
                     end_date,
-                    inventory_asset_id
                     status
                 ) VALUES (
-                    ?,
                     ?,
                     ?,
                     ?,
@@ -214,7 +212,6 @@ public class SQLiteInventoryDAO implements InventoryDAO {
                     i.president_reg AS i_president_reg,
                     i.initial_date AS i_initial_date,
                     i.end_date AS i_end_date,
-                    i.inventory_asset_id AS i.inventory_asset_id,
                     i.status AS i_inventory_status
                 FROM Inventory i
                 """;

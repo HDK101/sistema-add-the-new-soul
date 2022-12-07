@@ -138,4 +138,7 @@ public class InventoryManagementUIController {
         WindowLoader.setRoot("StartInventoryUI");
     }
 
+    public void createReport(ActionEvent actionEvent) {
+
+    }
 }

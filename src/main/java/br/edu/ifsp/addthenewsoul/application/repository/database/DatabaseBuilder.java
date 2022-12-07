@@ -124,9 +124,9 @@ public class DatabaseBuilder {
         builder.append("name TEXT NOT NULL, \n");
         builder.append("president_reg TEXT NOT NULL, \n");
         builder.append("initial_date DATE NOT NULL, \n");
-        builder.append("status TEXT NOT NULL DEFAULT 'OPEN', \n");
         builder.append("end_date DATE, \n");
         builder.append("inventory_asset_id INTEGER, \n");
+        builder.append("status TEXT DEFAULT 'OPEN', \n");
         builder.append("FOREIGN KEY(president_reg) REFERENCES Employee(registration_number)\n");
         builder.append("FOREIGN KEY(inventory_asset_id) REFERENCES InventoryAsset(id)\n");
         builder.append("); \n");
@@ -144,7 +144,7 @@ public class DatabaseBuilder {
         builder.append("id_inventory INTEGER NOT NULL, \n");
         builder.append("employee_reg INTEGER NOT NULL, \n");
         builder.append("FOREIGN KEY(id_inventory) REFERENCES Inventory(id)\n");
-        builder.append("FOREIGN KEY(employee_reg) REFERENCES Employee(registrationNumber)\n");
+        builder.append("FOREIGN KEY(employee_reg) REFERENCES Employee(registration_number)\n");
         builder.append("); \n");
 
         System.out.println(builder);
