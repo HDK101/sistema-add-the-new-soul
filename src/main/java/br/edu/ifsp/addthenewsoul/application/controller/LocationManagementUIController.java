@@ -61,7 +61,7 @@ public class LocationManagementUIController {
     private void checkLoggedUserRole() {
         Employee employee = Session.getInstance().getLoggedUser();
 
-        if (!employee.hasRole(Role.EXECUTOR)) {
+        if (!employee.hasRole(Role.INVENTORY_MANAGER)) {
             btnAdd.setDisable(true);
             btnEdit.setDisable(true);
             btnRemove.setDisable(true);

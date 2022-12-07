@@ -30,12 +30,12 @@ public class StartInventoryUseCase {
 
     private void designateComission(List<Employee> employees) {
         employees.forEach(employee -> {
-            if (employee.getRoles().contains(Role.INVENTORY_MANAGER)) {
+            if (employee.getRoles().contains(Role.EXECUTOR)) {
                 throw new IllegalArgumentException("All employess must not have the INVENTORY_MANAGER role");
             }
         });
         employees.forEach(employee -> {
-            employee.addRole(Role.INVENTORY_MANAGER);
+            employee.addRole(Role.EXECUTOR);
         });
     }
 

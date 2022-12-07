@@ -39,7 +39,7 @@ public class Inventory {
 
     private void setEmployeeRolesToNormal() {
         for (Employee employee : comission) {
-            employee.removeRole(Role.INVENTORY_MANAGER);
+            employee.removeRole(Role.EXECUTOR);
         }
     }
 

@@ -19,7 +19,6 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -83,7 +82,7 @@ public class EmployeeManagementUIController {
     private void checkLoggedUserRole() {
         Employee employee = Session.getInstance().getLoggedUser();
 
-        if (!employee.hasRole(Role.EXECUTOR)) {
+        if (!employee.hasRole(Role.INVENTORY_MANAGER)) {
             btnAddNewEmployee.setDisable(true);
             btnEditEmployee.setDisable(true);
             btnRemoveEmployee.setDisable(true);

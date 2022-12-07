@@ -26,9 +26,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static br.edu.ifsp.addthenewsoul.domain.usecases.UseCases.*;
 
@@ -80,7 +78,7 @@ public class AssetManagementUIController {
     private void checkLoggedUserRole() {
         Employee employee = Session.getInstance().getLoggedUser();
 
-        if (!employee.hasRole(Role.EXECUTOR)) {
+        if (!employee.hasRole(Role.INVENTORY_MANAGER)) {
             btnImportCsv.setDisable(true);
             btnExportCsv.setDisable(true);
             btnAdd.setDisable(true);

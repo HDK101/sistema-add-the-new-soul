@@ -8,7 +8,6 @@ import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.usecases.UseCases;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.FindInventoryUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.FinishInventoryUseCase;
-import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.StartInventoryUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.InventoryStatus;
 import br.edu.ifsp.addthenewsoul.domain.usecases.report.IssueReportUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Session;
@@ -87,7 +86,7 @@ public class InventoryManagementUIController {
     private void checkLoggedUserRole() {
         Employee employee = Session.getInstance().getLoggedUser();
 
-        if (!employee.hasRole(Role.EXECUTOR)) {
+        if (!employee.hasRole(Role.INVENTORY_MANAGER)) {
             btnStartInventory.setDisable(true);
             btnFinishInventory.setDisable(true);
             btnDetailInventory.setDisable(true);

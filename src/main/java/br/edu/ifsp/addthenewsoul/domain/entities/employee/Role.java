@@ -1,12 +1,11 @@
 package br.edu.ifsp.addthenewsoul.domain.entities.employee;
 
 import java.util.Arrays;
-import java.util.EnumSet;
 
 public enum Role {
     CHAIRMAN_OF_THE_COMISSION("Presidente da comissão"),
-    INVENTORY_MANAGER("Inventariante"),
-    EXECUTOR("Almoxarife");
+    EXECUTOR("Inventariante"),
+    INVENTORY_MANAGER("Almoxarife");
 
     private final String name;
 

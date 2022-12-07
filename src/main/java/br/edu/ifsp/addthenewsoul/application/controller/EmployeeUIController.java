@@ -77,9 +77,9 @@ public class EmployeeUIController {
 
     private void setEmployeeRoles() {
         if (ckExecutor.isSelected())
-            employee.addRole(Role.EXECUTOR);
+            employee.addRole(Role.INVENTORY_MANAGER);
         else {
-            employee.removeRole(Role.EXECUTOR);
+            employee.removeRole(Role.INVENTORY_MANAGER);
         }
     }
 
@@ -107,7 +107,7 @@ public class EmployeeUIController {
         txtEmailEmployee.setText(employee.getEmail());
         txtPasswordEmployee.setText(employee.getVirtualPassword());
 
-        if (employee.hasRole(Role.EXECUTOR)) {
+        if (employee.hasRole(Role.INVENTORY_MANAGER)) {
             ckExecutor.setSelected(true);
         }
 
