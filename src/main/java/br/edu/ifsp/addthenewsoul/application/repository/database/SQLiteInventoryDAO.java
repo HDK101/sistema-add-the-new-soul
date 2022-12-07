@@ -1,10 +1,12 @@
 package br.edu.ifsp.addthenewsoul.application.repository.database;
 
 
+import br.edu.ifsp.addthenewsoul.application.repository.database.results.ResultToAsset;
 import br.edu.ifsp.addthenewsoul.application.repository.database.results.ResultToEmployee;
 import br.edu.ifsp.addthenewsoul.application.repository.database.results.ResultToInventory;
 import br.edu.ifsp.addthenewsoul.application.repository.database.results.ResultToInventoryAsset;
 
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
@@ -89,7 +91,7 @@ public class SQLiteInventoryDAO implements InventoryDAO {
                 }
                 if (resultSet.getString("ia_id") != null) {
 
-                    Asset asset = ResultToAsset.convert(resultSet) ;
+                    Asset asset = ResultToAsset.convert(resultSet);
                     InventoryAsset inventoryAsset = ResultToInventoryAsset.convert(resultSet);
                     inventoryAsset.setAsset(asset);
                     inventoryAssets.add(inventoryAsset);
@@ -104,10 +106,8 @@ public class SQLiteInventoryDAO implements InventoryDAO {
             }
             assert inventory != null;
             inventory.setAssets(inventoryAssets.stream().toList());
-
-            return Optional.of(inventory);
-
             inventory.setComission(commission.stream().toList());
+
             return Optional.ofNullable(inventory);
 
         } catch (Exception e) {
