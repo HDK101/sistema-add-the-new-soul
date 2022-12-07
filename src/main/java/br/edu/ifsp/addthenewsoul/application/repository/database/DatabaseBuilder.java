@@ -139,7 +139,7 @@ public class DatabaseBuilder {
     private static String createComissionTable() {
         StringBuilder builder = new StringBuilder();
 
-        builder.append("CREATE TABLE Comission (\n");
+        builder.append("CREATE TABLE Commission (\n");
         builder.append("id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, \n");
         builder.append("id_inventory INTEGER NOT NULL, \n");
         builder.append("employee_reg INTEGER NOT NULL, \n");

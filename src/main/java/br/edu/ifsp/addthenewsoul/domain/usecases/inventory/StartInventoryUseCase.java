@@ -11,6 +11,7 @@ import br.edu.ifsp.addthenewsoul.domain.usecases.utils.InventoryStatus;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.exceptions.InventoryInvalidPresidentException;
 
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Validator;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.exceptions.StartInventoryException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -31,7 +32,7 @@ public class StartInventoryUseCase {
     private void designateComission(List<Employee> employees) {
         employees.forEach(employee -> {
             if (employee.getRoles().contains(Role.EXECUTOR)) {
-                throw new IllegalArgumentException("All employess must not have the INVENTORY_MANAGER role");
+                throw new StartInventoryException("Todos os funcionários selecionados não devem ser inventariantes");
             }
         });
         employees.forEach(employee -> {
@@ -40,20 +41,27 @@ public class StartInventoryUseCase {
     }
 
     public List<InventoryAsset> createInventoryAssets(List<Asset> assets) {
+        assets.forEach(asset -> {
+            if (asset.getLocation() == null || asset.getEmployeeInCharge() == null) {
+                throw new StartInventoryException("O bem " + asset.getDescription() + " deve ter um local e um funcionário responsável");
+            }
+        });
+
         List<InventoryAsset> inventoryAssets = assets.stream().map(InventoryAsset::createFromAsset).toList();
-        for (InventoryAsset inventoryAsset : inventoryAssets) {
+
+        inventoryAssets.forEach(inventoryAsset -> {
             inventoryAsset.setStatus(Status.NOT_VERIFIED);
             inventoryAsset.setLocationStatus(LocationStatus.NONE);
-        }
+        });
 
         return inventoryAssets;
     }
 
     public void initializeInventory (String name, LocalDate initialDate, LocalDate endDate, List<Employee> employees,
                                      Employee comissionPresident, List<Asset> assets) {
-        if (!Validator.checkIfDateHasPassed(initialDate, endDate)) throw new IllegalArgumentException("Initial date is higher than end date");
-        if (!Validator.checkIfDateHasPassed(initialDate)) throw new IllegalArgumentException("Initial date is less than the current day");
-        if (inventoryDAO.getStatusFromInventories()) throw new IllegalArgumentException("There is currently an open inventory");
+        if (!Validator.checkIfDateHasPassed(initialDate, endDate)) throw new StartInventoryException("Data inicial é maior que o final");
+        if (!Validator.checkIfDateHasPassed(initialDate)) throw new StartInventoryException("Data inicial é menor que a data de hoje");
+        if (inventoryDAO.getStatusFromInventories()) throw new StartInventoryException("Já existe um inventário aberto");
         designateEmployeeAsPresident(comissionPresident);
         designateComission(employees);
         Inventory inventory = Inventory.builder()

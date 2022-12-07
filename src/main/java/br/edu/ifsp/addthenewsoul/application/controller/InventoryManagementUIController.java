@@ -2,6 +2,7 @@ package br.edu.ifsp.addthenewsoul.application.controller;
 
 
 import br.edu.ifsp.addthenewsoul.application.view.WindowLoader;
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
@@ -21,10 +22,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -108,11 +111,74 @@ public class InventoryManagementUIController {
     private void bindColumnsToValueSources() {
         cIdInventory.setCellValueFactory(new PropertyValueFactory<>("id"));
         cNameInventory.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        cChairmanInventory.setCellFactory(new Callback<>() {
+            @Override
+            public TableCell<Inventory, Employee> call(TableColumn<Inventory, Employee> param) {
+                return new TableCell<>() {
+                    @Override
+                    protected void updateItem(Employee item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (empty) this.setText(null);
+                        if (item != null) this.setText(item.getName());
+                    }
+                };
+            }
+        });
+
         cChairmanInventory.setCellValueFactory(new PropertyValueFactory<>("comissionPresident"));
+
+        cStartDateInventory.setCellFactory(new Callback<>() {
+            @Override
+            public TableCell<Inventory, LocalDate> call(TableColumn<Inventory, LocalDate> param) {
+                return new TableCell<>() {
+                    @Override
+                    protected void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (empty) this.setText(null);
+                        if (item != null) this.setText(item.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                    }
+                };
+            }
+        });
         cStartDateInventory.setCellValueFactory(new PropertyValueFactory<>("initialDate"));
+
+        cEndDateInventory.setCellFactory(new Callback<>() {
+            @Override
+            public TableCell<Inventory, LocalDate> call(TableColumn<Inventory, LocalDate> param) {
+                return new TableCell<>() {
+                    @Override
+                    protected void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (empty) this.setText(null);
+                        if (item != null) this.setText(item.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                    }
+                };
+            }
+        });
+
         cEndDateInventory.setCellValueFactory(new PropertyValueFactory<>("endDate"));
-        cCommission.setCellValueFactory(new PropertyValueFactory<>("comission"));
-        cAssets.setCellValueFactory(new PropertyValueFactory<>("assets"));
+        //cCommission.setCellValueFactory(new PropertyValueFactory<>("comission"));
+        //cAssets.setCellValueFactory(new PropertyValueFactory<>("assets"));
+
+        cStatusInventory.setCellFactory(new Callback<>() {
+            @Override
+            public TableCell<Inventory, InventoryStatus> call(TableColumn<Inventory, InventoryStatus> param) {
+                return new TableCell<>() {
+                    @Override
+                    protected void updateItem(InventoryStatus item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (empty) this.setText(null);
+                        if (item != null) this.setText(item.getDescription());
+                    }
+                };
+            }
+        });
+
         cStatusInventory.setCellValueFactory(new PropertyValueFactory<>("inventoryStatus"));
     }
 

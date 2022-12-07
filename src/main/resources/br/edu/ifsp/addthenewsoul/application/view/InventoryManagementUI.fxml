@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.InventoryManagementUIController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.InventoryManagementUIController">
    <children>
       <Label layoutX="202.0" layoutY="14.0" text="GERENCIAR INVENTÁRIO">
          <font>
@@ -18,8 +22,6 @@
             <TableColumn fx:id="cChairmanInventory" prefWidth="124.0" text="Presidente" />
             <TableColumn fx:id="cStartDateInventory" prefWidth="111.19998168945312" text="Data de início" />
             <TableColumn fx:id="cEndDateInventory" prefWidth="112.60003662109375" text="Data de conclusão" />
-            <TableColumn fx:id="cCommission" prefWidth="75.0" text="Comissão" />
-            <TableColumn fx:id="cAssets" prefWidth="91.19998168945312" text="Bens" />
             <TableColumn fx:id="cStatusInventory" prefWidth="77.60003662109375" text="Status" />
         </columns>
       </TableView>

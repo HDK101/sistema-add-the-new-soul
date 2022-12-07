@@ -6,22 +6,28 @@ import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
+import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
 import br.edu.ifsp.addthenewsoul.domain.usecases.UseCases;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.FindAssetUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.FindEmployeeUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.FindInventoryUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.StartInventoryUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.exceptions.StartInventoryException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StartInventoryUIController {
     @FXML
@@ -104,6 +110,19 @@ public class StartInventoryUIController {
         loadDataAndShow();
         FindEmployeeUseCase findEmployeeUseCase = UseCases.getInstance().findEmployeeUseCase;
         List<Employee> employees = findEmployeeUseCase.findAll();
+
+        cbComissionChief.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Employee object) {
+                if (object == null) return null;
+                return object.getName();
+            }
+
+            @Override
+            public Employee fromString(String string) {
+                return null;
+            }
+        });
         cbComissionChief.getItems().setAll(employees);
     }
 
@@ -124,7 +143,38 @@ public class StartInventoryUIController {
         cIdAsset.setCellValueFactory(new PropertyValueFactory<>("id"));
         cDescriptionAsset.setCellValueFactory(new PropertyValueFactory<>("description"));
         cValueAsset.setCellValueFactory(new PropertyValueFactory<>("value"));
+
+        cEmployeeInChargeAsset.setCellFactory(new Callback<>() {
+            @Override
+            public TableCell<Asset, Employee> call(TableColumn<Asset, Employee> param) {
+                return new TableCell<>() {
+                    @Override
+                    protected void updateItem(Employee item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (empty) this.setText(null);
+                        if (item != null) this.setText(item.getName());
+                    }
+                };
+            }
+        });
+
         cEmployeeInChargeAsset.setCellValueFactory(new PropertyValueFactory<>("employeeInCharge"));
+
+        cLocationAsset.setCellFactory(new Callback<>() {
+            @Override
+            public TableCell<Asset, Location> call(TableColumn<Asset, Location> param) {
+                return new TableCell<>() {
+                    @Override
+                    protected void updateItem(Location item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (empty) this.setText(null);
+                        if (item != null) this.setText(item.fullLocation());
+                    }
+                };
+            }
+        });
         cLocationAsset.setCellValueFactory(new PropertyValueFactory<>("location"));
 
     }
@@ -146,46 +196,41 @@ public class StartInventoryUIController {
     public void addNewComissionMember(ActionEvent actionEvent) {
         Employee employee = tableViewEmployees.getSelectionModel().getSelectedItem();
         employeesComission.add(employee);
-        lblEmployees += employee.getName() + ", ";
-        lblComissionMembers.setText(lblEmployees);
+        listEmployeesInLabel();
     }
 
     @FXML
     void removeComissionMember(ActionEvent event) {
         Employee employee = tableViewEmployees.getSelectionModel().getSelectedItem();
         employeesComission.remove(employee);
-        lblComissionMembers.setText("");
-        for(Employee e : employeesComission){
-            lblEmployees = e.getName() + ", ";
-        }
-        System.out.println(lblEmployees);
-        lblComissionMembers.setText(lblEmployees);
+        listEmployeesInLabel();
     }
 
 
     @FXML
     void addNewAssetToInventory(ActionEvent event) {
         StartInventoryUseCase startInventoryUseCase = UseCases.getInstance().startInventoryUseCase;
-        Asset asset = tableViewAssets.getSelectionModel().getSelectedItem();
-        assets.add(asset);
-        lblAssets += asset.getId() + ", ";
-        lblInventoryAssets.setText(lblAssets);
+        Asset selectedAsset = tableViewAssets.getSelectionModel().getSelectedItem();
+
+        assets.add(selectedAsset);
+
+        listAssetsInLabel();
         startInventoryUseCase.createInventoryAssets(assets);
-
-
     }
 
+    private void listAssetsInLabel() {
+        lblInventoryAssets.setText(assets.stream().map(asset -> asset.getId().toString()).collect(Collectors.joining(", ")));
+    }
+
+    private void listEmployeesInLabel() {
+        lblComissionMembers.setText(employeesComission.stream().map(Employee::getName).collect(Collectors.joining(", ")));
+    }
 
     @FXML
     void removeAssetFromInventory(ActionEvent event) {
         Asset asset = tableViewAssets.getSelectionModel().getSelectedItem();
         assets.remove(asset);
-        lblInventoryAssets.setText("");
-        for(Asset a : assets){
-            lblAssets = a.getId() + ", ";
-        }
-        System.out.println(lblAssets);
-        lblInventoryAssets.setText(lblAssets);
+        listAssetsInLabel();
     }
 
 
@@ -206,9 +251,21 @@ public class StartInventoryUIController {
         Employee comissionChief = cbComissionChief.getValue();
         System.out.println(comissionChief);
 
-
-
-        startInventoryUseCase.initializeInventory(nameInventory, initialDate, endDate, employeesComission, comissionChief, assets);
+        try {
+            startInventoryUseCase.initializeInventory(nameInventory, initialDate, endDate, employeesComission, comissionChief, assets);
+        } catch (StartInventoryException e) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Erro");
+            errorAlert.setContentText(e.getMessage());
+            errorAlert.showAndWait();
+            e.printStackTrace();
+        } catch (Exception e) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Erro");
+            errorAlert.setContentText("Erro interno");
+            errorAlert.showAndWait();
+            e.printStackTrace();
+        }
         WindowLoader.setRoot("InventoryManagementUI");
     }
 
