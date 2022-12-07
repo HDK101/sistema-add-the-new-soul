@@ -5,6 +5,7 @@ import br.edu.ifsp.addthenewsoul.application.view.WindowLoader;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
+import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.usecases.UseCases;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.FindInventoryUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.FinishInventoryUseCase;
@@ -27,7 +28,11 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import static br.edu.ifsp.addthenewsoul.domain.usecases.UseCases.*;
+
 public class InventoryManagementUIController {
+
+
     @FXML
     private Button btnAllInventories;
 
@@ -50,7 +55,9 @@ public class InventoryManagementUIController {
     private TableColumn<Inventory, Employee> cChairmanInventory;
 
     @FXML
-    private TableColumn<Inventory, List<Employee>> cComissionInventory;
+    public TableColumn<Inventory, List<Employee>> cCommission;
+
+    public TableColumn<Inventory, List<InventoryAsset>> cAssets;
 
     @FXML
     private TableColumn<Inventory, LocalDate> cEndDateInventory;
@@ -104,12 +111,13 @@ public class InventoryManagementUIController {
         cChairmanInventory.setCellValueFactory(new PropertyValueFactory<>("comissionPresident"));
         cStartDateInventory.setCellValueFactory(new PropertyValueFactory<>("initialDate"));
         cEndDateInventory.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+        cCommission.setCellValueFactory(new PropertyValueFactory<>("comission"));
+        cAssets.setCellValueFactory(new PropertyValueFactory<>("assets"));
         cStatusInventory.setCellValueFactory(new PropertyValueFactory<>("inventoryStatus"));
     }
 
     private void loadDataAndShow() {
-        FindInventoryUseCase findInventoryUseCase = UseCases.getInstance().findInventoryUseCase;
-        List<Inventory> inventories = findInventoryUseCase.findAll();
+        List<Inventory> inventories = getInstance().findInventoryUseCase.findAll();
         System.out.println(inventories);
         tableDataInventory.clear();
         if(inventories != null)
@@ -128,17 +136,16 @@ public class InventoryManagementUIController {
 
     @FXML
     void findInventoryById(ActionEvent event) {
-        FindInventoryUseCase findInventoryUseCase = UseCases.getInstance().findInventoryUseCase;
-        Optional<Inventory> inventory = findInventoryUseCase.findOne(txtIdInventory.getText());
+        Optional<Inventory> inventory = getInstance().findInventoryUseCase.findOne(txtIdInventory.getText());
         tableDataInventory.clear();
         tableDataInventory.add(inventory.orElseThrow());
     }
 
     @FXML
     void finishInventory(ActionEvent event) throws IOException {
-        FinishInventoryUseCase finishInventoryUseCase = UseCases.getInstance().finishInventoryUseCase;
         Inventory inventory = tableViewInventory.getSelectionModel().getSelectedItem();
-        finishInventoryUseCase.finalizeInventory(inventory, inventory.getComissionPresident());
+        System.out.println(tableViewInventory.getSelectionModel().getSelectedItem());
+        getInstance().finishInventoryUseCase.finalizeInventory(inventory, inventory.getComissionPresident());
         loadDataAndShow();
     }
 
