@@ -3,6 +3,7 @@ package br.edu.ifsp.addthenewsoul.application.controller;
 import br.edu.ifsp.addthenewsoul.application.view.WindowLoader;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.LocationStatus;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.usecases.UseCases;
@@ -62,6 +63,8 @@ public class AssetManagementUIController {
     @FXML
     private TableColumn<Asset, Location> cLocation;
     @FXML
+    public TableColumn<Asset, LocationStatus> cLocationStatus;
+    @FXML
     private TextField txtFilter;
 
     private ObservableList<Asset> tableData;
@@ -115,6 +118,7 @@ public class AssetManagementUIController {
         cValue.setCellValueFactory(new PropertyValueFactory<>("value"));
         cDamage.setCellValueFactory(new PropertyValueFactory<>("damage"));
         cLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
+        cLocationStatus.setCellValueFactory(new PropertyValueFactory<>("locationStatus"));
     }
 
     private void loadDataAndShow() {

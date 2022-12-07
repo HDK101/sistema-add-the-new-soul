@@ -24,6 +24,7 @@
             <TableColumn fx:id="cValue" prefWidth="85.0" text="Valor" />
             <TableColumn fx:id="cDamage" prefWidth="49.0" text="Dano" />
             <TableColumn fx:id="cLocation" prefWidth="208.0" text="Local" />
+            <TableColumn fx:id="cLocationStatus" prefWidth="208.0" text="Status Local" />
         </columns>
       </TableView>
       <Label layoutX="34.0" layoutY="58.0" text="Filtrar por ID:" />
