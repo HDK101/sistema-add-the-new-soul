@@ -30,13 +30,9 @@ public class UseCases {
     public RemoveLocationUseCase removeLocationUseCase;
 
     public AddAssetUseCase addAssetUseCase;
-
     public UpdateAssetUseCase updateAssetUseCase;
-
     public FindAssetUseCase findAssetUseCase;
-
     public RemoveAssetUseCase removeAssetUseCase;
-
     public FilterAssetsUseCase filterAssetsUseCase;
 
     public LoginEmployeeUseCase loginEmployeeUseCase;
@@ -88,6 +84,11 @@ public class UseCases {
         updateAssetUseCase = new UpdateAssetUseCase(assetDAO);
         removeAssetUseCase = new RemoveAssetUseCase(assetDAO);
         filterAssetsUseCase = new FilterAssetsUseCase(assetDAO);
+
+        startInventoryUseCase = new StartInventoryUseCase(inventoryDAO);
+        findInventoryUseCase = new FindInventoryUseCase(inventoryDAO);
+        finishInventoryUseCase = new FinishInventoryUseCase(inventoryDAO);
+        evaluateAssetUseCase = new EvaluateAssetUseCase(inventoryDAO);
 
         exportEmployeeCSVUseCase = new ExportEmployeeCSVUseCase(employeeCSV, employeeDAO);
         importEmployeeCSVUseCase = new ImportEmployeeCSVUseCase(employeeCSV, employeeDAO);
