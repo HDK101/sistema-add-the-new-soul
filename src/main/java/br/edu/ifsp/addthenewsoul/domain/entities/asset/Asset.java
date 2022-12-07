@@ -19,7 +19,6 @@ public class Asset implements CSVNode {
     private Location location;
     private LocationStatus locationStatus;
 
-    //Esse Status daqui vem InventoryAsset -> Asset. Nao e possivel trocar direto no Asset
     private Status status;
 
     private InventoryAsset inventoryAsset;

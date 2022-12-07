@@ -98,7 +98,7 @@ public class InventoryUIController {
     private Inventory selectedInventory;
 
     @FXML
-    private void initialize(){
+    private void initialize() {
         bindTableViewToItemsList();
         bindColumnsToValueSources();
         txtIdInventoryDetailed.setDisable(true);
@@ -126,7 +126,6 @@ public class InventoryUIController {
         cDescriptionInventoryDetailed.setCellValueFactory(new PropertyValueFactory<>("description"));
         //cLocalInventoryDetailed.setCellValueFactory(new PropertyValueFactory<>("location"));
         //cEmployeeInChargeInventoryDetailed.setCellValueFactory(new PropertyValueFactory<>("employeeInCharge"));
-
 
 
         cStatusInventoryDetailed.setCellFactory(new Callback<>() {
@@ -159,13 +158,21 @@ public class InventoryUIController {
     @FXML
     void evaluateAsset(ActionEvent event) throws IOException {
         InventoryAsset inventoryAsset = tableViewAssets.getSelectionModel().getSelectedItem();
-        if (inventoryAsset != null) {
-            WindowLoader.setRoot("AssetUI");
-            AssetUIController controller = (AssetUIController) WindowLoader.getController();
-            inventoryAsset.setInventoryManager(Session.getInstance().getLoggedUser());
-            inventoryAsset.setInventory(selectedInventory);
-            controller.setEvaluate(inventoryAsset, UIMode.EVALUATE);
+        if (inventoryAsset == null) return;
+
+        if (inventoryAsset.hasStatus(Status.VERIFIED)) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Erro");
+            errorAlert.setContentText("Bem já foi verificado");
+            errorAlert.showAndWait();
+            return;
         }
+
+        WindowLoader.setRoot("AssetUI");
+        AssetUIController controller = (AssetUIController) WindowLoader.getController();
+        inventoryAsset.setInventoryManager(Session.getInstance().getLoggedUser());
+        inventoryAsset.setInventory(selectedInventory);
+        controller.setEvaluate(inventoryAsset, UIMode.EVALUATE);
     }
 
     @FXML

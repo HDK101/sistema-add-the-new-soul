@@ -67,6 +67,11 @@ public class InMemoryAssetDAO implements AssetDAO {
     }
 
     @Override
+    public boolean evaluateAsset(Asset asset) {
+        return false;
+    }
+
+    @Override
     public Map<Integer, Asset> bulkAdd(List<Asset> items) {
         Map<Integer, Asset> assets = new HashMap<>();
 

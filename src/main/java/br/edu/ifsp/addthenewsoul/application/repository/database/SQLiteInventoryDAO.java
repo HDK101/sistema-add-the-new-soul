@@ -11,6 +11,7 @@ import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
+import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;
 
 import java.sql.*;
@@ -115,6 +116,29 @@ public class SQLiteInventoryDAO implements InventoryDAO {
         }
 
         return Optional.empty();
+    }
+
+    public boolean evaluateInventoryAsset(InventoryAsset asset) {
+        String sql = """
+                    UPDATE InventoryAsset set
+                        damage = ?,
+                        location_status = ?,
+                        status = ?
+                    WHERE id = ?
+                """;
+
+        try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+            stmt.setString(1, asset.getDamage());
+            stmt.setString(2, asset.getLocationStatus().toString());
+            stmt.setString(3, Status.VERIFIED.toString());
+            stmt.setInt(4, asset.getId());
+
+            stmt.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override

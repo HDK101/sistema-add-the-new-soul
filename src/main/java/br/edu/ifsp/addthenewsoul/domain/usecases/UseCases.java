@@ -88,7 +88,7 @@ public class UseCases {
         startInventoryUseCase = new StartInventoryUseCase(inventoryDAO);
         findInventoryUseCase = new FindInventoryUseCase(inventoryDAO);
         finishInventoryUseCase = new FinishInventoryUseCase(inventoryDAO);
-        evaluateAssetUseCase = new EvaluateAssetUseCase(inventoryDAO);
+        evaluateAssetUseCase = new EvaluateAssetUseCase(inventoryDAO, assetDAO);
 
         exportEmployeeCSVUseCase = new ExportEmployeeCSVUseCase(employeeCSV, employeeDAO);
         importEmployeeCSVUseCase = new ImportEmployeeCSVUseCase(employeeCSV, employeeDAO);

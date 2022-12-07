@@ -212,6 +212,28 @@ public class SQLiteAssetDAO implements AssetDAO {
     }
 
     @Override
+    public boolean evaluateAsset(Asset asset) {
+        String sql = """
+                    UPDATE Asset set
+                        damage = ?,
+                        location_status = ?
+                    WHERE id = ?
+                """;
+
+        try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+            stmt.setString(1, asset.getDamage());
+            stmt.setString(2, asset.getLocationStatus().toString());
+            stmt.setInt(3, asset.getId());
+
+            stmt.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
     public List<Asset> filterByLocationAndEmployee(Location location, Employee employee) {
         String sql = """
                     SELECT

@@ -197,7 +197,7 @@ public class AssetUIController {
         WindowLoader.setRoot("AssetManagementUI");
     }
 
-    public void evaluateAsset(ActionEvent actionEvent) {
+    public void evaluateAsset(ActionEvent actionEvent) throws IOException {
         System.out.println(inventoryAsset);
 
         getInstance().evaluateAssetUseCase.evaluateAsset(EvaluateData.builder()
@@ -206,5 +206,9 @@ public class AssetUIController {
                 .inventoryManager(inventoryAsset.getInventoryManager())
                 .inventoryAsset(inventoryAsset)
                 .build());
+
+        WindowLoader.setRoot("InventoryUI");
+        InventoryUIController inventoryUIController = (InventoryUIController) WindowLoader.getController();
+        inventoryUIController.setSelectedInventory(inventoryAsset.getInventory());
     }
 }

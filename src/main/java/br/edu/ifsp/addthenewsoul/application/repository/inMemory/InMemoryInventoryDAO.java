@@ -87,6 +87,7 @@ public class InMemoryInventoryDAO implements InventoryDAO {
 package br.edu.ifsp.addthenewsoul.application.repository.inMemory;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
+import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;
 
 import java.time.LocalDate;
@@ -106,6 +107,11 @@ public class InMemoryInventoryDAO implements InventoryDAO {
 
     @Override
     public boolean getStatusFromInventories() {
+        return false;
+    }
+
+    @Override
+    public boolean evaluateInventoryAsset(InventoryAsset asset) {
         return false;
     }
 

@@ -17,9 +17,6 @@ public class EvaluateData {
     private LocationStatus assetLocationStatus;
     private String damage;
 
-    public void isValid() {
-        if (damage != null && (assetLocationStatus != LocationStatus.CORRECT_LOCATION)) throw new IllegalStateException("assetLocationStatus can only be LocationStatus.NONE while damage is set");
-    }
     public Optional<InventoryAsset> getInventoryAsset() {
         return Optional.ofNullable(inventoryAsset);
     }

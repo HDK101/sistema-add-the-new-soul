@@ -15,4 +15,6 @@ public interface InventoryDAO extends DAO<Inventory, String> {
     void filterByPeriod(List<Inventory> all, LocalDate initialDate, LocalDate endDate);
 
     boolean getStatusFromInventories();
+
+    boolean evaluateInventoryAsset(InventoryAsset asset);
 }

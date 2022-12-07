@@ -110,6 +110,20 @@ public class InventoryAsset {
         this.locationStatus = locationStatus;
     }
 
+    public void applyEvaluation(String damage, LocationStatus locationStatus) {
+        this.damage = damage;
+        this.locationStatus = locationStatus;
+
+        if (asset != null) {
+            this.asset.setDamage(damage);
+            this.asset.setLocationStatus(locationStatus);
+        }
+    }
+
+    public boolean hasStatus(Status status) {
+        return this.status == status;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("InventoryAsset{");
