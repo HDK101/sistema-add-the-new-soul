@@ -282,7 +282,12 @@ public class SQLiteAssetDAO implements AssetDAO {
             stmt.setDouble(2, asset.getValue());
             stmt.setString(3, asset.getStatus().toString());
             stmt.setString(4, asset.getEmployeeInCharge().getRegistrationNumber());
-            stmt.setInt(5, asset.getLocation().getId());
+            if (asset.getLocation() != null) {
+                stmt.setInt(5, asset.getLocation().getId());
+            }
+            else {
+                stmt.setNull(5, Types.INTEGER);
+            }
             stmt.setString(6, LocationStatus.NONE.toString());
             stmt.setString(7, null);
             stmt.execute();
@@ -330,7 +335,14 @@ public class SQLiteAssetDAO implements AssetDAO {
 
             stmt.setDouble(3, asset.getValue());
             stmt.setString(4, asset.getDamage());
-            stmt.setInt(5, asset.getLocation().getId());
+
+            if (asset.getLocation() != null) {
+                stmt.setInt(5, asset.getLocation().getId());
+            }
+            else {
+                stmt.setNull(5, Types.INTEGER);
+            }
+
             stmt.setString(6, asset.getStatus().toString());
             stmt.setInt(7, asset.getId());
             stmt.execute();
