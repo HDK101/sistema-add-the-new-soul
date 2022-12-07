@@ -2,21 +2,21 @@ package br.edu.ifsp.addthenewsoul.application.controller;
 
 import br.edu.ifsp.addthenewsoul.application.view.WindowLoader;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
+import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
+import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.usecases.UseCases;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.ExportLocationCSVUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.FindLocationUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.ImportLocationCSVUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.RemoveLocationUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.report.IssueReportUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Session;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -28,6 +28,11 @@ import java.util.Optional;
 
 public class LocationManagementUIController {
 
+    public Button btnAdd;
+    public Button btnEdit;
+    public Button btnRemove;
+    public Button btnImportCsv;
+    public Button btnExportCsv;
     @FXML
     private TableView<Location> tableView;
 
@@ -50,6 +55,19 @@ public class LocationManagementUIController {
         bindTableViewToItemsList();
         bindColumnsToValueSources();
         loadDataAndShow();
+        checkLoggedUserRole();
+    }
+
+    private void checkLoggedUserRole() {
+        Employee employee = Session.getInstance().getLoggedUser();
+
+        if (!employee.hasRole(Role.EXECUTOR)) {
+            btnAdd.setDisable(true);
+            btnEdit.setDisable(true);
+            btnRemove.setDisable(true);
+            btnExportCsv.setDisable(true);
+            btnImportCsv.setDisable(true);
+        }
     }
 
     private void bindTableViewToItemsList() {

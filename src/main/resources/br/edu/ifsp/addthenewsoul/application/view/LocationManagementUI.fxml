@@ -26,11 +26,11 @@
       <Label layoutX="40.0" layoutY="77.0" text="Find location by ID:" />
       <Button layoutX="225.0" layoutY="73.0" mnemonicParsing="false" onAction="#findLocationById" text="OK" />
       <Button layoutX="267.0" layoutY="73.0" mnemonicParsing="false" onAction="#findAllLocations" text="ALL LOCATIONS" />
-      <Button layoutX="40.0" layoutY="290.0" mnemonicParsing="false" onAction="#addLocation" text="ADD NEW+" />
-      <Button layoutX="129.0" layoutY="290.0" mnemonicParsing="false" onAction="#editLocation" prefHeight="27.0" prefWidth="52.0" text="EDIT" />
-      <Button layoutX="182.0" layoutY="290.0" mnemonicParsing="false" onAction="#removeLocation" prefHeight="25.0" prefWidth="94.0" text="REMOVE" />
-      <Button layoutX="277.0" layoutY="290.0" mnemonicParsing="false" onAction="#importCSV" prefHeight="28.0" prefWidth="96.0" text="IMPORT CSV" />
-      <Button layoutX="374.0" layoutY="290.0" mnemonicParsing="false" onAction="#exportCSV" prefHeight="28.0" prefWidth="95.0" text="EXPORT CSV" />
+      <Button fx:id="btnAdd" layoutX="40.0" layoutY="290.0" mnemonicParsing="false" onAction="#addLocation" text="ADD NEW+" />
+      <Button fx:id="btnEdit" layoutX="129.0" layoutY="290.0" mnemonicParsing="false" onAction="#editLocation" prefHeight="27.0" prefWidth="52.0" text="EDIT" />
+      <Button fx:id="btnRemove" layoutX="182.0" layoutY="290.0" mnemonicParsing="false" onAction="#removeLocation" prefHeight="25.0" prefWidth="94.0" text="REMOVE" />
+      <Button fx:id="btnImportCsv" layoutX="277.0" layoutY="290.0" mnemonicParsing="false" onAction="#importCSV" prefHeight="28.0" prefWidth="96.0" text="IMPORT CSV" />
+      <Button fx:id="btnExportCsv" layoutX="374.0" layoutY="290.0" mnemonicParsing="false" onAction="#exportCSV" prefHeight="28.0" prefWidth="95.0" text="EXPORT CSV" />
       <Button layoutX="496.0" layoutY="328.0" mnemonicParsing="false" onAction="#goBack" text="CANCEL" />
       <Button layoutX="40.0" layoutY="327.0" mnemonicParsing="false" onAction="#createReport" prefHeight="29.0" prefWidth="116.0" text="Criar relatório" />
    </children>
