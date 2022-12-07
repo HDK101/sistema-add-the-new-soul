@@ -33,8 +33,8 @@
       <Button fx:id="btnAdd" layoutX="36.0" layoutY="347.0" mnemonicParsing="false" onAction="#addAsset" text="ADD NEW +" />
       <Button fx:id="btnEdit" layoutX="127.0" layoutY="347.0" mnemonicParsing="false" onAction="#editAsset" text="EDIT" />
       <Button fx:id="btnRemove" layoutX="176.0" layoutY="347.0" mnemonicParsing="false" onAction="#removeAsset" text="REMOVE" />
-       <Button layoutX="249.0" layoutY="347.0" mnemonicParsing="false" onAction="#importCSV" text="IMPORT CSV" />
-       <Button layoutX="345.0" layoutY="347.0" mnemonicParsing="false" onAction="#exportCSV" text="EXPORT CSV" />
+       <Button fx:id="btnImportCsv" layoutX="249.0" layoutY="347.0" mnemonicParsing="false" onAction="#importCSV" text="IMPORT CSV" />
+       <Button fx:id="btnExportCsv" layoutX="345.0" layoutY="347.0" mnemonicParsing="false" onAction="#exportCSV" text="EXPORT CSV" />
       <Button layoutX="498.0" layoutY="348.0" mnemonicParsing="false" onAction="#goBack" text="CANCEL" />
       <ComboBox fx:id="cbEmployee" layoutX="174.0" layoutY="109.0" prefWidth="150.0" promptText="Funcionário" />
       <ComboBox fx:id="cbLocal" layoutX="375.0" layoutY="109.0" prefWidth="150.0" promptText="Local" />

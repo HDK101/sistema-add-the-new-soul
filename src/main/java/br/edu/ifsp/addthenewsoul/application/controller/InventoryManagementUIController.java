@@ -3,11 +3,13 @@ package br.edu.ifsp.addthenewsoul.application.controller;
 
 import br.edu.ifsp.addthenewsoul.application.view.WindowLoader;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
+import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.usecases.UseCases;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.FindInventoryUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.StartInventoryUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.report.IssueReportUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Session;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -74,6 +76,17 @@ public class InventoryManagementUIController {
         bindTableViewToItemsList();
         bindColumnsToValueSources();
         loadDataAndShow();
+        checkLoggedUserRole();
+    }
+
+    private void checkLoggedUserRole() {
+        Employee employee = Session.getInstance().getLoggedUser();
+
+        if (!employee.hasRole(Role.EXECUTOR)) {
+            btnStartInventory.setDisable(true);
+            btnFinishInventory.setDisable(true);
+            btnDetailInventory.setDisable(true);
+        }
     }
 
     private void bindTableViewToItemsList() {

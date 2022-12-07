@@ -6,6 +6,7 @@ import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.usecases.UseCases;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.*;
 import br.edu.ifsp.addthenewsoul.domain.usecases.report.IssueReportUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Session;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -76,6 +77,19 @@ public class EmployeeManagementUIController {
         bindTableViewToItemsList();
         bindColumnsToValueSources();
         loadDataAndShow();
+        checkLoggedUserRole();
+    }
+
+    private void checkLoggedUserRole() {
+        Employee employee = Session.getInstance().getLoggedUser();
+
+        if (!employee.hasRole(Role.EXECUTOR)) {
+            btnAddNewEmployee.setDisable(true);
+            btnEditEmployee.setDisable(true);
+            btnRemoveEmployee.setDisable(true);
+            btnExportCsvEmployees.setDisable(true);
+            btnImportCsvEmployees.setDisable(true);
+        }
     }
 
     private void bindTableViewToItemsList() {

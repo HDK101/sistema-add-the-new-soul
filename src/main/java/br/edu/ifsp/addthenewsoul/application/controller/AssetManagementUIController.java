@@ -4,6 +4,7 @@ import br.edu.ifsp.addthenewsoul.application.view.WindowLoader;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
+import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.usecases.UseCases;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.ExportAssetCSVUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.FilterAssetsUseCase;
@@ -11,6 +12,7 @@ import br.edu.ifsp.addthenewsoul.domain.usecases.asset.FindAssetUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.ImportAssetCSVUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.FindEmployeeUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.FindLocationUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Session;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -42,6 +44,11 @@ public class AssetManagementUIController {
     public RadioButton rbLocationAndEmployee;
     public ComboBox<Employee> cbEmployee;
     public ComboBox<Location> cbLocal;
+    public Button btnAdd;
+    public Button btnEdit;
+    public Button btnRemove;
+    public Button btnImportCsv;
+    public Button btnExportCsv;
     @FXML
     private TableView<Asset> tableView;
     @FXML
@@ -67,6 +74,19 @@ public class AssetManagementUIController {
         bindColumnsToValueSources();
         loadDataAndShow();
         loadEmployeesAndLocations();
+        checkLoggedUserRole();
+    }
+
+    private void checkLoggedUserRole() {
+        Employee employee = Session.getInstance().getLoggedUser();
+
+        if (!employee.hasRole(Role.EXECUTOR)) {
+            btnImportCsv.setDisable(true);
+            btnExportCsv.setDisable(true);
+            btnAdd.setDisable(true);
+            btnEdit.setDisable(true);
+            btnRemove.setDisable(true);
+        }
     }
 
     private void loadEmployeesAndLocations() {
