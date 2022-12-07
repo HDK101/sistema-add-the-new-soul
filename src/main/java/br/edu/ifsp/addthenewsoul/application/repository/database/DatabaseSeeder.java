@@ -32,7 +32,7 @@ public class DatabaseSeeder {
                         .hashPassword("$2y$10$NjQsT36YeV6TdeLLntUus.t.37KgOXVcgohrmSVIVRxGKFkV42zvC")
                         .phone("(16) 99111-1111")
                         .registrationNumber("REG456")
-                        .roles(EnumSet.of(Role.INVENTORY_MANAGER))
+                        .roles(EnumSet.of(Role.EXECUTOR))
                         .build()
         );
 

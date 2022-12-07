@@ -198,16 +198,18 @@ public class StartInventoryUIController {
 
 
     @FXML
-    void saveNewInventory(ActionEvent event) {
+    void saveNewInventory(ActionEvent event) throws IOException {
         StartInventoryUseCase startInventoryUseCase = UseCases.getInstance().startInventoryUseCase;
         String nameInventory = txtNameInventory.getText();
         LocalDate initialDate = LocalDate.now();
         LocalDate endDate = dpEndDateInventory.getValue();
         Employee comissionChief = cbComissionChief.getValue();
+        System.out.println(comissionChief);
 
 
 
         startInventoryUseCase.initializeInventory(nameInventory, initialDate, endDate, employeesComission, comissionChief, assets);
+        WindowLoader.setRoot("InventoryManagementUI");
     }
 
 
