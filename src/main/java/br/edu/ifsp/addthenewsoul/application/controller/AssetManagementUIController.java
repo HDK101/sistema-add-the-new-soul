@@ -13,6 +13,7 @@ import br.edu.ifsp.addthenewsoul.domain.usecases.asset.ImportAssetCSVUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.FindEmployeeUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.FindLocationUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Session;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,6 +23,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +33,6 @@ import java.util.List;
 import static br.edu.ifsp.addthenewsoul.domain.usecases.UseCases.*;
 
 public class AssetManagementUIController {
-
     @FXML
     public RadioButton rbId;
     @FXML
@@ -112,8 +113,40 @@ public class AssetManagementUIController {
         cId.setCellValueFactory(new PropertyValueFactory<>("id"));
         cDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         cEmployeeInCharge.setCellValueFactory(new PropertyValueFactory<>("employeeInCharge"));
+
+        cEmployeeInCharge.setCellFactory(new Callback<>() {
+            @Override
+            public TableCell<Asset, Employee> call(TableColumn<Asset, Employee> param) {
+                return new TableCell<>() {
+                    @Override
+                    protected void updateItem(Employee item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (empty) this.setText(null);
+                        if (item != null) this.setText(item.getName());
+                    }
+                };
+            }
+        });
+
         cValue.setCellValueFactory(new PropertyValueFactory<>("value"));
         cDamage.setCellValueFactory(new PropertyValueFactory<>("damage"));
+
+        cLocation.setCellFactory(new Callback<>() {
+            @Override
+            public TableCell<Asset, Location> call(TableColumn<Asset, Location> param) {
+                return new TableCell<>() {
+                    @Override
+                    protected void updateItem(Location item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (empty) this.setText(null);
+                        if (item != null) this.setText(item.fullLocation());
+                    }
+                };
+            }
+        });
+
         cLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
     }
 
