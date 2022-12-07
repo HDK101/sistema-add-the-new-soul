@@ -87,7 +87,7 @@ public class UseCases {
         findAssetUseCase = new FindAssetUseCase(assetDAO);
         updateAssetUseCase = new UpdateAssetUseCase(assetDAO);
         removeAssetUseCase = new RemoveAssetUseCase(assetDAO);
-        filterAssetsUseCase = new FilterAssetsUseCase(assetDAO, employee.get(0));
+        filterAssetsUseCase = new FilterAssetsUseCase(assetDAO);
 
         exportEmployeeCSVUseCase = new ExportEmployeeCSVUseCase(employeeCSV, employeeDAO);
         importEmployeeCSVUseCase = new ImportEmployeeCSVUseCase(employeeCSV, employeeDAO);

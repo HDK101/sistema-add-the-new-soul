@@ -50,7 +50,6 @@ public class DashboardUIController {
 
     public void goToReports(ActionEvent actionEvent) {
         try {
-            Session.logout();
             WindowLoader.setRoot("ReportManagementUI");
         } catch (IOException e) {
             e.printStackTrace();
