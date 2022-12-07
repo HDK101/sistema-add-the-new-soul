@@ -198,7 +198,7 @@ public class AssetUIController {
     }
 
     public void evaluateAsset(ActionEvent actionEvent) {
-
+        System.out.println(inventoryAsset);
 
         getInstance().evaluateAssetUseCase.evaluateAsset(EvaluateData.builder()
                 .damage(txtDamages.getText())

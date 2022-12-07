@@ -11,6 +11,7 @@ import br.edu.ifsp.addthenewsoul.domain.usecases.UseCases;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.FindAssetUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.FindEmployeeUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.FindInventoryUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Session;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -161,6 +162,8 @@ public class InventoryUIController {
         if (inventoryAsset != null) {
             WindowLoader.setRoot("AssetUI");
             AssetUIController controller = (AssetUIController) WindowLoader.getController();
+            inventoryAsset.setInventoryManager(Session.getInstance().getLoggedUser());
+            inventoryAsset.setInventory(selectedInventory);
             controller.setEvaluate(inventoryAsset, UIMode.EVALUATE);
         }
     }
@@ -180,6 +183,8 @@ public class InventoryUIController {
 
         Inventory inventoryFull = findInventoryUseCase.findOne(selectedInventory.getId()).orElseThrow();
         this.selectedInventory = inventoryFull;
+
+        btnEvaluateAssetInventoryDetailed.setDisable(!this.selectedInventory.hasEmployeeInCommision(Session.getInstance().getLoggedUser()));
 
         txtIdInventoryDetailed.setDisable(true);
         txtNomeInventoryDetailed.setDisable(true);
