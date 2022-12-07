@@ -21,6 +21,7 @@ public class SQLiteInventoryDAO implements InventoryDAO {
                     i.president_reg AS i_president_reg,
                     i.initial_date AS i_initial_date,
                     i.end_date AS i_end_date,
+                    i.status AS i_inventory_status
                     
                     ia.id AS ia_id,
                     ia.inventory_id AS ia_inventory_id,
@@ -141,11 +142,13 @@ public class SQLiteInventoryDAO implements InventoryDAO {
                 INSERT INTO Inventory (
                     id,
                     name,
-                    president_id,
+                    president_reg,
                     initial_date,
                     end_date,
+                    inventory_asset_id
                     status
                 ) VALUES (
+                    ?,
                     ?,
                     ?,
                     ?,
@@ -161,6 +164,7 @@ public class SQLiteInventoryDAO implements InventoryDAO {
             stmt.setDate(4, Date.valueOf(inventory.getInitialDate()));
             stmt.setDate(5, Date.valueOf(inventory.getEndDate()));
             stmt.setString(6, inventory.getInventoryStatus().toString());
+
             return stmt.executeUpdate() == 1;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -210,7 +214,8 @@ public class SQLiteInventoryDAO implements InventoryDAO {
                     i.president_reg AS i_president_reg,
                     i.initial_date AS i_initial_date,
                     i.end_date AS i_end_date,
-                    i.status AS i_status
+                    i.inventory_asset_id AS i.inventory_asset_id,
+                    i.status AS i_inventory_status
                 FROM Inventory i
                 """;
 

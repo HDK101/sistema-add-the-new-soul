@@ -6,7 +6,9 @@ import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.usecases.UseCases;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.FindInventoryUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.FinishInventoryUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.StartInventoryUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.InventoryStatus;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -60,6 +62,9 @@ public class InventoryManagementUIController {
     private TableColumn<Inventory, LocalDate> cStartDateInventory;
 
     @FXML
+    private TableColumn<Inventory, InventoryStatus> cStatusInventory;
+
+    @FXML
     private TableView<Inventory> tableViewInventory;
 
     @FXML
@@ -85,6 +90,7 @@ public class InventoryManagementUIController {
         cChairmanInventory.setCellValueFactory(new PropertyValueFactory<>("comissionPresident"));
         cStartDateInventory.setCellValueFactory(new PropertyValueFactory<>("initialDate"));
         cEndDateInventory.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+        cStatusInventory.setCellValueFactory(new PropertyValueFactory<>("inventoryStatus"));
     }
 
     private void loadDataAndShow() {
@@ -116,8 +122,10 @@ public class InventoryManagementUIController {
 
     @FXML
     void finishInventory(ActionEvent event) throws IOException {
-        //to-do
-
+        FinishInventoryUseCase finishInventoryUseCase = UseCases.getInstance().finishInventoryUseCase;
+        Inventory inventory = tableViewInventory.getSelectionModel().getSelectedItem();
+        finishInventoryUseCase.finalizeInventory(inventory, inventory.getComissionPresident());
+        loadDataAndShow();
     }
 
     @FXML

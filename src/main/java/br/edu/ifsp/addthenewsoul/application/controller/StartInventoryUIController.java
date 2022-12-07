@@ -205,6 +205,8 @@ public class StartInventoryUIController {
         LocalDate endDate = dpEndDateInventory.getValue();
         Employee comissionChief = cbComissionChief.getValue();
 
+
+
         startInventoryUseCase.initializeInventory(nameInventory, initialDate, endDate, employeesComission, comissionChief, assets);
     }
 

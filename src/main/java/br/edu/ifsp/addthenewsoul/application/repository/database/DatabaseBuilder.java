@@ -29,7 +29,7 @@ public class DatabaseBuilder {
             statement.addBatch(createEmployeeRoleTable());
             statement.addBatch(createInventoryTable());
             statement.addBatch(createInventoryAssetTable());
-            //statement.addBatch(createComissionTable());
+            statement.addBatch(createComissionTable());
             statement.addBatch(createLocationTable());
             statement.executeBatch();
 
@@ -126,7 +126,9 @@ public class DatabaseBuilder {
         builder.append("initial_date DATE NOT NULL, \n");
         builder.append("status TEXT NOT NULL DEFAULT 'OPEN', \n");
         builder.append("end_date DATE, \n");
+        builder.append("inventory_asset_id INTEGER, \n");
         builder.append("FOREIGN KEY(president_reg) REFERENCES Employee(registration_number)\n");
+        builder.append("FOREIGN KEY(inventory_asset_id) REFERENCES InventoryAsset(id)\n");
         builder.append("); \n");
 
         System.out.println(builder);
@@ -134,18 +136,18 @@ public class DatabaseBuilder {
     }
 
     //This table refers to the 'list<Employee> comission' attribute found in the inventory entity
-    private String createComissionTable() {
+    private static String createComissionTable() {
         StringBuilder builder = new StringBuilder();
 
         builder.append("CREATE TABLE Comission (\n");
-        builder.append("id INTEGER NOT NULL AUTOINCREMENT, \n");
+        builder.append("id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, \n");
+        builder.append("id_inventory INTEGER NOT NULL, \n");
         builder.append("employee_reg INTEGER NOT NULL, \n");
-        builder.append("PRIMARY KEY(id_inventory, regNumberEmployeeInCharge)");
         builder.append("FOREIGN KEY(id_inventory) REFERENCES Inventory(id)\n");
-        builder.append("FOREIGN KEY(regNumberEmployeeInCharge) REFERENCES Employee(registrationNumber)\n");
+        builder.append("FOREIGN KEY(employee_reg) REFERENCES Employee(registrationNumber)\n");
         builder.append("); \n");
 
-        System.out.println(builder.toString());
+        System.out.println(builder);
         return builder.toString();
     }
 
