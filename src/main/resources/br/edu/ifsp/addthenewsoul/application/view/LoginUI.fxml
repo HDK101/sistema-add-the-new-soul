@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.LoginUIController">
+<AnchorPane prefHeight="600.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.LoginUIController">
    <children>
-      <Label layoutX="277.0" layoutY="132.0" prefHeight="53.0" prefWidth="228.0" text="ADD THE NEW SOUL">
+      <Label layoutX="277.0" layoutY="132.0" prefHeight="55.0" prefWidth="255.0" text="ADD THE NEW SOUL">
          <font>
             <Font size="24.0" />
          </font>
