@@ -337,8 +337,29 @@ public class SQLiteInventoryDAO implements InventoryDAO {
     }
 
     @Override
-    public boolean update(Inventory type) {
-        return false;
+    public boolean update(Inventory inventory) {
+        String sql = """
+                UPDATE Inventory set
+                    name = ?,
+                    president_reg = ?,
+                    initial_date = ?,
+                    end_date = ?,
+                    status = ?
+                WHERE id = ?
+                """;
+        try(PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+            stmt.setString(1, inventory.getName());
+            stmt.setString(2, inventory.getComissionPresident().getRegistrationNumber());
+            stmt.setDate(3, Date.valueOf(inventory.getInitialDate()));
+            stmt.setDate(4, Date.valueOf(inventory.getEndDate()));
+            stmt.setString(5, inventory.getInventoryStatus().toString());
+            stmt.setString(6, inventory.getId());
+            stmt.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
