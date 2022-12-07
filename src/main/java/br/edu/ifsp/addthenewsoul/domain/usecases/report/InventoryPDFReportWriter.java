@@ -25,20 +25,7 @@ public class InventoryPDFReportWriter extends PDFReportWriter implements ReportW
                 .addText("Data de início: " + inventory.getInitialDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
                 .addText("Data de fim: " + inventory.getEndDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
                 .addText("Presidente da comissão: " + inventory.getComissionPresident().getName());
-
-        this.addNewLine()
-                .setFontSize(36)
-                .addNewLine()
-                .addText("Comissão:");
-
-        if (inventory.getComission() != null) {
-            for (Employee employee : inventory.getComission()) {
-                this.setFontSize(18)
-                        .setLeading(24)
-                        .addText(employee.getName());
-            }
-        }
-
+        
         this.addNewLine()
                 .setFontSize(36)
                 .addNewLine()

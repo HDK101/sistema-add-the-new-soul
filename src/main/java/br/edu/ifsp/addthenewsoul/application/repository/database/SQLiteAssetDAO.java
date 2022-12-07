@@ -398,7 +398,7 @@ public class SQLiteAssetDAO implements AssetDAO {
                 """;
         Asset asset = null;
 
-        List<Asset> assets = new ArrayList<>();
+        Set<Asset> assets = new HashSet<>();
         try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
             ResultSet resultSet = stmt.executeQuery();
 
@@ -409,7 +409,7 @@ public class SQLiteAssetDAO implements AssetDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return assets;
+        return assets.stream().toList();
     }
 
 
