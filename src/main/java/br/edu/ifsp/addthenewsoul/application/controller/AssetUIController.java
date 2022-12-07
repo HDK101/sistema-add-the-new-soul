@@ -3,9 +3,12 @@ package br.edu.ifsp.addthenewsoul.application.controller;
 import br.edu.ifsp.addthenewsoul.application.view.WindowLoader;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
+import br.edu.ifsp.addthenewsoul.domain.entities.asset.LocationStatus;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
+import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
 import br.edu.ifsp.addthenewsoul.domain.usecases.UseCases;
+import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.EvaluateData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -22,6 +25,14 @@ public class AssetUIController {
     @FXML
     public Label lbId;
     @FXML
+    public Label lbStatus;
+    @FXML
+    public Button btnEvaluate;
+    @FXML
+    public Label lbLocationStatus;
+    @FXML
+    public ComboBox<LocationStatus> cbLocationStatus;
+    @FXML
     private ComboBox<Employee> cbEmployeeInCharge;
     @FXML
     private TextField txtValue;
@@ -37,6 +48,8 @@ public class AssetUIController {
     private Button btnCancel;
 
     private Asset asset;
+
+    private InventoryAsset inventoryAsset;
 
     @FXML
     private void initialize(){
@@ -82,9 +95,18 @@ public class AssetUIController {
             }
         });
         cbStatus.getItems().setAll(Status.values());
+        cbLocationStatus.getItems().setAll(LocationStatus.values());
         cbStatus.setValue(Status.NOT_VERIFIED);
+        btnCancel.setVisible(true);
+        btnSave.setVisible(true);
         cbStatus.setDisable(true);
         txtDamages.setVisible(false);
+        lbStatus.setVisible(false);
+        btnEvaluate.setVisible(false);
+        txtDescription.setDisable(false);
+        txtValue.setDisable(false);
+        cbLocation.setDisable(false);
+        cbEmployeeInCharge.setDisable(false);
     }
 
     public void saveOrUpdate(ActionEvent actionEvent) throws IOException {
@@ -110,12 +132,24 @@ public class AssetUIController {
 
     public void setBook(Asset asset, UIMode mode) {
         if(asset == null)
-            throw new IllegalArgumentException("Book can not be null.");
+            throw new IllegalArgumentException("Asset can not be null.");
         this.asset = asset;
         setEntityIntoView();
 
         if (mode == UIMode.UPDATE)
-            configureViewMode();
+            configureViewModeUpdate();
+        else if (mode == UIMode.EVALUATE);
+            configureViewModeEvaluate();
+    }
+
+    public void setEvaluate(InventoryAsset inventoryAsset, UIMode mode) {
+        if(inventoryAsset == null)
+            throw new IllegalArgumentException("Asset can not be null.");
+        this.inventoryAsset = inventoryAsset;
+        setEntityIntoEvaluate();
+
+        if (mode == UIMode.EVALUATE)
+            configureViewModeEvaluate();
     }
 
     private void setEntityIntoView(){
@@ -128,12 +162,49 @@ public class AssetUIController {
         txtDamages.setText(asset.getDamage());
     }
 
-    private void configureViewMode() {
+    private void setEntityIntoEvaluate(){
+        lbId.setText(String.valueOf(inventoryAsset.getAsset().getId()));
+        cbStatus.setValue(inventoryAsset.getAsset().getStatus());
+        cbLocation.setValue(inventoryAsset.getAsset().getLocation());
+        txtValue.setText(String.valueOf(inventoryAsset.getAsset().getValue()));
+        cbEmployeeInCharge.setValue(inventoryAsset.getAsset().getEmployeeInCharge());
+        txtDescription.setText(inventoryAsset.getAsset().getDescription());
+        txtDamages.setText(inventoryAsset.getAsset().getDamage());
+    }
+
+    private void configureViewModeUpdate() {
         cbStatus.setDisable(false);
         txtDamages.setVisible(true);
+        lbStatus.setVisible(true);
+        btnSave.setVisible(true);
+        btnCancel.setVisible(true);
+    }
+
+    private void configureViewModeEvaluate() {
+        cbStatus.setDisable(false);
+        txtDamages.setVisible(true);
+        lbStatus.setVisible(true);
+        btnCancel.setVisible(false);
+        btnSave.setVisible(false);
+        txtDescription.setDisable(true);
+        txtValue.setDisable(true);
+        cbLocation.setDisable(true);
+        cbEmployeeInCharge.setDisable(true);
+        btnEvaluate.setVisible(true);
     }
 
     public void cancel(ActionEvent actionEvent) throws IOException {
         WindowLoader.setRoot("AssetManagementUI");
+    }
+
+    public void evaluateAsset(ActionEvent actionEvent) {
+
+
+        getInstance().evaluateAssetUseCase.evaluateAsset(EvaluateData.builder()
+                .damage(txtDamages.getText())
+                .assetLocationStatus(cbLocationStatus.getValue())
+                .inventoryManager(inventoryAsset.getInventoryManager())
+                .inventoryAsset(inventoryAsset)
+                .build());
     }
 }

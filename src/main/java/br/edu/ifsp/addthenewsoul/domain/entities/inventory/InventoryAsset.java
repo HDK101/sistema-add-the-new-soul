@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Builder
 public class InventoryAsset {
-    private final Asset asset;
+    private Asset asset;
     private Integer id;
     private final String description;
     private final Employee employeeInCharge;
@@ -34,6 +34,10 @@ public class InventoryAsset {
                 .damage(asset.getDamage())
                 .location(asset.getLocation())
                 .build();
+    }
+
+    public void setAsset(Asset asset) {
+        this.asset = asset;
     }
 
     public void applyDamage(String damage) {

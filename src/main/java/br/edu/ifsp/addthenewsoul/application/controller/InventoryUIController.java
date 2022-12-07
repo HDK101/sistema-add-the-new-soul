@@ -147,7 +147,7 @@ public class InventoryUIController {
     }
 
     private void loadDataAndShow() {
-        
+
     }
 
     @FXML
@@ -156,8 +156,13 @@ public class InventoryUIController {
     }
 
     @FXML
-    void evaluateAsset(ActionEvent event) {
-
+    void evaluateAsset(ActionEvent event) throws IOException {
+        InventoryAsset inventoryAsset = tableViewAssets.getSelectionModel().getSelectedItem();
+        if (inventoryAsset != null) {
+            WindowLoader.setRoot("AssetUI");
+            AssetUIController controller = (AssetUIController) WindowLoader.getController();
+            controller.setEvaluate(inventoryAsset, UIMode.EVALUATE);
+        }
     }
 
     @FXML

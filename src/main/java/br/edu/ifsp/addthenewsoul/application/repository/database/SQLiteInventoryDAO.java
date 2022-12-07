@@ -29,6 +29,7 @@ public class SQLiteInventoryDAO implements InventoryDAO {
                     i.status AS i_inventory_status,
                     
                     ia.id AS ia_id,
+                    ia.asset_id AS ia_asset_id,
                     ia.inventory_id AS ia_inventory_id,
                     ia.damage AS ia_damage,
                     ia.description AS ia_description,
@@ -36,6 +37,15 @@ public class SQLiteInventoryDAO implements InventoryDAO {
                     ia.value AS ia_value,
                     ia.location_id AS ia_location_id,
                     ia.location_status AS ia_location_status,
+                    
+                    a.id AS a_id,
+                    a.description AS a_description,
+                    a.employee_reg AS a_employee_reg,
+                    a.value AS a_value,
+                    a.damage AS a_damage,
+                    a.status AS a_status,
+                    a.location_id AS a_location_id,
+                    a.location_status AS a_location_status,
                     
                     e.registration_number AS e_registration_number,
                     e.name AS e_name,
@@ -51,6 +61,7 @@ public class SQLiteInventoryDAO implements InventoryDAO {
                     ec.email AS ec_email
                 FROM Inventory i
                 LEFT JOIN InventoryAsset ia ON ia.inventory_id = i.id
+                LEFT JOIN Asset a ON a.id = ia.asset_id
                 LEFT JOIN Employee e ON i.president_reg = e.registration_number
                 LEFT JOIN EmployeeRole er on e.registration_number = e.registration_number
                 LEFT JOIN Commission c ON c.id_inventory = i.id 
@@ -65,7 +76,11 @@ public class SQLiteInventoryDAO implements InventoryDAO {
             ResultSet resultSet = statement.getResultSet();
             Inventory inventory = null;
             Set<InventoryAsset> inventoryAssets = new HashSet<>();
+
+            List<Asset> assets = new ArrayList<>();
+
             Set<Employee> commission = new HashSet<>();
+
             while (resultSet.next()) {
                 if (inventory == null) {
                     inventory = ResultToInventory.convert(resultSet);
@@ -73,16 +88,28 @@ public class SQLiteInventoryDAO implements InventoryDAO {
                     inventory.setComissionPresident(employee);
                 }
                 if (resultSet.getString("ia_id") != null) {
+
+                    Asset asset = ResultToAsset.convert(resultSet) ;
+                    InventoryAsset inventoryAsset = ResultToInventoryAsset.convert(resultSet);
+                    inventoryAsset.setAsset(asset);
+                    inventoryAssets.add(inventoryAsset);
+
                     inventoryAssets.add(ResultToInventoryAsset.convert(resultSet));
                 }
                 if (resultSet.getString("ec_registration_number") != null) {
                     System.out.println(ResultToEmployee.convertToCommission(resultSet));
                     commission.add(ResultToEmployee.convertToCommission(resultSet));
+
                 }
             }
+            assert inventory != null;
             inventory.setAssets(inventoryAssets.stream().toList());
+
+            return Optional.of(inventory);
+
             inventory.setComission(commission.stream().toList());
             return Optional.ofNullable(inventory);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

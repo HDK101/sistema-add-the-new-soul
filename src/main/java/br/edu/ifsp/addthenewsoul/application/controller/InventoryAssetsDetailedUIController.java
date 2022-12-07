@@ -101,7 +101,14 @@ public class InventoryAssetsDetailedUIController {
 
     @FXML
     void evaluateInventoryAssets(ActionEvent event) throws IOException {
-        WindowLoader.setRoot("AssetUI");
+        InventoryAsset inventoryAsset = tableViewInventoryAssets.getSelectionModel().getSelectedItem().getInventoryAsset();
+        System.out.println(inventoryAsset);
+        if (inventoryAsset != null) {
+            WindowLoader.setRoot("AssetUI");
+            AssetUIController controller = (AssetUIController) WindowLoader.getController();
+            controller.setBook(inventoryAsset.getAsset(), UIMode.EVALUATE);
+        }
+
     }
 
     @FXML
