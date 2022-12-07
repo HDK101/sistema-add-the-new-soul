@@ -109,9 +109,11 @@ public class SQLiteLocationDAO implements LocationDAO {
                 
                 a.id AS a_id,
                 a.description AS a_description,
+                a.value as a_value,
                 a.employee_reg AS a_employee_reg,
                 a.damage AS a_damage,
                 a.status AS a_status,
+                a.value AS a_value,
                 a.location_id AS a_location_id,
                 a.location_status AS a_location_status
             FROM Location l
@@ -125,11 +127,12 @@ public class SQLiteLocationDAO implements LocationDAO {
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
                 if (location == null) location = ResultToLocation.convert(resultSet);
-                location.addAsset(ResultToAsset.convert(resultSet));
+                if (resultSet.getInt("a_id") != 0) location.addAsset(ResultToAsset.convert(resultSet));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return Optional.ofNullable(location);
     }
 

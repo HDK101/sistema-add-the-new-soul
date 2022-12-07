@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 public class ResultToAsset {
     public static Asset convert(ResultSet rs) throws SQLException {
+
         return Asset.builder()
                 .id(rs.getInt("a_id"))
                 .description(rs.getString("a_description"))

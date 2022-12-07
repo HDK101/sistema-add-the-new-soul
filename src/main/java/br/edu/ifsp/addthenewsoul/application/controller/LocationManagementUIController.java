@@ -2,20 +2,21 @@ package br.edu.ifsp.addthenewsoul.application.controller;
 
 import br.edu.ifsp.addthenewsoul.application.view.WindowLoader;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
+import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
+import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.usecases.UseCases;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.ExportLocationCSVUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.FindLocationUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.ImportLocationCSVUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.RemoveLocationUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.report.IssueReportUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Session;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -27,6 +28,11 @@ import java.util.Optional;
 
 public class LocationManagementUIController {
 
+    public Button btnAdd;
+    public Button btnEdit;
+    public Button btnRemove;
+    public Button btnImportCsv;
+    public Button btnExportCsv;
     @FXML
     private TableView<Location> tableView;
 
@@ -49,6 +55,19 @@ public class LocationManagementUIController {
         bindTableViewToItemsList();
         bindColumnsToValueSources();
         loadDataAndShow();
+        checkLoggedUserRole();
+    }
+
+    private void checkLoggedUserRole() {
+        Employee employee = Session.getInstance().getLoggedUser();
+
+        if (!employee.hasRole(Role.EXECUTOR)) {
+            btnAdd.setDisable(true);
+            btnEdit.setDisable(true);
+            btnRemove.setDisable(true);
+            btnExportCsv.setDisable(true);
+            btnImportCsv.setDisable(true);
+        }
     }
 
     private void bindTableViewToItemsList() {
@@ -91,7 +110,6 @@ public class LocationManagementUIController {
 
 
         if (selectedItem != null) {
-            System.out.println(selectedItem.getId());
             Location locationWithAssets = findLocationUseCase.findOne(selectedItem.getId()).orElseThrow();
             try {
                 removeLocationUseCase.deleteLocation(locationWithAssets);
@@ -120,8 +138,12 @@ public class LocationManagementUIController {
 
             tableData.clear();
             tableData.add(location.get());
-
-        } catch (Exception e) {
+        } catch (NumberFormatException n) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Erro");
+            errorAlert.setContentText("Por favor, informe um id válido.");
+            errorAlert.showAndWait();
+        }   catch (Exception e) {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("Erro");
             errorAlert.setContentText(e.getMessage());
@@ -200,4 +222,34 @@ public class LocationManagementUIController {
     }
 
 
+    public void createReport(ActionEvent actionEvent) {
+        Location location = tableView.getSelectionModel().getSelectedItem();
+        if (location == null) return;
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Criar relatório");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PDF", "*.pdf"),
+                new FileChooser.ExtensionFilter("Todos os arquivos", "*.*")
+        );
+
+        Stage stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+
+        File file = fileChooser.showSaveDialog(stage);
+
+        try {
+            IssueReportUseCase issueReportUseCase = UseCases.getInstance().issueReportUseCase;
+            issueReportUseCase.issueLocationReport(file.getAbsolutePath(), location.getId());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Sucesso");
+            alert.setContentText("O relatório em PDF foi criado");
+            alert.showAndWait();
+        } catch (Exception e) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Erro");
+            errorAlert.setContentText("Não foi possível criar o relatório em PDF");
+            errorAlert.showAndWait();
+            e.printStackTrace();
+        }
+    }
 }

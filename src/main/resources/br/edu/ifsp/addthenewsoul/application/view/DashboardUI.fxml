@@ -12,11 +12,10 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <Button layoutX="14.0" layoutY="109.0" mnemonicParsing="false" onAction="#goToEmployees" prefHeight="79.0" prefWidth="209.0" text="GERENCIAR FUNCIONÁRIOS" />
+      <Button layoutX="14.0" layoutY="109.0" mnemonicParsing="false" onAction="#goToEmployees" prefHeight="80.0" prefWidth="282.0" text="GERENCIAR FUNCIONÁRIOS" />
       <Button layoutX="14.0" layoutY="239.0" mnemonicParsing="false" onAction="#goToAssets" prefHeight="77.0" prefWidth="282.0" text="GERENCIAR BENS" />
-      <Button layoutX="231.0" layoutY="110.0" mnemonicParsing="false" onAction="#goToLocations" prefHeight="77.0" prefWidth="151.0" text="GERENCIAR LOCAIS" />
-      <Button layoutX="389.0" layoutY="110.0" mnemonicParsing="false" onAction="#goToInventories" prefHeight="77.0" prefWidth="182.0" text="GERENCIAR INVENTÁRIOS" />
-      <Button layoutX="308.0" layoutY="238.0" mnemonicParsing="false" onAction="#goToReports" prefHeight="77.0" prefWidth="263.0" text="RELATÓRIOS" />
+      <Button layoutX="307.0" layoutY="110.0" mnemonicParsing="false" onAction="#goToLocations" prefHeight="78.0" prefWidth="264.0" text="GERENCIAR LOCAIS" />
+      <Button layoutX="307.0" layoutY="239.0" mnemonicParsing="false" onAction="#goToInventories" prefHeight="78.0" prefWidth="264.0" text="GERENCIAR INVENTÁRIOS" />
       <Button layoutX="441.0" layoutY="371.0" mnemonicParsing="false" onAction="#logout" prefHeight="23.0" prefWidth="130.0" text="Sair" />
       <Label fx:id="greetingsText" layoutX="14.0" layoutY="71.0" text="Olá, Durandal" textAlignment="CENTER">
          <font>
