@@ -21,6 +21,10 @@ public class InventoryAsset {
     private LocationStatus locationStatus;
 
     public static InventoryAsset createFromAsset(Asset asset) {
+        if (asset.getLocation() == null || asset.getEmployeeInCharge() == null) {
+            throw new IllegalStateException("Location and employee in change must be set");
+        }
+
         return InventoryAsset.builder()
                 .asset(asset)
                 .description(asset.getDescription())
