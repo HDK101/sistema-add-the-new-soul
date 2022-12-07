@@ -27,7 +27,7 @@
         </columns>
       </TableView>
       <TextField fx:id="txtId" layoutX="120.0" layoutY="73.0" prefHeight="25.0" prefWidth="94.0" />
-      <Label layoutX="40.0" layoutY="77.0" text="Find location:" />
+      <Label layoutX="40.0" layoutY="77.0" text="Find location by ID:" />
       <Button layoutX="225.0" layoutY="73.0" mnemonicParsing="false" onAction="#findLocationById" text="OK" />
       <Button layoutX="267.0" layoutY="73.0" mnemonicParsing="false" onAction="#findAllLocations" text="ALL LOCATIONS" />
       <Button layoutX="40.0" layoutY="290.0" mnemonicParsing="false" onAction="#addLocation" text="ADD NEW+" />

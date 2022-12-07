@@ -1,9 +1,11 @@
 package br.edu.ifsp.addthenewsoul.application.controller;
 
+import br.edu.ifsp.addthenewsoul.application.controller.validators.LocationUIValidator;
 import br.edu.ifsp.addthenewsoul.application.view.WindowLoader;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import br.edu.ifsp.addthenewsoul.domain.usecases.UseCases;
 import br.edu.ifsp.addthenewsoul.domain.usecases.location.AddLocationUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Notification;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -37,6 +39,18 @@ public class LocationUIController {
 
     @FXML
     void saveOrUpdate(ActionEvent event) throws IOException {
+
+        LocationUIValidator locationUIValidator = new LocationUIValidator();
+        Notification message = locationUIValidator.isValid(txtNumber.getText(), txtSection.getText());
+
+        if (message.hasErrors()) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Erro");
+            errorAlert.setContentText(message.errorMessage());
+            errorAlert.showAndWait();
+            return;
+        }
+
         getEntityToView();
 
         try {

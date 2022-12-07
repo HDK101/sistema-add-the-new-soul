@@ -91,7 +91,6 @@ public class LocationManagementUIController {
 
 
         if (selectedItem != null) {
-            System.out.println(selectedItem.getId());
             Location locationWithAssets = findLocationUseCase.findOne(selectedItem.getId()).orElseThrow();
             try {
                 removeLocationUseCase.deleteLocation(locationWithAssets);
@@ -120,8 +119,12 @@ public class LocationManagementUIController {
 
             tableData.clear();
             tableData.add(location.get());
-
-        } catch (Exception e) {
+        } catch (NumberFormatException n) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Erro");
+            errorAlert.setContentText("Por favor, informe um id válido.");
+            errorAlert.showAndWait();
+        }   catch (Exception e) {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("Erro");
             errorAlert.setContentText(e.getMessage());
