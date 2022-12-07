@@ -3,6 +3,7 @@ package br.edu.ifsp.addthenewsoul.application.repository.inMemory;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
+import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetDAO;
 
 import java.util.*;
@@ -45,6 +46,16 @@ public class InMemoryAssetDAO implements AssetDAO {
                 .filter(asset -> asset.getLocation().fullLocation().contains(location.fullLocation()))
                 .filter(asset -> asset.getEmployeeInCharge().getRegistrationNumber()
                         .contains(employee.getRegistrationNumber())).collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<InventoryAsset> findInventoryAssetById(Integer id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public List<InventoryAsset> findAllInventoryAssets() {
+        return null;
     }
 
     @Override

@@ -3,6 +3,7 @@ package br.edu.ifsp.addthenewsoul.domain.usecases.asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
+import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.DAO;
 
 import java.util.List;
@@ -18,4 +19,5 @@ public interface AssetDAO extends DAO<Asset, Integer> {
     List<Asset> filterByEmployee (Employee employee);
 
     List<Asset> filterByLocationAndEmployee (Location location, Employee employee);
+
 }

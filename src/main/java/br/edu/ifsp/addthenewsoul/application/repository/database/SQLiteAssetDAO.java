@@ -8,6 +8,7 @@ import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import br.edu.ifsp.addthenewsoul.domain.entities.asset.LocationStatus;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
+import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.AssetDAO;
@@ -57,40 +58,40 @@ public class SQLiteAssetDAO implements AssetDAO {
     @Override
     public Optional<Asset> findByIdWithInventoryAsset(Integer id) {
         String sql = """
-                SELECT 
-                    a.id AS a_id, 
-                    a.description AS a_description,
-                    a.employee_reg AS a_employee_reg,
-                    a.damage AS a_damage,
-                    a.status AS a_status,
-                    a.value AS a_value,
-                    a.location_id AS a_location_id,
-                    a.location_status AS a_location_status,
-                    
-                    ia.id AS ia_id,
-                    ia.damage AS ia_damage,
-                    ia.description AS ia_description,
-                    ia.status AS ia_status,
-                    ia.value AS ia_value,
-                    ia.location_id AS ia_location_id,
-                    ia.location_status AS ia_location_status,
-                    
-                    e.registration_number AS e_registration_number,
-                    e.name AS e_name,
-                    e.phone as e_phone,
-                    e.hash_password AS e_hash_password,
-                    e.email AS e_email
-                FROM Asset a
-                LEFT JOIN InventoryAsset ia ON ia.asset_id = a.id
-                LEFT JOIN Employee e ON e.registration_number = a.employee_reg
-                WHERE a.id = ?
-        """;
+                        SELECT 
+                            a.id AS a_id, 
+                            a.description AS a_description,
+                            a.employee_reg AS a_employee_reg,
+                            a.damage AS a_damage,
+                            a.status AS a_status,
+                            a.value AS a_value,
+                            a.location_id AS a_location_id,
+                            a.location_status AS a_location_status,
+                            
+                            ia.id AS ia_id,
+                            ia.damage AS ia_damage,
+                            ia.description AS ia_description,
+                            ia.status AS ia_status,
+                            ia.value AS ia_value,
+                            ia.location_id AS ia_location_id,
+                            ia.location_status AS ia_location_status,
+                            
+                            e.registration_number AS e_registration_number,
+                            e.name AS e_name,
+                            e.phone as e_phone,
+                            e.hash_password AS e_hash_password,
+                            e.email AS e_email
+                        FROM Asset a
+                        LEFT JOIN InventoryAsset ia ON ia.asset_id = a.id
+                        LEFT JOIN Employee e ON e.registration_number = a.employee_reg
+                        WHERE a.id = ?
+                """;
         Asset asset = null;
 
-        try(PreparedStatement stmt = Database.createPreparedStatement(sql)){
+        try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 asset = resultSetToEntityWithInventoryAsset(rs);
                 //employee = resultSetToEntity(rs);
             }
@@ -104,18 +105,18 @@ public class SQLiteAssetDAO implements AssetDAO {
     @Override
     public Optional<Asset> findById(Integer id) {
         String sql = """
-            SELECT
-                a.id AS a_id,
-                a.description AS a_description,
-                a.employee_reg AS a_employee_reg,
-                a.damage AS a_damage,
-                a.status AS a_status,
-                a.value AS a_value,
-                a.location_id AS a_location_id,
-                a.location_status AS a_location_status
-            FROM Asset a
-            WHERE a.id = ?
-        """;
+                    SELECT
+                        a.id AS a_id,
+                        a.description AS a_description,
+                        a.employee_reg AS a_employee_reg,
+                        a.damage AS a_damage,
+                        a.status AS a_status,
+                        a.value AS a_value,
+                        a.location_id AS a_location_id,
+                        a.location_status AS a_location_status
+                    FROM Asset a
+                    WHERE a.id = ?
+                """;
         Asset asset = null;
         try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
             stmt.setInt(1, id);
@@ -133,23 +134,23 @@ public class SQLiteAssetDAO implements AssetDAO {
     @Override
     public List<Asset> filterByLocation(Location location) {
         String sql = """
-            SELECT
-                a.id AS a_id,
-                a.description AS a_description,
-                a.employee_reg AS a_employee_reg,
-                a.value AS a_value,
-                a.damage AS a_damage,
-                a.status AS a_status,
-                a.location_id AS a_location_id,
-                a.location_status AS a_location_status,
-                
-                l.id AS l_id,
-                l.section AS l_section,
-                l.number AS l_number
-            FROM Asset a
-            LEFT JOIN Location l ON l.id = a.location_id
-            WHERE a.location_id = ?
-        """;
+                    SELECT
+                        a.id AS a_id,
+                        a.description AS a_description,
+                        a.employee_reg AS a_employee_reg,
+                        a.value AS a_value,
+                        a.damage AS a_damage,
+                        a.status AS a_status,
+                        a.location_id AS a_location_id,
+                        a.location_status AS a_location_status,
+                        
+                        l.id AS l_id,
+                        l.section AS l_section,
+                        l.number AS l_number
+                    FROM Asset a
+                    LEFT JOIN Location l ON l.id = a.location_id
+                    WHERE a.location_id = ?
+                """;
         Asset asset = null;
         List<Asset> assets = new ArrayList<>();
         try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
@@ -170,30 +171,30 @@ public class SQLiteAssetDAO implements AssetDAO {
     @Override
     public List<Asset> filterByEmployee(Employee employee) {
         String sql = """
-            SELECT
-                a.id AS a_id,
-                a.description AS a_description,
-                a.employee_reg AS a_employee_reg,
-                a.value AS a_value,
-                a.damage AS a_damage,
-                a.status AS a_status,
-                a.location_id AS a_location_id,
-                a.location_status AS a_location_status,
-                
-                e.registration_number AS e_registration_number,
-                e.name AS e_name,
-                e.phone as e_phone,
-                e.hash_password AS e_hash_password,
-                e.email AS e_email,
-                
-                l.id AS l_id,
-                l.section AS l_section,
-                l.number AS l_number
-            FROM Asset a
-            LEFT JOIN Employee e ON e.registration_number = a.employee_reg
-            LEFT JOIN Location l ON l.id = a.location_id
-            WHERE a.employee_reg = ?
-        """;
+                    SELECT
+                        a.id AS a_id,
+                        a.description AS a_description,
+                        a.employee_reg AS a_employee_reg,
+                        a.value AS a_value,
+                        a.damage AS a_damage,
+                        a.status AS a_status,
+                        a.location_id AS a_location_id,
+                        a.location_status AS a_location_status,
+                        
+                        e.registration_number AS e_registration_number,
+                        e.name AS e_name,
+                        e.phone as e_phone,
+                        e.hash_password AS e_hash_password,
+                        e.email AS e_email,
+                        
+                        l.id AS l_id,
+                        l.section AS l_section,
+                        l.number AS l_number
+                    FROM Asset a
+                    LEFT JOIN Employee e ON e.registration_number = a.employee_reg
+                    LEFT JOIN Location l ON l.id = a.location_id
+                    WHERE a.employee_reg = ?
+                """;
         Asset asset = null;
         List<Asset> assets = new ArrayList<>();
         try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
@@ -213,30 +214,30 @@ public class SQLiteAssetDAO implements AssetDAO {
     @Override
     public List<Asset> filterByLocationAndEmployee(Location location, Employee employee) {
         String sql = """
-            SELECT
-                a.id AS a_id,
-                a.description AS a_description,
-                a.employee_reg AS a_employee_reg,
-                a.value AS a_value,
-                a.damage AS a_damage,
-                a.status AS a_status,
-                a.location_id AS a_location_id,
-                a.location_status AS a_location_status,
-                
-                l.id AS l_id,
-                l.section AS l_section,
-                l.number AS l_number,
-                
-                e.registration_number AS e_registration_number,
-                e.name AS e_name,
-                e.phone as e_phone,
-                e.hash_password AS e_hash_password,
-                e.email AS e_email
-            FROM Asset a
-            LEFT JOIN Location l ON l.id = a.location_id
-            LEFT JOIN Employee e ON e.registration_number = a.employee_reg
-            WHERE a.location_id = ? AND a.employee_reg = ?
-        """;
+                    SELECT
+                        a.id AS a_id,
+                        a.description AS a_description,
+                        a.employee_reg AS a_employee_reg,
+                        a.value AS a_value,
+                        a.damage AS a_damage,
+                        a.status AS a_status,
+                        a.location_id AS a_location_id,
+                        a.location_status AS a_location_status,
+                        
+                        l.id AS l_id,
+                        l.section AS l_section,
+                        l.number AS l_number,
+                        
+                        e.registration_number AS e_registration_number,
+                        e.name AS e_name,
+                        e.phone as e_phone,
+                        e.hash_password AS e_hash_password,
+                        e.email AS e_email
+                    FROM Asset a
+                    LEFT JOIN Location l ON l.id = a.location_id
+                    LEFT JOIN Employee e ON e.registration_number = a.employee_reg
+                    WHERE a.location_id = ? AND a.employee_reg = ?
+                """;
         Asset asset = null;
 
         List<Asset> assets = new ArrayList<>();
@@ -276,7 +277,7 @@ public class SQLiteAssetDAO implements AssetDAO {
                     ?
                 );
                 """;
-        try(PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+        try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
             stmt.setString(1, asset.getDescription());
             stmt.setDouble(2, asset.getValue());
             stmt.setString(3, asset.getStatus().toString());
@@ -310,15 +311,15 @@ public class SQLiteAssetDAO implements AssetDAO {
     @Override
     public synchronized boolean update(Asset asset) {//SQLITE
         String sql = """
-            UPDATE Asset set
-                description = ?,
-                employee_reg = ?,
-                value = ?,
-                damage = ?,
-                location_id = ?,
-                status = ?
-            WHERE id = ?
-        """;
+                    UPDATE Asset set
+                        description = ?,
+                        employee_reg = ?,
+                        value = ?,
+                        damage = ?,
+                        location_id = ?,
+                        status = ?
+                    WHERE id = ?
+                """;
 
         try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
             stmt.setString(1, asset.getDescription());
@@ -356,33 +357,33 @@ public class SQLiteAssetDAO implements AssetDAO {
     @Override
     public List<Asset> findAll() {
         String sql = """
-            SELECT
-                a.id AS a_id,
-                a.description AS a_description,
-                a.employee_reg AS a_employee_reg,
-                a.value AS a_value,
-                a.damage AS a_damage,
-                a.status AS a_status,
-                a.location_id AS a_location_id,
-                a.location_status AS a_location_status,
-                
-                l.id AS l_id,
-                l.section AS l_section,
-                l.number AS l_number,
-                
-                e.registration_number AS e_registration_number,
-                e.name AS e_name,
-                e.phone as e_phone,
-                e.hash_password AS e_hash_password,
-                e.email AS e_email,
-                
-                er.employee_reg AS er_employee_reg,
-                er.role AS er_role
-            FROM Asset a
-            LEFT JOIN Location l ON l.id = a.location_id
-            LEFT JOIN Employee e ON e.registration_number = a.employee_reg
-            LEFT JOIN EmployeeRole er ON er.employee_reg = e.registration_number
-        """;
+                    SELECT
+                        a.id AS a_id,
+                        a.description AS a_description,
+                        a.employee_reg AS a_employee_reg,
+                        a.value AS a_value,
+                        a.damage AS a_damage,
+                        a.status AS a_status,
+                        a.location_id AS a_location_id,
+                        a.location_status AS a_location_status,
+                        
+                        l.id AS l_id,
+                        l.section AS l_section,
+                        l.number AS l_number,
+                        
+                        e.registration_number AS e_registration_number,
+                        e.name AS e_name,
+                        e.phone as e_phone,
+                        e.hash_password AS e_hash_password,
+                        e.email AS e_email,
+                        
+                        er.employee_reg AS er_employee_reg,
+                        er.role AS er_role
+                    FROM Asset a
+                    LEFT JOIN Location l ON l.id = a.location_id
+                    LEFT JOIN Employee e ON e.registration_number = a.employee_reg
+                    LEFT JOIN EmployeeRole er ON er.employee_reg = e.registration_number
+                """;
         Asset asset = null;
 
         List<Asset> assets = new ArrayList<>();
@@ -398,4 +399,9 @@ public class SQLiteAssetDAO implements AssetDAO {
         }
         return assets;
     }
+
+
 }
+
+
+
