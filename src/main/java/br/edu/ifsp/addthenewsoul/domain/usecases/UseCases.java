@@ -4,6 +4,7 @@ import br.edu.ifsp.addthenewsoul.application.repository.database.SQLiteAssetDAO;
 import br.edu.ifsp.addthenewsoul.application.repository.database.SQLiteEmployeeDAO;
 import br.edu.ifsp.addthenewsoul.application.repository.database.SQLiteInventoryDAO;
 import br.edu.ifsp.addthenewsoul.application.repository.database.SQLiteLocationDAO;
+import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.*;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.*;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.*;
@@ -12,6 +13,8 @@ import br.edu.ifsp.addthenewsoul.domain.usecases.report.EmployeePDFReportWriter;
 import br.edu.ifsp.addthenewsoul.domain.usecases.report.InventoryPDFReportWriter;
 import br.edu.ifsp.addthenewsoul.domain.usecases.report.IssueReportUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.report.LocationPDFReportWriter;
+
+import java.util.List;
 
 public class UseCases {
     private static UseCases instance;
@@ -27,13 +30,9 @@ public class UseCases {
     public RemoveLocationUseCase removeLocationUseCase;
 
     public AddAssetUseCase addAssetUseCase;
-
     public UpdateAssetUseCase updateAssetUseCase;
-
     public FindAssetUseCase findAssetUseCase;
-
     public RemoveAssetUseCase removeAssetUseCase;
-
     public FilterAssetsUseCase filterAssetsUseCase;
 
     public LoginEmployeeUseCase loginEmployeeUseCase;
@@ -79,10 +78,17 @@ public class UseCases {
         updateEmployeeUseCase = new UpdateEmployeeUseCase(employeeDAO);
         removeEmployeeUseCase = new RemoveEmployeeUseCase(employeeDAO, inventoryDAO);
 
+        List<Employee> employee = findEmployeeUseCase.findAll();
         addAssetUseCase = new AddAssetUseCase(assetDAO);
         findAssetUseCase = new FindAssetUseCase(assetDAO);
         updateAssetUseCase = new UpdateAssetUseCase(assetDAO);
         removeAssetUseCase = new RemoveAssetUseCase(assetDAO);
+        filterAssetsUseCase = new FilterAssetsUseCase(assetDAO);
+
+        startInventoryUseCase = new StartInventoryUseCase(inventoryDAO);
+        findInventoryUseCase = new FindInventoryUseCase(inventoryDAO);
+        finishInventoryUseCase = new FinishInventoryUseCase(inventoryDAO);
+        evaluateAssetUseCase = new EvaluateAssetUseCase(inventoryDAO);
 
         exportEmployeeCSVUseCase = new ExportEmployeeCSVUseCase(employeeCSV, employeeDAO);
         importEmployeeCSVUseCase = new ImportEmployeeCSVUseCase(employeeCSV, employeeDAO);

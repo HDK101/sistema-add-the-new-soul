@@ -6,29 +6,42 @@ import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.usecases.UseCases;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.ExportAssetCSVUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.asset.FilterAssetsUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.asset.FindAssetUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.ImportAssetCSVUseCase;
-import javafx.beans.Observable;
+import br.edu.ifsp.addthenewsoul.domain.usecases.employee.FindEmployeeUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.location.FindLocationUseCase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static br.edu.ifsp.addthenewsoul.domain.usecases.UseCases.*;
 
 public class AssetManagementUIController {
 
+    @FXML
+    public RadioButton rbId;
+    @FXML
+    public RadioButton rbLocation;
+    @FXML
+    public RadioButton rbEmployeeInCharge;
+    @FXML
+    public RadioButton rbLocationAndEmployee;
+    public ComboBox<Employee> cbEmployee;
+    public ComboBox<Location> cbLocal;
     @FXML
     private TableView<Asset> tableView;
     @FXML
@@ -53,6 +66,23 @@ public class AssetManagementUIController {
         bindTableViewToItemsList();
         bindColumnsToValueSources();
         loadDataAndShow();
+        loadEmployeesAndLocations();
+    }
+
+    private void loadEmployeesAndLocations() {
+        FindEmployeeUseCase findEmployeeUseCase = getInstance().findEmployeeUseCase;
+        FindLocationUseCase findLocationUseCase = getInstance().findLocationUseCase;
+
+        List<Employee> employees = new ArrayList<>();
+        employees.add(null);
+        employees.addAll(findEmployeeUseCase.findAll());
+
+        List<Location> locations = new ArrayList<>();
+        locations.add(null);
+        locations.addAll(findLocationUseCase.findAll());
+
+        this.cbEmployee.setItems(FXCollections.observableArrayList(employees));
+        this.cbLocal.setItems(FXCollections.observableArrayList(locations));
     }
 
     private void bindTableViewToItemsList() {
@@ -155,9 +185,19 @@ public class AssetManagementUIController {
     }
 
     public void find(ActionEvent actionEvent) {
+        FindAssetUseCase findAssetUseCase = getInstance().findAssetUseCase;
+        Asset asset = findAssetUseCase.findOne(Integer.parseInt(txtFilter.getText())).orElseThrow();
+        loadDataFilterShow(List.of(asset));
+    }
+
+    private void loadDataFilterShow(List<Asset> assets) {
+        System.out.println(assets);
+        tableData.clear();
+        tableData.addAll(assets);
     }
 
     public void allAssets(ActionEvent actionEvent) {
+        loadDataAndShow();
     }
 
     public void addAsset(ActionEvent actionEvent) throws IOException {
@@ -170,6 +210,7 @@ public class AssetManagementUIController {
 
     public void removeAsset(ActionEvent actionEvent) {
         Asset selectedItem = tableView.getSelectionModel().getSelectedItem();
+        System.out.println(selectedItem);
         if (selectedItem != null) {
             getInstance().removeAssetUseCase.removeAsset(selectedItem);
             loadDataAndShow();
@@ -179,9 +220,33 @@ public class AssetManagementUIController {
     private void showBookInMode(UIMode mode) throws IOException {
         Asset selectedItem = tableView.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
-            WindowLoader.setRoot("BookUI");
+            WindowLoader.setRoot("AssetUI");
             AssetUIController controller = (AssetUIController) WindowLoader.getController();
             controller.setBook(selectedItem, mode);
+        }
+    }
+
+    public void filterByEmployeeLocation(ActionEvent actionEvent) {
+        Location location = cbLocal.getValue();
+        Employee employee = cbEmployee.getValue();
+
+        FilterAssetsUseCase filterAssetsUseCase = getInstance().filterAssetsUseCase;
+
+        if (location != null && employee != null) {
+            loadDataFilterShow(filterAssetsUseCase.filterAssetsByLocationAndEmployee(location, employee));
+        }
+        else if (location != null) {
+            loadDataFilterShow(filterAssetsUseCase.filterAssetsByLocal(location));
+
+        }
+        else if (employee != null) {
+            loadDataFilterShow(filterAssetsUseCase.filterAssetsByEmployee(employee));
+        }
+        else {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Erro");
+            errorAlert.setContentText("Você precisa informar, no mínimo, um funcionário ou um local");
+            errorAlert.showAndWait();
         }
     }
 }

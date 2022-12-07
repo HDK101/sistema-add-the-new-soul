@@ -12,5 +12,7 @@ public interface LocationDAO extends DAO<Location, Integer> {
 
     Optional<Location> findByLocation(Integer number, String section);
 
+    Location findBySectionAndNumber(Integer number, String section);
+
     boolean haveAssets (List<Asset> assets, Location location);
 }

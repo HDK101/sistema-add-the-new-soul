@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.AssetManagementUIController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.AssetManagementUIController">
    <children>
-      <Label layoutX="212.0" layoutY="14.0" text="ASSET MANAGEMENT">
+      <Label layoutX="212.0" layoutY="14.0" text="GERENCIAMENTO DE BENS">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TableView fx:id="tableView" layoutX="36.0" layoutY="120.0" prefHeight="177.0" prefWidth="532.0">
+      <TableView fx:id="tableView" layoutX="36.0" layoutY="157.0" prefHeight="177.0" prefWidth="532.0">
         <columns>
           <TableColumn fx:id="cId" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="cDescription" prefWidth="115.0" text="DESCRIPTION" />
@@ -21,19 +26,20 @@
             <TableColumn fx:id="cLocation" prefWidth="110.0" text="LOCATION" />
         </columns>
       </TableView>
-      <Label layoutX="34.0" layoutY="58.0" text="Filter by:" />
-      <TextField fx:id="txtFilter" layoutX="102.0" layoutY="54.0" />
-      <Button fx:id="btnOk" layoutX="273.0" layoutY="54.0" onAction="#find" mnemonicParsing="false" text="OK" />
-      <Button fx:id="btnAllAssets" layoutX="316.0" layoutY="54.0" onAction="#allAssets" mnemonicParsing="false" text="ALL ASSETS" />
-      <RadioButton fx:id="rbId" layoutX="102.0" layoutY="86.0" mnemonicParsing="false" text="ID" />
-      <RadioButton fx:id="rbLocation" layoutX="156.0" layoutY="86.0" mnemonicParsing="false" text="Location" />
-      <RadioButton fx:id="rbEmployeeInCharge" layoutX="236.0" layoutY="86.0" mnemonicParsing="false" text="Employee in charge" />
-      <RadioButton fx:id="rbLocationAndEmployee" layoutX="370.0" layoutY="86.0" mnemonicParsing="false" text="Location and Employee" />
-      <Button fx:id="btnAdd" layoutX="36.0" layoutY="310.0" onAction="#addAsset" mnemonicParsing="false" text="ADD NEW +" />
-      <Button fx:id="btnEdit" layoutX="127.0" layoutY="310.0" onAction="#editAsset" mnemonicParsing="false" text="EDIT" />
-      <Button fx:id="btnRemove" layoutX="176.0" layoutY="310.0" onAction="#removeAsset" mnemonicParsing="false" text="REMOVE" />
-       <Button layoutX="249.0" layoutY="310.0" mnemonicParsing="false" onAction="#importCSV" text="IMPORT CSV" />
-       <Button layoutX="345.0" layoutY="310.0" mnemonicParsing="false" onAction="#exportCSV" text="EXPORT CSV" />
+      <Label layoutX="34.0" layoutY="58.0" text="Filtrar por ID:" />
+      <TextField fx:id="txtFilter" layoutX="121.0" layoutY="54.0" />
+      <Button fx:id="btnOk" layoutX="288.0" layoutY="54.0" mnemonicParsing="false" onAction="#find" text="OK" />
+      <Button fx:id="btnAllAssets" layoutX="331.0" layoutY="54.0" mnemonicParsing="false" onAction="#allAssets" text="TODOS OS BENS" />
+      <Button fx:id="btnAdd" layoutX="36.0" layoutY="347.0" mnemonicParsing="false" onAction="#addAsset" text="ADD NEW +" />
+      <Button fx:id="btnEdit" layoutX="127.0" layoutY="347.0" mnemonicParsing="false" onAction="#editAsset" text="EDIT" />
+      <Button fx:id="btnRemove" layoutX="176.0" layoutY="347.0" mnemonicParsing="false" onAction="#removeAsset" text="REMOVE" />
+       <Button layoutX="249.0" layoutY="347.0" mnemonicParsing="false" onAction="#importCSV" text="IMPORT CSV" />
+       <Button layoutX="345.0" layoutY="347.0" mnemonicParsing="false" onAction="#exportCSV" text="EXPORT CSV" />
       <Button layoutX="498.0" layoutY="348.0" mnemonicParsing="false" onAction="#goBack" text="CANCEL" />
+      <ComboBox fx:id="cbEmployee" layoutX="174.0" layoutY="109.0" prefWidth="150.0" promptText="Funcionário" />
+      <ComboBox fx:id="cbLocal" layoutX="375.0" layoutY="109.0" prefWidth="150.0" promptText="Local" />
+      <Label layoutX="34.0" layoutY="113.0" text="Filtrar por funcionário:" />
+      <Label layoutX="331.0" layoutY="113.0" text="Local:" />
+      <Button fx:id="filterByEmployeeLocationButton" layoutX="531.0" layoutY="109.0" mnemonicParsing="false" onAction="#filterByEmployeeLocation" text="OK" />
    </children>
 </AnchorPane>

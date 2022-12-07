@@ -41,7 +41,9 @@ public class AssetUIController {
     private void initialize(){
         cbLocation.getItems().setAll(getInstance().findLocationUseCase.findAll());
         cbEmployeeInCharge.getItems().setAll(getInstance().findEmployeeUseCase.findAll());
-        cbStatus.setVisible(false);
+        cbStatus.getItems().setAll(Status.values());
+        cbStatus.setValue(Status.NOT_VERIFIED);
+        cbStatus.setDisable(true);
         txtDamages.setVisible(false);
     }
 
@@ -63,6 +65,7 @@ public class AssetUIController {
         asset.setValue(Double.parseDouble(txtValue.getText()));
         asset.setDamage(txtDamages.getText());
         asset.setStatus(cbStatus.getValue());
+        asset.setLocation(cbLocation.getValue());
     }
 
     public void setBook(Asset asset, UIMode mode) {
@@ -71,6 +74,8 @@ public class AssetUIController {
         this.asset = asset;
         setEntityIntoView();
 
+        if (mode == UIMode.UPDATE)
+            configureViewMode();
     }
 
     private void setEntityIntoView(){
@@ -81,6 +86,11 @@ public class AssetUIController {
         cbEmployeeInCharge.setValue(asset.getEmployeeInCharge());
         txtDescription.setText(asset.getDescription());
         txtDamages.setText(asset.getDamage());
+    }
+
+    private void configureViewMode() {
+        cbStatus.setDisable(false);
+        txtDamages.setVisible(true);
     }
 
     public void cancel(ActionEvent actionEvent) throws IOException {

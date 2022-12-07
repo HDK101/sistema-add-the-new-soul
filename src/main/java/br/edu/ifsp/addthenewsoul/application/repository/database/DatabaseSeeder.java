@@ -14,7 +14,18 @@ public class DatabaseSeeder {
     public static void seed() {
         SQLiteEmployeeDAO employeeDAO = new SQLiteEmployeeDAO();
 
-        String reg = employeeDAO.add(
+        employeeDAO.add(
+                Employee.builder()
+                        .name("Lucas")
+                        .email("lucas@gmail.com")
+                        .hashPassword("$2y$10$ILZV4Wla1gELZ/Mj0xPDTe.kbmmEUzrIEQeL/V.eJc7v2YwSuZ2S6")
+                        .phone("(18) 99999-9999")
+                        .registrationNumber("REG123")
+                        .roles(EnumSet.of(Role.EXECUTOR))
+                        .build()
+        );
+
+        employeeDAO.add(
                 Employee.builder()
                         .name("Vinicius")
                         .email("vinicius@gmail.com")
@@ -24,9 +35,8 @@ public class DatabaseSeeder {
                         .roles(EnumSet.of(Role.EXECUTOR))
                         .build()
         );
-        System.out.println(reg);
 
-        String reg1 = employeeDAO.add(
+        employeeDAO.add(
                 Employee.builder()
                         .name("Isabela")
                         .email("isabela@gmail.com")
@@ -36,8 +46,8 @@ public class DatabaseSeeder {
                         .roles(EnumSet.of(Role.EXECUTOR))
                         .build()
         );
-        System.out.println(reg1);
-        String reg2 = employeeDAO.add(
+
+        employeeDAO.add(
                 Employee.builder()
                         .name("Caue")
                         .email("caue@gmail.com")
@@ -47,7 +57,5 @@ public class DatabaseSeeder {
                         .roles(EnumSet.of(Role.EXECUTOR))
                         .build()
         );
-        System.out.println(reg2);
-
     }
 }
