@@ -144,8 +144,29 @@ public class InventoryManagementUIController {
     @FXML
     void finishInventory(ActionEvent event) throws IOException {
         Inventory inventory = tableViewInventory.getSelectionModel().getSelectedItem();
+
         System.out.println(tableViewInventory.getSelectionModel().getSelectedItem());
         getInstance().finishInventoryUseCase.finalizeInventory(inventory, inventory.getComissionPresident());
+
+        if (inventory == null) return;
+
+        Employee employee = Session.getInstance().getLoggedUser();
+
+        FindInventoryUseCase findInventoryUseCase = UseCases.getInstance().findInventoryUseCase;
+        FinishInventoryUseCase finishInventoryUseCase = UseCases.getInstance().finishInventoryUseCase;
+
+        Inventory fullInventory = findInventoryUseCase.findOne(inventory.getId()).orElseThrow();
+
+        if (!fullInventory.hasComissionPresident(employee)) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Erro");
+            errorAlert.setContentText("Você não é o presidente da comissão");
+            errorAlert.showAndWait();
+            return;
+        }
+
+        finishInventoryUseCase.finalizeInventory(fullInventory);
+
         loadDataAndShow();
     }
 

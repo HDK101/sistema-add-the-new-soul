@@ -3,6 +3,7 @@ package br.edu.ifsp.addthenewsoul.application.repository.database.results;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.InventoryStatus;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,6 +20,7 @@ public class ResultToInventory {
                 .endDate(rs.getDate("i_end_date").toLocalDate())
                 .assets(new ArrayList<>())
                 .comission(new ArrayList<>())
+                .inventoryStatus(InventoryStatus.valueOf(rs.getString("i_inventory_status")))
                 .build();
     }
 }

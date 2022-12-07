@@ -97,6 +97,10 @@ public class Inventory {
         this.comissionPresident = comissionPresident;
     }
 
+    public boolean hasComissionPresident(Employee comissionPresident) {
+        return this.comissionPresident.equals(comissionPresident);
+    }
+
     public List<Employee> getTeam() {
         return comission;
     }

@@ -13,15 +13,15 @@ public class FinishInventoryUseCase {
         this.inventoryDAO = inventoryDAO;
     }
 
-    public void finalizeInventory (Inventory inventory, Employee comissionPresident) {
-        if (inventory == null || comissionPresident == null) return;
+    public void finalizeInventory (Inventory inventory) {
+        if (inventory == null) return;
+
+        Employee comissionPresident = inventory.getComissionPresident();
 
         if (!inventory.getInventoryStatus().equals(InventoryStatus.OPEN))
             throw new IllegalArgumentException("There is no open inventory");
         if (inventory.hasUnverifiedAssets())
             throw new IllegalArgumentException("Inventory can only be finalized if all goods are checked");
-        if (!comissionPresident.getRoles().contains(Role.CHAIRMAN_OF_THE_COMISSION))
-            throw new IllegalArgumentException("Only the chairman of the commission can close the inventory");
         inventory.finish();
         inventoryDAO.update(inventory);
     }
