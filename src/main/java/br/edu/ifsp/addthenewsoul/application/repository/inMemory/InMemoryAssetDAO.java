@@ -48,15 +48,15 @@ public class InMemoryAssetDAO implements AssetDAO {
                         .contains(employee.getRegistrationNumber())).collect(Collectors.toList());
     }
 
-    @Override
-    public Optional<InventoryAsset> findInventoryAssetById(Integer id) {
-        return Optional.empty();
-    }
+//    @Override
+//    public Optional<InventoryAsset> findInventoryAssetById(Integer id) {
+//        return Optional.empty();
+//    }
 
-    @Override
-    public List<InventoryAsset> findAllInventoryAssets() {
-        return null;
-    }
+//    @Override
+//    public List<InventoryAsset> findAllInventoryAssets() {
+//        return null;
+//    }
 
     @Override
     public Integer add(Asset asset) {

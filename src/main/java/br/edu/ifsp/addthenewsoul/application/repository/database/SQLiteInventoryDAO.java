@@ -1,7 +1,9 @@
 package br.edu.ifsp.addthenewsoul.application.repository.database;
 
+import br.edu.ifsp.addthenewsoul.application.repository.database.results.ResultToEmployee;
 import br.edu.ifsp.addthenewsoul.application.repository.database.results.ResultToInventory;
 import br.edu.ifsp.addthenewsoul.application.repository.database.results.ResultToInventoryAsset;
+import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;
@@ -21,7 +23,7 @@ public class SQLiteInventoryDAO implements InventoryDAO {
                     i.president_reg AS i_president_reg,
                     i.initial_date AS i_initial_date,
                     i.end_date AS i_end_date,
-                    i.status AS i_inventory_status
+                    i.status AS i_inventory_status,
                     
                     ia.id AS ia_id,
                     ia.inventory_id AS ia_inventory_id,
@@ -30,9 +32,18 @@ public class SQLiteInventoryDAO implements InventoryDAO {
                     ia.status AS ia_status,
                     ia.value AS ia_value,
                     ia.location_id AS ia_location_id,
-                    ia.location_status AS ia_location_status
+                    ia.location_status AS ia_location_status,
+                    
+                    e.registration_number AS e_registration_number,
+                    e.name AS e_name,
+                    e.phone as e_phone,
+                    e.hash_password AS e_hash_password,
+                    e.email AS e_email,
+                    er.role AS er_role,
                 FROM Inventory i
                 LEFT JOIN InventoryAsset ia ON ia.inventory_id = i.id
+                LEFT JOIN Employee e ON i.president_reg = e.registration_number
+                LEFT JOIN EmployeeRole er on e.registration_number = e.registration_number
                 WHERE i.id = ?
                 """;
 
@@ -43,9 +54,16 @@ public class SQLiteInventoryDAO implements InventoryDAO {
             ResultSet resultSet = statement.getResultSet();
             Inventory inventory = null;
             while (resultSet.next()) {
-                if (inventory == null) inventory = ResultToInventory.convert(resultSet);
-                InventoryAsset inventoryAsset = ResultToInventoryAsset.convert(resultSet);
-                inventory.addAsset(inventoryAsset);
+                if (inventory == null) {
+                    inventory = ResultToInventory.convert(resultSet);
+                    Employee employee = ResultToEmployee.convert(resultSet);
+                    System.out.println(employee);
+                    inventory.setComissionPresident(employee);
+                }
+                if (resultSet.getString("ia_id") != null) {
+                    InventoryAsset inventoryAsset = ResultToInventoryAsset.convert(resultSet);
+                    inventory.addAsset(inventoryAsset);
+                }
             }
             return Optional.ofNullable(inventory);
         } catch (Exception e) {
