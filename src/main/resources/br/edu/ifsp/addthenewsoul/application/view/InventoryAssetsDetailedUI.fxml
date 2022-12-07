@@ -16,24 +16,24 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <TableView layoutX="37.0" layoutY="122.0" prefHeight="169.0" prefWidth="528.0">
+      <TableView fx:id="tableViewInventoryAssets" layoutX="37.0" layoutY="122.0" prefHeight="169.0" prefWidth="528.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="ID" />
-          <TableColumn prefWidth="75.0" text="Nome" />
-            <TableColumn prefWidth="83.0" text="Local" />
-            <TableColumn prefWidth="105.0" text="Avaliador" />
-            <TableColumn prefWidth="102.0" text="Danos" />
-            <TableColumn prefWidth="87.0" text="Status" />
+          <TableColumn fx:id="cIdInventoryAssets" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="cDescriptionInventoryAssets" prefWidth="75.0" text="Description" />
+            <TableColumn fx:id="cLocationInventoryAssets" prefWidth="83.0" text="Local" />
+            <TableColumn fx:id="cEvaluatorInventoryAssets" prefWidth="105.0" text="Avaliador" />
+            <TableColumn fx:id="cDamageInventoryAssets" prefWidth="102.0" text="Danos" />
+            <TableColumn fx:id="cStatusInventoryAssets" prefWidth="87.0" text="Status" />
         </columns>
       </TableView>
-      <TextField layoutX="91.0" layoutY="56.0" />
+      <TextField fx:id="txtFilterInventoryAssets" layoutX="94.0" layoutY="56.0" />
       <Label layoutX="32.0" layoutY="60.0" text="Filtrar por:" />
-      <RadioButton layoutX="91.0" layoutY="94.0" mnemonicParsing="false" text="Local" />
-      <RadioButton layoutX="195.0" layoutY="94.0" mnemonicParsing="false" text="Avaliador" />
-      <RadioButton layoutX="294.0" layoutY="94.0" mnemonicParsing="false" text="Danificados" />
-      <Button layoutX="260.0" layoutY="56.0" mnemonicParsing="false" text="OK" />
-      <Button layoutX="301.0" layoutY="56.0" mnemonicParsing="false" text="TODOS OS BENS" />
-      <Button layoutX="497.0" layoutY="352.0" mnemonicParsing="false" text="Cancelar" />
-      <Button layoutX="37.0" layoutY="301.0" mnemonicParsing="false" text="Avaliar bem" />
+      <Button fx:id="btnOkFilter" layoutX="263.0" layoutY="56.0" mnemonicParsing="false" onAction="#filterInventoryAssets" text="OK" />
+      <Button fx:id="btnFindAll" layoutX="304.0" layoutY="56.0" mnemonicParsing="false" onAction="#findAllInventoryAssets" text="TODOS OS BENS" />
+      <Button fx:id="btnCancel" layoutX="497.0" layoutY="352.0" mnemonicParsing="false" onAction="#goBack" text="Cancelar" />
+      <Button fx:id="btnEvaluateInventoryAssets" layoutX="37.0" layoutY="301.0" mnemonicParsing="false" onAction="#evaluateInventoryAssets" text="Avaliar bem" />
+      <RadioButton fx:id="rdIdInventoryAssets" layoutX="94.0" layoutY="93.0" mnemonicParsing="false" text="ID" />
+      <RadioButton fx:id="rdEvaluatorInventoryAsset" layoutX="199.0" layoutY="93.0" mnemonicParsing="false" text="Avaliador" />
+      <RadioButton fx:id="rdInventoryAssets" layoutX="304.0" layoutY="93.0" mnemonicParsing="false" text="Bens danificados" />
    </children>
 </AnchorPane>
