@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.InventoryUIController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.InventoryUIController">
    <children>
       <Label layoutX="204.0" layoutY="14.0" text="DETALHES DE INVENTÁRIO">
          <font>
@@ -30,17 +30,16 @@
       <TableView fx:id="tableViewComissionMembers" layoutX="115.0" layoutY="126.0" prefHeight="104.0" prefWidth="471.0">
         <columns>
           <TableColumn fx:id="cRNInventoryDetailed" prefWidth="57.0" text="R.N." />
-          <TableColumn fx:id="cNameInventoryDetailed" prefWidth="101.0" text="Nome" />
-            <TableColumn fx:id="cEmailInventoryDetailed" prefWidth="75.0" text="E-mail" />
-            <TableColumn fx:id="cPhoneInventoryDetailed" prefWidth="95.0" text="Telefone" />
+          <TableColumn fx:id="cNameInventoryDetailed" prefWidth="139.0" text="Nome" />
+            <TableColumn fx:id="cEmailInventoryDetailed" prefWidth="139.0" text="E-mail" />
+            <TableColumn fx:id="cPhoneInventoryDetailed" prefWidth="135.0" text="Telefone" />
         </columns>
       </TableView>
       <Label layoutX="18.0" layoutY="144.0" text="COMISSÃO:" />
       <TableView fx:id="tableViewAssets" layoutX="115.0" layoutY="234.0" prefHeight="117.0" prefWidth="471.0">
         <columns>
-          <TableColumn fx:id="cIdAssetInventoryDetailed" prefWidth="50.0" text="Id" />
-          <TableColumn fx:id="cDescriptionInventoryDetailed" prefWidth="115.0" text="Descrição" />
-            <TableColumn fx:id="cStatusInventoryDetailed" prefWidth="78.0" text="Status" />
+          <TableColumn fx:id="cDescriptionInventoryDetailed" prefWidth="237.0" text="Descrição" />
+            <TableColumn fx:id="cStatusInventoryDetailed" prefWidth="233.0" text="Status" />
         </columns>
       </TableView>
       <Label layoutX="23.0" layoutY="259.0" text="BENS:" />

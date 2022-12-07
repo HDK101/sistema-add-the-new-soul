@@ -8,7 +8,6 @@ import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
 import br.edu.ifsp.addthenewsoul.domain.usecases.UseCases;
-import br.edu.ifsp.addthenewsoul.domain.usecases.asset.FindAssetUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.FindEmployeeUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.FindInventoryUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.Session;
@@ -47,9 +46,6 @@ public class InventoryUIController {
 
     @FXML
     private TableColumn<InventoryAsset, Employee> cEmployeeInChargeInventoryDetailed;
-
-    @FXML
-    private TableColumn<InventoryAsset, Integer> cIdAssetInventoryDetailed;
 
     @FXML
     private TableColumn<InventoryAsset, String> cLocalInventoryDetailed;
@@ -102,7 +98,6 @@ public class InventoryUIController {
         bindTableViewToItemsList();
         bindColumnsToValueSources();
         txtIdInventoryDetailed.setDisable(true);
-        loadDataAndShow();
         FindEmployeeUseCase findEmployeeUseCase = UseCases.getInstance().findEmployeeUseCase;
         List<Employee> employees = findEmployeeUseCase.findAll();
         cbComissionChiefInventoryDetailed.getItems().setAll(employees);
@@ -122,7 +117,6 @@ public class InventoryUIController {
         cEmailInventoryDetailed.setCellValueFactory(new PropertyValueFactory<>("email"));
         cPhoneInventoryDetailed.setCellValueFactory(new PropertyValueFactory<>("phone"));
 
-        cIdAssetInventoryDetailed.setCellValueFactory(new PropertyValueFactory<>("id"));
         cDescriptionInventoryDetailed.setCellValueFactory(new PropertyValueFactory<>("description"));
         //cLocalInventoryDetailed.setCellValueFactory(new PropertyValueFactory<>("location"));
         //cEmployeeInChargeInventoryDetailed.setCellValueFactory(new PropertyValueFactory<>("employeeInCharge"));
@@ -146,9 +140,6 @@ public class InventoryUIController {
 
     }
 
-    private void loadDataAndShow() {
-
-    }
 
     @FXML
     void editComissionMembers(ActionEvent event) {

@@ -18,12 +18,11 @@
       </Label>
       <TableView fx:id="tableViewInventoryAssets" layoutX="37.0" layoutY="122.0" prefHeight="169.0" prefWidth="528.0">
         <columns>
-          <TableColumn fx:id="cIdInventoryAssets" prefWidth="75.0" text="ID" />
-          <TableColumn fx:id="cDescriptionInventoryAssets" prefWidth="75.0" text="Description" />
-            <TableColumn fx:id="cLocationInventoryAssets" prefWidth="83.0" text="Local" />
-            <TableColumn fx:id="cEvaluatorInventoryAssets" prefWidth="105.0" text="Avaliador" />
-            <TableColumn fx:id="cDamageInventoryAssets" prefWidth="102.0" text="Danos" />
-            <TableColumn fx:id="cStatusInventoryAssets" prefWidth="87.0" text="Status" />
+          <TableColumn fx:id="cDescriptionInventoryAssets" prefWidth="97.0" text="Description" />
+            <TableColumn fx:id="cLocationInventoryAssets" prefWidth="106.0" text="Local" />
+            <TableColumn fx:id="cEvaluatorInventoryAssets" prefWidth="113.0" text="Avaliador" />
+            <TableColumn fx:id="cDamageInventoryAssets" prefWidth="120.0" text="Danos" />
+            <TableColumn fx:id="cStatusInventoryAssets" prefWidth="91.0" text="Status" />
         </columns>
       </TableView>
       <TextField fx:id="txtFilterInventoryAssets" layoutX="94.0" layoutY="56.0" />

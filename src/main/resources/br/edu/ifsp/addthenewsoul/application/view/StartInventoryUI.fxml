@@ -37,11 +37,10 @@
       <Button fx:id="btnRemoveComissionMember" layoutX="461.0" layoutY="146.0" mnemonicParsing="false" onAction="#removeComissionMember" text="Remover membro" />
       <TableView fx:id="tableViewAssets" layoutX="37.0" layoutY="251.0" prefHeight="103.0" prefWidth="416.0">
         <columns>
-          <TableColumn fx:id="cIdAsset" prefWidth="61.0" text="ID" />
           <TableColumn fx:id="cDescriptionAsset" prefWidth="89.0" text="Descrição" />
-            <TableColumn fx:id="cValueAsset" prefWidth="75.0" text="Valor" />
-            <TableColumn fx:id="cEmployeeInChargeAsset" prefWidth="102.0" text="Responsável" />
-            <TableColumn fx:id="cLocationAsset" prefWidth="88.0" text="Local" />
+            <TableColumn fx:id="cValueAsset" prefWidth="87.0" text="Valor" />
+            <TableColumn fx:id="cEmployeeInChargeAsset" prefWidth="122.0" text="Responsável" />
+            <TableColumn fx:id="cLocationAsset" prefWidth="117.0" text="Local" />
         </columns>
       </TableView>
       <Label layoutX="40.0" layoutY="226.0" text="Bens a serem avaliados:" />

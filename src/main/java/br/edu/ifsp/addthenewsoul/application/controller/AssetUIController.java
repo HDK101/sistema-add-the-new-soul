@@ -86,7 +86,7 @@ public class AssetUIController {
             @Override
             public String toString(Status object) {
                 if (object == null) return null;
-                return null;
+                return object.getName();
             }
 
             @Override
@@ -94,6 +94,7 @@ public class AssetUIController {
                 return null;
             }
         });
+
         cbStatus.getItems().setAll(Status.values());
         cbLocationStatus.getItems().setAll(LocationStatus.values());
         cbStatus.setValue(Status.NOT_VERIFIED);
@@ -184,7 +185,7 @@ public class AssetUIController {
         cbStatus.setDisable(false);
         txtDamages.setVisible(true);
         lbStatus.setVisible(true);
-        btnCancel.setVisible(false);
+        btnCancel.setVisible(true);
         btnSave.setVisible(false);
         txtDescription.setDisable(true);
         txtValue.setDisable(true);
@@ -194,6 +195,8 @@ public class AssetUIController {
     }
 
     public void cancel(ActionEvent actionEvent) throws IOException {
+//        if (UIMode.EVALUATE)
+//            WindowLoader.setRoot("InventoryUI");
         WindowLoader.setRoot("AssetManagementUI");
     }
 
