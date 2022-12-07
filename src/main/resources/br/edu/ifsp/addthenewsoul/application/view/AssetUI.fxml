@@ -1,31 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="408.0" prefWidth="585.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.AssetUIController">
+<AnchorPane prefHeight="408.0" prefWidth="585.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.AssetUIController">
    <children>
-      <Label layoutX="281.0" layoutY="14.0" text="ASSET" textAlignment="CENTER">
+      <Label layoutX="281.0" layoutY="14.0" text="BEM" textAlignment="CENTER">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
       <Label layoutX="48.0" layoutY="76.0" text="ID:" />
-      <Label layoutX="286.0" layoutY="177.0" text="Employee in charge:" />
+      <Label layoutX="313.0" layoutY="177.0" text="Responsável:" />
       <ComboBox fx:id="cbEmployeeInCharge" layoutX="404.0" layoutY="173.0" prefWidth="150.0" />
-      <Label layoutX="48.0" layoutY="177.0" text="Value: " />
+      <Label layoutX="48.0" layoutY="177.0" text="Valor:" />
       <Label layoutX="48.0" layoutY="115.0" text="Local:" />
       <ComboBox fx:id="cbLocation" layoutX="128.0" layoutY="111.0" prefHeight="25.0" prefWidth="138.0" />
       <TextField fx:id="txtValue" layoutX="128.0" layoutY="173.0" prefHeight="25.0" prefWidth="138.0" />
-      <Label layoutX="49.0" layoutY="223.0" text="Description:" />
+      <Label layoutX="49.0" layoutY="223.0" text="Descrição:" />
       <TextField fx:id="txtDescription" layoutX="128.0" layoutY="219.0" prefHeight="25.0" prefWidth="425.0" />
-      <Label layoutX="49.0" layoutY="264.0" text="Damages:" />
+      <Label layoutX="49.0" layoutY="264.0" text="Danos:" />
       <TextArea fx:id="txtDamages" layoutX="129.0" layoutY="264.0" prefHeight="63.0" prefWidth="425.0" />
       <Label layoutX="339.0" layoutY="76.0" text="Status: " />
       <ComboBox fx:id="cbStatus" layoutX="400.0" layoutY="72.0" prefWidth="150.0" />
-      <Button fx:id="btnSave" layoutX="498.0" layoutY="361.0" mnemonicParsing="false" onAction="#saveOrUpdate" text="SAVE" />
-      <Button fx:id="btnCancel" layoutX="421.0" layoutY="361.0" mnemonicParsing="false" onAction="#cancel" text="CANCEL" />
-      <Label fx:id="lbId" layoutX="78.0" layoutY="76.0" text="Label" />
+      <Button fx:id="btnSave" layoutX="498.0" layoutY="361.0" mnemonicParsing="false" onAction="#saveOrUpdate" text="Salvar" />
+      <Button fx:id="btnCancel" layoutX="425.0" layoutY="361.0" mnemonicParsing="false" onAction="#cancel" text="Cancelar" />
+      <Label fx:id="lbId" layoutX="78.0" layoutY="76.0" prefHeight="17.0" prefWidth="92.0" />
    </children>
 </AnchorPane>

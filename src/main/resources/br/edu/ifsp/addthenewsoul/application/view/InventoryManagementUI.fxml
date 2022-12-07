@@ -28,7 +28,7 @@
       <TextField fx:id="txtIdInventory" layoutX="144.0" layoutY="48.0" />
       <Label layoutX="22.0" layoutY="52.0" text="Encontrar inventário:" />
       <Button fx:id="btnOkInventory" layoutX="313.0" layoutY="48.0" mnemonicParsing="false" onAction="#findInventoryById" text="OK" />
-      <Button fx:id="btnAllInventories" layoutX="356.0" layoutY="48.0" mnemonicParsing="false" onAction="#findAllInventories" text="Mostrar todos inventários" />
+      <Button fx:id="btnAllInventories" layoutX="356.0" layoutY="48.0" mnemonicParsing="false" onAction="#findAllInventories" text="TODOS OS INVENTÁRIOS" />
       <Button fx:id="btnStartInventory" layoutX="22.0" layoutY="271.0" mnemonicParsing="false" onAction="#startInventory" text="Iniciar inventário" />
       <Button fx:id="btnFinishInventory" layoutX="134.0" layoutY="271.0" mnemonicParsing="false" onAction="#finishInventory" text="Finalizar inventário" />
       <Button fx:id="btnCancelInventory" layoutX="445.0" layoutY="344.0" mnemonicParsing="false" onAction="#goBack" text="Cancelar" />

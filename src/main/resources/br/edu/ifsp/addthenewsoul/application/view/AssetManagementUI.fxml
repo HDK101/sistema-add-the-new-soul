@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.AssetManagementUIController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.AssetManagementUIController">
    <children>
       <Label layoutX="212.0" layoutY="14.0" text="GERENCIAMENTO DE BENS">
          <font>
@@ -19,23 +19,23 @@
       <TableView fx:id="tableView" layoutX="36.0" layoutY="157.0" prefHeight="177.0" prefWidth="532.0">
         <columns>
           <TableColumn fx:id="cId" prefWidth="75.0" text="ID" />
-          <TableColumn fx:id="cDescription" prefWidth="115.0" text="DESCRIPTION" />
-            <TableColumn fx:id="cEmployeeInCharge" prefWidth="165.0" text="EMPLOYEE IN CHARGE" />
-            <TableColumn fx:id="cValue" prefWidth="66.0" text="VALUE" />
-            <TableColumn fx:id="cDamage" prefWidth="66.0" text="DAMAGE" />
-            <TableColumn fx:id="cLocation" prefWidth="110.0" text="LOCATION" />
+          <TableColumn fx:id="cDescription" prefWidth="115.0" text="Descrição" />
+            <TableColumn fx:id="cEmployeeInCharge" prefWidth="65.0" text="Responsável" />
+            <TableColumn fx:id="cValue" prefWidth="85.0" text="Valor" />
+            <TableColumn fx:id="cDamage" prefWidth="49.0" text="Dano" />
+            <TableColumn fx:id="cLocation" prefWidth="208.0" text="Local" />
         </columns>
       </TableView>
       <Label layoutX="34.0" layoutY="58.0" text="Filtrar por ID:" />
       <TextField fx:id="txtFilter" layoutX="121.0" layoutY="54.0" />
       <Button fx:id="btnOk" layoutX="288.0" layoutY="54.0" mnemonicParsing="false" onAction="#find" text="OK" />
       <Button fx:id="btnAllAssets" layoutX="331.0" layoutY="54.0" mnemonicParsing="false" onAction="#allAssets" text="TODOS OS BENS" />
-      <Button fx:id="btnAdd" layoutX="36.0" layoutY="347.0" mnemonicParsing="false" onAction="#addAsset" text="ADD NEW +" />
-      <Button fx:id="btnEdit" layoutX="127.0" layoutY="347.0" mnemonicParsing="false" onAction="#editAsset" text="EDIT" />
-      <Button fx:id="btnRemove" layoutX="176.0" layoutY="347.0" mnemonicParsing="false" onAction="#removeAsset" text="REMOVE" />
-       <Button fx:id="btnImportCsv" layoutX="249.0" layoutY="347.0" mnemonicParsing="false" onAction="#importCSV" text="IMPORT CSV" />
-       <Button fx:id="btnExportCsv" layoutX="345.0" layoutY="347.0" mnemonicParsing="false" onAction="#exportCSV" text="EXPORT CSV" />
-      <Button layoutX="498.0" layoutY="348.0" mnemonicParsing="false" onAction="#goBack" text="CANCEL" />
+      <Button fx:id="btnAdd" layoutX="36.0" layoutY="347.0" mnemonicParsing="false" onAction="#addAsset" text="Adicionar +" />
+      <Button fx:id="btnEdit" layoutX="121.0" layoutY="347.0" mnemonicParsing="false" onAction="#editAsset" text="Editar" />
+      <Button fx:id="btnRemove" layoutX="175.0" layoutY="347.0" mnemonicParsing="false" onAction="#removeAsset" text="Remover" />
+       <Button fx:id="btnImportCsv" layoutX="247.0" layoutY="347.0" mnemonicParsing="false" onAction="#importCSV" text="Importar CSV" />
+       <Button fx:id="btnExportCsv" layoutX="343.0" layoutY="347.0" mnemonicParsing="false" onAction="#exportCSV" text="Exportar CSV" />
+      <Button layoutX="498.0" layoutY="348.0" mnemonicParsing="false" onAction="#goBack" text="Cancelar" />
       <ComboBox fx:id="cbEmployee" layoutX="174.0" layoutY="109.0" prefWidth="150.0" promptText="Funcionário" />
       <ComboBox fx:id="cbLocal" layoutX="375.0" layoutY="109.0" prefWidth="150.0" promptText="Local" />
       <Label layoutX="34.0" layoutY="113.0" text="Filtrar por funcionário:" />

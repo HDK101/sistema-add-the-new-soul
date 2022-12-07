@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.EmployeeUIController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.EmployeeUIController">
    <children>
       <AnchorPane prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -25,8 +25,8 @@
             <TextField fx:id="txtNameEmployee" layoutX="86.0" layoutY="110.0" prefHeight="27.0" prefWidth="241.0" />
             <TextField fx:id="txtPhoneEmployee" layoutX="102.0" layoutY="161.0" prefHeight="29.0" prefWidth="224.0" />
             <TextField fx:id="txtEmailEmployee" layoutX="86.0" layoutY="211.0" prefHeight="27.0" prefWidth="241.0" />
-            <Button fx:id="btnCancelEmployee" layoutX="407.0" layoutY="339.0" mnemonicParsing="false" onAction="#goBack" text="CANCELAR" />
-            <Button fx:id="btnSaveEmployee" layoutX="500.0" layoutY="339.0" mnemonicParsing="false" onAction="#saveOrUpdateEmployee" text="SALVAR" />
+            <Button fx:id="btnCancelEmployee" layoutX="429.0" layoutY="339.0" mnemonicParsing="false" onAction="#goBack" text="Cancelar" />
+            <Button fx:id="btnSaveEmployee" layoutX="500.0" layoutY="339.0" mnemonicParsing="false" onAction="#saveOrUpdateEmployee" text="Salvar" />
             <CheckBox fx:id="ckExecutor" layoutX="37.0" layoutY="312.0" mnemonicParsing="false" text="Almoxarife" />
             <PasswordField fx:id="txtPasswordEmployee" layoutX="86.0" layoutY="261.0" prefHeight="27.0" prefWidth="241.0" />
          </children>
