@@ -63,6 +63,7 @@ public class SQLiteAssetDAO implements AssetDAO {
                     a.employee_reg AS a_employee_reg,
                     a.damage AS a_damage,
                     a.status AS a_status,
+                    a.value AS a_value,
                     a.location_id AS a_location_id,
                     a.location_status AS a_location_status,
                     
@@ -77,9 +78,8 @@ public class SQLiteAssetDAO implements AssetDAO {
                     e.registration_number AS e_registration_number,
                     e.name AS e_name,
                     e.phone as e_phone,
-                    e.hashPassword AS e_hash_password,
-                    e.email AS e_email,
-                    e.role AS e_role
+                    e.hash_password AS e_hash_password,
+                    e.email AS e_email
                 FROM Asset a
                 LEFT JOIN InventoryAsset ia ON ia.asset_id = a.id
                 LEFT JOIN Employee e ON e.registration_number = a.employee_reg
@@ -91,7 +91,6 @@ public class SQLiteAssetDAO implements AssetDAO {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if(rs.next()){
-                System.out.println(rs);
                 asset = resultSetToEntityWithInventoryAsset(rs);
                 //employee = resultSetToEntity(rs);
             }
@@ -99,7 +98,7 @@ public class SQLiteAssetDAO implements AssetDAO {
             e.printStackTrace();
         }
 
-        return Optional.of(asset);
+        return Optional.ofNullable(asset);
     }
 
     @Override
@@ -148,11 +147,14 @@ public class SQLiteAssetDAO implements AssetDAO {
                 l.section AS l_section,
                 l.number AS l_number
             FROM Asset a
-            INNER JOIN Location l ON l.id = a.location_id
+            LEFT JOIN Location l ON l.id = a.location_id
+            WHERE a.location_id = ?
         """;
         Asset asset = null;
         List<Asset> assets = new ArrayList<>();
         try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+            stmt.setInt(1, location.getId());
+
             ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()) {
@@ -182,13 +184,20 @@ public class SQLiteAssetDAO implements AssetDAO {
                 e.name AS e_name,
                 e.phone as e_phone,
                 e.hash_password AS e_hash_password,
-                e.email AS e_email
+                e.email AS e_email,
+                
+                l.id AS l_id,
+                l.section AS l_section,
+                l.number AS l_number
             FROM Asset a
-            INNER JOIN Employee e ON e.registration_number = a.employee_reg
+            LEFT JOIN Employee e ON e.registration_number = a.employee_reg
+            LEFT JOIN Location l ON l.id = a.location_id
+            WHERE a.employee_reg = ?
         """;
         Asset asset = null;
         List<Asset> assets = new ArrayList<>();
         try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+            stmt.setString(1, employee.getRegistrationNumber());
             ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()) {
@@ -224,13 +233,16 @@ public class SQLiteAssetDAO implements AssetDAO {
                 e.hash_password AS e_hash_password,
                 e.email AS e_email
             FROM Asset a
-            INNER JOIN Location l ON l.id = a.location_id
-            INNER JOIN Employee e ON e.registration_number = a.employee_reg
+            LEFT JOIN Location l ON l.id = a.location_id
+            LEFT JOIN Employee e ON e.registration_number = a.employee_reg
+            WHERE a.location_id = ? AND a.employee_reg = ?
         """;
         Asset asset = null;
 
         List<Asset> assets = new ArrayList<>();
         try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+            stmt.setInt(1, location.getId());
+            stmt.setString(2, employee.getRegistrationNumber());
             ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()) {

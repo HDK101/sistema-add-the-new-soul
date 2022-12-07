@@ -6,7 +6,11 @@ import br.edu.ifsp.addthenewsoul.domain.entities.asset.Location;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.usecases.UseCases;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.ExportAssetCSVUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.asset.FilterAssetsUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.asset.FindAssetUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.ImportAssetCSVUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.employee.FindEmployeeUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.location.FindLocationUseCase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -36,6 +40,8 @@ public class AssetManagementUIController {
     public RadioButton rbEmployeeInCharge;
     @FXML
     public RadioButton rbLocationAndEmployee;
+    public ComboBox<Employee> cbEmployee;
+    public ComboBox<Location> cbLocal;
     @FXML
     private TableView<Asset> tableView;
     @FXML
@@ -60,6 +66,23 @@ public class AssetManagementUIController {
         bindTableViewToItemsList();
         bindColumnsToValueSources();
         loadDataAndShow();
+        loadEmployeesAndLocations();
+    }
+
+    private void loadEmployeesAndLocations() {
+        FindEmployeeUseCase findEmployeeUseCase = getInstance().findEmployeeUseCase;
+        FindLocationUseCase findLocationUseCase = getInstance().findLocationUseCase;
+
+        List<Employee> employees = new ArrayList<>();
+        employees.add(null);
+        employees.addAll(findEmployeeUseCase.findAll());
+
+        List<Location> locations = new ArrayList<>();
+        locations.add(null);
+        locations.addAll(findLocationUseCase.findAll());
+
+        this.cbEmployee.setItems(FXCollections.observableArrayList(employees));
+        this.cbLocal.setItems(FXCollections.observableArrayList(locations));
     }
 
     private void bindTableViewToItemsList() {
@@ -162,30 +185,15 @@ public class AssetManagementUIController {
     }
 
     public void find(ActionEvent actionEvent) {
-        List<Asset> filterAssets = new ArrayList<>();
-        String textLocation = txtFilter.getText();
-        String[] section_number = textLocation.split(" ");
-        System.out.println(Arrays.toString(section_number));
-        String section = section_number[0] + " " + section_number[1];
-        Integer number = Integer.valueOf(section_number[2]);
-        Employee employee = getInstance().findEmployeeUseCase.findByName(txtFilter.getText());
-        Location location = getInstance().findLocationUseCase.findBySectionAndNumber(section, number);
-        System.out.println(location);
-        System.out.println(employee);
-        if (rbLocation.isSelected()) {
-            filterAssets = getInstance().filterAssetsUseCase.filterAssetsByLocal(location);
-            System.out.println(filterAssets);
-        }
-        if (rbEmployeeInCharge.isSelected())
-            filterAssets = getInstance().filterAssetsUseCase.filterAssetsByEmployee(employee);
-        if (rbLocationAndEmployee.isSelected())
-            filterAssets = getInstance().filterAssetsUseCase.filterAssetsByLocationAndEmployee(location, employee);
-        loadDataFilterShow(filterAssets);
+        FindAssetUseCase findAssetUseCase = getInstance().findAssetUseCase;
+        Asset asset = findAssetUseCase.findOne(Integer.parseInt(txtFilter.getText())).orElseThrow();
+        loadDataFilterShow(List.of(asset));
     }
 
-    private void loadDataFilterShow(List<Asset> filters) {
+    private void loadDataFilterShow(List<Asset> assets) {
+        System.out.println(assets);
         tableData.clear();
-        tableData.addAll(filters);
+        tableData.addAll(assets);
     }
 
     public void allAssets(ActionEvent actionEvent) {
@@ -215,6 +223,30 @@ public class AssetManagementUIController {
             WindowLoader.setRoot("AssetUI");
             AssetUIController controller = (AssetUIController) WindowLoader.getController();
             controller.setBook(selectedItem, mode);
+        }
+    }
+
+    public void filterByEmployeeLocation(ActionEvent actionEvent) {
+        Location location = cbLocal.getValue();
+        Employee employee = cbEmployee.getValue();
+
+        FilterAssetsUseCase filterAssetsUseCase = getInstance().filterAssetsUseCase;
+
+        if (location != null && employee != null) {
+            loadDataFilterShow(filterAssetsUseCase.filterAssetsByLocationAndEmployee(location, employee));
+        }
+        else if (location != null) {
+            loadDataFilterShow(filterAssetsUseCase.filterAssetsByLocal(location));
+
+        }
+        else if (employee != null) {
+            loadDataFilterShow(filterAssetsUseCase.filterAssetsByEmployee(employee));
+        }
+        else {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Erro");
+            errorAlert.setContentText("Você precisa informar, no mínimo, um funcionário ou um local");
+            errorAlert.showAndWait();
         }
     }
 }

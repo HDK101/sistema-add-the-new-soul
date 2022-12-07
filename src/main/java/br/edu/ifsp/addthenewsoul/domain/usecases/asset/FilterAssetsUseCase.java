@@ -9,30 +9,22 @@ import java.util.List;
 
 public class FilterAssetsUseCase {
 
-    private AssetDAO assetDAO;
-    private Employee employee;
+    private final AssetDAO assetDAO;
 
-    public FilterAssetsUseCase(AssetDAO assetDAO, Employee employee) {
+    public FilterAssetsUseCase(AssetDAO assetDAO) {
         this.assetDAO = assetDAO;
-        this.employee = employee;
     }
 
     public List<Asset> filterAssetsByLocal (Location location) {
-        if (employee.hasRole(Role.INVENTORY_MANAGER))
-            return assetDAO.filterByLocation(location);
-        return null;
+        return assetDAO.filterByLocation(location);
     }
 
     public List<Asset> filterAssetsByEmployee (Employee employeeInCharge) {
-        if (employee.hasRole(Role.INVENTORY_MANAGER))
-            return assetDAO.filterByEmployee(employeeInCharge);
-        return null;
+        return assetDAO.filterByEmployee(employeeInCharge);
     }
 
     public List<Asset> filterAssetsByLocationAndEmployee
             (Location location, Employee employeeInCharge) {
-        if (employee.hasRole(Role.INVENTORY_MANAGER))
-            return assetDAO.filterByLocationAndEmployee(location, employeeInCharge);
-        return null;
+        return assetDAO.filterByLocationAndEmployee(location, employeeInCharge);
     }
 }
