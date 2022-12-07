@@ -5,6 +5,7 @@ import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.usecases.UseCases;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.*;
+import br.edu.ifsp.addthenewsoul.domain.usecases.report.IssueReportUseCase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -218,5 +219,34 @@ public class EmployeeManagementUIController {
         WindowLoader.setRoot("DashboardUI");
     }
 
+    public void createReport(ActionEvent actionEvent) {
+        Employee employee = tableViewEmployee.getSelectionModel().getSelectedItem();
+        if (employee == null) return;
 
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Criar relatório");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PDF", "*.pdf"),
+                new FileChooser.ExtensionFilter("Todos os arquivos", "*.*")
+        );
+
+        Stage stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+
+        File file = fileChooser.showSaveDialog(stage);
+
+        try {
+            IssueReportUseCase issueReportUseCase = UseCases.getInstance().issueReportUseCase;
+            issueReportUseCase.issueEmployeeReport(file.getAbsolutePath(), employee.getRegistrationNumber());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Sucesso");
+            alert.setContentText("O relatório em PDF foi criado");
+            alert.showAndWait();
+        } catch (Exception e) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Erro");
+            errorAlert.setContentText("Não foi possível criar o relatório em PDF");
+            errorAlert.showAndWait();
+            e.printStackTrace();
+        }
+    }
 }
