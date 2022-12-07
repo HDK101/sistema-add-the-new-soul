@@ -66,9 +66,6 @@ public class InventoryManagementUIController {
     private TableColumn<Inventory, LocalDate> cEndDateInventory;
 
     @FXML
-    private TableColumn<Inventory, Integer> cIdInventory;
-
-    @FXML
     private TableColumn<Inventory, String> cNameInventory;
 
     @FXML
@@ -109,7 +106,6 @@ public class InventoryManagementUIController {
     }
 
     private void bindColumnsToValueSources() {
-        cIdInventory.setCellValueFactory(new PropertyValueFactory<>("id"));
         cNameInventory.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         cChairmanInventory.setCellFactory(new Callback<>() {

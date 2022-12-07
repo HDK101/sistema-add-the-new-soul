@@ -79,9 +79,6 @@ public class StartInventoryUIController {
     private TextField txtNameInventory;
 
     @FXML
-    private TableColumn<Asset, Integer> cIdAsset;
-
-    @FXML
     private TableColumn<Asset, Location> cLocationAsset;
 
     @FXML
@@ -140,7 +137,6 @@ public class StartInventoryUIController {
         cComissionMemberEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         cComissionMemberPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
 
-        cIdAsset.setCellValueFactory(new PropertyValueFactory<>("id"));
         cDescriptionAsset.setCellValueFactory(new PropertyValueFactory<>("description"));
         cValueAsset.setCellValueFactory(new PropertyValueFactory<>("value"));
 
