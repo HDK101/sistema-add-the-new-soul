@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -127,7 +128,7 @@ public class InventoryUIController {
 
 
 
-        cStatusInventoryDetailed.setCellFactory(new Callback<TableColumn<InventoryAsset, Status>, TableCell<InventoryAsset, Status>>() {
+        cStatusInventoryDetailed.setCellFactory(new Callback<>() {
             @Override
             public TableCell<InventoryAsset, Status> call(TableColumn<InventoryAsset, Status> param) {
                 return new TableCell<>() {
@@ -179,6 +180,18 @@ public class InventoryUIController {
         txtNomeInventoryDetailed.setDisable(true);
         dpInitialDateInventoryDetailed.setDisable(true);
         dpEndDataInventoryDetailed.setDisable(true);
+        cbComissionChiefInventoryDetailed.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Employee object) {
+                if (object == null) return null;
+                return object.getName();
+            }
+
+            @Override
+            public Employee fromString(String string) {
+                return null;
+            }
+        });
         cbComissionChiefInventoryDetailed.setDisable(true);
 
         txtIdInventoryDetailed.setText(inventoryFull.getId());

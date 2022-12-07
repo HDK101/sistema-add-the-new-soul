@@ -21,4 +21,5 @@ module br.edu.ifsp.addthenewsoul {
     opens br.edu.ifsp.addthenewsoul.application.view to javafx.fxml;
     opens br.edu.ifsp.addthenewsoul.domain.entities.employee to javafx.base;
     opens br.edu.ifsp.addthenewsoul.domain.entities.inventory to javafx.base;
+    exports br.edu.ifsp.addthenewsoul.domain.usecases.utils.exceptions;
 }

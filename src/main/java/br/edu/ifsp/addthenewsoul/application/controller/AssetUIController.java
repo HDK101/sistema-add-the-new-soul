@@ -9,6 +9,7 @@ import br.edu.ifsp.addthenewsoul.domain.usecases.UseCases;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.util.StringConverter;
 
 import java.io.IOException;
 
@@ -39,8 +40,47 @@ public class AssetUIController {
 
     @FXML
     private void initialize(){
+        cbLocation.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Location object) {
+                if (object == null) return null;
+                return object.fullLocation();
+            }
+
+            @Override
+            public Location fromString(String string) {
+                return null;
+            }
+        });
         cbLocation.getItems().setAll(getInstance().findLocationUseCase.findAll());
+
+        cbEmployeeInCharge.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Employee object) {
+                if (object == null) return null;
+                return object.getName();
+            }
+
+            @Override
+            public Employee fromString(String string) {
+                return null;
+            }
+        });
+
         cbEmployeeInCharge.getItems().setAll(getInstance().findEmployeeUseCase.findAll());
+
+        cbStatus.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Status object) {
+                if (object == null) return null;
+                return null;
+            }
+
+            @Override
+            public Status fromString(String string) {
+                return null;
+            }
+        });
         cbStatus.getItems().setAll(Status.values());
         cbStatus.setValue(Status.NOT_VERIFIED);
         cbStatus.setDisable(true);
