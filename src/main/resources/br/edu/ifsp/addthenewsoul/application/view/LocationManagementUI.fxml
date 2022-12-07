@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.LocationManagementUIController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.LocationManagementUIController">
    <children>
-      <Label layoutX="202.0" layoutY="14.0" text="LOCATION MANAGEMENT">
+      <Label layoutX="189.0" layoutY="14.0" text="GERENCIAMENTO DE LOCAIS">
          <font>
             <Font size="16.0" />
          </font>
@@ -18,20 +18,20 @@
       <TableView fx:id="tableView" layoutX="40.0" layoutY="106.0" prefHeight="173.0" prefWidth="524.0">
         <columns>
           <TableColumn fx:id="cId" prefWidth="75.0" text="ID" />
-          <TableColumn fx:id="cSection" prefWidth="204.0" text="SECTION" />
-            <TableColumn fx:id="cNumber" prefWidth="244.0" text="NUMBER" />
+          <TableColumn fx:id="cSection" prefWidth="204.0" text="Seção" />
+            <TableColumn fx:id="cNumber" prefWidth="244.0" text="Número" />
         </columns>
       </TableView>
-      <TextField fx:id="txtId" layoutX="120.0" layoutY="73.0" prefHeight="25.0" prefWidth="94.0" />
-      <Label layoutX="40.0" layoutY="77.0" text="Find location by ID:" />
-      <Button layoutX="225.0" layoutY="73.0" mnemonicParsing="false" onAction="#findLocationById" text="OK" />
-      <Button layoutX="267.0" layoutY="73.0" mnemonicParsing="false" onAction="#findAllLocations" text="ALL LOCATIONS" />
-      <Button fx:id="btnAdd" layoutX="40.0" layoutY="290.0" mnemonicParsing="false" onAction="#addLocation" text="ADD NEW+" />
-      <Button fx:id="btnEdit" layoutX="129.0" layoutY="290.0" mnemonicParsing="false" onAction="#editLocation" prefHeight="27.0" prefWidth="52.0" text="EDIT" />
-      <Button fx:id="btnRemove" layoutX="182.0" layoutY="290.0" mnemonicParsing="false" onAction="#removeLocation" prefHeight="25.0" prefWidth="94.0" text="REMOVE" />
-      <Button fx:id="btnImportCsv" layoutX="277.0" layoutY="290.0" mnemonicParsing="false" onAction="#importCSV" prefHeight="28.0" prefWidth="96.0" text="IMPORT CSV" />
-      <Button fx:id="btnExportCsv" layoutX="374.0" layoutY="290.0" mnemonicParsing="false" onAction="#exportCSV" prefHeight="28.0" prefWidth="95.0" text="EXPORT CSV" />
-      <Button layoutX="496.0" layoutY="328.0" mnemonicParsing="false" onAction="#goBack" text="CANCEL" />
-      <Button layoutX="40.0" layoutY="327.0" mnemonicParsing="false" onAction="#createReport" prefHeight="29.0" prefWidth="116.0" text="Criar relatório" />
+      <TextField fx:id="txtId" layoutX="110.0" layoutY="73.0" prefHeight="25.0" prefWidth="94.0" />
+      <Label layoutX="40.0" layoutY="77.0" text="Filtrar por ID:" />
+      <Button layoutX="215.0" layoutY="73.0" mnemonicParsing="false" onAction="#findLocationById" text="OK" />
+      <Button layoutX="257.0" layoutY="73.0" mnemonicParsing="false" onAction="#findAllLocations" text="TODOS OS LOCAIS" />
+      <Button fx:id="btnAdd" layoutX="40.0" layoutY="290.0" mnemonicParsing="false" onAction="#addLocation" text="Adicionar +" />
+      <Button fx:id="btnEdit" layoutX="125.0" layoutY="289.0" mnemonicParsing="false" onAction="#editLocation" prefHeight="27.0" prefWidth="52.0" text="Editar" />
+      <Button fx:id="btnRemove" layoutX="181.0" layoutY="290.0" mnemonicParsing="false" onAction="#removeLocation" prefHeight="25.0" prefWidth="94.0" text="Remover" />
+      <Button fx:id="btnImportCsv" layoutX="279.0" layoutY="290.0" mnemonicParsing="false" onAction="#importCSV" prefHeight="20.0" prefWidth="94.0" text="Importar CSV" />
+      <Button fx:id="btnExportCsv" layoutX="375.0" layoutY="290.0" mnemonicParsing="false" onAction="#exportCSV" prefHeight="25.0" prefWidth="94.0" text="Exportar CSV" />
+      <Button layoutX="496.0" layoutY="334.0" mnemonicParsing="false" onAction="#goBack" text="Cancelar" />
+      <Button layoutX="472.0" layoutY="288.0" mnemonicParsing="false" onAction="#createReport" prefHeight="29.0" prefWidth="94.0" text="Criar relatório" />
    </children>
 </AnchorPane>

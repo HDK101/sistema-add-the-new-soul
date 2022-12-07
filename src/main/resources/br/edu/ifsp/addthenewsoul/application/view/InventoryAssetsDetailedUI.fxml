@@ -9,10 +9,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.InventoryAssetsDetailedUIController">
    <children>
-      <Label layoutX="228.0" layoutY="14.0" text="INVENTORY ASSETS">
+      <Label layoutX="223.0" layoutY="14.0" text="BENS DE INVENTÁRIO">
          <font>
             <Font size="16.0" />
          </font>
@@ -20,21 +19,21 @@
       <TableView layoutX="37.0" layoutY="122.0" prefHeight="169.0" prefWidth="528.0">
         <columns>
           <TableColumn prefWidth="75.0" text="ID" />
-          <TableColumn prefWidth="75.0" text="NAME" />
-            <TableColumn prefWidth="83.0" text="LOCATION" />
-            <TableColumn prefWidth="105.0" text="EMPLOYEE" />
-            <TableColumn prefWidth="102.0" text="DAMAGES" />
-            <TableColumn prefWidth="87.0" text="STATUS" />
+          <TableColumn prefWidth="75.0" text="Nome" />
+            <TableColumn prefWidth="83.0" text="Local" />
+            <TableColumn prefWidth="105.0" text="Avaliador" />
+            <TableColumn prefWidth="102.0" text="Danos" />
+            <TableColumn prefWidth="87.0" text="Status" />
         </columns>
       </TableView>
       <TextField layoutX="91.0" layoutY="56.0" />
-      <Label layoutX="37.0" layoutY="60.0" text="Filter by:" />
-      <RadioButton layoutX="91.0" layoutY="94.0" mnemonicParsing="false" text="Location" />
-      <RadioButton layoutX="195.0" layoutY="94.0" mnemonicParsing="false" text="Employee" />
-      <RadioButton layoutX="294.0" layoutY="94.0" mnemonicParsing="false" text="Damaged" />
+      <Label layoutX="32.0" layoutY="60.0" text="Filtrar por:" />
+      <RadioButton layoutX="91.0" layoutY="94.0" mnemonicParsing="false" text="Local" />
+      <RadioButton layoutX="195.0" layoutY="94.0" mnemonicParsing="false" text="Avaliador" />
+      <RadioButton layoutX="294.0" layoutY="94.0" mnemonicParsing="false" text="Danificados" />
       <Button layoutX="260.0" layoutY="56.0" mnemonicParsing="false" text="OK" />
-      <Button layoutX="301.0" layoutY="56.0" mnemonicParsing="false" text="ALL ASSETS" />
-      <Button layoutX="497.0" layoutY="352.0" mnemonicParsing="false" text="CANCEL" />
-      <Button layoutX="37.0" layoutY="301.0" mnemonicParsing="false" text="EVALUATE ASSET" />
+      <Button layoutX="301.0" layoutY="56.0" mnemonicParsing="false" text="TODOS OS BENS" />
+      <Button layoutX="497.0" layoutY="352.0" mnemonicParsing="false" text="Cancelar" />
+      <Button layoutX="37.0" layoutY="301.0" mnemonicParsing="false" text="Avaliar bem" />
    </children>
 </AnchorPane>

@@ -8,32 +8,32 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.EmployeeManagementUIController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.EmployeeManagementUIController">
     <children>
-        <Label layoutX="200.0" layoutY="14.0" text="EMPLOYEE MANAGEMENT">
+        <Label layoutX="167.0" layoutY="14.0" text="GERENCIAMENTO DE FUNCIONÁRIOS">
             <font>
                 <Font size="16.0" />
             </font>
         </Label>
         <TableView fx:id="tableViewEmployee" layoutX="34.0" layoutY="96.0" prefHeight="177.0" prefWidth="532.0">
             <columns>
-                <TableColumn fx:id="cRegistrationNumber" prefWidth="52.0" text="R.N." />
-                <TableColumn fx:id="cName" prefWidth="140.0" text="NAME" />
-                <TableColumn fx:id="cPhone" prefWidth="102.0" text="PHONE" />
-                <TableColumn fx:id="cEmail" prefWidth="118.0" text="E-MAIL" />
-            <TableColumn fx:id="cRoles" prefWidth="120.0" text="ROLES" />
+                <TableColumn fx:id="cRegistrationNumber" prefWidth="52.0" text="Registro" />
+                <TableColumn fx:id="cName" prefWidth="140.0" text="Nome" />
+                <TableColumn fx:id="cPhone" prefWidth="102.0" text="Telefone" />
+                <TableColumn fx:id="cEmail" prefWidth="118.0" text="E-mail" />
+            <TableColumn fx:id="cRoles" prefWidth="120.0" text="Cargos" />
             </columns>
         </TableView>
-        <Label layoutX="34.0" layoutY="58.0" text="Filter by ID:" />
-        <TextField fx:id="txtFilterById" layoutX="102.0" layoutY="54.0" />
+        <Label layoutX="34.0" layoutY="58.0" text="Filtrar por ID:" />
+        <TextField fx:id="txtFilterById" layoutX="108.0" layoutY="54.0" />
         <Button fx:id="btnOk" layoutX="273.0" layoutY="54.0" mnemonicParsing="false" onAction="#findEmployeeById" text="OK" />
-        <Button fx:id="btnAllEmployees" layoutX="316.0" layoutY="54.0" mnemonicParsing="false" onAction="#findAllEmployees" text="ALL EMPLOYEES" />
-        <Button fx:id="btnAddNewEmployee" layoutX="35.0" layoutY="285.0" mnemonicParsing="false" onAction="#addNewEmployee" text="ADD NEW +" />
-        <Button fx:id="btnEditEmployee" layoutX="126.0" layoutY="285.0" mnemonicParsing="false" onAction="#editEmployee" prefHeight="25.0" prefWidth="52.0" text="EDIT" />
-        <Button fx:id="btnRemoveEmployee" layoutX="183.0" layoutY="285.0" mnemonicParsing="false" onAction="#removeEmployee" text="REMOVE" />
-        <Button fx:id="btnImportCsvEmployees" layoutX="255.0" layoutY="285.0" mnemonicParsing="false" onAction="#importCSVEmployees" text="IMPORT CSV" />
-        <Button fx:id="btnExportCsvEmployees" layoutX="350.0" layoutY="285.0" mnemonicParsing="false" onAction="#exportCSVEmployees" text="EXPORT CSV" />
-        <Button fx:id="btnCancel" layoutX="497.0" layoutY="323.0" mnemonicParsing="false" onAction="#goBack" text="CANCEL" />
-      <Button fx:id="btnExportCsvEmployees1" layoutX="443.0" layoutY="285.0" mnemonicParsing="false" onAction="#createReport" text="Criar relatório" />
+        <Button fx:id="btnAllEmployees" layoutX="316.0" layoutY="54.0" mnemonicParsing="false" onAction="#findAllEmployees" text="TODOS OS FUNCIONÁRIOS" />
+        <Button fx:id="btnAddNewEmployee" layoutX="35.0" layoutY="285.0" mnemonicParsing="false" onAction="#addNewEmployee" text="Adicionar +" />
+        <Button fx:id="btnEditEmployee" layoutX="120.0" layoutY="285.0" mnemonicParsing="false" onAction="#editEmployee" prefHeight="25.0" prefWidth="52.0" text="Editar" />
+        <Button fx:id="btnRemoveEmployee" layoutX="176.0" layoutY="285.0" mnemonicParsing="false" onAction="#removeEmployee" text="Remover" />
+        <Button fx:id="btnImportCsvEmployees" layoutX="245.0" layoutY="285.0" mnemonicParsing="false" onAction="#importCSVEmployees" text="Importar CSV" />
+        <Button fx:id="btnExportCsvEmployees" layoutX="341.0" layoutY="285.0" mnemonicParsing="false" onAction="#exportCSVEmployees" text="Exportar CSV" />
+        <Button fx:id="btnCancel" layoutX="497.0" layoutY="323.0" mnemonicParsing="false" onAction="#goBack" text="Cancelar" />
+      <Button fx:id="btnExportCsvEmployees1" layoutX="437.0" layoutY="285.0" mnemonicParsing="false" onAction="#createReport" text="Criar relatório" />
     </children>
 </AnchorPane>

@@ -25,7 +25,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="btnLogin" layoutX="434.0" layoutY="330.0" mnemonicParsing="false" onAction="#login" prefHeight="32.0" prefWidth="72.0" text="Login" />
+      <Button fx:id="btnLogin" layoutX="434.0" layoutY="330.0" mnemonicParsing="false" onAction="#login" prefHeight="32.0" prefWidth="72.0" text="Entrar" />
       <PasswordField fx:id="txtPassword" layoutX="345.0" layoutY="275.0" />
    </children>
 </AnchorPane>
