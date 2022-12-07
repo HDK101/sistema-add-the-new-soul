@@ -130,6 +130,10 @@ public class Inventory {
         return inventoryStatus;
     }
 
+    public boolean isStatus(InventoryStatus status) {
+        return this.inventoryStatus == status;
+    }
+
     public void setInventoryStatus(InventoryStatus inventoryStatus) {
         this.inventoryStatus = inventoryStatus;
     }

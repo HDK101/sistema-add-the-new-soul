@@ -13,11 +13,13 @@ import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;
+import br.edu.ifsp.addthenewsoul.domain.usecases.utils.InventoryStatus;
 
 import java.sql.*;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SQLiteInventoryDAO implements InventoryDAO {
     @Override
@@ -148,7 +150,8 @@ public class SQLiteInventoryDAO implements InventoryDAO {
 
     @Override
     public boolean getStatusFromInventories() {
-        return false;
+        List<Inventory> inventories = findAll().stream().filter(inventory -> inventory.isStatus(InventoryStatus.OPEN)).toList();
+        return inventories.size() > 0;
     }
 
     @Override
