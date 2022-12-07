@@ -7,6 +7,7 @@ import lombok.Builder;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Builder
 public class Inventory {
@@ -145,5 +146,18 @@ public class Inventory {
                 ", assets=" + assets +
                 ", status=" + inventoryStatus +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Inventory inventory = (Inventory) o;
+        return id.equals(inventory.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

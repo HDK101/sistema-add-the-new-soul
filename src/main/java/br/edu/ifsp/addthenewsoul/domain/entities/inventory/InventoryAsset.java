@@ -6,6 +6,8 @@ import br.edu.ifsp.addthenewsoul.domain.entities.asset.LocationStatus;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import lombok.Builder;
 
+import java.util.Objects;
+
 @Builder
 public class InventoryAsset {
     private final Asset asset;
@@ -118,5 +120,18 @@ public class InventoryAsset {
         sb.append(", status=").append(status);
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        InventoryAsset that = (InventoryAsset) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

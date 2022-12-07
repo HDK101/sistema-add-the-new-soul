@@ -126,7 +126,12 @@ public class InventoryManagementUIController {
 
     @FXML
     void detailInventory(ActionEvent event) throws IOException {
+        Inventory inventory = tableViewInventory.getSelectionModel().getSelectedItem();
+        if (inventory == null) return;
+
         WindowLoader.setRoot("InventoryUI");
+        InventoryUIController inventoryUIController = (InventoryUIController) WindowLoader.getController();
+        inventoryUIController.setSelectedInventory(inventory);
     }
 
     @FXML
@@ -146,7 +151,6 @@ public class InventoryManagementUIController {
         Inventory inventory = tableViewInventory.getSelectionModel().getSelectedItem();
 
         System.out.println(tableViewInventory.getSelectionModel().getSelectedItem());
-        getInstance().finishInventoryUseCase.finalizeInventory(inventory, inventory.getComissionPresident());
 
         if (inventory == null) return;
 

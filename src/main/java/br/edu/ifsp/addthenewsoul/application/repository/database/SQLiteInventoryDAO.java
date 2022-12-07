@@ -67,7 +67,7 @@ public class SQLiteInventoryDAO implements InventoryDAO {
                     e.phone as e_phone,
                     e.hash_password AS e_hash_password,
                     e.email AS e_email,
-                    er.role AS er_role,
+                    er.role AS er_role
                 FROM Inventory i
                 LEFT JOIN InventoryAsset ia ON ia.inventory_id = i.id
                 LEFT JOIN Employee e ON i.president_reg = e.registration_number
@@ -81,6 +81,7 @@ public class SQLiteInventoryDAO implements InventoryDAO {
 
             ResultSet resultSet = statement.getResultSet();
             Inventory inventory = null;
+            Set<InventoryAsset> inventoryAssets = new HashSet<>();
             while (resultSet.next()) {
                 if (inventory == null) {
                     inventory = ResultToInventory.convert(resultSet);
@@ -90,9 +91,10 @@ public class SQLiteInventoryDAO implements InventoryDAO {
                 }
                 if (resultSet.getString("ia_id") != null) {
                     InventoryAsset inventoryAsset = ResultToInventoryAsset.convert(resultSet);
-                    inventory.addAsset(inventoryAsset);
+                    inventoryAssets.add(inventoryAsset);
                 }
             }
+            inventory.setAssets(inventoryAssets.stream().toList());
             return Optional.ofNullable(inventory);
         } catch (Exception e) {
             e.printStackTrace();
@@ -178,7 +180,7 @@ public class SQLiteInventoryDAO implements InventoryDAO {
 
     private boolean addAssets(String inventoryId, List<InventoryAsset> inventoryAssets) {
         for (InventoryAsset inventoryAsset : inventoryAssets) {
-            if (this.addAsset(inventoryId, inventoryAsset)) return false;
+            if (!this.addAsset(inventoryId, inventoryAsset)) return false;
         }
         return true;
     }
@@ -218,53 +220,7 @@ public class SQLiteInventoryDAO implements InventoryDAO {
 
     @Override
     public String add(Inventory inventory) {
-        Connection connection = null;
-
         String uuid = UUID.randomUUID().toString();
-
-        String sqlInventory = """
-                INSERT INTO Inventory (
-                    id,
-                    name,
-                    president_reg,
-                    initial_date,
-                    end_date,
-                    status
-                ) VALUES (
-                    ?,
-                    ?,
-                    ?,
-                    ?,
-                    ?,
-                    ?
-                );
-                """;
-
-        String sqlInventoryAsset = """
-                INSERT INTO InventoryAsset (
-                    asset_id,
-                    inventory_id,
-                    location_id,
-                    inventory_manager_reg,
-                    employee_reg,
-                    description,
-                    value,
-                    damage,
-                    status,
-                    location_status
-                ) VALUES (
-                    ?,
-                    ?,
-                    ?,
-                    ?,
-                    ?,
-                    ?,
-                    ?,
-                    ?,
-                    ?,
-                    ?
-                );
-                """;
 
         String sqlComissionInventory = """
                 INSERT INTO Comission (
@@ -276,56 +232,15 @@ public class SQLiteInventoryDAO implements InventoryDAO {
                 );
                 """;
 
-        List<InventoryAsset> inventoryAsset = inventory.getAssets();
-        try {
-            connection = Database.getConnection();
-            try (PreparedStatement stmtInventory = Database.createPreparedStatement(sqlInventory);
-                 PreparedStatement stmtInventoryAsset = Database.createPreparedStatement(sqlInventoryAsset)) {
+            try {
+                Connection connection = Database.getConnection();
                 connection.setAutoCommit(false);
 
-                stmtInventory.setString(1, uuid);
-                stmtInventory.setString(2, inventory.getName());
-                stmtInventory.setString(3, inventory.getComissionPresident().getRegistrationNumber());
-                stmtInventory.setDate(4, Date.valueOf(inventory.getInitialDate()));
-                stmtInventory.setDate(5, Date.valueOf(inventory.getEndDate()));
-                stmtInventory.setString(6, inventory.getInventoryStatus().toString());
-                stmtInventory.executeUpdate();
+                boolean addInventorySuccess = addInventory(uuid, inventory);
+                boolean addAssetsSuccess = addAssets(uuid, inventory.getAssets());
 
-                for (InventoryAsset asset : inventoryAsset) {
-                    stmtInventoryAsset.setInt(1, asset.getAsset().getId());
-                    stmtInventoryAsset.setString(2, uuid);
-
-                    if (asset.getLocation() == null) {
-                        stmtInventoryAsset.setNull(3, Types.INTEGER);
-                    } else {
-                        stmtInventoryAsset.setInt(3, asset.getLocation().getId());
-                    }
-
-                    if (asset.getInventoryManager() == null) {
-                        stmtInventoryAsset.setNull(4, Types.VARCHAR);
-                    } else {
-                        stmtInventoryAsset.setString(4, asset.getInventoryManager().getRegistrationNumber());
-                    }
-
-                    if (asset.getEmployeeInCharge() == null) {
-                        stmtInventoryAsset.setNull(5, Types.VARCHAR);
-                    } else {
-                        stmtInventoryAsset.setString(5, asset.getEmployeeInCharge().getRegistrationNumber());
-                    }
-
-                    stmtInventoryAsset.setString(6, asset.getDescription());
-                    stmtInventoryAsset.setDouble(7, asset.getValue());
-                    stmtInventoryAsset.setString(8, asset.getDamage());
-                    stmtInventoryAsset.setString(9, asset.getStatus().toString());
-                    stmtInventoryAsset.setString(10, asset.getLocationStatus().toString());
-                }
-                stmtInventoryAsset.executeUpdate();
-
-                connection.commit();
-            } catch (SQLException e) {
-                connection.rollback();
-                System.out.println("Erro");
-            }
+                if (addInventorySuccess && addAssetsSuccess) connection.commit();
+                else connection.rollback();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -387,7 +302,7 @@ public class SQLiteInventoryDAO implements InventoryDAO {
                 """;
 
         Inventory inventory = null;
-        List<Inventory> inventories = new ArrayList<>();
+        Set<Inventory> inventories = new HashSet<>();
 
         try (PreparedStatement statement = Database.createPreparedStatement(sql)) {
             statement.execute();
@@ -401,6 +316,6 @@ public class SQLiteInventoryDAO implements InventoryDAO {
             e.printStackTrace();
         }
 
-        return inventories;
+        return inventories.stream().toList();
     }
 }

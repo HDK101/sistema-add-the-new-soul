@@ -9,6 +9,7 @@ import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.usecases.UseCases;
 import br.edu.ifsp.addthenewsoul.domain.usecases.asset.FindAssetUseCase;
 import br.edu.ifsp.addthenewsoul.domain.usecases.employee.FindEmployeeUseCase;
+import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.FindInventoryUseCase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -90,6 +91,8 @@ public class InventoryUIController {
     private List<Employee> employeesComission = new ArrayList<>();
     private List<Asset> assets = new ArrayList<>();
 
+    private Inventory selectedInventory;
+
     @FXML
     private void initialize(){
         bindTableViewToItemsList();
@@ -147,4 +150,24 @@ public class InventoryUIController {
         WindowLoader.setRoot("InventoryManagementUI");
     }
 
+    public void setSelectedInventory(Inventory selectedInventory) {
+        FindInventoryUseCase findInventoryUseCase = UseCases.getInstance().findInventoryUseCase;
+
+        Inventory inventoryFull = findInventoryUseCase.findOne(selectedInventory.getId()).orElseThrow();
+        this.selectedInventory = inventoryFull;
+
+        txtIdInventoryDetailed.setDisable(true);
+        txtNomeInventoryDetailed.setDisable(true);
+        dpInitialDateInventoryDetailed.setDisable(true);
+        dpEndDataInventoryDetailed.setDisable(true);
+        cbComissionChiefInventoryDetailed.setDisable(true);
+
+        txtIdInventoryDetailed.setText(inventoryFull.getId());
+        txtNomeInventoryDetailed.setText(inventoryFull.getName());
+        dpInitialDateInventoryDetailed.setValue(inventoryFull.getInitialDate());
+        dpEndDataInventoryDetailed.setValue(inventoryFull.getEndDate());
+        cbComissionChiefInventoryDetailed.setValue(inventoryFull.getComissionPresident());
+
+        tableViewAssets.setItems(FXCollections.observableArrayList(inventoryFull.getAssets()));
+    }
 }
