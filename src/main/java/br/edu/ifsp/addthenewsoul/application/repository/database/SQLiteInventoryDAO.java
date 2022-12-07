@@ -1,17 +1,12 @@
 package br.edu.ifsp.addthenewsoul.application.repository.database;
 
 
-import br.edu.ifsp.addthenewsoul.application.repository.database.results.ResultToAsset;
-import br.edu.ifsp.addthenewsoul.application.repository.database.results.ResultToEmployee;
-import br.edu.ifsp.addthenewsoul.application.repository.database.results.ResultToInventory;
-import br.edu.ifsp.addthenewsoul.application.repository.database.results.ResultToInventoryAsset;
-import br.edu.ifsp.addthenewsoul.domain.entities.asset.Asset;
-
 import br.edu.ifsp.addthenewsoul.application.repository.database.results.ResultToEmployee;
 import br.edu.ifsp.addthenewsoul.application.repository.database.results.ResultToInventory;
 import br.edu.ifsp.addthenewsoul.application.repository.database.results.ResultToInventoryAsset;
 
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
+import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;
@@ -22,26 +17,6 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class SQLiteInventoryDAO implements InventoryDAO {
-
-
-    private Inventory resultSetToInventoryWithEmployee(ResultSet rs) throws SQLException {
-        List<InventoryAsset> inventoryAssets = new ArrayList<>();
-        List<Employee> employees = new ArrayList<>();
-        Inventory inventory = ResultToInventory.convert(rs);
-        Employee employee = rs.getString("e_registration_number") != null ? ResultToEmployee.convert(rs) : null;
-        InventoryAsset inventoryAsset = rs.getInt("ia_id") != 0 ? ResultToInventoryAsset.convert(rs) : null;
-        inventoryAssets.add(inventoryAsset);
-        employees.add(employee);
-
-        assert inventoryAsset != null;
-        inventoryAsset.setInventory(inventory);
-        inventoryAsset.setInventoryManager(employee);
-        inventory.setComissionPresident(employee);
-        inventory.setComission(employees);
-        inventory.setAssets(inventoryAssets);
-
-        return inventory;
-    }
     @Override
     public Optional<Inventory> findInventoryById(String id) {
         String sql = """
@@ -67,11 +42,19 @@ public class SQLiteInventoryDAO implements InventoryDAO {
                     e.phone as e_phone,
                     e.hash_password AS e_hash_password,
                     e.email AS e_email,
-                    er.role AS er_role
+                    er.role AS er_role,
+                    
+                    ec.registration_number AS ec_registration_number,
+                    ec.name AS ec_name,
+                    ec.phone as ec_phone,
+                    ec.hash_password AS ec_hash_password,
+                    ec.email AS ec_email
                 FROM Inventory i
                 LEFT JOIN InventoryAsset ia ON ia.inventory_id = i.id
                 LEFT JOIN Employee e ON i.president_reg = e.registration_number
                 LEFT JOIN EmployeeRole er on e.registration_number = e.registration_number
+                LEFT JOIN Commission c ON c.id_inventory = i.id 
+                LEFT JOIN Employee ec ON c.employee_reg = ec.registration_number
                 WHERE i.id = ?
                 """;
 
@@ -82,19 +65,23 @@ public class SQLiteInventoryDAO implements InventoryDAO {
             ResultSet resultSet = statement.getResultSet();
             Inventory inventory = null;
             Set<InventoryAsset> inventoryAssets = new HashSet<>();
+            Set<Employee> commission = new HashSet<>();
             while (resultSet.next()) {
                 if (inventory == null) {
                     inventory = ResultToInventory.convert(resultSet);
                     Employee employee = ResultToEmployee.convert(resultSet);
-                    System.out.println(employee);
                     inventory.setComissionPresident(employee);
                 }
                 if (resultSet.getString("ia_id") != null) {
-                    InventoryAsset inventoryAsset = ResultToInventoryAsset.convert(resultSet);
-                    inventoryAssets.add(inventoryAsset);
+                    inventoryAssets.add(ResultToInventoryAsset.convert(resultSet));
+                }
+                if (resultSet.getString("ec_registration_number") != null) {
+                    System.out.println(ResultToEmployee.convertToCommission(resultSet));
+                    commission.add(ResultToEmployee.convertToCommission(resultSet));
                 }
             }
             inventory.setAssets(inventoryAssets.stream().toList());
+            inventory.setComission(commission.stream().toList());
             return Optional.ofNullable(inventory);
         } catch (Exception e) {
             e.printStackTrace();
@@ -185,6 +172,62 @@ public class SQLiteInventoryDAO implements InventoryDAO {
         return true;
     }
 
+    private boolean addEmployeeRole(Employee employee) {
+        String sql = """
+                INSERT INTO EmployeeRole (
+                    employee_reg,
+                    role
+                ) VALUES (
+                    ?,
+                    ?
+                );
+                """;
+
+        try(PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+            stmt.setString(1, employee.getRegistrationNumber());
+            stmt.setString(2, Role.EXECUTOR.toString());
+            return stmt.executeUpdate() == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    private boolean addEmployeeInCommission(String inventoryId, Employee employee) {
+        String sql = """
+                INSERT INTO Commission (
+                    id_inventory,
+                    employee_reg
+                ) VALUES (
+                    ?,
+                    ?
+                );
+                """;
+        try(PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+            stmt.setString(1, inventoryId);
+            stmt.setString(2, employee.getRegistrationNumber());
+
+            return stmt.executeUpdate() == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    private boolean addCommission(String inventoryId, List<Employee> commission) {
+        List<Employee> employeesCommissionSuccess = commission
+                .stream()
+                .filter(employee -> !this.addEmployeeInCommission(inventoryId, employee))
+                .toList();
+
+        List<Employee> employeesRolesSuccess = commission
+                .stream()
+                .filter(employee -> !this.addEmployeeRole(employee))
+                .toList();
+
+        return employeesCommissionSuccess.size() == 0 && employeesRolesSuccess.size() == 0;
+    }
+
     private boolean addInventory(String inventoryId, Inventory inventory) {
         String sql = """
                 INSERT INTO Inventory (
@@ -222,25 +265,16 @@ public class SQLiteInventoryDAO implements InventoryDAO {
     public String add(Inventory inventory) {
         String uuid = UUID.randomUUID().toString();
 
-        String sqlComissionInventory = """
-                INSERT INTO Comission (
-                    id_inventory,
-                    employee_reg
-                ) VALUES (
-                    ?,
-                    ?
-                );
-                """;
+        try {
+            Connection connection = Database.getConnection();
+            connection.setAutoCommit(false);
 
-            try {
-                Connection connection = Database.getConnection();
-                connection.setAutoCommit(false);
+            boolean addInventorySuccess = addInventory(uuid, inventory);
+            boolean addAssetsSuccess = addAssets(uuid, inventory.getAssets());
+            boolean addCommissionSuccess = addCommission(uuid, inventory.getComission());
 
-                boolean addInventorySuccess = addInventory(uuid, inventory);
-                boolean addAssetsSuccess = addAssets(uuid, inventory.getAssets());
-
-                if (addInventorySuccess && addAssetsSuccess) connection.commit();
-                else connection.rollback();
+            if (addInventorySuccess && addAssetsSuccess && addCommissionSuccess) connection.commit();
+            else connection.rollback();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -309,7 +343,8 @@ public class SQLiteInventoryDAO implements InventoryDAO {
 
             ResultSet resultSet = statement.getResultSet();
             while (resultSet.next()) {
-                inventory = resultSetToInventoryWithEmployee(resultSet);
+                inventory = ResultToInventory.convert(resultSet);
+                inventory.setComissionPresident(ResultToEmployee.convert(resultSet));
                 inventories.add(inventory);
             }
         } catch (Exception e) {

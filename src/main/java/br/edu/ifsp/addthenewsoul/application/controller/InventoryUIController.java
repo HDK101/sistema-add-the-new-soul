@@ -169,5 +169,6 @@ public class InventoryUIController {
         cbComissionChiefInventoryDetailed.setValue(inventoryFull.getComissionPresident());
 
         tableViewAssets.setItems(FXCollections.observableArrayList(inventoryFull.getAssets()));
+        tableViewComissionMembers.setItems(FXCollections.observableArrayList(inventoryFull.getComission()));
     }
 }

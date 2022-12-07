@@ -21,4 +21,16 @@ public class ResultToEmployee {
                 .rolesDescription("")
                 .build();
     }
+
+    public static Employee convertToCommission(ResultSet rs) throws SQLException {
+        return Employee.builder()
+                .registrationNumber(rs.getString("ec_registration_number"))
+                .email(rs.getString("ec_email"))
+                .phone(rs.getString("ec_phone"))
+                .hashPassword(rs.getString("ec_hash_password"))
+                .name(rs.getString("ec_name"))
+                .roles(EnumSet.noneOf(Role.class))
+                .rolesDescription("")
+                .build();
+    }
 }
