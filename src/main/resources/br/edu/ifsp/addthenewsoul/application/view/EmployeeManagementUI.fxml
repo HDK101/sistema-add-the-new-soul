@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.EmployeeManagementUIController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.EmployeeManagementUIController">
     <children>
         <Label layoutX="200.0" layoutY="14.0" text="EMPLOYEE MANAGEMENT">
             <font>
@@ -34,5 +34,6 @@
         <Button fx:id="btnImportCsvEmployees" layoutX="255.0" layoutY="285.0" mnemonicParsing="false" onAction="#importCSVEmployees" text="IMPORT CSV" />
         <Button fx:id="btnExportCsvEmployees" layoutX="350.0" layoutY="285.0" mnemonicParsing="false" onAction="#exportCSVEmployees" text="EXPORT CSV" />
         <Button fx:id="btnCancel" layoutX="497.0" layoutY="323.0" mnemonicParsing="false" onAction="#goBack" text="CANCEL" />
+      <Button fx:id="btnExportCsvEmployees1" layoutX="443.0" layoutY="285.0" mnemonicParsing="false" onAction="#createReport" text="Criar relatório" />
     </children>
 </AnchorPane>

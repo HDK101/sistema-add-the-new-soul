@@ -112,6 +112,7 @@ public class SQLiteLocationDAO implements LocationDAO {
                 a.employee_reg AS a_employee_reg,
                 a.damage AS a_damage,
                 a.status AS a_status,
+                a.value AS a_value,
                 a.location_id AS a_location_id,
                 a.location_status AS a_location_status
             FROM Location l
