@@ -33,7 +33,7 @@ public class Inventory {
     }
 
     public void finish() {
-        comissionPresident.removeRole(Role.CHAIRMAN_OF_THE_COMISSION);
+        setInventoryStatus(InventoryStatus.CLOSED);
     }
 
     public boolean hasEmployeeInCommision(Employee employee) {
