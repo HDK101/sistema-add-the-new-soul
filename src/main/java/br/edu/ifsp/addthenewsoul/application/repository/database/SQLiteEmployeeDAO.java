@@ -295,9 +295,6 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
             boolean employeeUpdateSuccess = updateEmployee(employee);
             boolean employeeRolesPutSuccess = this.putRoles(employee);
 
-            System.out.println(employeeUpdateSuccess);
-            System.out.println(employeeRolesPutSuccess);
-
             if (!employeeUpdateSuccess || !employeeRolesPutSuccess) {
                 connection.rollback();
             }

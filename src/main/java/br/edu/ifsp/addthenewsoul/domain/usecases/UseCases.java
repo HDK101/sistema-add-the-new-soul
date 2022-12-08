@@ -85,7 +85,7 @@ public class UseCases {
         removeAssetUseCase = new RemoveAssetUseCase(assetDAO);
         filterAssetsUseCase = new FilterAssetsUseCase(assetDAO);
 
-        startInventoryUseCase = new StartInventoryUseCase(inventoryDAO);
+        startInventoryUseCase = new StartInventoryUseCase(inventoryDAO, employeeDAO);
         findInventoryUseCase = new FindInventoryUseCase(inventoryDAO);
         finishInventoryUseCase = new FinishInventoryUseCase(inventoryDAO);
         evaluateAssetUseCase = new EvaluateAssetUseCase(inventoryDAO, assetDAO);

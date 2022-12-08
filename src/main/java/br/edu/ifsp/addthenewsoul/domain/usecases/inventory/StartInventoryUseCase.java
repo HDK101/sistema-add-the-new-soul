@@ -7,6 +7,7 @@ import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
+import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeDAO;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.InventoryStatus;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.exceptions.InventoryInvalidPresidentException;
 
@@ -19,13 +20,15 @@ import java.util.List;
 public class StartInventoryUseCase {
 
     private InventoryDAO inventoryDAO;
+    private EmployeeDAO employeeDAO;
 
-    public StartInventoryUseCase(InventoryDAO inventoryDAO) {
+    public StartInventoryUseCase(InventoryDAO inventoryDAO, EmployeeDAO employeeDAO) {
         this.inventoryDAO = inventoryDAO;
+        this.employeeDAO = employeeDAO;
     }
 
     private void designateEmployeeAsPresident(Employee employee) {
-        if (employee.getRoles().contains(Role.CHAIRMAN_OF_THE_COMISSION)) throw new InventoryInvalidPresidentException(employee, "Employee is already a president");
+        if (employee.getRoles().contains(Role.CHAIRMAN_OF_THE_COMISSION)) throw new StartInventoryException("O funcionário já é um presidente");
         employee.addRole(Role.CHAIRMAN_OF_THE_COMISSION);
     }
 
@@ -73,8 +76,7 @@ public class StartInventoryUseCase {
                 .assets(createInventoryAssets(assets))
                 .inventoryStatus(InventoryStatus.OPEN)
                 .build();
-        List<Role> roles = comissionPresident.getRoles().stream().toList();
-        inventoryDAO.updateEmployeePresident(comissionPresident, roles);
+        employeeDAO.update(comissionPresident);
         inventoryDAO.add(inventory);
     }
 }

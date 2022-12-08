@@ -24,6 +24,7 @@ public class DashboardUIController {
 
         greetingsText.setText("Olá, " + Session.getInstance().getLoggedUser().getName());
 
+        /*
         if(Session.getInstance().getLoggedUser().getRoles().contains(Role.EXECUTOR)){
             List<Asset> assetsInCharge = Session.getInstance().getLoggedUser().getAssetsInCharge();
             for(Asset asset : assetsInCharge){
@@ -32,6 +33,7 @@ public class DashboardUIController {
                 }
             }
         }
+         */
 
 
     }

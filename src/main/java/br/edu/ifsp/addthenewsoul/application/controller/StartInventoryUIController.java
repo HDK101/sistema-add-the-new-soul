@@ -95,8 +95,8 @@ public class StartInventoryUIController {
 
     private ObservableList<Employee> tableDataEmployees;
     private ObservableList<Asset> tableDataAsset;
-    private List<Employee> employeesComission = new ArrayList<>();
-    private List<Asset> assets = new ArrayList<>();
+    private List<Employee> employeesComission;
+    private List<Asset> assets;
     private String lblEmployees = "";
     private String lblAssets = "";
 
@@ -107,6 +107,9 @@ public class StartInventoryUIController {
         loadDataAndShow();
         FindEmployeeUseCase findEmployeeUseCase = UseCases.getInstance().findEmployeeUseCase;
         List<Employee> employees = findEmployeeUseCase.findAll();
+
+        employeesComission = new ArrayList<>();
+        assets = new ArrayList<>();
 
         cbComissionChief.setConverter(new StringConverter<>() {
             @Override

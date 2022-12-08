@@ -91,13 +91,16 @@ public class InventoryManagementUIController {
     }
 
     private void checkLoggedUserRole() {
-        Employee employee = Session.getInstance().getLoggedUser();
+        Employee employee = Session.refresh();
 
+        assert employee != null;
         if (!employee.hasRole(Role.INVENTORY_MANAGER)) {
             btnStartInventory.setDisable(true);
             btnDetailInventory.setDisable(true);
         }
-        if (!employee.hasRole(Role.CHAIRMAN_OF_THE_COMISSION)) btnFinishInventory.setDisable(true);
+        if (!employee.hasRole(Role.CHAIRMAN_OF_THE_COMISSION)) {
+            btnFinishInventory.setDisable(true);
+        }
     }
 
     private void bindTableViewToItemsList() {
