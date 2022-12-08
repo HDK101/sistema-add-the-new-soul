@@ -267,17 +267,15 @@ public class AssetManagementUIController {
         Asset selectedItem = tableView.getSelectionModel().getSelectedItem();
         System.out.println(selectedItem);
         if (selectedItem != null) {
-            Integer assetId = selectedItem.getId();
-            Asset assetInInventory = getInstance().findAssetUseCase.findOne(assetId).get();
-            if (assetInInventory.getInventoryAsset() != null) {
+            try {
+                getInstance().removeAssetUseCase.removeAsset(selectedItem);
+                loadDataAndShow();
+            } catch (Exception e) {
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setHeaderText("Erro");
-                errorAlert.setContentText("Não é possível remover um bem associado a um inventário em andamento");
+                errorAlert.setContentText(e.getMessage());
                 errorAlert.showAndWait();
-                return;
             }
-            getInstance().removeAssetUseCase.removeAsset(selectedItem);
-            loadDataAndShow();
         }
     }
 
