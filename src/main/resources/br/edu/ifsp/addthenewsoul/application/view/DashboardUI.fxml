@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="408.0" prefWidth="585.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.DashboardUIController">
+<AnchorPane prefHeight="408.0" prefWidth="585.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.addthenewsoul.application.controller.DashboardUIController">
    <children>
       <Label layoutX="231.0" layoutY="14.0" text="Página principal" textAlignment="CENTER">
          <font>
@@ -22,5 +22,6 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
+      <Label fx:id="lblWarning" layoutX="14.0" layoutY="354.0" prefHeight="17.0" prefWidth="403.0" />
    </children>
 </AnchorPane>
