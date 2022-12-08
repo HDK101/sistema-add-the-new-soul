@@ -96,6 +96,19 @@ public class AssetUIController {
         });
 
         cbStatus.getItems().setAll(Status.values());
+
+        cbLocationStatus.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(LocationStatus object) {
+                if (object == null) return null;
+                return object.getName();
+            }
+
+            @Override
+            public LocationStatus fromString(String string) {
+                return null;
+            }
+        });
         cbLocationStatus.getItems().setAll(LocationStatus.values());
         cbStatus.setValue(Status.NOT_VERIFIED);
         btnCancel.setVisible(true);
