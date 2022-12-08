@@ -32,23 +32,8 @@ public class Inventory {
         return true;
     }
 
-    public void leaveAssetsAsVerified () {
-        for (InventoryAsset asset : assets) {
-            asset.setStatus(Status.VERIFIED);
-        }
-    }
-
-    private void setEmployeeRolesToNormal() {
-        for (Employee employee : comission) {
-            employee.removeRole(Role.EXECUTOR);
-        }
-    }
-
     public void finish() {
         comissionPresident.removeRole(Role.CHAIRMAN_OF_THE_COMISSION);
-        setEmployeeRolesToNormal();
-        setInventoryStatus(InventoryStatus.CLOSED);
-
     }
 
     public boolean hasEmployeeInCommision(Employee employee) {

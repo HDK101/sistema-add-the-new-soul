@@ -106,6 +106,11 @@ public class InMemoryInventoryDAO implements InventoryDAO {
     }
 
     @Override
+    public void clearInventoryRoles() {
+
+    }
+
+    @Override
     public void filterByPeriod(List<Inventory> all, LocalDate initialDate, LocalDate endDate) {
 
     }

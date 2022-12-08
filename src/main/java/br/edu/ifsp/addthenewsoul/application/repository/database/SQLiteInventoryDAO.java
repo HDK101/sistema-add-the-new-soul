@@ -23,6 +23,16 @@ import java.util.stream.Collectors;
 
 public class SQLiteInventoryDAO implements InventoryDAO {
     @Override
+    public void clearInventoryRoles() {
+        String sql = "DELETE FROM EmployeeRole WHERE role = 'EXECUTOR' OR role = 'CHAIRMAN_OF_THE_COMISSION'";
+        try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+            System.out.println(stmt.executeUpdate());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public Optional<Inventory> findInventoryById(String id) {
         String sql = """
                 SELECT

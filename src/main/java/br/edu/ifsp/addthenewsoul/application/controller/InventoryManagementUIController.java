@@ -234,10 +234,15 @@ public class InventoryManagementUIController {
             return;
         }
 
-
-        finishInventoryUseCase.finalizeInventory(fullInventory);
+        try {
+            finishInventoryUseCase.finalizeInventory(fullInventory);
+        } catch (IllegalStateException ex) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Erro");
+            errorAlert.setContentText(ex.getMessage());
+            errorAlert.showAndWait();
+        }
         loadDataAndShow();
-
     }
 
     @FXML

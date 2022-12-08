@@ -21,4 +21,6 @@ public interface InventoryDAO extends DAO<Inventory, String> {
     boolean getStatusFromInventories();
 
     boolean evaluateInventoryAsset(InventoryAsset asset);
+
+    void clearInventoryRoles();
 }

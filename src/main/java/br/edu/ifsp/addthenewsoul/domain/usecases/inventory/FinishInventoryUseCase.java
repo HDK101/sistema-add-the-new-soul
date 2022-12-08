@@ -4,6 +4,7 @@ import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
 import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Status;
+import br.edu.ifsp.addthenewsoul.domain.usecases.employee.EmployeeDAO;
 import br.edu.ifsp.addthenewsoul.domain.usecases.utils.InventoryStatus;
 
 import java.util.EnumSet;
@@ -19,15 +20,13 @@ public class FinishInventoryUseCase {
     public void finalizeInventory (Inventory inventory) {
         if (inventory == null) return;
 
-        Employee comissionPresident = inventory.getComissionPresident();
-
         if (!inventory.getInventoryStatus().equals(InventoryStatus.OPEN))
-            throw new IllegalArgumentException("There is no open inventory");
+            throw new IllegalStateException("Este inventário não está aberto");
         if (inventory.hasUnverifiedAssets())
-            throw new IllegalArgumentException("Inventory can only be finalized if all goods are checked");
+            throw new IllegalStateException("O inventário só pode ser marcado como finalizado quando todos os bens tiverem sido verificados");
 
         inventory.finish();
-
+        inventoryDAO.clearInventoryRoles();
         inventoryDAO.update(inventory);
     }
 }

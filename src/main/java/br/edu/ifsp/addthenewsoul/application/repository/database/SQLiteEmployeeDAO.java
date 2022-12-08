@@ -15,9 +15,15 @@ import java.util.Map;
 import java.util.Optional;
 
 public class SQLiteEmployeeDAO implements EmployeeDAO {
-    class BulkAddResponse {
-        public Employee employee;
-        public boolean success;
+    public void removeAllExecutors() {
+        String sql = "DELETE FROM EmployeeRole WHERE role = ?";
+        //Deletar Roles em cascata
+        try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+            stmt.setString(1, Role.EXECUTOR.toString());
+            stmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -117,41 +123,6 @@ public class SQLiteEmployeeDAO implements EmployeeDAO {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public BulkAddResponse bulkAddItem(Employee employee) {
-            String sql = """
-                INSERT INTO Employee (
-                    registration_number,
-                    name,
-                    email,
-                    phone,
-                    hash_password
-                ) VALUES (
-                    ?,
-                    ?,
-                    ?,
-                    ?,
-                    ?
-                );
-                """;
-            try (PreparedStatement stmt = Database.createPreparedStatement(sql)) {
-                stmt.setString(1, employee.getRegistrationNumber());
-                stmt.setString(2, employee.getName());
-                stmt.setString(3, employee.getEmail());
-                stmt.setString(4, employee.getPhone());
-                stmt.setString(5, employee.getHashPassword());
-
-                BulkAddResponse bulkAddResponse = new BulkAddResponse();
-
-                bulkAddResponse.employee = employee;
-                bulkAddResponse.success = stmt.executeUpdate() == 1;
-                return bulkAddResponse;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            return null;
     }
 
     @Override
