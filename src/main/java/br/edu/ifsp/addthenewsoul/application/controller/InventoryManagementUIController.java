@@ -95,9 +95,9 @@ public class InventoryManagementUIController {
 
         if (!employee.hasRole(Role.INVENTORY_MANAGER)) {
             btnStartInventory.setDisable(true);
-            btnFinishInventory.setDisable(true);
             btnDetailInventory.setDisable(true);
         }
+        if (!employee.hasRole(Role.CHAIRMAN_OF_THE_COMISSION)) btnFinishInventory.setDisable(true);
     }
 
     private void bindTableViewToItemsList() {
