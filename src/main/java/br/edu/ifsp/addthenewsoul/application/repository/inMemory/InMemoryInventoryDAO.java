@@ -86,10 +86,15 @@ public class InMemoryInventoryDAO implements InventoryDAO {
 
 package br.edu.ifsp.addthenewsoul.application.repository.inMemory;
 
+import br.edu.ifsp.addthenewsoul.application.repository.database.Database;
+import br.edu.ifsp.addthenewsoul.domain.entities.employee.Employee;
+import br.edu.ifsp.addthenewsoul.domain.entities.employee.Role;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.Inventory;
 import br.edu.ifsp.addthenewsoul.domain.entities.inventory.InventoryAsset;
 import br.edu.ifsp.addthenewsoul.domain.usecases.inventory.InventoryDAO;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -103,6 +108,11 @@ public class InMemoryInventoryDAO implements InventoryDAO {
     @Override
     public void filterByPeriod(List<Inventory> all, LocalDate initialDate, LocalDate endDate) {
 
+    }
+
+    @Override
+    public boolean updateEmployeePresident(Employee employee, List<Role> roles) {
+        return false;
     }
 
     @Override
