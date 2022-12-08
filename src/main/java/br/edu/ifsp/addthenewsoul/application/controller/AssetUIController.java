@@ -131,7 +131,7 @@ public class AssetUIController {
         asset.setLocation(cbLocation.getValue());
     }
 
-    public void setBook(Asset asset, UIMode mode) {
+    public void setAsset(Asset asset, UIMode mode) {
         if(asset == null)
             throw new IllegalArgumentException("Asset can not be null.");
         this.asset = asset;
@@ -176,9 +176,12 @@ public class AssetUIController {
     private void configureViewModeUpdate() {
         cbStatus.setDisable(false);
         txtDamages.setVisible(true);
-        lbStatus.setVisible(true);
+        lbStatus.setVisible(false);
         btnSave.setVisible(true);
         btnCancel.setVisible(true);
+        cbLocation.setDisable(false);
+        cbEmployeeInCharge.setDisable(false);
+        txtDescription.setDisable(false);
     }
 
     private void configureViewModeEvaluate() {

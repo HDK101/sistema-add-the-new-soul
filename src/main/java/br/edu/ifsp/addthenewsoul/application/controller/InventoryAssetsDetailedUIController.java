@@ -106,7 +106,7 @@ public class InventoryAssetsDetailedUIController {
         if (inventoryAsset != null) {
             WindowLoader.setRoot("AssetUI");
             AssetUIController controller = (AssetUIController) WindowLoader.getController();
-            controller.setBook(inventoryAsset.getAsset(), UIMode.EVALUATE);
+            controller.setAsset(inventoryAsset.getAsset(), UIMode.EVALUATE);
         }
 
     }

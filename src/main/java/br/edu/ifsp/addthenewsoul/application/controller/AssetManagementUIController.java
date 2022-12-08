@@ -260,7 +260,7 @@ public class AssetManagementUIController {
     }
 
     public void editAsset(ActionEvent actionEvent) throws IOException {
-        showBookInMode(UIMode.UPDATE);
+        showAssetInMode(UIMode.UPDATE);
     }
 
     public void removeAsset(ActionEvent actionEvent) {
@@ -279,12 +279,12 @@ public class AssetManagementUIController {
         }
     }
 
-    private void showBookInMode(UIMode mode) throws IOException {
+    private void showAssetInMode(UIMode mode) throws IOException {
         Asset selectedItem = tableView.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
             WindowLoader.setRoot("AssetUI");
             AssetUIController controller = (AssetUIController) WindowLoader.getController();
-            controller.setBook(selectedItem, mode);
+            controller.setAsset(selectedItem, mode);
         }
     }
 
