@@ -73,6 +73,8 @@ public class StartInventoryUseCase {
                 .assets(createInventoryAssets(assets))
                 .inventoryStatus(InventoryStatus.OPEN)
                 .build();
+        List<Role> roles = comissionPresident.getRoles().stream().toList();
+        inventoryDAO.updateEmployeePresident(comissionPresident, roles);
         inventoryDAO.add(inventory);
     }
 }

@@ -120,6 +120,32 @@ public class SQLiteInventoryDAO implements InventoryDAO {
         return Optional.empty();
     }
 
+    @Override
+    public boolean updateEmployeePresident(Employee employee, List<Role> roles) {
+        String sql = """
+                INSERT INTO EmployeeRole (
+                    employee_reg,
+                    role
+                ) VALUES (
+                    ?,
+                    ?
+                );
+                """;
+
+        try(PreparedStatement stmt = Database.createPreparedStatement(sql)) {
+            for (Role role : roles) {
+                stmt.setString(1, employee.getRegistrationNumber());
+                stmt.setString(2, role.toString());
+
+            }
+            stmt.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public boolean evaluateInventoryAsset(InventoryAsset asset) {
         String sql = """
                     UPDATE InventoryAsset set
