@@ -29,7 +29,7 @@ public class StartInventoryUseCase {
         employee.addRole(Role.CHAIRMAN_OF_THE_COMISSION);
     }
 
-    private void designateComission(List<Employee> employees) {
+    /*private void designateComission(List<Employee> employees) {
         employees.forEach(employee -> {
             if (employee.getRoles().contains(Role.EXECUTOR)) {
                 throw new StartInventoryException("Todos os funcionários selecionados não devem ser inventariantes");
@@ -38,7 +38,7 @@ public class StartInventoryUseCase {
         employees.forEach(employee -> {
             employee.addRole(Role.EXECUTOR);
         });
-    }
+    }*/
 
     public List<InventoryAsset> createInventoryAssets(List<Asset> assets) {
         assets.forEach(asset -> {
@@ -63,7 +63,7 @@ public class StartInventoryUseCase {
         if (!Validator.checkIfDateHasPassed(initialDate)) throw new StartInventoryException("Data inicial é menor que a data de hoje");
         if (inventoryDAO.getStatusFromInventories()) throw new StartInventoryException("Já existe um inventário aberto");
         designateEmployeeAsPresident(comissionPresident);
-        designateComission(employees);
+        //designateComission(employees);
         Inventory inventory = Inventory.builder()
                 .name(name)
                 .initialDate(initialDate)
