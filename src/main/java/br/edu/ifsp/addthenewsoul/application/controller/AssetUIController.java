@@ -152,7 +152,7 @@ public class AssetUIController {
 
         if (mode == UIMode.UPDATE)
             configureViewModeUpdate();
-        else if (mode == UIMode.EVALUATE);
+        else if (mode == UIMode.EVALUATE)
             configureViewModeEvaluate();
     }
 
